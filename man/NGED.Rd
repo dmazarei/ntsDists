@@ -46,25 +46,25 @@ Computes the pdf, cdf, hdf, quantile and random numbers of the
 }
 \examples{
 x <- seq(0, 1, length.out = 21)
-x2 <- matrix(seq(0, 2, length.out = 40),ncol=2)
+x2 <- matrix(seq(0, 2, length.out = 40), ncol = 2)
 pnged(x)
 pnged(x, v = 2, delta = 1)
-pnged(x2, v = c(1,2), delta = c(2,2))
+pnged(x2, v = c(1, 2), delta = c(2, 2))
 dnged(x, v = 1, delta = 2)
 curve(dnged, -3, 3)
-dnged(x2, v = c(1,2), delta = c(2,2))
-qnged(x, v = 1, delta = 3)
-x2 <- matrix(seq(0, 1, length.out = 40),ncol=2)
-qnged(x, v = c(1,2), delta = c(2,2))
+dnged(x2, v = c(1, 2), delta = c(2, 2))
+qnged(x, v = 1, delta = 2)
+x2 <- matrix(seq(0, 1, length.out = 40), ncol = 2)
+qnged(x2, v = c(1, 2), delta = c(2, 2))
 n <- 10
-rnged(n, v = 2, delta=1)
-rnged(n, v = c(2,2), delta=c(1,2))
+rnged(n, v = 2, delta = 1)
+rnged(n, v = c(1, 2), delta = c(1, 1))
 hnged(x, v = 1, delta = 3)
 curve(hnged, 0, 3)
-hnged(x2, v = c(1,2), delta = c(2,2))
+hnged(x2, v = c(1, 2), delta = c(2, 2))
 snged(x, v = 1, delta = 3)
 curve(snged, 0, 3)
-snged(x2, v = c(1,2), delta = c(2,2))
+snged(x2, v = c(1, 2), delta = c(2, 2))
 }
 \references{
 Rao, Gadde Srinivasa, Mina Norouzirad, and Danial Mazarei. "Neutrosophic Generalized Exponential Distribution with Application." Neutrosophic Sets and Systems 55.1 (2023): 28.
