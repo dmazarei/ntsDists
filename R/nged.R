@@ -17,7 +17,7 @@
 #'  \code{rnged} generates random variables from the Neutrosophic Generalized Exponential (NGE).
 #' @references
 #'    Rao, Gadde Srinivasa, Mina Norouzirad, and Danial Mazarei. "Neutrosophic Generalized Exponential Distribution with Application." Neutrosophic Sets and Systems 55.1 (2023): 28.
-#' @importFrom stats runif uniroot
+#' @importFrom stats runif
 #' @examples
 #' x <- seq(0, 1, length.out = 21)
 #' x2 <- matrix(seq(0, 2, length.out = 40), ncol = 2)
@@ -46,7 +46,7 @@ pnged <- function(x, v = 1, delta = 2) {
 #' @name NGED
 #' @examples
 #' dnged(x, v = 1, delta = 2)
-#' curve(dnged, -3, 3)
+#' curve(dnged,.1, 3)
 #' dnged(x2, v = c(1, 2), delta = c(2, 2))
 #' @export
 dnged <- function(x, v = 1, delta = 2) {
@@ -69,7 +69,7 @@ dnged <- function(x, v = 1, delta = 2) {
 #' @name NGED
 #' @examples
 #' qnged(x, v = 1, delta = 2)
-#' x2 <- matrix(seq(0, 1, length.out = 40), ncol = 2)
+#' x2 <- matrix(seq(0.1, 1, length.out = 40), ncol = 2)
 #' qnged(x2, v = c(1, 2), delta = c(2, 2))
 #' @export
 qnged <- function(q, v = 1, delta = 2) {
@@ -115,7 +115,7 @@ rnged <- function(n, v = 1, delta = 2) {
 #' @name NGED
 #' @examples
 #' hnged(x, v = 1, delta = 3)
-#' curve(hnged, 0, 3)
+#' curve(hnged, 0.1, 3)
 #' hnged(x2, v = c(1, 2), delta = c(2, 2))
 #' @export
 
@@ -139,7 +139,7 @@ hnged <- function(x, v = 1, delta = 2) {
 #' @name NGED
 #' @examples
 #' snged(x, v = 1, delta = 3)
-#' curve(snged, 0, 3)
+#' curve(snged, 0.1, 3)
 #' snged(x2, v = c(1, 2), delta = c(2, 2))
 #' @export
 snged <- function(x, v = 1, delta = 2) {
