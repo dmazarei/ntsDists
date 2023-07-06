@@ -25,9 +25,9 @@ snged(x, v = 1, delta = 2)
 \arguments{
 \item{x}{scaler or vector or matrix lower and upper of values at which the pdf or cdf needs to be computed.}
 
-\item{v}{the value or vector lower and upper of the first shape parameter.}
+\item{v}{the value or vector lower and upper of the first shape parameter, must be positive.}
 
-\item{delta}{the value or vector lower and upper of the second shape parameter, must be positive, the default is 2.}
+\item{delta}{the value or vector lower and upper of the second shape parameter, must be positive.}
 
 \item{q}{scaler or vector of probabilities at which the quantile needs to be computed.}
 

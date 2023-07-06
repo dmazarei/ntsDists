@@ -7,7 +7,7 @@
 #' @param x scaler or vector or matrix lower and upper of values at which the pdf or cdf needs to be computed.
 #' @param q scaler or vector of probabilities at which the quantile needs to be computed.
 #' @param n number of random numbers to be generated.
-#' @param theta the value or vector lower and upper of the first shape parameter.
+#' @param theta the value or vector lower and upper of the first shape parameter, must be positive.
 #'
 #' @return  \code{pnrd} gives the distribution function,
 #'  \code{dnrd} gives the density,

@@ -19,7 +19,7 @@ rned(n, theta = 2)
 \arguments{
 \item{x}{scaler or vector or matrix lower and upper of values at which the pdf or cdf needs to be computed.}
 
-\item{theta}{the value or vector lower and upper of the first shape parameter.}
+\item{theta}{the value or vector lower and upper of the first shape parameter, must be positive.}
 
 \item{q}{scaler or vector of probabilities at which the quantile needs to be computed.}
 
