@@ -35,7 +35,7 @@ rnbd(n, alpha = 1, beta = 2)
 }
 \description{
 Computes the pdf, cdf, hdf, quantile and random numbers of the nuetrosophic generalized exponential distribution.
-\deqn{f\xi_n(z)=\frac{X^{\alpha_N-1}(1-X)^{\beta_N-1}}{\beta\left(\alpha_N, \beta_N\right)}}
+\deqn{f_N(X)=\frac{X^{\alpha_N-1}(1-X)^{\beta_N-1}}{\beta\left(\alpha_N, \beta_N\right)}}
 for   \eqn{\alpha_N > 0}, the first shape parameter, and \eqn{\beta_N > 0}, the second shape parameter.
 }
 \examples{

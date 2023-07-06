@@ -33,7 +33,7 @@ rnrd(n, theta = 2)
 }
 \description{
 Computes the pdf, cdf, hdf, quantile and random numbers of the
-\deqn{f=\frac{Z}{\theta_N^2} e^{-\frac{1}{2}\left(\frac{Z}{\theta_N}\right)^2}}
+\deqn{f_N(z)=\frac{Z}{\theta_N^2} e^{-\frac{1}{2}\left(\frac{Z}{\theta_N}\right)^2}}
 for   \eqn{\theta_N > 0}, the first shape parameter.
 }
 \examples{

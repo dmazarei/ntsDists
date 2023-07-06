@@ -33,7 +33,7 @@ rned(n, theta = 2)
 }
 \description{
 Computes the pdf, cdf, hdf, quantile and random numbers of the
-\deqn{f=\theta_N \exp \left(-z \theta_N\right) I_{(0, \infty)}(z)}
+\deqn{f_N(z)=\theta_N \exp \left(-z \theta_N\right) I_{(0, \infty)}(z)}
 for   \eqn{\theta_N > 0}, the first shape parameter.
 }
 \examples{
