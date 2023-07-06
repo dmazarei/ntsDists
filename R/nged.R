@@ -1,6 +1,6 @@
 #' Neutrosophic Generalized Exponential Distribution (NGED)
 #'
-#' Computes the pdf, cdf, hdf, quantile and random numbers of the nuetrosophic generalized exponential distribution
+#' Computes the pdf, cdf, hdf, quantile and random numbers of the nuetrosophic generalized exponential distribution.
 #'
 #' @name NGED
 #' @param x scaler or vector or matrix lower and upper of values at which the pdf or cdf needs to be computed.
