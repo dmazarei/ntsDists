@@ -21,7 +21,7 @@ rngd(n, p = 1, lambda = 2)
 
 \item{p}{the value or vector lower and upper of the first shape parameter.}
 
-\item{lambda}{the value or vector lower and upper of the second shape parameter, must be positive, the default is 2.}
+\item{lambda}{the value or vector lower and upper of the second scale parameter, must be positive, the default is 2.}
 
 \item{q}{scaler or vector of probabilities at which the quantile needs to be computed.}
 

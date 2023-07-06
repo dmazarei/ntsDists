@@ -7,7 +7,7 @@
 #' @param q scaler or vector of probabilities at which the quantile needs to be computed.
 #' @param n number of random numbers to be generated.
 #' @param p the value or vector lower and upper of the first shape parameter.
-#' @param lambda the value or vector lower and upper of the second shape parameter, must be positive, the default is 2.
+#' @param lambda the value or vector lower and upper of the second scale parameter, must be positive, the default is 2.
 #'
 #' @return  \code{pngd} gives the distribution function,
 #'  \code{dngd} gives the density,
