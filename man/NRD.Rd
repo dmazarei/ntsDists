@@ -29,7 +29,7 @@ rnrd(n, theta = 2)
 \code{pnrd} gives the distribution function,
  \code{dnrd} gives the density,
  \code{qnrd} gives the quantile function and
- \code{rnrd} generates random variables from the Neutrosophic Rayleigh (NGE).
+ \code{rnrd} generates random variables from the Neutrosophic Rayleigh Distribution (NRD).
 }
 \description{
 Computes the pdf, cdf, hdf, quantile and random numbers of the

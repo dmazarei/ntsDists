@@ -39,10 +39,10 @@ snged(x, v = 1, delta = 2)
  \code{qnged} gives the quantile function,
  \code{hnged} gives the hazard function,
  \code{snged} gives the survival function and
- \code{rnged} generates random variables from the Neutrosophic Generalized Exponential (NGE).
+ \code{rnged} generates random variables from the Neutrosophic Generalized Exponential Distribution (NGED).
 }
 \description{
-Computes the pdf, cdf, hdf, quantile and random numbers of the
+Computes the pdf, cdf, hdf, quantile and random numbers of the nuetrosophic generalized exponential distribution.
 }
 \examples{
 x <- seq(0, 1, length.out = 21)
@@ -51,7 +51,7 @@ pnged(x)
 pnged(x, v = 2, delta = 1)
 pnged(x2, v = c(1, 2), delta = c(2, 2))
 dnged(x, v = 1, delta = 2)
-curve(dnged,.1, 3)
+curve(dnged, .1, 3)
 dnged(x2, v = c(1, 2), delta = c(2, 2))
 qnged(x, v = 1, delta = 2)
 x2 <- matrix(seq(0.1, 1, length.out = 40), ncol = 2)

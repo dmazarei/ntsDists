@@ -11,7 +11,7 @@
 #' @return  \code{pnrd} gives the distribution function,
 #'  \code{dnrd} gives the density,
 #'  \code{qnrd} gives the quantile function and
-#'  \code{rnrd} generates random variables from the Neutrosophic Rayleigh (NGE).
+#'  \code{rnrd} generates random variables from the Neutrosophic Rayleigh Distribution (NRD).
 #' @references
 #'        Khan, Zahid, et al. "Neutrosophic Rayleigh model with some basic characteristics and engineering applications." IEEE Access 9 (2021): 71277-71283.
 #' @importFrom stats runif
@@ -27,14 +27,14 @@ pnrd <- function(x, theta = 2) {
   if (any(theta <= 0)) stop(message = "incompatible arguments.")
   if (any(x <= 0)) stop(message = "[Warning] 0 < x ")
   if (is.vector(x)) {
-    F0 <- 1-exp((-1/2)*(x/theta[1])^2)
+    F0 <- 1 - exp((-1 / 2) * (x / theta[1])^2)
   } else {
     if (length(theta) < 2) {
       stop(message = "incompatible arguments.")
     } else {
       F0 <- matrix(data = NA, nrow = nrow(x), ncol = 2)
-      F0[, 1] <- 1-exp((-1/2)*(x[, 1]/theta[1])^2)
-      F0[, 2] <- 1-exp((-1/2)*(x[, 2]/theta[2])^2)
+      F0[, 1] <- 1 - exp((-1 / 2) * (x[, 1] / theta[1])^2)
+      F0[, 2] <- 1 - exp((-1 / 2) * (x[, 2] / theta[2])^2)
     }
   }
   return(F0)
@@ -50,14 +50,14 @@ dnrd <- function(x, theta = 2) {
   if (any(theta <= 0)) stop(message = "incompatible arguments.")
   if (any(x <= 0)) stop(message = "[Warning] 0 < x ")
   if (is.vector(x)) {
-    df <- (x/theta[1]^2)*exp((-1/2)*(x/theta[1])^2)
+    df <- (x / theta[1]^2) * exp((-1 / 2) * (x / theta[1])^2)
   } else {
     if (length(theta) < 2) {
       stop(message = "incompatible arguments.")
     } else {
       df <- matrix(data = NA, nrow = nrow(x), ncol = 2)
-      df[, 1] <- (x[, 1]/theta[1]^2)*exp((-1/2)*(x[, 1]/theta[1])^2)
-      df[, 2] <- (x[, 2]/theta[2]^2)*exp((-1/2)*(x[, 2]/theta[2])^2)
+      df[, 1] <- (x[, 1] / theta[1]^2) * exp((-1 / 2) * (x[, 1] / theta[1])^2)
+      df[, 2] <- (x[, 2] / theta[2]^2) * exp((-1 / 2) * (x[, 2] / theta[2])^2)
     }
   }
   return(df)
@@ -73,7 +73,7 @@ qnrd <- function(q, theta = 2) {
   if (any(q < 0) || any(q > 1)) stop(message = "[Warning] 0 < x < 1.")
   if (any(theta <= 0)) stop(message = "incompatible arguments.")
   if (is.vector(q) && length(theta) < 2) {
-    qf <- theta[1]*sqrt(-2*log(1-q))
+    qf <- theta[1] * sqrt(-2 * log(1 - q))
   } else {
     if (length(theta) < 2) {
       stop(message = "incompatible arguments.")
@@ -83,8 +83,8 @@ qnrd <- function(q, theta = 2) {
       }
 
       qf <- matrix(data = NA, nrow = nrow(q), ncol = 2)
-      qf[, 1] <- theta[1]*sqrt(-2*log(1-q[, 1]))
-      qf[, 2] <- theta[2]*sqrt(-2*log(1-q[, 2]))
+      qf[, 1] <- theta[1] * sqrt(-2 * log(1 - q[, 1]))
+      qf[, 2] <- theta[2] * sqrt(-2 * log(1 - q[, 2]))
     }
   }
   return(qf)

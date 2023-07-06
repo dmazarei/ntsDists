@@ -29,7 +29,7 @@ rned(n, theta = 2)
 \code{pned} gives the distribution function,
  \code{dned} gives the density,
  \code{qned} gives the quantile function and
- \code{rned} generates random variables from the Neutrosophic Exponential (NGE).
+ \code{rned} generates random variables from the Neutrosophic Exponential Distribution (NED).
 }
 \description{
 Computes the pdf, cdf, hdf, quantile and random numbers of the

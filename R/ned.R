@@ -11,7 +11,7 @@
 #' @return  \code{pned} gives the distribution function,
 #'  \code{dned} gives the density,
 #'  \code{qned} gives the quantile function and
-#'  \code{rned} generates random variables from the Neutrosophic Exponential (NGE).
+#'  \code{rned} generates random variables from the Neutrosophic Exponential Distribution (NED).
 #' @references
 #'        Duan, Wen-Qi, et al. "Neutrosophic exponential distribution: modeling and applications for complex data analysis." Complexity 2021 (2021): 1-8.
 #' @importFrom stats runif
@@ -27,14 +27,14 @@ pned <- function(x, theta = 2) {
   if (any(theta <= 0)) stop(message = "incompatible arguments.")
   if (any(x <= 0)) stop(message = "[Warning] 0 < x ")
   if (is.vector(x)) {
-    F0 <- 1 - exp(-x *theta[1])
+    F0 <- 1 - exp(-x * theta[1])
   } else {
     if (length(theta) < 2) {
       stop(message = "incompatible arguments.")
     } else {
       F0 <- matrix(data = NA, nrow = nrow(x), ncol = 2)
-      F0[, 1] <- 1 - exp(-x[,1] *theta[1])
-      F0[, 2] <- 1 - exp(-x[,2] *theta[2])
+      F0[, 1] <- 1 - exp(-x[, 1] * theta[1])
+      F0[, 2] <- 1 - exp(-x[, 2] * theta[2])
     }
   }
   return(F0)
@@ -50,14 +50,14 @@ dned <- function(x, theta = 2) {
   if (any(theta <= 0)) stop(message = "incompatible arguments.")
   if (any(x <= 0)) stop(message = "[Warning] 0 < x ")
   if (is.vector(x)) {
-    df <- theta[1]*exp(-x* theta[1])
+    df <- theta[1] * exp(-x * theta[1])
   } else {
     if (length(theta) < 2) {
       stop(message = "incompatible arguments.")
     } else {
       df <- matrix(data = NA, nrow = nrow(x), ncol = 2)
-      df[, 1] <- theta[1]*exp(-x[,1]* theta[1])
-      df[, 2] <- theta[2]*exp(-x[,2]* theta[2])
+      df[, 1] <- theta[1] * exp(-x[, 1] * theta[1])
+      df[, 2] <- theta[2] * exp(-x[, 2] * theta[2])
     }
   }
   return(df)
@@ -73,7 +73,7 @@ qned <- function(q, theta = 2) {
   if (any(q < 0) || any(q > 1)) stop(message = "[Warning] 0 < x < 1.")
   if (any(theta <= 0)) stop(message = "incompatible arguments.")
   if (is.vector(q) && length(theta) < 2) {
-    qf <- -log(1-q)/theta[1]
+    qf <- -log(1 - q) / theta[1]
   } else {
     if (length(theta) < 2) {
       stop(message = "incompatible arguments.")
@@ -83,8 +83,8 @@ qned <- function(q, theta = 2) {
       }
 
       qf <- matrix(data = NA, nrow = nrow(q), ncol = 2)
-      qf[, 1] <- -log(1-q[,1])/theta[1]
-      qf[, 2] <- -log(1-q[,2])/theta[2]
+      qf[, 1] <- -log(1 - q[, 1]) / theta[1]
+      qf[, 2] <- -log(1 - q[, 2]) / theta[2]
     }
   }
   return(qf)

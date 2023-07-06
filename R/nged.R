@@ -14,7 +14,7 @@
 #'  \code{qnged} gives the quantile function,
 #'  \code{hnged} gives the hazard function,
 #'  \code{snged} gives the survival function and
-#'  \code{rnged} generates random variables from the Neutrosophic Generalized Exponential (NGE).
+#'  \code{rnged} generates random variables from the Neutrosophic Generalized Exponential Distribution (NGED).
 #' @references
 #'    Rao, Gadde Srinivasa, Mina Norouzirad, and Danial Mazarei. "Neutrosophic Generalized Exponential Distribution with Application." Neutrosophic Sets and Systems 55.1 (2023): 28.
 #' @importFrom stats runif
@@ -46,7 +46,7 @@ pnged <- function(x, v = 1, delta = 2) {
 #' @name NGED
 #' @examples
 #' dnged(x, v = 1, delta = 2)
-#' curve(dnged,.1, 3)
+#' curve(dnged, .1, 3)
 #' dnged(x2, v = c(1, 2), delta = c(2, 2))
 #' @export
 dnged <- function(x, v = 1, delta = 2) {
