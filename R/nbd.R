@@ -27,7 +27,7 @@
 
 pnbd <- function(x, alpha = 1, beta = 2) {
   if (any(alpha <= 0) || any(beta <= 0)) stop(message = "incompatible arguments.")
-  if (any(x <= 0)) stop(message = "[Warning] 0 < x ")
+  if (any(x < 0)) stop(message = "[Warning] 0 < x ")
   if (is.vector(x)) {
     F0 <- stats::pbeta(x, shape1 = alpha[1], shape2 = beta[1])
   } else {
@@ -50,7 +50,7 @@ pnbd <- function(x, alpha = 1, beta = 2) {
 #' @export
 dnbd <- function(x, alpha = 1, beta = 2) {
   if (any(alpha <= 0) || any(beta <= 0)) stop(message = "incompatible arguments.")
-  if (any(x <= 0)) stop(message = "[Warning] 0 < x ")
+  if (any(x < 0)) stop(message = "[Warning] 0 < x ")
   if (is.vector(x)) {
     df <- stats::dbeta(x, shape1 = alpha[1], shape2 = beta[1])
   } else {

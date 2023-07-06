@@ -29,7 +29,7 @@
 
 pnged <- function(x, v = 1, delta = 2) {
   if (any(v <= 0) || any(delta <= 0)) stop(message = "incompatible arguments.")
-  if (any(x <= 0)) stop(message = "[Warning] 0 < x ")
+  if (any(x < 0)) stop(message = "[Warning] 0 < x ")
   if (is.vector(x)) {
     F0 <- (1 - exp(-x / v[1]))^delta[1]
   } else {
@@ -52,7 +52,7 @@ pnged <- function(x, v = 1, delta = 2) {
 #' @export
 dnged <- function(x, v = 1, delta = 2) {
   if (any(v <= 0) || any(delta <= 0)) stop(message = "incompatible arguments.")
-  if (any(x <= 0)) stop(message = "[Warning] 0 < x ")
+  if (any(x < 0)) stop(message = "[Warning] 0 < x ")
   if (is.vector(x)) {
     df <- (delta[1] / v[1]) * (1 - exp(-x / v[1]))^(delta[1] - 1) * exp(-x / v[1])
   } else {
@@ -122,7 +122,7 @@ rnged <- function(n, v = 1, delta = 2) {
 
 hnged <- function(x, v = 1, delta = 2) {
   if (any(v <= 0) || any(delta <= 0)) stop(message = "incompatible arguments.")
-  if (any(x <= 0)) stop(message = "[Warning] 0 < x ")
+  if (any(x < 0)) stop(message = "[Warning] 0 < x ")
   if (is.vector(x)) {
     h <- ((delta[1] / v[1]) * (1 - exp(-x / v[1]))^(delta[1] - 1) * exp(-x / v[1])) / (1 - (1 - exp(-x / v[1]))^delta[1])
   } else {
@@ -145,7 +145,7 @@ hnged <- function(x, v = 1, delta = 2) {
 #' @export
 snged <- function(x, v = 1, delta = 2) {
   if (any(v <= 0) || any(delta <= 0)) stop(message = "incompatible arguments.")
-  if (any(x <= 0)) stop(message = "[Warning] 0 < x ")
+  if (any(x < 0)) stop(message = "[Warning] 0 < x ")
 
   if (is.vector(x)) {
     s <- 1 - (1 - exp(-x / v[1]))^delta[1]

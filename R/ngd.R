@@ -27,7 +27,7 @@
 
 pngd <- function(x, p = 1, lambda = 2) {
   if (any(p <= 0) || any(lambda <= 0)) stop(message = "incompatible arguments.")
-  if (any(x <= 0)) stop(message = "[Warning] 0 < x ")
+  if (any(x < 0)) stop(message = "[Warning] 0 < x ")
   if (is.vector(x)) {
     F0 <- stats::pgamma(x, shape = p[1], scale = lambda[1])
   } else {
@@ -50,7 +50,7 @@ pngd <- function(x, p = 1, lambda = 2) {
 #' @export
 dngd <- function(x, p = 1, lambda = 2) {
   if (any(p <= 0) || any(lambda <= 0)) stop(message = "incompatible arguments.")
-  if (any(x <= 0)) stop(message = "[Warning] 0 < x ")
+  if (any(x < 0)) stop(message = "[Warning] 0 < x ")
   if (is.vector(x)) {
     df <- stats::dgamma(x, shape = p[1], scale = lambda[1])
   } else {
