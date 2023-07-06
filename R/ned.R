@@ -71,11 +71,11 @@ dned <- function(x, theta = 2) {
 #' @export
 qned <- function(q, theta = 2) {
   if (any(q < 0) || any(q > 1)) stop(message = "[Warning] 0 < x < 1.")
-  if (any(v <= 0) || any(theta <= 0)) stop(message = "incompatible arguments.")
-  if (is.vector(q) && length(v) < 2 || length(theta) < 2) {
+  if (any(theta <= 0)) stop(message = "incompatible arguments.")
+  if (is.vector(q) && length(theta) < 2) {
     qf <- -log(1-q)/theta[1]
   } else {
-    if (length(v) < 2 || length(theta) < 2) {
+    if (length(theta) < 2) {
       stop(message = "incompatible arguments.")
     } else {
       if (is.vector(q) && length(q) == 2) {
@@ -97,8 +97,8 @@ qned <- function(q, theta = 2) {
 #' rned(n, theta = c(1, 2))
 #' @export
 rned <- function(n, theta = 2) {
-  if (any(v <= 0) || any(theta <= 0)) stop(message = "incompatible arguments.")
-  if (length(v) < 2 || length(theta) < 2) {
+  if (any(theta <= 0)) stop(message = "incompatible arguments.")
+  if (length(theta) < 2) {
     u <- runif(n)
     X <- qned(u, theta)
   } else {
