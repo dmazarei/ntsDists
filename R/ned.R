@@ -27,7 +27,7 @@ pned <- function(x, theta = 2) {
   if (any(theta <= 0)) stop(message = "incompatible arguments.")
   if (any(x <= 0)) stop(message = "[Warning] 0 < x ")
   if (is.vector(x)) {
-    F0 <- 1 - exp(-x *theta)
+    F0 <- 1 - exp(-x *theta[1])
   } else {
     if (length(theta) < 2) {
       stop(message = "incompatible arguments.")
