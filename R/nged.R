@@ -20,8 +20,8 @@
 #'    Rao, Gadde Srinivasa, Mina Norouzirad, and Danial Mazarei. "Neutrosophic Generalized Exponential Distribution with Application." Neutrosophic Sets and Systems 55.1 (2023): 28.
 #' @importFrom stats runif
 #' @examples
-#' x <- seq(0, 1, length.out = 21)
-#' x2 <- matrix(seq(0, 2, length.out = 40), ncol = 2)
+#' x <- seq(0.1, 1, length.out = 21)
+#' x2 <- matrix(seq(0.1, 2, length.out = 40), ncol = 2)
 #' pnged(x)
 #' pnged(x, v = 2, delta = 1)
 #' pnged(x2, v = c(1, 2), delta = c(2, 2))

@@ -18,8 +18,8 @@
 #'    Sherwani, Rehan A. Khan, et al. Neutrosophic beta distribution with properties and applications. Infinite Study, 2021.
 #' @importFrom stats runif dbeta pbeta qbeta
 #' @examples
-#' x <- seq(0, 1, length.out = 21)
-#' x2 <- matrix(seq(0, 2, length.out = 40), ncol = 2)
+#' x <- seq(0.1, 1, length.out = 21)
+#' x2 <- matrix(seq(0.1, 2, length.out = 40), ncol = 2)
 #' pnbd(x)
 #' pnbd(x, alpha = 2, beta = 1)
 #' pnbd(x2, alpha = c(1, 2), beta = c(2, 2))

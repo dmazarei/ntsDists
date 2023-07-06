@@ -18,8 +18,8 @@
 #'    Khan, Zahid, et al. "On statistical development of neutrosophic gamma distribution with applications to complex data analysis." Complexity 2021 (2021): 1-8.
 #' @importFrom stats runif dgamma pgamma qgamma
 #' @examples
-#' x <- seq(0, 1, length.out = 21)
-#' x2 <- matrix(seq(0, 2, length.out = 40), ncol = 2)
+#' x <- seq(0.1, 1, length.out = 21)
+#' x2 <- matrix(seq(0.1, 2, length.out = 40), ncol = 2)
 #' pngd(x)
 #' pngd(x, p = 2, lambda = 1)
 #' pngd(x2, p = c(1, 2), lambda = c(2, 2))
