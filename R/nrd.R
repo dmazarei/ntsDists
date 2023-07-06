@@ -1,7 +1,8 @@
 #' Neutrosophic Rayleigh Distribution (NRD)
 #'
 #' Computes the pdf, cdf, hdf, quantile and random numbers of the
-#'
+#' \deqn{f=\frac{Z}{\theta_N^2} e^{-\frac{1}{2}\left(\frac{Z}{\theta_N}\right)^2}}
+#' for   \eqn{\theta_N > 0}, the first shape parameter.
 #' @name NRD
 #' @param x scaler or vector or matrix lower and upper of values at which the pdf or cdf needs to be computed.
 #' @param q scaler or vector of probabilities at which the quantile needs to be computed.

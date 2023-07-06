@@ -1,7 +1,8 @@
 #' Neutrosophic Exponential Distribution (NED)
 #'
 #' Computes the pdf, cdf, hdf, quantile and random numbers of the
-#'
+#' \deqn{f=\theta_N \exp \left(-z \theta_N\right) I_{(0, \infty)}(z)}
+#' for   \eqn{\theta_N > 0}, the first shape parameter.
 #' @name NED
 #' @param x scaler or vector or matrix lower and upper of values at which the pdf or cdf needs to be computed.
 #' @param q scaler or vector of probabilities at which the quantile needs to be computed.
