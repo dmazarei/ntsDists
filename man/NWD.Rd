@@ -34,7 +34,7 @@ rnwd(n, beta = 1, alpha = 2)
  \code{rnwd} generates random variables from the Neutrosophic Weibull Distribution (NWD).
 }
 \description{
-Computes the pdf, cdf, hdf, quantile and random numbers of the nuetrosophic generalized exponential distribution.
+Computes the pdf, cdf, quantile and random numbers of the nuetrosophic generalized exponential distribution.
 \deqn{f_N(X)=\frac{\beta_N}{\alpha_N} X^{\beta_N-1} e^{-\left(X / \alpha_N\right)^{\beta_N}}}
 for   \eqn{\beta_N > 0}, the first shape parameter, and \eqn{\alpha_N > 0}, the second scale parameter.
 }

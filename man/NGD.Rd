@@ -34,7 +34,7 @@ rngd(n, p = 1, lambda = 2)
  \code{rngd} generates random variables from the Neutrosophic Gamma Distribution (NGD).
 }
 \description{
-Computes the pdf, cdf, hdf, quantile and random numbers of the nuetrosophic generalized exponential distribution.
+Computes the pdf, cdf, quantile and random numbers of the nuetrosophic generalized exponential distribution.
 \deqn{f_n(z)=\frac{1}{\Gamma p_n \lambda_n^{p_n}} z^{p_n-1} e^{-\left(z / \lambda_n\right)}}
 for   \eqn{p_n > 0}, the first shape parameter, and \eqn{\lambda_n > 0}, the second scale parameter.
 }

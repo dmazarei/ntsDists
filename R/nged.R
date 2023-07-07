@@ -1,6 +1,6 @@
 #' Neutrosophic Generalized Exponential Distribution (NGED)
 #'
-#' Computes the pdf, cdf, hdf, quantile and random numbers of the nuetrosophic generalized exponential distribution.
+#' Computes the pdf, cdf, hdf, shd, quantile and random numbers of the nuetrosophic generalized exponential distribution.
 #' \deqn{f=\frac{\delta_N}{v_N}\left(1-\exp \left\{-\frac{x_N}{v_N}\right\}\right)^{\delta_N-1} \exp \left\{-\frac{x_N}{v_N}\right\}}
 #' for   \eqn{v_N > 0}, the first shape parameter, and \eqn{\delta_N > 0}, the second shape parameter.
 #' @name NGED

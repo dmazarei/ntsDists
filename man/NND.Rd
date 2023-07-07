@@ -34,7 +34,7 @@ rnnd(n, mu = 1, sigma = 2)
  \code{rnnd} generates random variables from the Neutrosophic Normal Distribution (NND).
 }
 \description{
-Computes the pdf, cdf, hdf, quantile and random numbers of the nuetrosophic generalized exponential distribution.
+Computes the pdf, cdf, quantile and random numbers of the nuetrosophic generalized exponential distribution.
 \deqn{X_N \sim N_N\left(\mu_N, \sigma_N\right)=\frac{1}{\sigma_N \sqrt{2 \pi}} e^{\left(\frac{\left(X-\mu_N\right)^2}{2 \sigma_N^2}\right)}}
 for   \eqn{\mu_N}, the first parameter, and \eqn{\sigma_N > 0}, the second parameter.
 }
