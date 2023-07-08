@@ -31,14 +31,17 @@ rned(n, theta)
 \code{pned} gives the distribution function,
  \code{dned} gives the density,
  \code{qned} gives the quantile function and
- \code{rned} generates random variables from the Neutrosophic Exponential Distribution (NED).
+ \code{rned} generates random variables from the neutrosophic exponential distribution.
 }
 \description{
 Density, distribution function, quantile function and random generation for
-the nuetrosophic exponential distribution with parameter \code{rate}.
+the nuetrosophic exponential distribution with parameter \code{rate}=\eqn{\theta_N}.
 }
 \details{
-
+The neutrosophic exponential distribution with parameters \code{rate}=\eqn{\theta_N}
+has density
+\deqn{f_N(x)=\theta_N \exp \left(-x \theta_N\right)}
+for \eqn{x \ge 0} and \eqn{\theta_N > 0}, the rate parameter.
 }
 \examples{
 x <- seq(0.01, 1, length.out = 21)
@@ -48,7 +51,6 @@ x2 <- matrix(seq(0.01, 2, length.out = 40), ncol = 2)
 pned(x2, theta = c(2, 3))
 
 dned(x, theta = 2)
-curve(dned, .1, 3)
 
 dned(x2, theta = c(2, 2))
 

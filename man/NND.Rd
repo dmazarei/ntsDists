@@ -19,33 +19,44 @@ rnnd(n, mu = 1, sigma = 2)
 \arguments{
 \item{x}{scaler or vector or matrix lower and upper of values at which the pdf or cdf needs to be computed.}
 
-\item{mu}{the value or vector lower and upper of the first parameter.}
+\item{mu}{the value or vector lower and upper of the first parameter.
+Default is \code{0}.}
 
-\item{sigma}{the value or vector lower and upper of the second parameter, must be positive.}
+\item{sigma}{the positive value or vector lower and upper of the second parameter.
+Default is \code{1}.}
 
-\item{q}{scaler or vector of probabilities at which the quantile needs to be computed.}
+\item{q}{scaler or vector of quantiles.}
 
 \item{n}{number of random numbers to be generated.}
+
+\item{p}{scaler or vector of probabilities at which the quantile needs to be computed.}
 }
 \value{
 \code{pnnd} gives the distribution function,
  \code{dnnd} gives the density,
  \code{qnnd} gives the quantile function and
- \code{rnnd} generates random variables from the Neutrosophic Normal Distribution (NND).
+ \code{rnnd} generates random variables from the neutrosophic normal distribution.
 }
 \description{
-Computes the pdf, cdf, quantile and random numbers of the nuetrosophic generalized exponential distribution.
-\deqn{X_N \sim N_N\left(\mu_N, \sigma_N\right)=\frac{1}{\sigma_N \sqrt{2 \pi}} e^{\left(\frac{\left(X-\mu_N\right)^2}{2 \sigma_N^2}\right)}}
-for   \eqn{\mu_N}, the first parameter, and \eqn{\sigma_N > 0}, the second parameter.
+Density, distribution function, quantile function and random generation for
+the nuetrosophic generalized exponential distribution with parameters mean,
+\eqn{\mu}, and standard deviation \eqn{\sigma}.
+}
+\details{
+The neutrosophic normal distribution with parameters with \code{mean}=\eqn{\mu_N}
+and \code{std}=\exn{\sigma_N} has density
+\deqn{f_N(x) = \frac{1}{\sigma_N \sqrt{2 \pi}} e^{\left(\frac{\left(X-\mu_N\right)^2}{2 \sigma_N^2}\right)}}
+for \eqn{-\infty < x < \infty}, \eqn{\mu_N}, the mean, and \eqn{\sigma_N > 0},
+the standard deviation.
 }
 \examples{
-x <- seq(0.1, 1, length.out = 21)
-x2 <- matrix(seq(0.1, 2, length.out = 40), ncol = 2)
-pnnd(x)
+p <- seq(0.1, 1, length.out = 21)
+p2 <- matrix(seq(0.1, 2, length.out = 40), ncol = 2)
+
 pnnd(x, mu = 2, sigma = 1)
 pnnd(x2, mu = c(1, 2), sigma = c(2, 2))
 dnnd(x, mu = 1, sigma = 2)
-curve(dnnd, .1, 3)
+
 dnnd(x2, mu = c(1, 2), sigma = c(2, 2))
 qnnd(x, mu = 1, sigma = 2)
 x2 <- matrix(seq(0.1, 1, length.out = 40), ncol = 2)

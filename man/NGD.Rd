@@ -34,15 +34,15 @@ pdf or cdf needs to be computed.}
 \code{pngd} gives the distribution function,
  \code{dngd} gives the density,
  \code{qngd} gives the quantile function and
- \code{rngd} generates random variables from the Neutrosophic Gamma Distribution (NGD).
+ \code{rngd} generates random variables from the neutrosophic gamma distribution.
 }
 \description{
 Density, distribution function, quantile function and random generation for
-the nuetrosophic gamma distribution with parameter \code{shape} and
-\code{scale}.
+the nuetrosophic gamma distribution with parameter \code{shape}=\eqn{\alpha_N} and
+\code{scale}=\eqn{\lambda_N}.
 }
 \details{
-The neutrosophic gamma distribution with parameters \code{shape}=\eqn{\alpha} and
+The neutrosophic gamma distribution with parameters \code{shape}=\eqn{\alpha_N} and
 \code{scale}=\eqn{\lambda_N} has density
 \deqn{f_n(x)=\frac{1}{\Gamma(\alpha_n) \lambda_n^{\alpha_n}} x^{\alpha_n-1} e^{-\left(x / \lambda_n\right)}}
 for \eqn{x \ge 0}, \eqn{\alpha_n > 0}, the shape parameter, and
@@ -56,15 +56,17 @@ pngd(x, alpha = 2, lambda = 1)
 x2 <- matrix(seq(0.1, 2, length.out = 40), ncol = 2)
 pngd(x2, alpha = c(1, 2), lambda = c(2, 2))
 dngd(x, alpha = 1, lambda = 2)
-curve(dngd, .1, 3)
+
 dngd(x2, alpha = c(1, 2), lambda = c(2, 2))
 qngd(x, alpha = 1, lambda = 2)
-x2 <- matrix(seq(0.1, 1, length.out = 40), ncol = 2)
+
 qngd(x2, alpha = c(1, 2), lambda = c(2, 2))
 n <- 10
 rngd(n, alpha = 2, lambda = 1)
 rngd(n, alpha = c(1, 2), lambda = c(1, 1))
 }
 \references{
-Khan, Zahid, et al. "On statistical development of neutrosophic gamma distribution with applications to complex data analysis." Complexity 2021 (2021): 1-8.
+Khan, Z., Al-Bossly, A., Almazah, M. M. A., and Alduais, F. S. (2021).
+   On statistical development of neutrosophic gamma distribution with
+   applications to complex data analysis, \emph{Complexity}, 2021, Article ID 3701236.
 }

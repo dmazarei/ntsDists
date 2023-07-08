@@ -1,41 +1,52 @@
 #' Neutrosophic Normal Distribution (NND)
 #'
-#' Computes the pdf, cdf, quantile and random numbers of the nuetrosophic generalized exponential distribution.
-#' \deqn{X_N \sim N_N\left(\mu_N, \sigma_N\right)=\frac{1}{\sigma_N \sqrt{2 \pi}} e^{\left(\frac{\left(X-\mu_N\right)^2}{2 \sigma_N^2}\right)}}
-#' for   \eqn{\mu_N}, the first parameter, and \eqn{\sigma_N > 0}, the second parameter.
+#' Density, distribution function, quantile function and random generation for
+#' the nuetrosophic generalized exponential distribution with parameters mean,
+#' \eqn{\mu}, and standard deviation \eqn{\sigma}.
+#'
+#' The neutrosophic normal distribution with parameters with \code{mean}=\eqn{\mu_N}
+#' and \code{std}=\exn{\sigma_N} has density
+#' \deqn{f_N(x) = \frac{1}{\sigma_N \sqrt{2 \pi}} e^{\left(\frac{\left(X-\mu_N\right)^2}{2 \sigma_N^2}\right)}}
+#' for \eqn{-\infty < x < \infty}, \eqn{\mu_N}, the mean, and \eqn{\sigma_N > 0},
+#' the standard deviation.
+#'
 #' @name NND
 #' @param x scaler or vector or matrix lower and upper of values at which the pdf or cdf needs to be computed.
-#' @param q scaler or vector of probabilities at which the quantile needs to be computed.
+#' @param p scaler or vector of probabilities at which the quantile needs to be computed.
+#' @param q scaler or vector of quantiles.
 #' @param n number of random numbers to be generated.
 #' @param mu the value or vector lower and upper of the first parameter.
-#' @param sigma the value or vector lower and upper of the second parameter, must be positive.
+#' @param sigma the positive value or vector lower and upper of the second parameter.
 #'
-#' @return  \code{pnnd} gives the distribution function,
+#' @return
+#' \code{pnnd} gives the distribution function,
 #'  \code{dnnd} gives the density,
 #'  \code{qnnd} gives the quantile function and
-#'  \code{rnnd} generates random variables from the Neutrosophic Normal Distribution (NND).
+#'  \code{rnnd} generates random variables from the neutrosophic normal distribution.
+#'
 #' @references
 #'    Patro, S. and F. Smarandache, The Neutrosophic Statistical Distribution, More Problems, More Solutions. 2016: Infinite Study.
 #' @importFrom stats runif dnorm pnorm qnorm
+#'
 #' @examples
-#' x <- seq(0.1, 1, length.out = 21)
-#' x2 <- matrix(seq(0.1, 2, length.out = 40), ncol = 2)
-#' pnnd(x)
-#' pnnd(x, mu = 2, sigma = 1)
+#' p <- seq(0.1, 1, length.out = 21)
+#' pnnd(x, mu = c(2,2), sigma = c(1,1))
+#'
+#' p2 <- matrix(seq(0.1, 2, length.out = 40), ncol = 2)
 #' pnnd(x2, mu = c(1, 2), sigma = c(2, 2))
 #' @export
 
-pnnd <- function(x, mu = 1, sigma = 2) {
+pnnd <- function(p, mu, sigma) {
   if (any(sigma <= 0)) stop(message = "incompatible arguments.")
-  if (is.vector(x)) {
-    F0 <- stats::pnorm(x, mean = mu[1], sd = sigma[1])
+  if (is.vector(p)) {
+    F0 <- stats::pnorm(p, mean = mu[1], sd = sigma[1])
   } else {
     if (length(mu) < 2 || length(sigma) < 2) {
       stop(message = "incompatible arguments.")
     } else {
-      F0 <- matrix(data = NA, nrow = nrow(x), ncol = 2)
-      F0[, 1] <- stats::pnorm(x[, 1], mean = mu[1], sd = sigma[1])
-      F0[, 2] <- stats::pnorm(x[, 2], mean = mu[2], sd = sigma[2])
+      F0 <- matrix(data = NA, nrow = nrow(p), ncol = 2)
+      F0[, 1] <- stats::pnorm(p[, 1], mean = mu[1], sd = sigma[1])
+      F0[, 2] <- stats::pnorm(p[, 2], mean = mu[2], sd = sigma[2])
     }
   }
   return(F0)
@@ -43,11 +54,15 @@ pnnd <- function(x, mu = 1, sigma = 2) {
 
 #' @name NND
 #' @examples
-#' dnnd(x, mu = 1, sigma = 2)
-#' curve(dnnd, .1, 3)
+#' dnnd(x = 0.5, mu = 1, sigma = 2)
+#'
+#' x1 = c(-0.8,0.2,1.6,3.9)
+#' dnnd(x = 0.5, mu = c(1,1), sigma = c(2,2))
+#'
+#' x2 = matrix(seq(-3,3,length.out = 10), nrow = 2, ncol = 5)
 #' dnnd(x2, mu = c(1, 2), sigma = c(2, 2))
 #' @export
-dnnd <- function(x, mu = 1, sigma = 2) {
+dnnd <- function(x, mu, sigma) {
   if (any(sigma <= 0)) stop(message = "incompatible arguments.")
   if (is.vector(x)) {
     df <- stats::dnorm(x, mean = mu[1], sd = sigma[1])
@@ -65,11 +80,12 @@ dnnd <- function(x, mu = 1, sigma = 2) {
 
 #' @name NND
 #' @examples
-#' qnnd(x, mu = 1, sigma = 2)
-#' x2 <- matrix(seq(0.1, 1, length.out = 40), ncol = 2)
+#' q1 <- c(0.01)
+#' qnnd(q1, mu = 1, sigma = 2)
+#'
 #' qnnd(x2, mu = c(1, 2), sigma = c(2, 2))
 #' @export
-qnnd <- function(q, mu = 1, sigma = 2) {
+qnnd <- function(q, mu, sigma) {
   if (any(q < 0) || any(q > 1)) stop(message = "[Warning] 0 < x < 1.")
   if (any(sigma <= 0)) stop(message = "incompatible arguments.")
   if (is.vector(q) && length(mu) < 2 || length(sigma) < 2) {
@@ -93,10 +109,10 @@ qnnd <- function(q, mu = 1, sigma = 2) {
 #' @name NND
 #' @examples
 #' n <- 100
-#' rnnd(n, mu = 2, sigma = 1)
+#' rnnd(n, mu = c(1,1), sigma = c(2,2))
 #' rnnd(n, mu = c(1, 2), sigma = c(1, 1))
 #' @export
-rnnd <- function(n, mu = 1, sigma = 2) {
+rnnd <- function(n, mu, sigma) {
   if (any(sigma <= 0)) stop(message = "incompatible arguments.")
   if (length(mu) < 2 || length(sigma) < 2) {
     u <- runif(n)

@@ -5,31 +5,24 @@
 \alias{pnged}
 \alias{dnged}
 \alias{qnged}
-\alias{rnged}
-\alias{hnged}
-\alias{snged}
 \title{Neutrosophic Generalized Exponential Distribution (NGED)}
 \usage{
-pnged(x, v = 1, delta = 2)
+pnged(p, nu, delta)
 
-dnged(x, v = 1, delta = 2)
+dnged(x, nu, delta)
 
-qnged(q, v = 1, delta = 2)
-
-rnged(n, v = 1, delta = 2)
-
-hnged(x, v = 1, delta = 2)
-
-snged(x, v = 1, delta = 2)
+qnged(q, nu, delta)
 }
 \arguments{
+\item{p}{scaler or vector of probabilities at which the quantile needs to be computed.}
+
+\item{nu}{the positive value or vector lower and upper of the scale parameter.}
+
+\item{delta}{the positive value or vector lower and upper of the shape parameter.}
+
 \item{x}{scaler or vector or matrix lower and upper of values at which the pdf or cdf needs to be computed.}
 
-\item{v}{the value or vector lower and upper of the first shape parameter, must be positive.}
-
-\item{delta}{the value or vector lower and upper of the second shape parameter, must be positive.}
-
-\item{q}{scaler or vector of probabilities at which the quantile needs to be computed.}
+\item{q}{scaler or vector of quantiles.}
 
 \item{n}{number of random numbers to be generated.}
 }
@@ -38,36 +31,35 @@ snged(x, v = 1, delta = 2)
  \code{dnged} gives the density,
  \code{qnged} gives the quantile function,
  \code{hnged} gives the hazard function,
- \code{snged} gives the survival function and
- \code{rnged} generates random variables from the Neutrosophic Generalized Exponential Distribution (NGED).
+ from the neutrosophic generalized exponential distribution.
 }
 \description{
-Computes the pdf, cdf, hdf, shd, quantile and random numbers of the nuetrosophic generalized exponential distribution.
-\deqn{f=\frac{\delta_N}{v_N}\left(1-\exp \left\{-\frac{x_N}{v_N}\right\}\right)^{\delta_N-1} \exp \left\{-\frac{x_N}{v_N}\right\}}
-for   \eqn{v_N > 0}, the first shape parameter, and \eqn{\delta_N > 0}, the second shape parameter.
+Density, distribution function, quantile function and random generation for
+the nuetrosophic generalized exponential distribution with shape parameter
+\eqn{\delta} and scale parameter \eqn{\nu}.
+}
+\details{
+The neutrosophic generalized exponential distribution with parameters
+\code{shape}=\eqn{\delta} and \code{scale}=\eqn{\nu} has density
+\deqn{f_n(x)=\frac{\delta_N}{\nu_N}\left(1-\exp \left\{-\frac{x_N}{\nu_N}\right\}\right)^{\delta_N-1} e^{\left\{-\frac{x_N}{\nu_N}\right\}}}
+for\eqn{x \ge 0}, \eqn{\delta_N > 0}, the shape parameter,
+and \eqn{\nu_N > 0}, the scale parameter.
 }
 \examples{
-x <- seq(0.1, 1, length.out = 21)
-x2 <- matrix(seq(0.1, 2, length.out = 40), ncol = 2)
-pnged(x)
-pnged(x, v = 2, delta = 1)
-pnged(x2, v = c(1, 2), delta = c(2, 2))
-dnged(x, v = 1, delta = 2)
-curve(dnged, .1, 3)
-dnged(x2, v = c(1, 2), delta = c(2, 2))
-qnged(x, v = 1, delta = 2)
-x2 <- matrix(seq(0.1, 1, length.out = 40), ncol = 2)
-qnged(x2, v = c(1, 2), delta = c(2, 2))
-n <- 10
-rnged(n, v = 2, delta = 1)
-rnged(n, v = c(1, 2), delta = c(1, 1))
-hnged(x, v = 1, delta = 3)
-curve(hnged, 0.1, 3)
-hnged(x2, v = c(1, 2), delta = c(2, 2))
-snged(x, v = 1, delta = 3)
-curve(snged, 0.1, 3)
-snged(x2, v = c(1, 2), delta = c(2, 2))
+p <- seq(0.1, 1, length.out = 21)
+pnged(p, nu = 2, delta = 1)
+
+p2 <- matrix(seq(0.1, 2, length.out = 40), ncol = 2)
+pnged(p2, nu = c(1, 2), delta = c(2, 2))
+dnged(x, nu = 1, delta = 2)
+
+dnged(x2, nu = c(1, 2), delta = c(2, 2))
+qnged(x, nu = 1, delta = 2)
+
+qnged(x2, nu = c(1, 2), delta = c(2, 2))
 }
 \references{
-Rao, Gadde Srinivasa, Mina Norouzirad, and Danial Mazarei. "Neutrosophic Generalized Exponential Distribution with Application." Neutrosophic Sets and Systems 55.1 (2023): 28.
+Rao, G. S., Norouzirad, M., and Mazarei . D. (2023). Neutrosophic
+   Generalized Exponential Distribution with Application.
+   \emph{Neutrosophic Sets and Systems}, 55, 471-485.
 }

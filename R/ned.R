@@ -1,11 +1,11 @@
 #' Neutrosophic Exponential Distribution (NED)
 #'
 #' Density, distribution function, quantile function and random generation for
-#' the nuetrosophic exponential distribution with parameter \code{rate}.
+#' the nuetrosophic exponential distribution with parameter \code{rate}=\eqn{\theta_N}.
 #'
 #' The neutrosophic exponential distribution with parameters \code{rate}=\eqn{\theta_N}
 #' has density
-#' \deqn{f_N(x)=\theta_N \exp \left(-x \theta_N\right)
+#' \deqn{f_N(x)=\theta_N \exp \left(-x \theta_N\right)}
 #' for \eqn{x \ge 0} and \eqn{\theta_N > 0}, the rate parameter.
 #' @name NED
 #' @param x scaler or vector or matrix lower and upper of values at which the pdf or cdf needs to be computed.
@@ -18,7 +18,7 @@
 #'  \code{pned} gives the distribution function,
 #'  \code{dned} gives the density,
 #'  \code{qned} gives the quantile function and
-#'  \code{rned} generates random variables from the Neutrosophic Exponential Distribution (NED).
+#'  \code{rned} generates random variables from the neutrosophic exponential distribution.
 #' @references
 #' Duan, W., Q., Khan, Z., Gulistan, M., Khurshid, A. (2021). Neutrosophic
 #' Exponential Distribution: Modeling and Applications for Complex Data Analysis,
@@ -54,7 +54,6 @@ pned <- function(p, theta) {
 #' @examples
 #'
 #' dned(x, theta = 2)
-#' curve(dned, .1, 3)
 #'
 #' dned(x2, theta = c(2, 2))
 #' @export

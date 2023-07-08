@@ -34,16 +34,16 @@ the pdf or cdf needs to be computed.}
 \code{pnbd} gives the distribution function,
 \code{dnbd} gives the density,
 \code{qnbd} gives the quantile function and
-\code{rnbd} generates random variables from the Neutrosophic Beta Distribution (NBD).
+\code{rnbd} generates random variables from the neutrosophic Beta distribution.
 }
 \description{
 Density, distribution function, quantile function and random generation for
-the nuetrosophic Beta distribution with parameters \code{shape1} and
-\code{shape2}.
+the nuetrosophic Beta distribution with parameters \code{shape1}=\eqn{\alpha_N} and
+\code{shape2}=\eqn{\beta_N}.
 }
 \details{
-The neutrosophic beta distribution with parameters \code{shape1 = }\eqn{\alpha_N} and
-\code{shape2=}\eqn{\beta_N} has density
+The neutrosophic beta distribution with parameters \code{shape1}=\eqn{\alpha_N} and
+\code{shape2}=\eqn{\beta_N} has density
 \deqn{f_N(X)=\frac{1}{B\left(\alpha_N, \beta_N\right)}X^{\alpha_N-1}(1-X)^{\beta_N-1}}
 for  \eqn{\alpha_N > 0}, the first shape parameter, and \eqn{\beta_N > 0},
 the second shape parameter and \eqn{0 \le x \le 1}. The function \eqn{B(a,b)}
@@ -57,7 +57,6 @@ x2 <- matrix(seq(0.1, 2, length.out = 40), ncol = 2)
 pnbd(x2, alpha = c(1, 2), beta = c(2, 2))
 
 dnbd(x, alpha = 1, beta = 2)
-curve(dnbd, .1, 3)
 
 dnbd(x2, alpha = c(1, 2), beta = c(2, 2))
 
