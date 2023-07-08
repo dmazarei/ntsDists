@@ -1,41 +1,49 @@
 #' Neutrosophic Poisson Distribution (NPD)
 #'
-#' Computes the pdf, cdf, hdf, quantile and random numbers of the
-#' \deqn{f_N(x)=e^{-\lambda_N} \cdot \frac{\left(\lambda_N\right)^x}{x !}}
-#' for   \eqn{\lambda_N > 0}, the first shape parameter.
+#' Density, distribution function, quantile function and random generation for
+#' the nuetrosophic Poisson distribution with parameter \eqn{\lambda_N}.
+#'
+#' The neutrosophic Poisson distribution with parameter \eqn{\theta} has the density
+#' \deqn{f_N(x)=e^{-\lambda_N}  \frac{\left(\lambda_N\right)^x}{x !}}
+#' for   \eqn{\lambda_N > 0}.
+#'
 #' @name NPD
-#' @param x scaler or vector or matrix lower and upper of values (non-negative integer) at which the pdf or cdf needs to be computed.
-#' @param q scaler or vector of probabilities at which the quantile needs to be computed.
+#' @param x scaler or vector or matrix lower and upper of values at which
+#' the pdf or cdf needs to be computed.
+#' @param p scaler or vector of probabilities at which the quantile needs to be computed.
+#' @param q scaler or vector of quantiles.
 #' @param n number of random numbers to be generated.
 #' @param lambda the value or vector lower and upper of (non-negative)the first shape parameter, must be positive.
 #'
-#' @return  \code{pnpd} gives the distribution function,
+#' @return
+#'  \code{pnpd} gives the distribution function,
 #'  \code{dnpd} gives the density,
 #'  \code{qnpd} gives the quantile function and
 #'  \code{rnpd} generates random variables from the Neutrosophic Poisson Distribution (NPD).
 #' @references
-#'        Alhabib, R., et al., Some neutrosophic probability distributions. Neutrosophic Sets and Systems, 2018. 22: p.30-38.
+#'        Alhabib, R., Ranna, M. M., Farah, H., Salama, A. A. (2018).
+#'        Some neutrosophic probability distributions.
+#'        \emph{Neutrosophic Sets and Systems},  22, 30-38.
 #' @importFrom stats runif dpois ppois qpois
 #' @examples
-#' x <- 1:10
-#' x2 <- matrix(1:20, ncol = 2)
-#' pnpd(x)
-#' pnpd(x, lambda = 1)
-#' pnpd(x2, lambda = c(2, 3))
+#' p <- 1:10
+#' p2 <- matrix(1:20, ncol = 2)
+#' pnpd(p, lambda = 1)
+#' pnpd(p2, lambda = c(2, 3))
 #' @export
 
-pnpd <- function(x, lambda = 2) {
+pnpd <- function(p, lambda) {
   if (any(lambda < 0)) stop(message = "incompatible arguments.")
-  if (any(x < 0) && any(x - floor(x) == 0)) stop(message = "[Warning] 0 < x or non-integer ")
-  if (is.vector(x)) {
-    F0 <- stats::ppois(x, lambda = lambda[1])
+  if (any(x < 0) && any(x - floor(p) == 0)) stop(message = "[Warning] 0 < p or non-integer ")
+  if (is.vector(p)) {
+    F0 <- stats::ppois(p, lambda = lambda[1])
   } else {
     if (length(lambda) < 2) {
       stop(message = "incompatible arguments.")
     } else {
-      F0 <- matrix(data = NA, nrow = nrow(x), ncol = 2)
-      F0[, 1] <- stats::ppois(x[, 1], lambda = lambda[1])
-      F0[, 2] <- stats::ppois(x[, 2], lambda = lambda[2])
+      F0 <- matrix(data = NA, nrow = nrow(p), ncol = 2)
+      F0[, 1] <- stats::ppois(p[, 1], lambda = lambda[1])
+      F0[, 2] <- stats::ppois(p[, 2], lambda = lambda[2])
     }
   }
   return(F0)
@@ -44,10 +52,9 @@ pnpd <- function(x, lambda = 2) {
 #' @name NPD
 #' @examples
 #' dnpd(x, lambda = 2)
-#' curve(dnpd, .1, 3)
 #' dnpd(x2, lambda = c(2, 2))
 #' @export
-dnpd <- function(x, lambda = 2) {
+dnpd <- function(x, lambda) {
   if (any(lambda < 0)) stop(message = "incompatible arguments.")
   if (any(x < 0) && any(x - floor(x) == 0)) stop(message = "[Warning] 0 < x or non-integer ")
   if (is.vector(x)) {
@@ -66,12 +73,12 @@ dnpd <- function(x, lambda = 2) {
 
 #' @name NPD
 #' @examples
-#' x3 <- seq(0.1, 1, length.out = 40)
-#' qnpd(x3, lambda = 2)
-#' x2 <- matrix(seq(0.1, 1, length.out = 40), ncol = 2)
-#' qnpd(x2, lambda = c(2, 2))
+#' q1 <- seq(0.1, 1, length.out = 40)
+#' qnpd(q1, lambda = 2)
+#' q2 <- matrix(seq(0.1, 1, length.out = 40), ncol = 2)
+#' qnpd(q2, lambda = c(2, 2))
 #' @export
-qnpd <- function(q, lambda = 2) {
+qnpd <- function(q, lambda) {
   if (any(q < 0) || any(q > 1)) stop(message = "[Warning] 0 < x < 1.")
   if (any(lambda < 0)) stop(message = "incompatible arguments.")
   if (is.vector(q) && length(lambda) < 2) {
@@ -98,7 +105,7 @@ qnpd <- function(q, lambda = 2) {
 #' rnpd(n, lambda = 1)
 #' rnpd(n, lambda = c(1, 2))
 #' @export
-rnpd <- function(n, lambda = 2) {
+rnpd <- function(n, lambda) {
   if (any(lambda < 0)) stop(message = "incompatible arguments.")
   if (length(lambda) < 2) {
     u <- runif(n)
