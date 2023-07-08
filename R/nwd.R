@@ -12,8 +12,10 @@
 #' scale parameter.
 #'
 #' @name NWD
-#' @param x scaler or vector or matrix lower and upper of values at which the pdf or cdf needs to be computed.
-#' @param q scaler or vector of probabilities at which the quantile needs to be computed.
+#' @param x scaler or vector or matrix lower and upper of values at which the
+#' pdf or cdf needs to be computed.
+#' @param p scaler or vector of probabilities at which the quantile needs to be computed.
+#' @param q scaler or vector of quantiles.
 #' @param n number of random numbers to be generated.
 #' @param beta the value or vector lower and upper of the first shape parameter. must be positive.
 #' @param alpha the value or vector lower and upper of the second scale parameter, must be positive.
