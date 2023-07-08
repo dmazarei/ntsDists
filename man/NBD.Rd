@@ -8,52 +8,68 @@
 \alias{rnbd}
 \title{Neutrosophic Beta Distribution (NBD)}
 \usage{
-pnbd(x, alpha = 1, beta = 2)
+pnbd(p, alpha, beta)
 
-dnbd(x, alpha = 1, beta = 2)
+dnbd(x, alpha, beta)
 
-qnbd(q, alpha = 1, beta = 2)
+qnbd(q, alpha, beta)
 
-rnbd(n, alpha = 1, beta = 2)
+rnbd(n, alpha, beta)
 }
 \arguments{
-\item{x}{scaler or vector or matrix lower and upper of values at which the pdf or cdf needs to be computed.}
+\item{p}{scaler or vector of probabilities at which the quantile needs to be computed.}
 
-\item{alpha}{the value or vector lower and upper of the first shape parameter. must be positive.}
+\item{alpha}{the positive value or vector lower and upper of the first shape parameter.}
 
-\item{beta}{the value or vector lower and upper of the second shape parameter, must be positive.}
+\item{beta}{the positive value or vector lower and upper of the second shape parameter.}
 
-\item{q}{scaler or vector of probabilities at which the quantile needs to be computed.}
+\item{x}{scaler or vector or matrix lower and upper of values at which
+the pdf or cdf needs to be computed.}
+
+\item{q}{scaler or vector of quantiles.}
 
 \item{n}{number of random numbers to be generated.}
 }
 \value{
 \code{pnbd} gives the distribution function,
- \code{dnbd} gives the density,
- \code{qnbd} gives the quantile function and
- \code{rnbd} generates random variables from the Neutrosophic Beta Distribution (NBD).
+\code{dnbd} gives the density,
+\code{qnbd} gives the quantile function and
+\code{rnbd} generates random variables from the Neutrosophic Beta Distribution (NBD).
 }
 \description{
-Computes the pdf, cdf, quantile and random numbers of the nuetrosophic generalized exponential distribution.
-\deqn{f_N(X)=\frac{X^{\alpha_N-1}(1-X)^{\beta_N-1}}{\beta\left(\alpha_N, \beta_N\right)}}
-for   \eqn{\alpha_N > 0}, the first shape parameter, and \eqn{\beta_N > 0}, the second shape parameter.
+Density, distribution function, quantile function and random generation for
+the nuetrosophic Beta distribution with parameters \code{shape1} and
+\code{shape2}.
+}
+\details{
+The neutrosophic beta distribution with parameters \code{shape1 = }\eqn{\alpha_N} and
+\code{shape2=}\eqn{\beta_N} has density
+\deqn{f_N(X)=\frac{1}{B\left(\alpha_N, \beta_N\right)}X^{\alpha_N-1}(1-X)^{\beta_N-1}}
+for  \eqn{\alpha_N > 0}, the first shape parameter, and \eqn{\beta_N > 0},
+the second shape parameter and \eqn{0 \le x \le 1}. The function \eqn{B(a,b)}
+return the beta function that can be calculated by \code{\link{beta}}.
 }
 \examples{
-x <- seq(0.1, 1, length.out = 21)
-x2 <- matrix(seq(0.1, 2, length.out = 40), ncol = 2)
-pnbd(x)
+x <- seq(0.1, 1, length.out = 21)#'
 pnbd(x, alpha = 2, beta = 1)
+
+x2 <- matrix(seq(0.1, 2, length.out = 40), ncol = 2)
 pnbd(x2, alpha = c(1, 2), beta = c(2, 2))
+
 dnbd(x, alpha = 1, beta = 2)
 curve(dnbd, .1, 3)
+
 dnbd(x2, alpha = c(1, 2), beta = c(2, 2))
+
+
 qnbd(x, alpha = 1, beta = 2)
-x2 <- matrix(seq(0.1, 1, length.out = 40), ncol = 2)
 qnbd(x2, alpha = c(1, 2), beta = c(2, 2))
+
 n <- 10
 rnbd(n, alpha = 2, beta = 1)
 rnbd(n, alpha = c(1, 2), beta = c(1, 1))
 }
 \references{
-Sherwani, Rehan A. Khan, et al. Neutrosophic beta distribution with properties and applications. Infinite Study, 2021.
+Sherwani, R. Ah. K., Naeem, M., Aslam, M., Reza, M. A., Abid, M., Abbas, S. (2021).
+    Neutrosophic beta distribution with properties and applications. Neutrosophic Sets and Systems, 41, 209-214.
 }

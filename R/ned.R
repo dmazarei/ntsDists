@@ -1,41 +1,50 @@
 #' Neutrosophic Exponential Distribution (NED)
 #'
-#' Computes the pdf, cdf, quantile and random numbers of the
-#' \deqn{f_N(z)=\theta_N \exp \left(-z \theta_N\right) I_{(0, \infty)}(z)}
-#' for   \eqn{\theta_N > 0}, the first shape parameter.
+#' Density, distribution function, quantile function and random generation for
+#' the nuetrosophic exponential distribution with parameter \code{rate}.
+#'
+#' The neutrosophic exponential distribution with parameters \code{rate}=\eqn{\theta_N}
+#' has density
+#' \deqn{f_N(x)=\theta_N \exp \left(-x \theta_N\right)
+#' for \eqn{x \ge 0} and \eqn{\theta_N > 0}, the rate parameter.
 #' @name NED
 #' @param x scaler or vector or matrix lower and upper of values at which the pdf or cdf needs to be computed.
-#' @param q scaler or vector of probabilities at which the quantile needs to be computed.
+#' @param p scaler or vector of probabilities at which the quantile needs to be computed.
+#' @param q scaler or vector of quantiles.
 #' @param n number of random numbers to be generated.
-#' @param theta the value or vector lower and upper of the first shape parameter, must be positive.
+#' @param theta the positive value or vector lower and upper of the first shape parameter.
 #'
-#' @return  \code{pned} gives the distribution function,
+#' @return
+#'  \code{pned} gives the distribution function,
 #'  \code{dned} gives the density,
 #'  \code{qned} gives the quantile function and
 #'  \code{rned} generates random variables from the Neutrosophic Exponential Distribution (NED).
 #' @references
-#'        Duan, Wen-Qi, et al. "Neutrosophic exponential distribution: modeling and applications for complex data analysis." Complexity 2021 (2021): 1-8.
+#' Duan, W., Q., Khan, Z., Gulistan, M., Khurshid, A. (2021). Neutrosophic
+#' Exponential Distribution: Modeling and Applications for Complex Data Analysis,
+#' \emph{Complexity}, 2021, 1-8.
+#'
 #' @importFrom stats runif
 #' @examples
 #' x <- seq(0.01, 1, length.out = 21)
-#' x2 <- matrix(seq(0.01, 2, length.out = 40), ncol = 2)
-#' pned(x)
 #' pned(x, theta = 1)
+#'
+#' x2 <- matrix(seq(0.01, 2, length.out = 40), ncol = 2)
 #' pned(x2, theta = c(2, 3))
 #' @export
 
-pned <- function(x, theta = 2) {
+pned <- function(p, theta) {
   if (any(theta <= 0)) stop(message = "incompatible arguments.")
   if (any(x < 0)) stop(message = "[Warning] 0 < x ")
   if (is.vector(x)) {
-    F0 <- 1 - exp(-x * theta[1])
+    F0 <- 1 - exp(-p * theta[1])
   } else {
     if (length(theta) < 2) {
       stop(message = "incompatible arguments.")
     } else {
       F0 <- matrix(data = NA, nrow = nrow(x), ncol = 2)
-      F0[, 1] <- 1 - exp(-x[, 1] * theta[1])
-      F0[, 2] <- 1 - exp(-x[, 2] * theta[2])
+      F0[, 1] <- 1 - exp(-p[, 1] * theta[1])
+      F0[, 2] <- 1 - exp(-p[, 2] * theta[2])
     }
   }
   return(F0)
@@ -43,11 +52,13 @@ pned <- function(x, theta = 2) {
 
 #' @name NED
 #' @examples
+#'
 #' dned(x, theta = 2)
 #' curve(dned, .1, 3)
+#'
 #' dned(x2, theta = c(2, 2))
 #' @export
-dned <- function(x, theta = 2) {
+dned <- function(x, theta) {
   if (any(theta <= 0)) stop(message = "incompatible arguments.")
   if (any(x < 0)) stop(message = "[Warning] 0 < x ")
   if (is.vector(x)) {
@@ -66,11 +77,13 @@ dned <- function(x, theta = 2) {
 
 #' @name NED
 #' @examples
+#'
 #' qned(x, theta = 2)
-#' x2 <- matrix(seq(0.1, 1, length.out = 40), ncol = 2)
+#'
 #' qned(x2, theta = c(2, 2))
+#'
 #' @export
-qned <- function(q, theta = 2) {
+qned <- function(q, theta) {
   if (any(q < 0) || any(q > 1)) stop(message = "[Warning] 0 < x < 1.")
   if (any(theta <= 0)) stop(message = "incompatible arguments.")
   if (is.vector(q) && length(theta) < 2) {
@@ -95,9 +108,10 @@ qned <- function(q, theta = 2) {
 #' @examples
 #' n <- 10
 #' rned(n, theta = 1)
+#'
 #' rned(n, theta = c(1, 2))
 #' @export
-rned <- function(n, theta = 2) {
+rned <- function(n, theta) {
   if (any(theta <= 0)) stop(message = "incompatible arguments.")
   if (length(theta) < 2) {
     u <- runif(n)

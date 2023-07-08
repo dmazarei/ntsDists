@@ -8,20 +8,22 @@
 \alias{rned}
 \title{Neutrosophic Exponential Distribution (NED)}
 \usage{
-pned(x, theta = 2)
+pned(p, theta)
 
-dned(x, theta = 2)
+dned(x, theta)
 
-qned(q, theta = 2)
+qned(q, theta)
 
-rned(n, theta = 2)
+rned(n, theta)
 }
 \arguments{
+\item{p}{scaler or vector of probabilities at which the quantile needs to be computed.}
+
+\item{theta}{the positive value or vector lower and upper of the first shape parameter.}
+
 \item{x}{scaler or vector or matrix lower and upper of values at which the pdf or cdf needs to be computed.}
 
-\item{theta}{the value or vector lower and upper of the first shape parameter, must be positive.}
-
-\item{q}{scaler or vector of probabilities at which the quantile needs to be computed.}
+\item{q}{scaler or vector of quantiles.}
 
 \item{n}{number of random numbers to be generated.}
 }
@@ -32,26 +34,35 @@ rned(n, theta = 2)
  \code{rned} generates random variables from the Neutrosophic Exponential Distribution (NED).
 }
 \description{
-Computes the pdf, cdf, quantile and random numbers of the
-\deqn{f_N(z)=\theta_N \exp \left(-z \theta_N\right) I_{(0, \infty)}(z)}
-for   \eqn{\theta_N > 0}, the first shape parameter.
+Density, distribution function, quantile function and random generation for
+the nuetrosophic exponential distribution with parameter \code{rate}.
+}
+\details{
+
 }
 \examples{
 x <- seq(0.01, 1, length.out = 21)
-x2 <- matrix(seq(0.01, 2, length.out = 40), ncol = 2)
-pned(x)
 pned(x, theta = 1)
+
+x2 <- matrix(seq(0.01, 2, length.out = 40), ncol = 2)
 pned(x2, theta = c(2, 3))
+
 dned(x, theta = 2)
 curve(dned, .1, 3)
+
 dned(x2, theta = c(2, 2))
+
 qned(x, theta = 2)
-x2 <- matrix(seq(0.1, 1, length.out = 40), ncol = 2)
+
 qned(x2, theta = c(2, 2))
+
 n <- 10
 rned(n, theta = 1)
+
 rned(n, theta = c(1, 2))
 }
 \references{
-Duan, Wen-Qi, et al. "Neutrosophic exponential distribution: modeling and applications for complex data analysis." Complexity 2021 (2021): 1-8.
+Duan, W., Q., Khan, Z., Gulistan, M., Khurshid, A. (2021). Neutrosophic
+Exponential Distribution: Modeling and Applications for Complex Data Analysis,
+\emph{Complexity}, 2021, 1-8.
 }

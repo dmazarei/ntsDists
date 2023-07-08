@@ -8,22 +8,25 @@
 \alias{rngd}
 \title{Neutrosophic Gamma Distribution (NGD)}
 \usage{
-pngd(x, p = 1, lambda = 2)
+pngd(p, alpha = 1, lambda = 2)
 
-dngd(x, p = 1, lambda = 2)
+dngd(x, alpha = 1, lambda = 2)
 
-qngd(q, p = 1, lambda = 2)
+qngd(q, alpha = 1, lambda = 2)
 
-rngd(n, p = 1, lambda = 2)
+rngd(n, alpha = 1, lambda = 2)
 }
 \arguments{
-\item{x}{scaler or vector or matrix lower and upper of values at which the pdf or cdf needs to be computed.}
+\item{p}{scaler or vector of probabilities at which the quantile needs to be computed.}
 
-\item{p}{the value or vector lower and upper of the first shape parameter, must be positive.}
+\item{alpha}{the positive value or vector lower and upper of the first shape parameter.}
 
-\item{lambda}{the value or vector lower and upper of the second scale parameter, must be positive.}
+\item{lambda}{the positive value or vector lower and upper of the second scale parameter.}
 
-\item{q}{scaler or vector of probabilities at which the quantile needs to be computed.}
+\item{x}{scaler or vector or matrix lower and upper of values at which the
+pdf or cdf needs to be computed.}
+
+\item{q}{scaler or vector of quantiles.}
 
 \item{n}{number of random numbers to be generated.}
 }
@@ -34,25 +37,33 @@ rngd(n, p = 1, lambda = 2)
  \code{rngd} generates random variables from the Neutrosophic Gamma Distribution (NGD).
 }
 \description{
-Computes the pdf, cdf, quantile and random numbers of the nuetrosophic generalized exponential distribution.
-\deqn{f_n(z)=\frac{1}{\Gamma p_n \lambda_n^{p_n}} z^{p_n-1} e^{-\left(z / \lambda_n\right)}}
-for   \eqn{p_n > 0}, the first shape parameter, and \eqn{\lambda_n > 0}, the second scale parameter.
+Density, distribution function, quantile function and random generation for
+the nuetrosophic gamma distribution with parameter \code{shape} and
+\code{scale}.
+}
+\details{
+The neutrosophic gamma distribution with parameters \code{shape}=\eqn{\alpha} and
+\code{scale}=\eqn{\lambda_N} has density
+\deqn{f_n(x)=\frac{1}{\Gamma(\alpha_n) \lambda_n^{\alpha_n}} x^{\alpha_n-1} e^{-\left(x / \lambda_n\right)}}
+for \eqn{x \ge 0}, \eqn{\alpha_n > 0}, the shape parameter, and
+\eqn{\lambda_n > 0}, the scale parameter. Here, \eqn{\Gamma(\cdot)} is gamma
+function implemented by \code{\link{gamma}}.
 }
 \examples{
 x <- seq(0.1, 1, length.out = 21)
+pngd(x, alpha = 2, lambda = 1)
+
 x2 <- matrix(seq(0.1, 2, length.out = 40), ncol = 2)
-pngd(x)
-pngd(x, p = 2, lambda = 1)
-pngd(x2, p = c(1, 2), lambda = c(2, 2))
-dngd(x, p = 1, lambda = 2)
+pngd(x2, alpha = c(1, 2), lambda = c(2, 2))
+dngd(x, alpha = 1, lambda = 2)
 curve(dngd, .1, 3)
-dngd(x2, p = c(1, 2), lambda = c(2, 2))
-qngd(x, p = 1, lambda = 2)
+dngd(x2, alpha = c(1, 2), lambda = c(2, 2))
+qngd(x, alpha = 1, lambda = 2)
 x2 <- matrix(seq(0.1, 1, length.out = 40), ncol = 2)
-qngd(x2, p = c(1, 2), lambda = c(2, 2))
+qngd(x2, alpha = c(1, 2), lambda = c(2, 2))
 n <- 10
-rngd(n, p = 2, lambda = 1)
-rngd(n, p = c(1, 2), lambda = c(1, 1))
+rngd(n, alpha = 2, lambda = 1)
+rngd(n, alpha = c(1, 2), lambda = c(1, 1))
 }
 \references{
 Khan, Zahid, et al. "On statistical development of neutrosophic gamma distribution with applications to complex data analysis." Complexity 2021 (2021): 1-8.
