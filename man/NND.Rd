@@ -8,28 +8,26 @@
 \alias{rnnd}
 \title{Neutrosophic Normal Distribution (NND)}
 \usage{
-pnnd(x, mu = 1, sigma = 2)
+pnnd(q, mu, sigma)
 
-dnnd(x, mu = 1, sigma = 2)
+dnnd(x, mu, sigma)
 
-qnnd(q, mu = 1, sigma = 2)
+qnnd(p, mu, sigma)
 
-rnnd(n, mu = 1, sigma = 2)
+rnnd(n, mu, sigma)
 }
 \arguments{
-\item{x}{scaler or vector or matrix lower and upper of values at which the pdf or cdf needs to be computed.}
-
-\item{mu}{the value or vector lower and upper of the first parameter.
-Default is \code{0}.}
-
-\item{sigma}{the positive value or vector lower and upper of the second parameter.
-Default is \code{1}.}
-
 \item{q}{scaler or vector of quantiles.}
 
-\item{n}{number of random numbers to be generated.}
+\item{mu}{the value or vector lower and upper of the first parameter.}
+
+\item{sigma}{the positive value or vector lower and upper of the second parameter.}
+
+\item{x}{scaler or vector or matrix lower and upper of values at which the pdf or cdf needs to be computed.}
 
 \item{p}{scaler or vector of probabilities at which the quantile needs to be computed.}
+
+\item{n}{number of random numbers to be generated.}
 }
 \value{
 \code{pnnd} gives the distribution function,
@@ -44,25 +42,30 @@ the nuetrosophic generalized exponential distribution with parameters mean,
 }
 \details{
 The neutrosophic normal distribution with parameters with \code{mean}=\eqn{\mu_N}
-and \code{std}=\exn{\sigma_N} has density
+and \code{std}=\exp{\sigma_N} has density
 \deqn{f_N(x) = \frac{1}{\sigma_N \sqrt{2 \pi}} e^{\left(\frac{\left(X-\mu_N\right)^2}{2 \sigma_N^2}\right)}}
 for \eqn{-\infty < x < \infty}, \eqn{\mu_N}, the mean, and \eqn{\sigma_N > 0},
 the standard deviation.
 }
 \examples{
 p <- seq(0.1, 1, length.out = 21)
+pnnd(x, mu = c(2,2), sigma = c(1,1))
+
 p2 <- matrix(seq(0.1, 2, length.out = 40), ncol = 2)
-
-pnnd(x, mu = 2, sigma = 1)
 pnnd(x2, mu = c(1, 2), sigma = c(2, 2))
-dnnd(x, mu = 1, sigma = 2)
+dnnd(x = 0.5, mu = 1, sigma = 2)
 
+x1 = c(-0.8,0.2,1.6,3.9)
+dnnd(x = 0.5, mu = c(1,1), sigma = c(2,2))
+
+x2 = matrix(seq(-3,3,length.out = 10), nrow = 2, ncol = 5)
 dnnd(x2, mu = c(1, 2), sigma = c(2, 2))
-qnnd(x, mu = 1, sigma = 2)
-x2 <- matrix(seq(0.1, 1, length.out = 40), ncol = 2)
+q1 <- c(0.01)
+qnnd(q1, mu = 1, sigma = 2)
+
 qnnd(x2, mu = c(1, 2), sigma = c(2, 2))
 n <- 100
-rnnd(n, mu = 2, sigma = 1)
+rnnd(n, mu = c(1,1), sigma = c(2,2))
 rnnd(n, mu = c(1, 2), sigma = c(1, 1))
 }
 \references{

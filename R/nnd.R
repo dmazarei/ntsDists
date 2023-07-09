@@ -5,7 +5,7 @@
 #' \eqn{\mu}, and standard deviation \eqn{\sigma}.
 #'
 #' The neutrosophic normal distribution with parameters with \code{mean}=\eqn{\mu_N}
-#' and \code{std}=\exn{\sigma_N} has density
+#' and \code{std}=\exp{\sigma_N} has density
 #' \deqn{f_N(x) = \frac{1}{\sigma_N \sqrt{2 \pi}} e^{\left(\frac{\left(X-\mu_N\right)^2}{2 \sigma_N^2}\right)}}
 #' for \eqn{-\infty < x < \infty}, \eqn{\mu_N}, the mean, and \eqn{\sigma_N > 0},
 #' the standard deviation.
@@ -36,17 +36,17 @@
 #' pnnd(x2, mu = c(1, 2), sigma = c(2, 2))
 #' @export
 
-pnnd <- function(p, mu, sigma) {
+pnnd <- function(q, mu, sigma) {
   if (any(sigma <= 0)) stop(message = "incompatible arguments.")
-  if (is.vector(p)) {
-    F0 <- stats::pnorm(p, mean = mu[1], sd = sigma[1])
+  if (is.vector(q)) {
+    F0 <- stats::pnorm(q, mean = mu[1], sd = sigma[1])
   } else {
     if (length(mu) < 2 || length(sigma) < 2) {
       stop(message = "incompatible arguments.")
     } else {
-      F0 <- matrix(data = NA, nrow = nrow(p), ncol = 2)
-      F0[, 1] <- stats::pnorm(p[, 1], mean = mu[1], sd = sigma[1])
-      F0[, 2] <- stats::pnorm(p[, 2], mean = mu[2], sd = sigma[2])
+      F0 <- matrix(data = NA, nrow = nrow(q), ncol = 2)
+      F0[, 1] <- stats::pnorm(q[, 1], mean = mu[1], sd = sigma[1])
+      F0[, 2] <- stats::pnorm(q[, 2], mean = mu[2], sd = sigma[2])
     }
   }
   return(F0)
@@ -85,22 +85,22 @@ dnnd <- function(x, mu, sigma) {
 #'
 #' qnnd(x2, mu = c(1, 2), sigma = c(2, 2))
 #' @export
-qnnd <- function(q, mu, sigma) {
-  if (any(q < 0) || any(q > 1)) stop(message = "[Warning] 0 < x < 1.")
+qnnd <- function(p, mu, sigma) {
+  if (any(p < 0) || any(p > 1)) stop(message = "[Warning] 0 < x < 1.")
   if (any(sigma <= 0)) stop(message = "incompatible arguments.")
-  if (is.vector(q) && length(mu) < 2 || length(sigma) < 2) {
-    qf <- stats::qnorm(q, mean = mu[1], sd = sigma[1])
+  if (is.vector(p) && length(mu) < 2 || length(sigma) < 2) {
+    qf <- stats::qnorm(p, mean = mu[1], sd = sigma[1])
   } else {
     if (length(mu) < 2 || length(sigma) < 2) {
       stop(message = "incompatible arguments.")
     } else {
-      if (is.vector(q) && length(q) == 2) {
-        q <- matrix(q, nrow = 1, ncol = 2)
+      if (is.vector(p) && length(p) == 2) {
+        p <- matrix(p, nrow = 1, ncol = 2)
       }
 
-      qf <- matrix(data = NA, nrow = nrow(q), ncol = 2)
-      qf[, 1] <- stats::qnorm(q[, 1], mean = mu[1], sd = sigma[1])
-      qf[, 2] <- stats::qnorm(q[, 2], mean = mu[2], sd = sigma[2])
+      qf <- matrix(data = NA, nrow = nrow(p), ncol = 2)
+      qf[, 1] <- stats::qnorm(p[, 1], mean = mu[1], sd = sigma[1])
+      qf[, 2] <- stats::qnorm(p[, 2], mean = mu[2], sd = sigma[2])
     }
   }
   return(qf)
