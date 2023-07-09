@@ -5,6 +5,7 @@
 \alias{pnged}
 \alias{dnged}
 \alias{qnged}
+\alias{rnged}
 \title{Neutrosophic Generalized Exponential Distribution (NGED)}
 \usage{
 pnged(p, nu, delta)
@@ -12,6 +13,8 @@ pnged(p, nu, delta)
 dnged(x, nu, delta)
 
 qnged(q, nu, delta)
+
+rnged(n, nu = 1, delta = 2)
 }
 \arguments{
 \item{p}{scaler or vector of probabilities at which the quantile needs to be computed.}
@@ -29,8 +32,8 @@ qnged(q, nu, delta)
 \value{
 \code{pnged} gives the distribution function,
  \code{dnged} gives the density,
- \code{qnged} gives the quantile function,
- \code{hnged} gives the hazard function,
+ \code{qnged} gives the quantile function and
+ \code{rnged} generates random variables
  from the neutrosophic generalized exponential distribution.
 }
 \description{
@@ -57,6 +60,9 @@ dnged(x2, nu = c(1, 2), delta = c(2, 2))
 qnged(x, nu = 1, delta = 2)
 
 qnged(x2, nu = c(1, 2), delta = c(2, 2))
+n <- 10
+rnged(n, nu = 2, delta = 1)
+rnged(n, nu = c(1, 2), delta = c(1, 1))
 }
 \references{
 Rao, G. S., Norouzirad, M., and Mazarei . D. (2023). Neutrosophic

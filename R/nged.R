@@ -21,10 +21,8 @@
 #' @return
 #'  \code{pnged} gives the distribution function,
 #'  \code{dnged} gives the density,
-#'  \code{qnged} gives the quantile function,
-#'  \code{hnged} gives the hazard function,
-# #'  \code{snged} gives the survival function and
-# #'  \code{rnged} generates random variables
+#'  \code{qnged} gives the quantile function and
+#'  \code{rnged} generates random variables
 #'  from the neutrosophic generalized exponential distribution.
 #'
 #' @references
@@ -43,7 +41,7 @@
 
 pnged <- function(p, nu, delta) {
   if (any(nu <= 0) || any(delta <= 0)) stop(message = "incompatible arguments.")
-  if (any(x < 0)) stop(message = "[Warning] 0 < x ")
+  if (any(p < 0)) stop(message = "[Warning] 0 < x ")
   if (is.vector(p)) {
     F0 <- (1 - exp(-p / nu[1]))^delta[1]
   } else {
@@ -107,70 +105,22 @@ qnged <- function(q, nu, delta) {
   }
   return(qf)
 }
-#
-# #' @name NGED
-# #' @examples
-# #' n <- 10
-# #' rnged(n, nu = 2, delta = 1)
-# #' rnged(n, nu = c(1, 2), delta = c(1, 1))
-# #' @export
-# rnged <- function(n, nu = 1, delta = 2) {
-#   if (any(nu <= 0) || any(delta <= 0)) stop(message = "incompatible arguments.")
-#   if (length(nu) < 2 || length(delta) < 2) {
-#     u <- runif(n)
-#    X <- qnged(u, nu, delta)
-#   } else {
-#     u <- matrix(runif(n * 2), nrow = n, ncol = 2)
-#     X <- qnged(u, nu, delta)
-#   }
-#   return(X)
-# }
-#
-#
-# #' @name NGED
-# #' @examples
-# #' hnged(x, nu = 1, delta = 3)
-# #'
-# #' hnged(x2, nu = c(1, 2), delta = c(2, 2))
-# #' @export
-#
-# hnged <- function(x, nu = 1, delta = 2) {
-#   if (any(nu <= 0) || any(delta <= 0)) stop(message = "incompatible arguments.")
-#   if (any(x < 0)) stop(message = "[Warning] 0 < x ")
-#   if (is.vector(x)) {
-#     h <- ((delta[1] / nu[1]) * (1 - exp(-x / nu[1]))^(delta[1] - 1) * exp(-x / nu[1])) / (1 - (1 - exp(-x / nu[1]))^delta[1])
-#   } else {
-#     if (length(nu) < 2 || length(delta) < 2) {
-#       stop(message = "incompatible arguments.")
-#     } else {
-#       h <- matrix(data = NA, nrow = nrow(x), ncol = 2)
-#       h[, 1] <- ((delta[1] / nu[1]) * (1 - exp(-x[, 1] / nu[1]))^(delta[1] - 1) * exp(-x[, 1] / nu[1])) / (1 - (1 - exp(-x[, 1] / nu[1]))^delta[1])
-#       h[, 2] <- ((delta[2] / nu[2]) * (1 - exp(-x[, 2] / nu[2]))^(delta[2] - 1) * exp(-x[, 2] / nu[2])) / (1 - (1 - exp(-x[, 2] / nu[2]))^delta[2])
-#     }
-#   }
-#   return(h)
-# }
-#
-# #' @name NGED
-# #' @examples
-# #' snged(x, nu = 1, delta = 3)
-# #'
-# #' snged(x2, nu = c(1, 2), delta = c(2, 2))
-# #' @export
-# snged <- function(x, nu = 1, delta = 2) {
-#   if (any(nu <= 0) || any(delta <= 0)) stop(message = "incompatible arguments.")
-#   if (any(x < 0)) stop(message = "[Warning] 0 < x ")
-#
-#   if (is.vector(x)) {
-#     s <- 1 - (1 - exp(-x / nu[1]))^delta[1]
-#   } else {
-#     if (length(nu) < 2 || length(delta) < 2) {
-#       stop(message = "incompatible arguments.")
-#     } else {
-#       s <- matrix(data = NA, nrow = nrow(x), ncol = 2)
-#       s[, 1] <- 1 - (1 - exp(-x[, 1] / nu[1]))^delta[1]
-#       s[, 2] <- 1 - (1 - exp(-x[, 2] / nu[2]))^delta[2]
-#     }
-#   }
-#   return(s)
-# }
+
+
+#' @name NGED
+#' @examples
+#' n <- 10
+#' rnged(n, nu = 2, delta = 1)
+#' rnged(n, nu = c(1, 2), delta = c(1, 1))
+#' @export
+rnged <- function(n, nu = 1, delta = 2) {
+ if (any(nu <= 0) || any(delta <= 0)) stop(message = "incompatible arguments.")
+ if (length(nu) < 2 || length(delta) < 2) {
+   u <- runif(n)
+  X <- qnged(u, nu, delta)
+ } else {
+   u <- matrix(runif(n * 2), nrow = n, ncol = 2)
+   X <- qnged(u, nu, delta)
+ }
+ return(X)
+}
