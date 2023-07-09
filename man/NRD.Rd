@@ -8,20 +8,23 @@
 \alias{rnrd}
 \title{Neutrosophic Rayleigh Distribution (NRD)}
 \usage{
-pnrd(x, theta = 2)
+pnrd(p, theta)
 
-dnrd(x, theta = 2)
+dnrd(x, theta)
 
-qnrd(q, theta = 2)
+qnrd(q, theta)
 
-rnrd(n, theta = 2)
+rnrd(n, theta)
 }
 \arguments{
-\item{x}{scaler or vector or matrix lower and upper of values at which the pdf or cdf needs to be computed.}
+\item{p}{scaler or vector of probabilities at which the quantile needs to be computed.}
 
 \item{theta}{the value or vector lower and upper of the first shape parameter, must be positive.}
 
-\item{q}{scaler or vector of probabilities at which the quantile needs to be computed.}
+\item{x}{scaler or vector or matrix lower and upper of values at which
+the pdf or cdf needs to be computed.}
+
+\item{q}{scaler or vector of quantiles.}
 
 \item{n}{number of random numbers to be generated.}
 }
@@ -32,18 +35,21 @@ rnrd(n, theta = 2)
  \code{rnrd} generates random variables from the Neutrosophic Rayleigh Distribution (NRD).
 }
 \description{
-Computes the pdf, cdf, quantile and random numbers of the
-\deqn{f_N(z)=\frac{Z}{\theta_N^2} e^{-\frac{1}{2}\left(\frac{Z}{\theta_N}\right)^2}}
-for   \eqn{\theta_N > 0}, the first shape parameter.
+Density, distribution function, quantile function and random generation for
+the nuetrosophic Rayleigh distribution with parameter \eqn{\theta_N}.
+}
+\details{
+The neutrosophic Rayleigh distribution with parameter \eqn{\theta} has the density
+\deqn{f_N(x)=\frac{x}{\theta_N^2} e^{-\frac{1}{2}\left(\frac{x}{\theta_N}\right)^2}}
+for  \eqn{\theta_N > 0}.
 }
 \examples{
-x <- seq(0.01, 1, length.out = 21)
-x2 <- matrix(seq(0.01, 2, length.out = 40), ncol = 2)
-pnrd(x)
-pnrd(x, theta = 1)
-pnrd(x2, theta = c(2, 3))
+p <- seq(0.01, 1, length.out = 21)
+pnrd(p, theta = 1)
+
+p2 <- matrix(seq(0.01, 2, length.out = 40), ncol = 2)#'
+pnrd(p2, theta = c(2, 3))
 dnrd(x, theta = 2)
-curve(dnrd, .1, 3)
 dnrd(x2, theta = c(2, 2))
 qnrd(x, theta = 2)
 x2 <- matrix(seq(0.1, 1, length.out = 40), ncol = 2)
@@ -53,5 +59,5 @@ rnrd(n, theta = 1)
 rnrd(n, theta = c(1, 2))
 }
 \references{
-Khan, Zahid, et al. "Neutrosophic Rayleigh model with some basic characteristics and engineering applications." IEEE Access 9 (2021): 71277-71283.
+Khan, Z., Gulistan, M., Kausar, N. and Park, C. (2021). Neutrosophic Rayleigh Model With Some Basic Characteristics and Engineering Applications, in \emph{IEEE Access}, 9, 71277-71283.
 }

@@ -8,22 +8,25 @@
 \alias{rnwd}
 \title{Neutrosophic Weibull Distribution (NWD)}
 \usage{
-pnwd(x, beta = 1, alpha = 2)
+pnwd(p, beta, alpha)
 
-dnwd(x, beta = 1, alpha = 2)
+dnwd(x, beta, alpha)
 
-qnwd(q, beta = 1, alpha = 2)
+qnwd(q, beta, alpha)
 
-rnwd(n, beta = 1, alpha = 2)
+rnwd(n, beta, alpha)
 }
 \arguments{
-\item{x}{scaler or vector or matrix lower and upper of values at which the pdf or cdf needs to be computed.}
+\item{p}{scaler or vector of probabilities at which the quantile needs to be computed.}
 
 \item{beta}{the value or vector lower and upper of the first shape parameter. must be positive.}
 
 \item{alpha}{the value or vector lower and upper of the second scale parameter, must be positive.}
 
-\item{q}{scaler or vector of probabilities at which the quantile needs to be computed.}
+\item{x}{scaler or vector or matrix lower and upper of values at which the
+pdf or cdf needs to be computed.}
+
+\item{q}{scaler or vector of quantiles.}
 
 \item{n}{number of random numbers to be generated.}
 }
@@ -34,18 +37,25 @@ rnwd(n, beta = 1, alpha = 2)
  \code{rnwd} generates random variables from the Neutrosophic Weibull Distribution (NWD).
 }
 \description{
-Computes the pdf, cdf, quantile and random numbers of the nuetrosophic generalized exponential distribution.
-\deqn{f_N(X)=\frac{\beta_N}{\alpha_N} X^{\beta_N-1} e^{-\left(X / \alpha_N\right)^{\beta_N}}}
-for   \eqn{\beta_N > 0}, the first shape parameter, and \eqn{\alpha_N > 0}, the second scale parameter.
+Density, distribution function, quantile function and random generation for
+the nuetrosophic Weibull distribution with scale parameter \eqn{\alpha_N} and
+shape parameter \eqn{\beta_N}.
+}
+\details{
+The neutrosophic Rayleigh distribution with parameters \eqn{\alpha_N} and
+\eqn{\beta_N} has the density
+\deqn{f_N(x)=\frac{\beta_N}{\alpha_N^{\beta_N}} x^{\beta_N-1}
+    e^{-\left(x / \alpha_N\right)^{\beta_N}}}
+for \eqn{x > 0}, \eqn{\beta_N > 0}, shape parameter, and \eqn{\alpha_N > 0},
+scale parameter.
 }
 \examples{
-x <- seq(0.1, 1, length.out = 21)
-x2 <- matrix(seq(0.1, 2, length.out = 40), ncol = 2)
-pnwd(x)
-pnwd(x, beta = 1, alpha = 2)
-pnwd(x2, beta = c(1, 2), alpha = c(2, 2))
+p <- seq(0.1, 1, length.out = 21)
+p2 <- matrix(seq(0.1, 2, length.out = 40), ncol = 2)
+pnwd(p, beta = 1, alpha = 2)
+pnwd(p2, beta = c(1, 2), alpha = c(2, 2))
 dnwd(x, beta = 1, alpha = 2)
-curve(dnwd, .1, 3)
+
 dnwd(x2, beta = c(1, 2), alpha = c(2, 2))
 qnwd(x, beta = 1, alpha = 2)
 x2 <- matrix(seq(0.1, 1, length.out = 40), ncol = 2)
@@ -55,5 +65,7 @@ rnwd(n, beta = 1, alpha = 2)
 rnwd(n, beta = c(1, 2), alpha = c(1, 1))
 }
 \references{
-Sherwani, Rehan A. Khan, et al. Neutrosophic beta distribution with properties and applications. Infinite Study, 2021.
+Alhasan, K. F. H. and Smarandache, F. (2019). Neutrosophic Weibull
+   distribution and Neutrosophic Family Weibull Distribution,
+   \emph{Neutrosophic Sets and Systems}, 28, 191-199.
 }
