@@ -11,9 +11,8 @@
 #' and \eqn{\nu_N > 0}, the scale parameter.
 #'
 #' @name NGED
-#' @param x scaler or vector or matrix lower and upper of values at which the pdf or cdf needs to be computed.
-#' @param p scaler or vector of probabilities at which the quantile needs to be computed.
-#' @param q  scaler or vector of quantiles.
+#' @param x,q vector or matrix lower and upper of quantiles at which the pdf or cdf needs to be computed.
+#' @param p vector or matrix lower and upper of probabilities at which the quantile needs to be computed.
 #' @param n number of random numbers to be generated.
 #' @param nu the positive value or vector lower and upper of the scale parameter.
 #' @param delta the positive value or vector lower and upper of the shape parameter.
@@ -39,18 +38,18 @@
 #' pnged(p2, nu = c(1, 2), delta = c(2, 2))
 #' @export
 
-pnged <- function(p, nu, delta) {
+pnged <- function(q, nu, delta) {
   if (any(nu <= 0) || any(delta <= 0)) stop(message = "incompatible arguments.")
-  if (any(p < 0)) stop(message = "[Warning] 0 < x ")
-  if (is.vector(p)) {
-    F0 <- (1 - exp(-p / nu[1]))^delta[1]
+  if (any(q < 0)) stop(message = "[Warning] 0 < x ")
+  if (is.vector(q)) {
+    F0 <- (1 - exp(-q / nu[1]))^delta[1]
   } else {
     if (length(nu) < 2 || length(delta) < 2) {
       stop(message = "incompatible arguments.")
     } else {
-      F0 <- matrix(data = NA, nrow = nrow(p), ncol = 2)
-      F0[, 1] <- (1 - exp(-p[, 1] / nu[1]))^delta[1]
-      F0[, 2] <- (1 - exp(-p[, 2] / nu[2]))^delta[2]
+      F0 <- matrix(data = NA, nrow = nrow(q), ncol = 2)
+      F0[, 1] <- (1 - exp(-q[, 1] / nu[1]))^delta[1]
+      F0[, 2] <- (1 - exp(-q[, 2] / nu[2]))^delta[2]
     }
   }
   return(F0)
@@ -85,22 +84,22 @@ dnged <- function(x, nu, delta) {
 #'
 #' qnged(x2, nu = c(1, 2), delta = c(2, 2))
 #' @export
-qnged <- function(q, nu, delta) {
-  if (any(q < 0) || any(q > 1)) stop(message = "[Warning] 0 < x < 1.")
+qnged <- function(p, nu, delta) {
+  if (any(p < 0) || any(p > 1)) stop(message = "[Warning] 0 < x < 1.")
   if (any(nu <= 0) || any(delta <= 0)) stop(message = "incompatible arguments.")
-  if (is.vector(q) && length(nu) < 2 || length(delta) < 2) {
-    qf <- log(1 - (q^(1 / delta[1]))) * (-nu[1])
+  if (is.vector(p) && length(nu) < 2 || length(delta) < 2) {
+    qf <- log(1 - (p^(1 / delta[1]))) * (-nu[1])
   } else {
     if (length(nu) < 2 || length(delta) < 2) {
       stop(message = "incompatible arguments.")
     } else {
-      if (is.vector(q) && length(q) == 2) {
-        q <- matrix(q, nrow = 1, ncol = 2)
+      if (is.vector(p) && length(p) == 2) {
+        p <- matrix(p, nrow = 1, ncol = 2)
       }
 
-      qf <- matrix(data = NA, nrow = nrow(q), ncol = 2)
-      qf[, 1] <- log(-q[, 1]^(1 / delta[1]) + 1) * (-nu[1])
-      qf[, 2] <- log(-q[, 2]^(1 / delta[2]) + 1) * (-nu[2])
+      qf <- matrix(data = NA, nrow = nrow(p), ncol = 2)
+      qf[, 1] <- log(-p[, 1]^(1 / delta[1]) + 1) * (-nu[1])
+      qf[, 2] <- log(-p[, 2]^(1 / delta[2]) + 1) * (-nu[2])
     }
   }
   return(qf)
