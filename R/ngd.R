@@ -12,10 +12,8 @@
 #' function implemented by \code{\link{gamma}}.
 #'
 #' @name NGD
-#' @param x scaler or vector or matrix lower and upper of values at which the
-#' pdf or cdf needs to be computed.
-#' @param p scaler or vector of probabilities at which the quantile needs to be computed.
-#' @param q scaler or vector of quantiles.
+#' @param x,q vector or matrix lower and upper of quantiles at which the pdf or cdf needs to be computed.
+#' @param p vector or matrix lower and upper of probabilities at which the quantile needs to be computed.
 #' @param n number of random numbers to be generated.
 #' @param alpha the positive value or vector lower and upper of the first shape parameter.
 #' @param lambda the positive value or vector lower and upper of the second scale parameter.
@@ -38,18 +36,18 @@
 #' pngd(x2, alpha = c(1, 2), lambda = c(2, 2))
 #' @export
 
-pngd <- function(p, alpha = 1, lambda = 2) {
+pngd <- function(q, alpha = 1, lambda = 2) {
   if (any(alpha <= 0) || any(lambda <= 0)) stop(message = "incompatible arguments.")
-  if (any(x < 0)) stop(message = "[Warning] 0 < x ")
-  if (is.vector(x)) {
-    F0 <- stats::pgamma(p, shape = alpha[1], scale = lambda[1])
+  if (any(q < 0)) stop(message = "[Warning] 0 < x ")
+  if (is.vector(q)) {
+    F0 <- stats::pgamma(q, shape = alpha[1], scale = lambda[1])
   } else {
     if (length(alpha) < 2 || length(lambda) < 2) {
       stop(message = "incompatible arguments.")
     } else {
-      F0 <- matrix(data = NA, nrow = nrow(x), ncol = 2)
-      F0[, 1] <- stats::pgamma(x[, 1], shape = alpha[1], scale = lambda[1])
-      F0[, 2] <- stats::pgamma(x[, 2], shape = alpha[2], scale = lambda[2])
+      F0 <- matrix(data = NA, nrow = nrow(q), ncol = 2)
+      F0[, 1] <- stats::pgamma(q[, 1], shape = alpha[1], scale = lambda[1])
+      F0[, 2] <- stats::pgamma(q[, 2], shape = alpha[2], scale = lambda[2])
     }
   }
   return(F0)
@@ -84,22 +82,22 @@ dngd <- function(x, alpha = 1, lambda = 2) {
 #'
 #' qngd(x2, alpha = c(1, 2), lambda = c(2, 2))
 #' @export
-qngd <- function(q, alpha = 1, lambda = 2) {
-  if (any(q < 0) || any(q > 1)) stop(message = "[Warning] 0 < x < 1.")
+qngd <- function(p, alpha = 1, lambda = 2) {
+  if (any(p < 0) || any(p > 1)) stop(message = "[Warning] 0 < x < 1.")
   if (any(alpha <= 0) || any(lambda <= 0)) stop(message = "incompatible arguments.")
-  if (is.vector(q) && length(alpha) < 2 || length(lambda) < 2) {
-    qf <- stats::qgamma(q, shape = alpha[1], scale = lambda[1])
+  if (is.vector(p) && length(alpha) < 2 || length(lambda) < 2) {
+    qf <- stats::qgamma(p, shape = alpha[1], scale = lambda[1])
   } else {
     if (length(alpha) < 2 || length(lambda) < 2) {
       stop(message = "incompatible arguments.")
     } else {
-      if (is.vector(q) && length(q) == 2) {
-        q <- matrix(q, nrow = 1, ncol = 2)
+      if (is.vector(p) && length(p) == 2) {
+        p <- matrix(p, nrow = 1, ncol = 2)
       }
 
-      qf <- matrix(data = NA, nrow = nrow(q), ncol = 2)
-      qf[, 1] <- stats::qgamma(q[, 1], shape = p[1], scale = lambda[1])
-      qf[, 2] <- stats::qgamma(q[, 2], shape = p[2], scale = lambda[2])
+      qf <- matrix(data = NA, nrow = nrow(p), ncol = 2)
+      qf[, 1] <- stats::qgamma(p[, 1], shape = p[1], scale = lambda[1])
+      qf[, 2] <- stats::qgamma(p[, 2], shape = p[2], scale = lambda[2])
     }
   }
   return(qf)

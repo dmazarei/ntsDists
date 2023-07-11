@@ -8,10 +8,8 @@
 #' for   \eqn{\lambda_N > 0}.
 #'
 #' @name NPD
-#' @param x scaler or vector or matrix lower and upper of values at which
-#' the pdf or cdf needs to be computed.
-#' @param p scaler or vector of probabilities at which the quantile needs to be computed.
-#' @param q scaler or vector of quantiles.
+#' @param x,q vector or matrix lower and upper of (non-negative integer) quantiles at which the pdf or cdf needs to be computed.
+#' @param p vector or matrix lower and upper of probabilities at which the quantile needs to be computed.
 #' @param n number of random numbers to be generated.
 #' @param lambda the value or vector lower and upper of (non-negative)the first shape parameter, must be positive.
 #'
@@ -32,18 +30,18 @@
 #' pnpd(p2, lambda = c(2, 3))
 #' @export
 
-pnpd <- function(p, lambda) {
+pnpd <- function(q, lambda) {
   if (any(lambda < 0)) stop(message = "incompatible arguments.")
-  if (any(x < 0) && any(x - floor(p) == 0)) stop(message = "[Warning] 0 < p or non-integer ")
-  if (is.vector(p)) {
-    F0 <- stats::ppois(p, lambda = lambda[1])
+  if (any(q < 0) && any(q - floor(q) == 0)) stop(message = "[Warning] 0 < x or non-integer ")
+  if (is.vector(q)) {
+    F0 <- stats::ppois(q, lambda = lambda[1])
   } else {
     if (length(lambda) < 2) {
       stop(message = "incompatible arguments.")
     } else {
-      F0 <- matrix(data = NA, nrow = nrow(p), ncol = 2)
-      F0[, 1] <- stats::ppois(p[, 1], lambda = lambda[1])
-      F0[, 2] <- stats::ppois(p[, 2], lambda = lambda[2])
+      F0 <- matrix(data = NA, nrow = nrow(q), ncol = 2)
+      F0[, 1] <- stats::ppois(q[, 1], lambda = lambda[1])
+      F0[, 2] <- stats::ppois(q[, 2], lambda = lambda[2])
     }
   }
   return(F0)
@@ -78,22 +76,22 @@ dnpd <- function(x, lambda) {
 #' q2 <- matrix(seq(0.1, 1, length.out = 40), ncol = 2)
 #' qnpd(q2, lambda = c(2, 2))
 #' @export
-qnpd <- function(q, lambda) {
-  if (any(q < 0) || any(q > 1)) stop(message = "[Warning] 0 < x < 1.")
+qnpd <- function(p, lambda) {
+  if (any(p < 0) || any(p > 1)) stop(message = "[Warning] 0 < x < 1.")
   if (any(lambda < 0)) stop(message = "incompatible arguments.")
-  if (is.vector(q) && length(lambda) < 2) {
-    qf <- stats::qpois(q, lambda = lambda[1])
+  if (is.vector(p) && length(lambda) < 2) {
+    qf <- stats::qpois(p, lambda = lambda[1])
   } else {
     if (length(lambda) < 2) {
       stop(message = "incompatible arguments.")
     } else {
-      if (is.vector(q) && length(q) == 2) {
-        q <- matrix(q, nrow = 1, ncol = 2)
+      if (is.vector(p) && length(p) == 2) {
+        p <- matrix(p, nrow = 1, ncol = 2)
       }
 
-      qf <- matrix(data = NA, nrow = nrow(q), ncol = 2)
-      qf[, 1] <- stats::qpois(q[, 1], lambda = lambda[1])
-      qf[, 2] <- stats::qpois(q[, 2], lambda = lambda[2])
+      qf <- matrix(data = NA, nrow = nrow(p), ncol = 2)
+      qf[, 1] <- stats::qpois(p[, 1], lambda = lambda[1])
+      qf[, 2] <- stats::qpois(p[, 2], lambda = lambda[2])
     }
   }
   return(qf)

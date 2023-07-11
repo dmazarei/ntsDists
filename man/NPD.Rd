@@ -8,23 +8,20 @@
 \alias{rnpd}
 \title{Neutrosophic Poisson Distribution (NPD)}
 \usage{
-pnpd(p, lambda)
+pnpd(q, lambda)
 
 dnpd(x, lambda)
 
-qnpd(q, lambda)
+qnpd(p, lambda)
 
 rnpd(n, lambda)
 }
 \arguments{
-\item{p}{scaler or vector of probabilities at which the quantile needs to be computed.}
-
 \item{lambda}{the value or vector lower and upper of (non-negative)the first shape parameter, must be positive.}
 
-\item{x}{scaler or vector or matrix lower and upper of values at which
-the pdf or cdf needs to be computed.}
+\item{x, q}{vector or matrix lower and upper of (non-negative integer) quantiles at which the pdf or cdf needs to be computed.}
 
-\item{q}{scaler or vector of quantiles.}
+\item{p}{vector or matrix lower and upper of probabilities at which the quantile needs to be computed.}
 
 \item{n}{number of random numbers to be generated.}
 }

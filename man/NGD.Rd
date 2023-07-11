@@ -8,25 +8,22 @@
 \alias{rngd}
 \title{Neutrosophic Gamma Distribution (NGD)}
 \usage{
-pngd(p, alpha = 1, lambda = 2)
+pngd(q, alpha = 1, lambda = 2)
 
 dngd(x, alpha = 1, lambda = 2)
 
-qngd(q, alpha = 1, lambda = 2)
+qngd(p, alpha = 1, lambda = 2)
 
 rngd(n, alpha = 1, lambda = 2)
 }
 \arguments{
-\item{p}{scaler or vector of probabilities at which the quantile needs to be computed.}
-
 \item{alpha}{the positive value or vector lower and upper of the first shape parameter.}
 
 \item{lambda}{the positive value or vector lower and upper of the second scale parameter.}
 
-\item{x}{scaler or vector or matrix lower and upper of values at which the
-pdf or cdf needs to be computed.}
+\item{x, q}{vector or matrix lower and upper of quantiles at which the pdf or cdf needs to be computed.}
 
-\item{q}{scaler or vector of quantiles.}
+\item{p}{vector or matrix lower and upper of probabilities at which the quantile needs to be computed.}
 
 \item{n}{number of random numbers to be generated.}
 }

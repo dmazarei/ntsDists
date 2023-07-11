@@ -8,9 +8,8 @@
 #' \deqn{f_N(x)=\theta_N \exp \left(-x \theta_N\right)}
 #' for \eqn{x \ge 0} and \eqn{\theta_N > 0}, the rate parameter.
 #' @name NED
-#' @param x scaler or vector or matrix lower and upper of values at which the pdf or cdf needs to be computed.
-#' @param p scaler or vector of probabilities at which the quantile needs to be computed.
-#' @param q scaler or vector of quantiles.
+#' @param x,q vector or matrix lower and upper of quantiles at which the pdf or cdf needs to be computed.
+#' @param p vector or matrix lower and upper of probabilities at which the quantile needs to be computed.
 #' @param n number of random numbers to be generated.
 #' @param theta the positive value or vector lower and upper of the first shape parameter.
 #'
@@ -33,18 +32,18 @@
 #' pned(x2, theta = c(2, 3))
 #' @export
 
-pned <- function(p, theta) {
+pned <- function(q, theta) {
   if (any(theta <= 0)) stop(message = "incompatible arguments.")
-  if (any(x < 0)) stop(message = "[Warning] 0 < x ")
-  if (is.vector(x)) {
-    F0 <- 1 - exp(-p * theta[1])
+  if (any(q < 0)) stop(message = "[Warning] 0 < x ")
+  if (is.vector(q)) {
+    F0 <- 1 - exp(-q * theta[1])
   } else {
     if (length(theta) < 2) {
       stop(message = "incompatible arguments.")
     } else {
-      F0 <- matrix(data = NA, nrow = nrow(x), ncol = 2)
-      F0[, 1] <- 1 - exp(-p[, 1] * theta[1])
-      F0[, 2] <- 1 - exp(-p[, 2] * theta[2])
+      F0 <- matrix(data = NA, nrow = nrow(q), ncol = 2)
+      F0[, 1] <- 1 - exp(-q[, 1] * theta[1])
+      F0[, 2] <- 1 - exp(-q[, 2] * theta[2])
     }
   }
   return(F0)
@@ -82,22 +81,22 @@ dned <- function(x, theta) {
 #' qned(x2, theta = c(2, 2))
 #'
 #' @export
-qned <- function(q, theta) {
-  if (any(q < 0) || any(q > 1)) stop(message = "[Warning] 0 < x < 1.")
+qned <- function(p, theta) {
+  if (any(p < 0) || any(p > 1)) stop(message = "[Warning] 0 < x < 1.")
   if (any(theta <= 0)) stop(message = "incompatible arguments.")
-  if (is.vector(q) && length(theta) < 2) {
-    qf <- -log(1 - q) / theta[1]
+  if (is.vector(p) && length(theta) < 2) {
+    qf <- -log(1 - p) / theta[1]
   } else {
     if (length(theta) < 2) {
       stop(message = "incompatible arguments.")
     } else {
-      if (is.vector(q) && length(q) == 2) {
-        q <- matrix(q, nrow = 1, ncol = 2)
+      if (is.vector(p) && length(p) == 2) {
+        p <- matrix(p, nrow = 1, ncol = 2)
       }
 
-      qf <- matrix(data = NA, nrow = nrow(q), ncol = 2)
-      qf[, 1] <- -log(1 - q[, 1]) / theta[1]
-      qf[, 2] <- -log(1 - q[, 2]) / theta[2]
+      qf <- matrix(data = NA, nrow = nrow(p), ncol = 2)
+      qf[, 1] <- -log(1 - p[, 1]) / theta[1]
+      qf[, 2] <- -log(1 - p[, 2]) / theta[2]
     }
   }
   return(qf)

@@ -13,10 +13,8 @@
 #'
 #' @name NBD
 #'
-#' @param x scaler or vector or matrix lower and upper of values at which
-#' the pdf or cdf needs to be computed.
-#' @param p scaler or vector of probabilities at which the quantile needs to be computed.
-#' @param q scaler or vector of quantiles.
+#' @param x,q vector or matrix lower and upper of quantiles at which the pdf or cdf needs to be computed.
+#' @param p vector or matrix lower and upper of probabilities at which the quantile needs to be computed.
 #' @param n number of random numbers to be generated.
 #' @param alpha the positive value or vector lower and upper of the first shape parameter.
 #' @param beta the positive value or vector lower and upper of the second shape parameter.
@@ -40,18 +38,18 @@
 #'
 #' @export
 
-pnbd <- function(p, alpha, beta) {
+pnbd <- function(q, alpha, beta) {
   if (any(alpha <= 0) || any(beta <= 0)) stop(message = "incompatible arguments.")
-  if (any(x < 0)) stop(message = "[Warning] 0 < x ")
-  if (is.vector(x)) {
-    F0 <- stats::pbeta(p, shape1 = alpha[1], shape2 = beta[1])
+  if (any(q < 0)) stop(message = "[Warning] 0 < x ")
+  if (is.vector(q)) {
+    F0 <- stats::pbeta(q, shape1 = alpha[1], shape2 = beta[1])
   } else {
     if (length(alpha) < 2 || length(beta) < 2) {
       stop(message = "incompatible arguments.")
     } else {
-      F0 <- matrix(data = NA, nrow = nrow(x), ncol = 2)
-      F0[, 1] <- stats::pbeta(x[, 1], shape1 = alpha[1], shape2 = beta[1])
-      F0[, 2] <- stats::pbeta(x[, 2], shape1 = alpha[2], shape2 = beta[2])
+      F0 <- matrix(data = NA, nrow = nrow(q), ncol = 2)
+      F0[, 1] <- stats::pbeta(q[, 1], shape1 = alpha[1], shape2 = beta[1])
+      F0[, 2] <- stats::pbeta(q[, 2], shape1 = alpha[2], shape2 = beta[2])
     }
   }
   return(F0)
@@ -88,22 +86,22 @@ dnbd <- function(x, alpha, beta) {
 #' qnbd(x2, alpha = c(1, 2), beta = c(2, 2))
 #'
 #' @export
-qnbd <- function(q, alpha, beta) {
-  if (any(q < 0) || any(q > 1)) stop(message = "[Warning] 0 < x < 1.")
+qnbd <- function(p, alpha, beta) {
+  if (any(p < 0) || any(p > 1)) stop(message = "[Warning] 0 < x < 1.")
   if (any(alpha <= 0) || any(beta <= 0)) stop(message = "incompatible arguments.")
-  if (is.vector(q) && length(alpha) < 2 || length(beta) < 2) {
-    qf <- stats::qbeta(q, shape1 = alpha[1], shape2 = beta[1])
+  if (is.vector(p) && length(alpha) < 2 || length(beta) < 2) {
+    qf <- stats::qbeta(p, shape1 = alpha[1], shape2 = beta[1])
   } else {
     if (length(alpha) < 2 || length(beta) < 2) {
       stop(message = "incompatible arguments.")
     } else {
-      if (is.vector(q) && length(q) == 2) {
-        q <- matrix(q, nrow = 1, ncol = 2)
+      if (is.vector(p) && length(p) == 2) {
+        p <- matrix(p, nrow = 1, ncol = 2)
       }
 
-      qf <- matrix(data = NA, nrow = nrow(q), ncol = 2)
-      qf[, 1] <- stats::qbeta(q[, 1], shape1 = alpha[1], shape2 = beta[1])
-      qf[, 2] <- stats::qbeta(q[, 2], shape1 = alpha[2], shape2 = beta[2])
+      qf <- matrix(data = NA, nrow = nrow(p), ncol = 2)
+      qf[, 1] <- stats::qbeta(p[, 1], shape1 = alpha[1], shape2 = beta[1])
+      qf[, 2] <- stats::qbeta(p[, 2], shape1 = alpha[2], shape2 = beta[2])
     }
   }
   return(qf)

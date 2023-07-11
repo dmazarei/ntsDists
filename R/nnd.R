@@ -11,9 +11,8 @@
 #' the standard deviation.
 #'
 #' @name NND
-#' @param x scaler or vector or matrix lower and upper of values at which the pdf or cdf needs to be computed.
-#' @param p scaler or vector of probabilities at which the quantile needs to be computed.
-#' @param q scaler or vector of quantiles.
+#' @param x,q vector or matrix lower and upper of quantiles at which the pdf or cdf needs to be computed.
+#' @param p vector or matrix lower and upper of probabilities at which the quantile needs to be computed.
 #' @param n number of random numbers to be generated.
 #' @param mu the value or vector lower and upper of the first parameter.
 #' @param sigma the positive value or vector lower and upper of the second parameter.
