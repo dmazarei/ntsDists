@@ -40,7 +40,7 @@
 
 pnged <- function(q, nu, delta) {
   if (any(nu <= 0) || any(delta <= 0)) stop(message = "incompatible arguments.")
-  if (any(q < 0)) stop(message = "[Warning] 0 < x ")
+  if (any(q < 0)) stop(message = "[Warning] 0 < q ")
   if (is.vector(q)) {
     F0 <- (1 - exp(-q / nu[1]))^delta[1]
   } else {

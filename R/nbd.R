@@ -33,14 +33,14 @@
 #' x <- seq(0.1, 1, length.out = 21)#'
 #' pnbd(x, alpha = 2, beta = 1)
 #'
-#' x2 <- matrix(seq(0.1, 2, length.out = 40), ncol = 2)
+#' x2 <- matrix(seq(0.1, 1, length.out = 40), ncol = 2)
 #' pnbd(x2, alpha = c(1, 2), beta = c(2, 2))
 #'
 #' @export
 
 pnbd <- function(q, alpha, beta) {
   if (any(alpha <= 0) || any(beta <= 0)) stop(message = "incompatible arguments.")
-  if (any(q < 0)) stop(message = "[Warning] 0 < x ")
+  if (any(q < 0)) stop(message = "[Warning] 0 < q ")
   if (is.vector(q)) {
     F0 <- stats::pbeta(q, shape1 = alpha[1], shape2 = beta[1])
   } else {

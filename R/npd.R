@@ -32,7 +32,7 @@
 
 pnpd <- function(q, lambda) {
   if (any(lambda < 0)) stop(message = "incompatible arguments.")
-  if (any(q < 0) && any(q - floor(q) == 0)) stop(message = "[Warning] 0 < x or non-integer ")
+  if (any(q < 0) && any(q - floor(q) == 0)) stop(message = "[Warning] 0 < q or non-integer ")
   if (is.vector(q)) {
     F0 <- stats::ppois(q, lambda = lambda[1])
   } else {

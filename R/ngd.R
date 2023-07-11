@@ -38,7 +38,7 @@
 
 pngd <- function(q, alpha = 1, lambda = 2) {
   if (any(alpha <= 0) || any(lambda <= 0)) stop(message = "incompatible arguments.")
-  if (any(q < 0)) stop(message = "[Warning] 0 < x ")
+  if (any(q < 0)) stop(message = "[Warning] 0 < q ")
   if (is.vector(q)) {
     F0 <- stats::pgamma(q, shape = alpha[1], scale = lambda[1])
   } else {

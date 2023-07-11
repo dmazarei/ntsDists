@@ -38,7 +38,7 @@
 
 pnwd <- function(q, beta, alpha) {
   if (any(alpha <= 0) || any(beta <= 0)) stop(message = "incompatible arguments.")
-  if (any(q < 0)) stop(message = "[Warning] 0 < x ")
+  if (any(q < 0)) stop(message = "[Warning] 0 < q ")
   if (is.vector(q)) {
     F0 <- stats::pweibull(q, shape = beta[1], scale = alpha[1])
   } else {

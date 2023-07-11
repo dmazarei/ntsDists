@@ -34,7 +34,7 @@
 
 pned <- function(q, theta) {
   if (any(theta <= 0)) stop(message = "incompatible arguments.")
-  if (any(q < 0)) stop(message = "[Warning] 0 < x ")
+  if (any(q < 0)) stop(message = "[Warning] 0 < q ")
   if (is.vector(q)) {
     F0 <- 1 - exp(-q * theta[1])
   } else {
