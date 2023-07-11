@@ -41,15 +41,15 @@ The neutrosophic Rayleigh distribution with parameter \eqn{\theta} has the densi
 for  \eqn{\theta_N > 0}.
 }
 \examples{
-p <- seq(0.01, 1, length.out = 21)
-pnrd(p, theta = 1)
+x <- seq(0.01, 1, length.out = 21)
+pnrd(x, theta = 1)
 
-p2 <- matrix(seq(0.01, 2, length.out = 40), ncol = 2)#'
-pnrd(p2, theta = c(2, 3))
+x2 <- matrix(seq(0.01, 1, length.out = 40), ncol = 2)#'
+pnrd(x2, theta = c(2, 3))
 dnrd(x, theta = 2)
 dnrd(x2, theta = c(2, 2))
 qnrd(x, theta = 2)
-x2 <- matrix(seq(0.1, 1, length.out = 40), ncol = 2)
+
 qnrd(x2, theta = c(2, 2))
 n <- 10
 rnrd(n, theta = 1)

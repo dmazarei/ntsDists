@@ -46,10 +46,10 @@ for \eqn{-\infty < x < \infty}, \eqn{\mu_N}, the mean, and \eqn{\sigma_N > 0},
 the standard deviation.
 }
 \examples{
-p <- seq(0.1, 1, length.out = 21)
+x <- seq(0.1, 1, length.out = 21)
 pnnd(x, mu = c(2,2), sigma = c(1,1))
 
-p2 <- matrix(seq(0.1, 2, length.out = 40), ncol = 2)
+x2 <- matrix(seq(0.1, 1, length.out = 40), ncol = 2)
 pnnd(x2, mu = c(1, 2), sigma = c(2, 2))
 dnnd(x = 0.5, mu = 1, sigma = 2)
 

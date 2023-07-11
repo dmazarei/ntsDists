@@ -45,7 +45,7 @@ for \eqn{x \ge 0} and \eqn{\theta_N > 0}, the rate parameter.
 x <- seq(0.01, 1, length.out = 21)
 pned(x, theta = 1)
 
-x2 <- matrix(seq(0.01, 2, length.out = 40), ncol = 2)
+x2 <- matrix(seq(0.01, 1, length.out = 40), ncol = 2)
 pned(x2, theta = c(2, 3))
 
 dned(x, theta = 2)

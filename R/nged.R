@@ -31,11 +31,11 @@
 #'
 #' @importFrom stats runif
 #' @examples
-#' p <- seq(0.1, 1, length.out = 21)
-#' pnged(p, nu = 2, delta = 1)
+#' x <- seq(0.1, 1, length.out = 21)
+#' pnged(x, nu = 2, delta = 1)
 #'
-#' p2 <- matrix(seq(0.1, 2, length.out = 40), ncol = 2)
-#' pnged(p2, nu = c(1, 2), delta = c(2, 2))
+#' x2 <- matrix(seq(0.1, 1, length.out = 40), ncol = 2)
+#' pnged(x2, nu = c(1, 2), delta = c(2, 2))
 #' @export
 
 pnged <- function(q, nu, delta) {

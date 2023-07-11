@@ -23,11 +23,11 @@
 #'
 #' @importFrom stats runif
 #' @examples
-#' p <- seq(0.01, 1, length.out = 21)
-#' pnrd(p, theta = 1)
+#' x <- seq(0.01, 1, length.out = 21)
+#' pnrd(x, theta = 1)
 #'
-#' p2 <- matrix(seq(0.01, 2, length.out = 40), ncol = 2)#'
-#' pnrd(p2, theta = c(2, 3))
+#' x2 <- matrix(seq(0.01, 1, length.out = 40), ncol = 2)#'
+#' pnrd(x2, theta = c(2, 3))
 #' @export
 
 pnrd <- function(q, theta) {
@@ -72,7 +72,7 @@ dnrd <- function(x, theta) {
 #' @name NRD
 #' @examples
 #' qnrd(x, theta = 2)
-#' x2 <- matrix(seq(0.1, 1, length.out = 40), ncol = 2)
+#'
 #' qnrd(x2, theta = c(2, 2))
 #' @export
 qnrd <- function(p, theta) {

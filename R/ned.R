@@ -28,7 +28,7 @@
 #' x <- seq(0.01, 1, length.out = 21)
 #' pned(x, theta = 1)
 #'
-#' x2 <- matrix(seq(0.01, 2, length.out = 40), ncol = 2)
+#' x2 <- matrix(seq(0.01, 1, length.out = 40), ncol = 2)
 #' pned(x2, theta = c(2, 3))
 #' @export
 

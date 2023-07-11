@@ -32,7 +32,7 @@
 #' x <- seq(0.1, 1, length.out = 21)
 #' pngd(x, alpha = 2, lambda = 1)
 #'
-#' x2 <- matrix(seq(0.1, 2, length.out = 40), ncol = 2)
+#' x2 <- matrix(seq(0.1, 1, length.out = 40), ncol = 2)
 #' pngd(x2, alpha = c(1, 2), lambda = c(2, 2))
 #' @export
 

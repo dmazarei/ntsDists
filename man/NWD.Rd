@@ -47,10 +47,10 @@ for \eqn{x > 0}, \eqn{\beta_N > 0}, shape parameter, and \eqn{\alpha_N > 0},
 scale parameter.
 }
 \examples{
-p <- seq(0.1, 1, length.out = 21)
-p2 <- matrix(seq(0.1, 2, length.out = 40), ncol = 2)
-pnwd(p, beta = 1, alpha = 2)
-pnwd(p2, beta = c(1, 2), alpha = c(2, 2))
+x <- seq(0.1, 1, length.out = 21)
+x2 <- matrix(seq(0.1, 1, length.out = 40), ncol = 2)
+pnwd(x, beta = 1, alpha = 2)
+pnwd(x2, beta = c(1, 2), alpha = c(2, 2))
 dnwd(x, beta = 1, alpha = 2)
 
 dnwd(x2, beta = c(1, 2), alpha = c(2, 2))

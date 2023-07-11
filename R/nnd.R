@@ -28,10 +28,10 @@
 #' @importFrom stats runif dnorm pnorm qnorm
 #'
 #' @examples
-#' p <- seq(0.1, 1, length.out = 21)
+#' x <- seq(0.1, 1, length.out = 21)
 #' pnnd(x, mu = c(2,2), sigma = c(1,1))
 #'
-#' p2 <- matrix(seq(0.1, 2, length.out = 40), ncol = 2)
+#' x2 <- matrix(seq(0.1, 1, length.out = 40), ncol = 2)
 #' pnnd(x2, mu = c(1, 2), sigma = c(2, 2))
 #' @export
 
