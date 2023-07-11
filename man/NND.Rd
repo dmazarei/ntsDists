@@ -60,7 +60,7 @@ x2 = matrix(seq(-3,3,length.out = 10), nrow = 2, ncol = 5)
 dnnd(x2, mu = c(1, 2), sigma = c(2, 2))
 q1 <- c(0.01)
 qnnd(q1, mu = 1, sigma = 2)
-
+x2 <- matrix(seq(0.1, 1, length.out = 40), ncol = 2)
 qnnd(x2, mu = c(1, 2), sigma = c(2, 2))
 n <- 100
 rnnd(n, mu = c(1,1), sigma = c(2,2))
