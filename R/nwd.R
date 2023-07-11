@@ -12,10 +12,8 @@
 #' scale parameter.
 #'
 #' @name NWD
-#' @param x scaler or vector or matrix lower and upper of values at which the
-#' pdf or cdf needs to be computed.
-#' @param p scaler or vector of probabilities at which the quantile needs to be computed.
-#' @param q scaler or vector of quantiles.
+#' @param x,q vector or matrix lower and upper of quantiles at which the pdf or cdf needs to be computed.
+#' @param p vector or matrix lower and upper of probabilities at which the quantile needs to be computed.
 #' @param n number of random numbers to be generated.
 #' @param beta the value or vector lower and upper of the first shape parameter. must be positive.
 #' @param alpha the value or vector lower and upper of the second scale parameter, must be positive.
@@ -38,18 +36,18 @@
 #' pnwd(p2, beta = c(1, 2), alpha = c(2, 2))
 #' @export
 
-pnwd <- function(p, beta, alpha) {
+pnwd <- function(q, beta, alpha) {
   if (any(alpha <= 0) || any(beta <= 0)) stop(message = "incompatible arguments.")
-  if (any(p < 0)) stop(message = "[Warning] 0 < p ")
-  if (is.vector(p)) {
-    F0 <- stats::pweibull(p, shape = beta[1], scale = alpha[1])
+  if (any(q < 0)) stop(message = "[Warning] 0 < x ")
+  if (is.vector(q)) {
+    F0 <- stats::pweibull(q, shape = beta[1], scale = alpha[1])
   } else {
     if (length(alpha) < 2 || length(beta) < 2) {
       stop(message = "incompatible arguments.")
     } else {
-      F0 <- matrix(data = NA, nrow = nrow(p), ncol = 2)
-      F0[, 1] <- stats::pweibull(p[, 1], shape = beta[1], scale = alpha[1])
-      F0[, 2] <- stats::pweibull(p[, 2], shape = beta[2], scale = alpha[2])
+      F0 <- matrix(data = NA, nrow = nrow(q), ncol = 2)
+      F0[, 1] <- stats::pweibull(q[, 1], shape = beta[1], scale = alpha[1])
+      F0[, 2] <- stats::pweibull(q[, 2], shape = beta[2], scale = alpha[2])
     }
   }
   return(F0)
@@ -84,22 +82,22 @@ dnwd <- function(x, beta, alpha) {
 #' x2 <- matrix(seq(0.1, 1, length.out = 40), ncol = 2)
 #' qnwd(x2, beta = c(1, 2), alpha = c(2, 2))
 #' @export
-qnwd <- function(q, beta, alpha) {
-  if (any(q < 0) || any(q > 1)) stop(message = "[Warning] 0 < x < 1.")
+qnwd <- function(p, beta, alpha) {
+  if (any(p < 0) || any(p > 1)) stop(message = "[Warning] 0 < x < 1.")
   if (any(alpha <= 0) || any(beta <= 0)) stop(message = "incompatible arguments.")
-  if (is.vector(q) && length(alpha) < 2 || length(beta) < 2) {
-    qf <- stats::qweibull(q, shape = beta[1], scale = alpha[1])
+  if (is.vector(p) && length(alpha) < 2 || length(beta) < 2) {
+    qf <- stats::qweibull(p, shape = beta[1], scale = alpha[1])
   } else {
     if (length(alpha) < 2 || length(beta) < 2) {
       stop(message = "incompatible arguments.")
     } else {
-      if (is.vector(q) && length(q) == 2) {
-        q <- matrix(q, nrow = 1, ncol = 2)
+      if (is.vector(p) && length(p) == 2) {
+        p <- matrix(p, nrow = 1, ncol = 2)
       }
 
-      qf <- matrix(data = NA, nrow = nrow(q), ncol = 2)
-      qf[, 1] <- stats::qweibull(q[, 1], shape = beta[1], scale = alpha[1])
-      qf[, 2] <- stats::qweibull(q[, 2], shape = beta[2], scale = alpha[2])
+      qf <- matrix(data = NA, nrow = nrow(p), ncol = 2)
+      qf[, 1] <- stats::qweibull(p[, 1], shape = beta[1], scale = alpha[1])
+      qf[, 2] <- stats::qweibull(p[, 2], shape = beta[2], scale = alpha[2])
     }
   }
   return(qf)

@@ -8,25 +8,22 @@
 \alias{rnwd}
 \title{Neutrosophic Weibull Distribution (NWD)}
 \usage{
-pnwd(p, beta, alpha)
+pnwd(q, beta, alpha)
 
 dnwd(x, beta, alpha)
 
-qnwd(q, beta, alpha)
+qnwd(p, beta, alpha)
 
 rnwd(n, beta, alpha)
 }
 \arguments{
-\item{p}{scaler or vector of probabilities at which the quantile needs to be computed.}
-
 \item{beta}{the value or vector lower and upper of the first shape parameter. must be positive.}
 
 \item{alpha}{the value or vector lower and upper of the second scale parameter, must be positive.}
 
-\item{x}{scaler or vector or matrix lower and upper of values at which the
-pdf or cdf needs to be computed.}
+\item{x, q}{vector or matrix lower and upper of quantiles at which the pdf or cdf needs to be computed.}
 
-\item{q}{scaler or vector of quantiles.}
+\item{p}{vector or matrix lower and upper of probabilities at which the quantile needs to be computed.}
 
 \item{n}{number of random numbers to be generated.}
 }
