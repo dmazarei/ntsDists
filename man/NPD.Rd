@@ -41,10 +41,10 @@ The neutrosophic Poisson distribution with parameter \eqn{\theta} has the densit
 for   \eqn{\lambda_N > 0}.
 }
 \examples{
-p <- 1:10
-p2 <- matrix(1:20, ncol = 2)
-pnpd(p, lambda = 1)
-pnpd(p2, lambda = c(2, 3))
+x <- 1:10
+x2 <- matrix(1:20, ncol = 2)
+pnpd(x, lambda = 1)
+pnpd(x2, lambda = c(2, 3))
 dnpd(x, lambda = 2)
 dnpd(x2, lambda = c(2, 2))
 q1 <- seq(0.1, 1, length.out = 40)

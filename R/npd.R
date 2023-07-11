@@ -24,10 +24,10 @@
 #'        \emph{Neutrosophic Sets and Systems},  22, 30-38.
 #' @importFrom stats runif dpois ppois qpois
 #' @examples
-#' p <- 1:10
-#' p2 <- matrix(1:20, ncol = 2)
-#' pnpd(p, lambda = 1)
-#' pnpd(p2, lambda = c(2, 3))
+#' x <- 1:10
+#' x2 <- matrix(1:20, ncol = 2)
+#' pnpd(x, lambda = 1)
+#' pnpd(x2, lambda = c(2, 3))
 #' @export
 
 pnpd <- function(q, lambda) {
