@@ -5,7 +5,7 @@
 #' \eqn{\mu}, and standard deviation \eqn{\sigma}.
 #'
 #' The neutrosophic normal distribution with parameters with \code{mean}=\eqn{\mu_N}
-#' and \code{std}=\exp{\sigma_N} has density
+#' and \code{std}=\eqn{\sigma_N} has density
 #' \deqn{f_N(x) = \frac{1}{\sigma_N \sqrt{2 \pi}} e^{\left(\frac{\left(X-\mu_N\right)^2}{2 \sigma_N^2}\right)}}
 #' for \eqn{-\infty < x < \infty}, \eqn{\mu_N}, the mean, and \eqn{\sigma_N > 0},
 #' the standard deviation.
