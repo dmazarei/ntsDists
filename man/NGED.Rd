@@ -8,24 +8,22 @@
 \alias{rnged}
 \title{Neutrosophic Generalized Exponential Distribution (NGED)}
 \usage{
-pnged(p, nu, delta)
+pnged(q, nu, delta)
 
 dnged(x, nu, delta)
 
-qnged(q, nu, delta)
+qnged(p, nu, delta)
 
 rnged(n, nu = 1, delta = 2)
 }
 \arguments{
-\item{p}{scaler or vector of probabilities at which the quantile needs to be computed.}
-
 \item{nu}{the positive value or vector lower and upper of the scale parameter.}
 
 \item{delta}{the positive value or vector lower and upper of the shape parameter.}
 
-\item{x}{scaler or vector or matrix lower and upper of values at which the pdf or cdf needs to be computed.}
+\item{x, q}{vector or matrix lower and upper of quantiles at which the pdf or cdf needs to be computed.}
 
-\item{q}{scaler or vector of quantiles.}
+\item{p}{vector or matrix lower and upper of probabilities at which the quantile needs to be computed.}
 
 \item{n}{number of random numbers to be generated.}
 }
