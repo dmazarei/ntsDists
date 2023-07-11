@@ -26,7 +26,7 @@
 #' x <- seq(0.01, 1, length.out = 21)
 #' pnrd(x, theta = 1)
 #'
-#' x2 <- matrix(seq(0.01, 1, length.out = 40), ncol = 2)#'
+#' x2 <- matrix(seq(0.01, 1, length.out = 40), ncol = 2) #'
 #' pnrd(x2, theta = c(2, 3))
 #' @export
 

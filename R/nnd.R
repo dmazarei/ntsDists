@@ -29,7 +29,7 @@
 #'
 #' @examples
 #' x <- seq(0.1, 1, length.out = 21)
-#' pnnd(x, mu = c(2,2), sigma = c(1,1))
+#' pnnd(x, mu = c(2, 2), sigma = c(1, 1))
 #'
 #' x2 <- matrix(seq(0.1, 1, length.out = 40), ncol = 2)
 #' pnnd(x2, mu = c(1, 2), sigma = c(2, 2))
@@ -55,10 +55,10 @@ pnnd <- function(q, mu, sigma) {
 #' @examples
 #' dnnd(x = 0.5, mu = 1, sigma = 2)
 #'
-#' x1 = c(-0.8,0.2,1.6,3.9)
-#' dnnd(x = 0.5, mu = c(1,1), sigma = c(2,2))
+#' x1 <- c(-0.8, 0.2, 1.6, 3.9)
+#' dnnd(x = 0.5, mu = c(1, 1), sigma = c(2, 2))
 #'
-#' x2 = matrix(seq(-3,3,length.out = 10), nrow = 2, ncol = 5)
+#' x2 <- matrix(seq(-3, 3, length.out = 10), nrow = 2, ncol = 5)
 #' dnnd(x2, mu = c(1, 2), sigma = c(2, 2))
 #' @export
 dnnd <- function(x, mu, sigma) {
@@ -108,7 +108,7 @@ qnnd <- function(p, mu, sigma) {
 #' @name NND
 #' @examples
 #' n <- 100
-#' rnnd(n, mu = c(1,1), sigma = c(2,2))
+#' rnnd(n, mu = c(1, 1), sigma = c(2, 2))
 #' rnnd(n, mu = c(1, 2), sigma = c(1, 1))
 #' @export
 rnnd <- function(n, mu, sigma) {

@@ -113,13 +113,13 @@ qnged <- function(p, nu, delta) {
 #' rnged(n, nu = c(1, 2), delta = c(1, 1))
 #' @export
 rnged <- function(n, nu = 1, delta = 2) {
- if (any(nu <= 0) || any(delta <= 0)) stop(message = "incompatible arguments.")
- if (length(nu) < 2 || length(delta) < 2) {
-   u <- runif(n)
-  X <- qnged(u, nu, delta)
- } else {
-   u <- matrix(runif(n * 2), nrow = n, ncol = 2)
-   X <- qnged(u, nu, delta)
- }
- return(X)
+  if (any(nu <= 0) || any(delta <= 0)) stop(message = "incompatible arguments.")
+  if (length(nu) < 2 || length(delta) < 2) {
+    u <- runif(n)
+    X <- qnged(u, nu, delta)
+  } else {
+    u <- matrix(runif(n * 2), nrow = n, ncol = 2)
+    X <- qnged(u, nu, delta)
+  }
+  return(X)
 }

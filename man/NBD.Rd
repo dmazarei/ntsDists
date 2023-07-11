@@ -47,7 +47,7 @@ the second shape parameter and \eqn{0 \le x \le 1}. The function \eqn{B(a,b)}
 return the beta function that can be calculated by \code{\link{beta}}.
 }
 \examples{
-x <- seq(0.1, 1, length.out = 21)#'
+x <- seq(0.1, 1, length.out = 21) #'
 pnbd(x, alpha = 2, beta = 1)
 
 x2 <- matrix(seq(0.1, 1, length.out = 40), ncol = 2)

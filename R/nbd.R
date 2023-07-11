@@ -30,7 +30,7 @@
 #'     Neutrosophic beta distribution with properties and applications. Neutrosophic Sets and Systems, 41, 209-214.
 #' @importFrom stats runif dbeta pbeta qbeta
 #' @examples
-#' x <- seq(0.1, 1, length.out = 21)#'
+#' x <- seq(0.1, 1, length.out = 21) #'
 #' pnbd(x, alpha = 2, beta = 1)
 #'
 #' x2 <- matrix(seq(0.1, 1, length.out = 40), ncol = 2)
