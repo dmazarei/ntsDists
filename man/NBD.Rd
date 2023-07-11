@@ -50,7 +50,7 @@ return the beta function that can be calculated by \code{\link{beta}}.
 x <- seq(0.1, 1, length.out = 21)#'
 pnbd(x, alpha = 2, beta = 1)
 
-x2 <- matrix(seq(0.1, 2, length.out = 40), ncol = 2)
+x2 <- matrix(seq(0.1, 1, length.out = 40), ncol = 2)
 pnbd(x2, alpha = c(1, 2), beta = c(2, 2))
 
 dnbd(x, alpha = 1, beta = 2)
