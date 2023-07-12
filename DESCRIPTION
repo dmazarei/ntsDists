@@ -1,6 +1,6 @@
 Package: ntsDists
 Type: Package
-Title: Computes some Measures of neutrosophic Family of Distributions
+Title: Computes some measures of neutrosophic family of distributions
 Version: 1.0.0
 Authors@R: c(
     person("Danial", "Mazarei", email = "danial.mazarei@gmail.com", role = "aut", comment = c(ORCID = "0000-0002-3633-9298")),
