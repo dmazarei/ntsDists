@@ -1,22 +1,26 @@
 ntsDists <img src="man/figures/logo.png" align="right" />
-<> ======================
-<> [![R-CMD-check](https://github.com/mnrzrad/ImpShrinkage/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/mnrzrad/ImpShrinkage/actions/workflows/R-CMD-check.yaml)
-<> [![CRAN_Status_Badge](https://www.r-pkg.org/badges/version/ntsDists)](https://cran.r-project.org/package=ntsDists)
-<> [![Downloads per month](https://cranlogs.r-pkg.org/badges/ntsDists)](https://cran.r-project.org/package=ntsDists)
-<> [![Total Downloads](https://cranlogs.r-pkg.org/badges/grand-total/ntsDists)](https://cran.r-project.org/package=ntsDists)
-<> [![Licence](https://img.shields.io/badge/licence-GPL--3-blue.svg)](https://www.gnu.org/licenses/gpl-3.0.en.html)
+======================
+<!---
+[![R-CMD-check](https://github.com/mnrzrad/ImpShrinkage/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/mnrzrad/ImpShrinkage/actions/workflows/R-CMD-check.yaml)
+[![CRAN_Status_Badge](https://www.r-pkg.org/badges/version/ntsDists)](https://cran.r-project.org/package=ntsDists)
+[![Downloads per month](https://cranlogs.r-pkg.org/badges/ntsDists)](https://cran.r-project.org/package=ntsDists)
+[![Total Downloads](https://cranlogs.r-pkg.org/badges/grand-total/ntsDists)](https://cran.r-project.org/package=ntsDists)
+[![Licence](https://img.shields.io/badge/licence-GPL--3-blue.svg)](https://www.gnu.org/licenses/gpl-3.0.en.html)
+-->
 
 The R package *ntsDists* computes some measures of neutrosophic family of distributions in the area of statistical analysis. More details can be found Rao et al. (2023).
 
 This work is funded by national funds through the FCT - Fundação para a Ciência e a Tecnologia, I.P., under the scope of the projects UIDB/00297/2020 and UIDP/00297/2020 (Center for Mathematics and Applications)".
 
+<!---
 ## Installation
-<> You can install the **stable** version from
-<> [CRAN](https://cran.r-project.org/package=ntsDists).
+You can install the **stable** version from
+[CRAN](https://cran.r-project.org/package=ntsDists).
 
-<> ```s
-<> install.packages('ntsDists', dependencies = TRUE)
-<> ```
+```s
+install.packages('ntsDists', dependencies = TRUE)
+```
+-->
 
 You can install the **development** version from
 [Github](https://github.com/dmazarei/ntsDists)
@@ -28,7 +32,9 @@ remotes::install_github("dmazarei/ntsDists")
 
 ## To cite package `ntsDists` in publications use:
   Mazarei D, Norouzirad M, Rao, G. S. (2023). _ntsDists: Neutrosophic distributions_. R package version 1.0.0,
-  <> <https://github.com/dmazarei/ntsDists>
+  <!---
+  <https://github.com/dmazarei/ntsDists>
+  -->
   <https://cran.r-project.org/package=ntsDists>.
 
 A BibTeX entry for LaTeX users is
@@ -38,7 +44,9 @@ A BibTeX entry for LaTeX users is
     author = {Danial Mazarei and Mina Norouzirad and Gadde Srinivasa Rao},
     year = {2023},
     note = {R package version 1.0.0},
-    <> url = {https://cran.r-project.org/package=ntsDists}
+    <!---
+    url = {https://cran.r-project.org/package=ntsDists}
+    -->
     url = {https://github.com/dmazarei/ntsDists}
   }
 
