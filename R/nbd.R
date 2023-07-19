@@ -48,7 +48,7 @@ pnbd <- function(q, alpha, beta) {
       stop(message = "incompatible arguments.")
     } else {
       F0 <- matrix(data = NA, nrow = nrow(q), ncol = ncol(q))
-      for( i in 1 : ncol(q)){
+      for (i in 1:ncol(q)) {
         F0[, i] <- stats::pbeta(q[, i], shape1 = alpha[i], shape2 = beta[i])
       }
     }
@@ -73,7 +73,7 @@ dnbd <- function(x, alpha, beta) {
       stop(message = "incompatible arguments.")
     } else {
       df <- matrix(data = NA, nrow = nrow(x), ncol = ncol(x))
-      for( i in 1 : ncol(x)){
+      for (i in 1:ncol(x)) {
         df[, i] <- stats::dbeta(x[, i], shape1 = alpha[i], shape2 = beta[i])
       }
     }
@@ -102,7 +102,7 @@ qnbd <- function(p, alpha, beta) {
       }
 
       qf <- matrix(data = NA, nrow = nrow(p), ncol = ncol(p))
-      for( i in 1 : ncol(p)){
+      for (i in 1:ncol(p)) {
         qf[, i] <- stats::qbeta(p[, i], shape1 = alpha[i], shape2 = beta[i])
       }
     }
@@ -122,8 +122,8 @@ rnbd <- function(n, alpha, beta) {
     u <- runif(n)
     X <- qnbd(u, alpha, beta)
   } else {
-    a <- min(length(alpha),length(beta))
-    u <- matrix(runif(n * 2), nrow = n, ncol = a)
+    a <- min(length(alpha), length(beta))
+    u <- matrix(runif(n * a), nrow = n, ncol = a)
     X <- qnbd(u, alpha[1:a], beta[1:a])
   }
   return(X)
