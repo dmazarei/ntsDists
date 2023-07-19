@@ -11,8 +11,8 @@
 #' and \eqn{\nu_N > 0}, the scale parameter.
 #'
 #' @name NGED
-#' @param x,q vector or matrix lower and upper of quantiles at which the pdf or cdf needs to be computed.
-#' @param p vector or matrix lower and upper of probabilities at which the quantile needs to be computed.
+#' @param x,q vector or matrix of quantiles at which the pdf or cdf needs to be computed.
+#' @param p vector or matrix of probabilities at which the quantile needs to be computed.
 #' @param n number of random numbers to be generated.
 #' @param nu the positive value or vector lower and upper of the scale parameter.
 #' @param delta the positive value or vector lower and upper of the shape parameter.
@@ -44,12 +44,13 @@ pnged <- function(q, nu, delta) {
   if (is.vector(q)) {
     F0 <- (1 - exp(-q / nu[1]))^delta[1]
   } else {
-    if (length(nu) < 2 || length(delta) < 2) {
+    if (length(nu) < ncol(q) || length(delta) < ncol(q)) {
       stop(message = "incompatible arguments.")
     } else {
-      F0 <- matrix(data = NA, nrow = nrow(q), ncol = 2)
-      F0[, 1] <- (1 - exp(-q[, 1] / nu[1]))^delta[1]
-      F0[, 2] <- (1 - exp(-q[, 2] / nu[2]))^delta[2]
+      F0 <- matrix(data = NA, nrow = nrow(q), ncol = ncol(q))
+      for (i in 1:ncol(q)) {
+        F0[, i] <- (1 - exp(-q[, i] / nu[i]))^delta[i]
+      }
     }
   }
   return(F0)
@@ -67,12 +68,13 @@ dnged <- function(x, nu, delta) {
   if (is.vector(x)) {
     df <- (delta[1] / nu[1]) * (1 - exp(-x / nu[1]))^(delta[1] - 1) * exp(-x / nu[1])
   } else {
-    if (length(nu) < 2 || length(delta) < 2) {
+    if (length(nu) < ncol(x) || length(delta) < ncol(x)) {
       stop(message = "incompatible arguments.")
     } else {
-      df <- matrix(data = NA, nrow = nrow(x), ncol = 2)
-      df[, 1] <- (delta[1] / nu[1]) * (1 - exp(-x[, 1] / nu[1]))^(delta[1] - 1) * exp(-x[, 1] / nu[1])
-      df[, 2] <- (delta[2] / nu[2]) * (1 - exp(-x[, 2] / nu[2]))^(delta[2] - 1) * exp(-x[, 2] / nu[2])
+      df <- matrix(data = NA, nrow = nrow(x), ncol = ncol(x))
+      for (i in 1:ncol(x)) {
+        df[, i] <- (delta[i] / nu[i]) * (1 - exp(-x[, i] / nu[i]))^(delta[i] - 1) * exp(-x[, i] / nu[i])
+      }
     }
   }
   return(df)
@@ -90,16 +92,17 @@ qnged <- function(p, nu, delta) {
   if (is.vector(p) && length(nu) < 2 || length(delta) < 2) {
     qf <- log(1 - (p^(1 / delta[1]))) * (-nu[1])
   } else {
-    if (length(nu) < 2 || length(delta) < 2) {
+    if (length(nu) < ncol(p) || length(delta) < ncol(p)) {
       stop(message = "incompatible arguments.")
     } else {
-      if (is.vector(p) && length(p) == 2) {
-        p <- matrix(p, nrow = 1, ncol = 2)
+      if (is.vector(p) && length(p) == ncol(p)) {
+        p <- matrix(p, nrow = 1, ncol = ncol(p))
       }
 
-      qf <- matrix(data = NA, nrow = nrow(p), ncol = 2)
-      qf[, 1] <- log(-p[, 1]^(1 / delta[1]) + 1) * (-nu[1])
-      qf[, 2] <- log(-p[, 2]^(1 / delta[2]) + 1) * (-nu[2])
+      qf <- matrix(data = NA, nrow = nrow(p), ncol = ncol(p))
+      for (i in 1:ncol(p)) {
+        qf[, i] <- log(-p[, i]^(1 / delta[i]) + 1) * (-nu[i])
+      }
     }
   }
   return(qf)
@@ -118,8 +121,9 @@ rnged <- function(n, nu = 1, delta = 2) {
     u <- runif(n)
     X <- qnged(u, nu, delta)
   } else {
-    u <- matrix(runif(n * 2), nrow = n, ncol = 2)
-    X <- qnged(u, nu, delta)
+    a <- min(length(nu), length(delta))
+    u <- matrix(runif(n * a), nrow = n, ncol = a)
+    X <- qnged(u, nu[1:a], delta[1:a])
   }
   return(X)
 }
