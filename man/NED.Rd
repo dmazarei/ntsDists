@@ -17,7 +17,7 @@ qned(p, theta)
 rned(n, theta)
 }
 \arguments{
-\item{theta}{the positive value or vector lower and upper of the first shape parameter.}
+\item{theta}{the positive value or vector of the first shape parameter.}
 
 \item{x, q}{vector or matrix of quantiles at which the pdf or cdf needs to be computed.}
 

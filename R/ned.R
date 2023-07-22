@@ -11,7 +11,7 @@
 #' @param x,q vector or matrix of quantiles at which the pdf or cdf needs to be computed.
 #' @param p vector or matrix of probabilities at which the quantile needs to be computed.
 #' @param n number of random numbers to be generated.
-#' @param theta the positive value or vector lower and upper of the first shape parameter.
+#' @param theta the positive value or vector of the first shape parameter.
 #'
 #' @return
 #'  \code{pned} gives the distribution function,

@@ -12,11 +12,11 @@
 #' function implemented by \code{\link{gamma}}.
 #'
 #' @name NGD
-#' @param x,q vector or matrix lower and upper of quantiles at which the pdf or cdf needs to be computed.
-#' @param p vector or matrix lower and upper of probabilities at which the quantile needs to be computed.
+#' @param x,q vector or matrix of quantiles at which the pdf or cdf needs to be computed.
+#' @param p vector or matrix  of probabilities at which the quantile needs to be computed.
 #' @param n number of random numbers to be generated.
-#' @param alpha the positive value or vector lower and upper of the first shape parameter.
-#' @param lambda the positive value or vector lower and upper of the second scale parameter.
+#' @param alpha the positive value or vector of the first shape parameter.
+#' @param lambda the positive value or vector of the second scale parameter.
 #'
 #' @return
 #'  \code{pngd} gives the distribution function,
@@ -42,12 +42,13 @@ pngd <- function(q, alpha = 1, lambda = 2) {
   if (is.vector(q)) {
     F0 <- stats::pgamma(q, shape = alpha[1], scale = lambda[1])
   } else {
-    if (length(alpha) < 2 || length(lambda) < 2) {
+    if (length(alpha) < ncol(q) || length(lambda) < ncol(q)) {
       stop(message = "incompatible arguments.")
     } else {
-      F0 <- matrix(data = NA, nrow = nrow(q), ncol = 2)
-      F0[, 1] <- stats::pgamma(q[, 1], shape = alpha[1], scale = lambda[1])
-      F0[, 2] <- stats::pgamma(q[, 2], shape = alpha[2], scale = lambda[2])
+      F0 <- matrix(data = NA, nrow = nrow(q), ncol = ncol(q))
+      for (i in 1:ncol(q)) {
+        F0[, i] <- stats::pgamma(q[, i], shape = alpha[i], scale = lambda[i])
+      }
     }
   }
   return(F0)
@@ -65,12 +66,13 @@ dngd <- function(x, alpha = 1, lambda = 2) {
   if (is.vector(x)) {
     df <- stats::dgamma(x, shape = alpha[1], scale = lambda[1])
   } else {
-    if (length(alpha) < 2 || length(lambda) < 2) {
+    if (length(alpha) < ncol(x) || length(lambda) < ncol(x)) {
       stop(message = "incompatible arguments.")
     } else {
-      df <- matrix(data = NA, nrow = nrow(x), ncol = 2)
-      df[, 1] <- stats::dgamma(x[, 1], shape = alpha[1], scale = lambda[1])
-      df[, 2] <- stats::dgamma(x[, 2], shape = alpha[2], scale = lambda[2])
+      df <- matrix(data = NA, nrow = nrow(x), ncol = ncol(x))
+      for (i in 1:ncol(x)) {
+        df[, i] <- stats::dgamma(x[, i], shape = alpha[i], scale = lambda[i])
+      }
     }
   }
   return(df)
@@ -88,16 +90,16 @@ qngd <- function(p, alpha = 1, lambda = 2) {
   if (is.vector(p) && length(alpha) < 2 || length(lambda) < 2) {
     qf <- stats::qgamma(p, shape = alpha[1], scale = lambda[1])
   } else {
-    if (length(alpha) < 2 || length(lambda) < 2) {
+    if (length(alpha) < ncol(p) || length(lambda) < ncol(p)) {
       stop(message = "incompatible arguments.")
     } else {
       if (is.vector(p) && length(p) == 2) {
         p <- matrix(p, nrow = 1, ncol = 2)
       }
-
-      qf <- matrix(data = NA, nrow = nrow(p), ncol = 2)
-      qf[, 1] <- stats::qgamma(p[, 1], shape = p[1], scale = lambda[1])
-      qf[, 2] <- stats::qgamma(p[, 2], shape = p[2], scale = lambda[2])
+      qf <- matrix(data = NA, nrow = nrow(p), ncol = ncol(p))
+      for (i in 1:ncol(x)) {
+        qf[, i] <- stats::qgamma(p[, i], shape = alpha[i], scale = lambda[i])
+      }
     }
   }
   return(qf)
@@ -115,8 +117,9 @@ rngd <- function(n, alpha = 1, lambda = 2) {
     u <- runif(n)
     X <- qngd(u, alpha, lambda)
   } else {
-    u <- matrix(runif(n * 2), nrow = n, ncol = 2)
-    X <- qngd(u, alpha, lambda)
+    a <- min(length(alpha), length(lambda))
+    u <- matrix(runif(n * a), nrow = n, ncol = a)
+    X <- qngd(u, alpha[1:a], lambda[1:a])
   }
   return(X)
 }

@@ -14,8 +14,8 @@
 #' @param x,q vector or matrix of quantiles at which the pdf or cdf needs to be computed.
 #' @param p vector or matrix of probabilities at which the quantile needs to be computed.
 #' @param n number of random numbers to be generated.
-#' @param nu the positive value or vector lower and upper of the scale parameter.
-#' @param delta the positive value or vector lower and upper of the shape parameter.
+#' @param nu the positive value or vector of the scale parameter.
+#' @param delta the positive value or vector of the shape parameter.
 #'
 #' @return
 #'  \code{pnged} gives the distribution function,

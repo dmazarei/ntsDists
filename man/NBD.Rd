@@ -17,9 +17,9 @@ qnbd(p, alpha, beta)
 rnbd(n, alpha, beta)
 }
 \arguments{
-\item{alpha}{the positive value or vector lower and upper of the first shape parameter.}
+\item{alpha}{the positive value or vector of the first shape parameter.}
 
-\item{beta}{the positive value or vector lower and upper of the second shape parameter.}
+\item{beta}{the positive value or vector of the second shape parameter.}
 
 \item{x, q}{vector or matrix  of quantiles at which the pdf or cdf needs to be computed.}
 

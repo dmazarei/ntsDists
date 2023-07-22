@@ -17,9 +17,9 @@ qnged(p, nu, delta)
 rnged(n, nu = 1, delta = 2)
 }
 \arguments{
-\item{nu}{the positive value or vector lower and upper of the scale parameter.}
+\item{nu}{the positive value or vector of the scale parameter.}
 
-\item{delta}{the positive value or vector lower and upper of the shape parameter.}
+\item{delta}{the positive value or vector of the shape parameter.}
 
 \item{x, q}{vector or matrix of quantiles at which the pdf or cdf needs to be computed.}
 
