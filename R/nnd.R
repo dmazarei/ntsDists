@@ -11,11 +11,11 @@
 #' the standard deviation.
 #'
 #' @name NND
-#' @param x,q vector or matrix lower and upper of quantiles at which the pdf or cdf needs to be computed.
-#' @param p vector or matrix lower and upper of probabilities at which the quantile needs to be computed.
+#' @param x,q vector or matrix of quantiles at which the pdf or cdf needs to be computed.
+#' @param p vector or matrix of probabilities at which the quantile needs to be computed.
 #' @param n number of random numbers to be generated.
-#' @param mu the value or vector lower and upper of the first parameter.
-#' @param sigma the positive value or vector lower and upper of the second parameter.
+#' @param mu the value or vector of the first parameter.
+#' @param sigma the positive value or vector of the second parameter.
 #'
 #' @return
 #' \code{pnnd} gives the distribution function,
@@ -40,12 +40,13 @@ pnnd <- function(q, mu, sigma) {
   if (is.vector(q)) {
     F0 <- stats::pnorm(q, mean = mu[1], sd = sigma[1])
   } else {
-    if (length(mu) < 2 || length(sigma) < 2) {
+    if (length(mu) < ncol(q) || length(sigma) < ncol(q)) {
       stop(message = "incompatible arguments.")
     } else {
-      F0 <- matrix(data = NA, nrow = nrow(q), ncol = 2)
-      F0[, 1] <- stats::pnorm(q[, 1], mean = mu[1], sd = sigma[1])
-      F0[, 2] <- stats::pnorm(q[, 2], mean = mu[2], sd = sigma[2])
+      F0 <- matrix(data = NA, nrow = nrow(q), ncol = ncol(q))
+      for (i in 1:ncol(q)) {
+        F0[, i] <- stats::pnorm(q[, i], mean = mu[i], sd = sigma[i])
+      }
     }
   }
   return(F0)
@@ -66,12 +67,13 @@ dnnd <- function(x, mu, sigma) {
   if (is.vector(x)) {
     df <- stats::dnorm(x, mean = mu[1], sd = sigma[1])
   } else {
-    if (length(mu) < 2 || length(sigma) < 2) {
+    if (length(mu) < ncol(x) || length(sigma) < ncol(x)) {
       stop(message = "incompatible arguments.")
     } else {
-      df <- matrix(data = NA, nrow = nrow(x), ncol = 2)
-      df[, 1] <- stats::dnorm(x[, 1], mean = mu[1], sd = sigma[1])
-      df[, 2] <- stats::dnorm(x[, 2], mean = mu[2], sd = sigma[2])
+      df <- matrix(data = NA, nrow = nrow(x), ncol = ncol(x))
+      for (i in 1:ncol(x)) {
+        df[, i] <- stats::dnorm(p[, i], mean = mu[i], sd = sigma[i])
+      }
     }
   }
   return(df)
@@ -90,16 +92,16 @@ qnnd <- function(p, mu, sigma) {
   if (is.vector(p) && length(mu) < 2 || length(sigma) < 2) {
     qf <- stats::qnorm(p, mean = mu[1], sd = sigma[1])
   } else {
-    if (length(mu) < 2 || length(sigma) < 2) {
+    if (length(mu) < ncol(p) || length(sigma) < ncol(p)) {
       stop(message = "incompatible arguments.")
     } else {
-      if (is.vector(p) && length(p) == 2) {
-        p <- matrix(p, nrow = 1, ncol = 2)
+      if (is.vector(p) && length(p) == ncol(p)) {
+        p <- matrix(p, nrow = 1, ncol = ncol(p))
       }
-
-      qf <- matrix(data = NA, nrow = nrow(p), ncol = 2)
-      qf[, 1] <- stats::qnorm(p[, 1], mean = mu[1], sd = sigma[1])
-      qf[, 2] <- stats::qnorm(p[, 2], mean = mu[2], sd = sigma[2])
+      qf <- matrix(data = NA, nrow = nrow(p), ncol = ncol(p))
+      for (i in 1:ncol(q)) {
+        qf[, i] <- stats::dnorm(p[, i], mean = mu[i], sd = sigma[i])
+      }
     }
   }
   return(qf)
@@ -117,8 +119,9 @@ rnnd <- function(n, mu, sigma) {
     u <- runif(n)
     X <- qnnd(u, mu, sigma)
   } else {
-    u <- matrix(runif(n * 2), nrow = n, ncol = 2)
-    X <- qnnd(u, mu, sigma)
+    a <- min(length(mu), length(sigma))
+    u <- matrix(runif(n * a), nrow = n, ncol = a)
+    X <- qnnd(u, mu[1:a], sigma[1:a])
   }
   return(X)
 }
