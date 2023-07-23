@@ -67,7 +67,7 @@ dned <- function(x, theta) {
       stop(message = "incompatible arguments.")
     } else {
       df <- matrix(data = NA, nrow = nrow(x), ncol = ncol(x))
-      for (i in 1:ncol(q)) {
+      for (i in 1:ncol(x)) {
         df[, i] <- theta[i] * exp(-x[, i] * theta[i])
       }
     }

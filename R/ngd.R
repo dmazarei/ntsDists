@@ -97,7 +97,7 @@ qngd <- function(p, alpha = 1, lambda = 2) {
         p <- matrix(p, nrow = 1, ncol = ncol(p))
       }
       qf <- matrix(data = NA, nrow = nrow(p), ncol = ncol(p))
-      for (i in 1:ncol(x)) {
+      for (i in 1:ncol(p)) {
         qf[, i] <- stats::qgamma(p[, i], shape = alpha[i], scale = lambda[i])
       }
     }
