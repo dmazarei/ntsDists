@@ -97,8 +97,8 @@ qnbd <- function(p, alpha, beta) {
     if (length(alpha) < ncol(p) || length(beta) < ncol(p)) {
       stop(message = "incompatible arguments.")
     } else {
-      if (is.vector(p) && length(p) == 2) {
-        p <- matrix(p, nrow = 1, ncol = 2)
+      if (is.vector(p) && length(p) == ncol(p)) {
+        p <- matrix(p, nrow = 1, ncol = ncol(p))
       }
 
       qf <- matrix(data = NA, nrow = nrow(p), ncol = ncol(p))

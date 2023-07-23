@@ -93,8 +93,8 @@ qngd <- function(p, alpha = 1, lambda = 2) {
     if (length(alpha) < ncol(p) || length(lambda) < ncol(p)) {
       stop(message = "incompatible arguments.")
     } else {
-      if (is.vector(p) && length(p) == 2) {
-        p <- matrix(p, nrow = 1, ncol = 2)
+      if (is.vector(p) && length(p) == ncol(p)) {
+        p <- matrix(p, nrow = 1, ncol = ncol(p))
       }
       qf <- matrix(data = NA, nrow = nrow(p), ncol = ncol(p))
       for (i in 1:ncol(x)) {
