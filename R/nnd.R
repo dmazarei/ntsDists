@@ -63,7 +63,7 @@ pnnd <- function(q, mu, sigma) {
 #' dnnd(x2, mu = c(1, 2), sigma = c(2, 2))
 #'
 #' x3 <- matrix(seq(-3, 3, length.out = 15), nrow = 5, ncol = 3)
-#' dnnd(x3, mu = c(1, 2,1), sigma = c(2, 2,2))
+#' dnnd(x3, mu = c(1, 2, 1), sigma = c(2, 2, 2))
 #' @export
 dnnd <- function(x, mu, sigma) {
   if (any(sigma <= 0)) stop(message = "incompatible arguments.")
