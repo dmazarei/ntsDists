@@ -8,10 +8,10 @@
 #' for   \eqn{\lambda_N > 0}.
 #'
 #' @name NPD
-#' @param x,q vector or matrix lower and upper of (non-negative integer) quantiles at which the pdf or cdf needs to be computed.
-#' @param p vector or matrix lower and upper of probabilities at which the quantile needs to be computed.
+#' @param x,q vector or matrix of (non-negative integer) quantiles at which the pdf or cdf needs to be computed.
+#' @param p vector or matrix of probabilities at which the quantile needs to be computed.
 #' @param n number of random numbers to be generated.
-#' @param lambda the value or vector lower and upper of (non-negative)the first shape parameter, must be positive.
+#' @param lambda the value or vector of (non-negative)the first shape parameter, must be positive.
 #'
 #' @return
 #'  \code{pnpd} gives the distribution function,
@@ -36,12 +36,13 @@ pnpd <- function(q, lambda) {
   if (is.vector(q)) {
     F0 <- stats::ppois(q, lambda = lambda[1])
   } else {
-    if (length(lambda) < 2) {
+    if (length(lambda) < ncol(q)) {
       stop(message = "incompatible arguments.")
     } else {
-      F0 <- matrix(data = NA, nrow = nrow(q), ncol = 2)
-      F0[, 1] <- stats::ppois(q[, 1], lambda = lambda[1])
-      F0[, 2] <- stats::ppois(q[, 2], lambda = lambda[2])
+      F0 <- matrix(data = NA, nrow = nrow(q), ncol = ncol(q))
+      for (i in 1:ncol(q)) {
+        F0[, i] <- stats::ppois(q[, i], lambda = lambda[i])
+      }
     }
   }
   return(F0)
@@ -58,12 +59,13 @@ dnpd <- function(x, lambda) {
   if (is.vector(x)) {
     df <- stats::ppois(x, lambda = lambda[1])
   } else {
-    if (length(lambda) < 2) {
+    if (length(lambda) < ncol(x)) {
       stop(message = "incompatible arguments.")
     } else {
-      df <- matrix(data = NA, nrow = nrow(x), ncol = 2)
-      df[, 1] <- stats::dpois(x[, 1], lambda = lambda[1])
-      df[, 2] <- stats::dpois(x[, 2], lambda = lambda[2])
+      df <- matrix(data = NA, nrow = nrow(x), ncol = ncol(x))
+      for (i in 1:ncol(x)) {
+        df[, i] <- stats::dpois(x[, i], lambda = lambda[i])
+      }
     }
   }
   return(df)
@@ -82,16 +84,16 @@ qnpd <- function(p, lambda) {
   if (is.vector(p) && length(lambda) < 2) {
     qf <- stats::qpois(p, lambda = lambda[1])
   } else {
-    if (length(lambda) < 2) {
+    if (length(lambda) < ncol(p)) {
       stop(message = "incompatible arguments.")
     } else {
       if (is.vector(p) && length(p) == 2) {
         p <- matrix(p, nrow = 1, ncol = 2)
       }
-
-      qf <- matrix(data = NA, nrow = nrow(p), ncol = 2)
-      qf[, 1] <- stats::qpois(p[, 1], lambda = lambda[1])
-      qf[, 2] <- stats::qpois(p[, 2], lambda = lambda[2])
+      qf <- matrix(data = NA, nrow = nrow(p), ncol = ncol(p))
+      for (i in 1:ncol(p)) {
+        qf[, i] <- stats::qpois(p[, i], lambda = lambda[i])
+      }
     }
   }
   return(qf)
@@ -109,7 +111,7 @@ rnpd <- function(n, lambda) {
     u <- runif(n)
     X <- qnpd(u, lambda)
   } else {
-    u <- matrix(runif(n * 2), nrow = n, ncol = 2)
+    u <- matrix(runif(n * length(lambda)), nrow = n, ncol = length(lambda))
     X <- qnpd(u, lambda)
   }
   return(X)

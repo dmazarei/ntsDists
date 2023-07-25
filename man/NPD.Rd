@@ -17,11 +17,11 @@ qnpd(p, lambda)
 rnpd(n, lambda)
 }
 \arguments{
-\item{lambda}{the value or vector lower and upper of (non-negative)the first shape parameter, must be positive.}
+\item{lambda}{the value or vector of (non-negative)the first shape parameter, must be positive.}
 
-\item{x, q}{vector or matrix lower and upper of (non-negative integer) quantiles at which the pdf or cdf needs to be computed.}
+\item{x, q}{vector or matrix of (non-negative integer) quantiles at which the pdf or cdf needs to be computed.}
 
-\item{p}{vector or matrix lower and upper of probabilities at which the quantile needs to be computed.}
+\item{p}{vector or matrix of probabilities at which the quantile needs to be computed.}
 
 \item{n}{number of random numbers to be generated.}
 }
