@@ -59,7 +59,7 @@ pnnd <- function(q, mu, sigma) {
 #' x1 <- c(-0.8, 0.2, 1.6, 3.9)
 #' dnnd(x = 0.5, mu = c(1, 1), sigma = c(2, 2))
 #'
-#' x2 <- matrix(seq(-3, 3, length.out = 10), nrow = 2, ncol = 5)
+#' x2 <- matrix(seq(-3, 3, length.out = 10), nrow = 5, ncol = 2)
 #' dnnd(x2, mu = c(1, 2), sigma = c(2, 2))
 #' @export
 dnnd <- function(x, mu, sigma) {
@@ -72,7 +72,7 @@ dnnd <- function(x, mu, sigma) {
     } else {
       df <- matrix(data = NA, nrow = nrow(x), ncol = ncol(x))
       for (i in 1:ncol(x)) {
-        df[, i] <- stats::dnorm(p[, i], mean = mu[i], sd = sigma[i])
+        df[, i] <- stats::dnorm(x[, i], mean = mu[i], sd = sigma[i])
       }
     }
   }
