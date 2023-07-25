@@ -61,6 +61,9 @@ pnnd <- function(q, mu, sigma) {
 #'
 #' x2 <- matrix(seq(-3, 3, length.out = 10), nrow = 5, ncol = 2)
 #' dnnd(x2, mu = c(1, 2), sigma = c(2, 2))
+#'
+#' x3 <- matrix(seq(-3, 3, length.out = 15), nrow = 5, ncol = 3)
+#' dnnd(x3, mu = c(1, 2,1), sigma = c(2, 2,2))
 #' @export
 dnnd <- function(x, mu, sigma) {
   if (any(sigma <= 0)) stop(message = "incompatible arguments.")
@@ -99,7 +102,7 @@ qnnd <- function(p, mu, sigma) {
         p <- matrix(p, nrow = 1, ncol = ncol(p))
       }
       qf <- matrix(data = NA, nrow = nrow(p), ncol = ncol(p))
-      for (i in 1:ncol(q)) {
+      for (i in 1:ncol(p)) {
         qf[, i] <- stats::dnorm(p[, i], mean = mu[i], sd = sigma[i])
       }
     }
