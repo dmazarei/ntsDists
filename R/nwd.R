@@ -12,11 +12,11 @@
 #' scale parameter.
 #'
 #' @name NWD
-#' @param x,q vector or matrix lower and upper of quantiles at which the pdf or cdf needs to be computed.
-#' @param p vector or matrix lower and upper of probabilities at which the quantile needs to be computed.
+#' @param x,q vector or matrix of quantiles at which the pdf or cdf needs to be computed.
+#' @param p vector or matrix of probabilities at which the quantile needs to be computed.
 #' @param n number of random numbers to be generated.
-#' @param beta the value or vector lower and upper of the first shape parameter. must be positive.
-#' @param alpha the value or vector lower and upper of the second scale parameter, must be positive.
+#' @param beta the value or vector of the first shape parameter. must be positive.
+#' @param alpha the value or vector of the second scale parameter, must be positive.
 #'
 #' @return
 #'  \code{pnwd} gives the distribution function,
@@ -42,12 +42,13 @@ pnwd <- function(q, beta, alpha) {
   if (is.vector(q)) {
     F0 <- stats::pweibull(q, shape = beta[1], scale = alpha[1])
   } else {
-    if (length(alpha) < 2 || length(beta) < 2) {
+    if (length(alpha) < ncol(q) || length(beta) < ncol(q)) {
       stop(message = "incompatible arguments.")
     } else {
-      F0 <- matrix(data = NA, nrow = nrow(q), ncol = 2)
-      F0[, 1] <- stats::pweibull(q[, 1], shape = beta[1], scale = alpha[1])
-      F0[, 2] <- stats::pweibull(q[, 2], shape = beta[2], scale = alpha[2])
+      F0 <- matrix(data = NA, nrow = nrow(q), ncol = ncol(q))
+      for (i in 1:ncol(q)) {
+        F0[, i] <- stats::pweibull(q[, i], shape = beta[i], scale = alpha[i])
+      }
     }
   }
   return(F0)
@@ -65,12 +66,13 @@ dnwd <- function(x, beta, alpha) {
   if (is.vector(x)) {
     df <- stats::dweibull(x, shape = beta[1], scale = alpha[1])
   } else {
-    if (length(alpha) < 2 || length(beta) < 2) {
+    if (length(alpha) < ncol(x) || length(beta) < ncol(x)) {
       stop(message = "incompatible arguments.")
     } else {
-      df <- matrix(data = NA, nrow = nrow(x), ncol = 2)
-      df[, 1] <- stats::dweibull(x[, 1], shape = beta[1], scale = alpha[1])
-      df[, 2] <- stats::dweibull(x[, 2], shape = beta[2], scale = alpha[2])
+      df <- matrix(data = NA, nrow = nrow(x), ncol = ncol(x))
+      for (i in 1:ncol(x)) {
+        df[, i] <- stats::dweibull(x[, i], shape = beta[i], scale = alpha[i])
+      }
     }
   }
   return(df)
@@ -88,16 +90,16 @@ qnwd <- function(p, beta, alpha) {
   if (is.vector(p) && length(alpha) < 2 || length(beta) < 2) {
     qf <- stats::qweibull(p, shape = beta[1], scale = alpha[1])
   } else {
-    if (length(alpha) < 2 || length(beta) < 2) {
+    if (length(alpha) < ncol(p) || length(beta) < ncol(p)) {
       stop(message = "incompatible arguments.")
     } else {
-      if (is.vector(p) && length(p) == 2) {
-        p <- matrix(p, nrow = 1, ncol = 2)
+      if (is.vector(p) && length(p) == ncol(p)) {
+        p <- matrix(p, nrow = 1, ncol = ncol(p))
       }
-
-      qf <- matrix(data = NA, nrow = nrow(p), ncol = 2)
-      qf[, 1] <- stats::qweibull(p[, 1], shape = beta[1], scale = alpha[1])
-      qf[, 2] <- stats::qweibull(p[, 2], shape = beta[2], scale = alpha[2])
+      qf <- matrix(data = NA, nrow = nrow(p), ncol = ncol(p))
+      for (i in 1:ncol(p)) {
+        qf[, i] <- stats::qweibull(p[, i], shape = beta[i], scale = alpha[i])
+      }
     }
   }
   return(qf)
@@ -115,8 +117,9 @@ rnwd <- function(n, beta, alpha) {
     u <- runif(n)
     X <- qnwd(u, alpha, beta)
   } else {
-    u <- matrix(runif(n * 2), nrow = n, ncol = 2)
-    X <- qnwd(u, alpha, beta)
+    a <- min(length(alpha), length(beta))
+    u <- matrix(runif(n * a), nrow = n, ncol = a)
+    X <- qnwd(u, alpha[1:a], beta[1:a])
   }
   return(X)
 }
