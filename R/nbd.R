@@ -13,16 +13,11 @@
 #'
 #' @name NBD
 #'
-<<<<<<< HEAD
-#' @param x,q a vector of quantiles at which the pdf or cdf needs to be computed.
-#' @param p a vector of probabilities at which the quantile needs to be computed.
-=======
-#' @param x,q quantiles at which the pdf or cdf needs to be computed.
-#' @param p probabilities at which the quantile needs to be computed.
->>>>>>> 7424a3c49f2e8f23c6851334c990f0f8a32787fe
+#' @param x,q a vector or matrix of quantiles at which the pdf or cdf needs to be computed.
+#' @param p a vector or matrix of probabilities at which the quantile needs to be computed.
 #' @param n number of random numbers to be generated.
-#' @param alpha first shape parameter, must be non-negative.
-#' @param beta second shape parameter, must be non-negative.
+#' @param alpha the first shape parameter, must be non-negative.
+#' @param beta the second shape parameter, must be non-negative.
 #'
 #' @return
 #' \code{pnbd} gives the distribution function,

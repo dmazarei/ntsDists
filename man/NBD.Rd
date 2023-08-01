@@ -17,19 +17,13 @@ qnbd(p, alpha, beta)
 rnbd(n, alpha, beta)
 }
 \arguments{
-\item{alpha}{first shape parameter, must be non-negative.}
+\item{alpha}{the first shape parameter, must be non-negative.}
 
-\item{beta}{second shape parameter, must be non-negative.}
+\item{beta}{the second shape parameter, must be non-negative.}
 
-<<<<<<< HEAD
-\item{x, q}{a vector of quantiles at which the pdf or cdf needs to be computed.}
+\item{x, q}{a vector or matrix of quantiles at which the pdf or cdf needs to be computed.}
 
-\item{p}{a vector of probabilities at which the quantile needs to be computed.}
-=======
-\item{x, q}{quantiles at which the pdf or cdf needs to be computed.}
-
-\item{p}{probabilities at which the quantile needs to be computed.}
->>>>>>> 7424a3c49f2e8f23c6851334c990f0f8a32787fe
+\item{p}{a vector or matrix of probabilities at which the quantile needs to be computed.}
 
 \item{n}{number of random numbers to be generated.}
 }
