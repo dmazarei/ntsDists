@@ -8,10 +8,11 @@
 #' \deqn{f_N(x)=\theta_N \exp \left(-x \theta_N\right)}
 #' for \eqn{x \ge 0} and \eqn{\theta_N > 0}, the rate parameter.
 #' @name NED
-#' @param x,q a vector or matrix of quantiles at which the pdf or cdf needs to be computed.
+#' @param x a vector or matrix of quantiles at which the pdf needs to be computed.
+#' @param q a vector or matrix of quantiles at which the cdf needs to be computed.
 #' @param p a vector or matrix of probabilities at which the quantile needs to be computed.
 #' @param n number of random numbers to be generated.
-#' @param theta  the shape parameter, must be positive.
+#' @param theta the shape parameter, must be positive.
 #'
 #' @return
 #'  \code{pned} gives the distribution function,
