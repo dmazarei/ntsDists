@@ -13,8 +13,8 @@
 #'
 #' @name NBD
 #'
-#' @param x,q vector or matrix  of quantiles at which the pdf or cdf needs to be computed.
-#' @param p vector or matrix of probabilities at which the quantile needs to be computed.
+#' @param x,q a vector of quantiles at which the pdf or cdf needs to be computed.
+#' @param p a vector of probabilities at which the quantile needs to be computed.
 #' @param n number of random numbers to be generated.
 #' @param alpha the positive value or vector of the first shape parameter.
 #' @param beta the positive value or vector of the second shape parameter.
