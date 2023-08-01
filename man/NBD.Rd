@@ -21,9 +21,9 @@ rnbd(n, alpha, beta)
 
 \item{beta}{the positive value or vector of the second shape parameter.}
 
-\item{x, q}{vector or matrix  of quantiles at which the pdf or cdf needs to be computed.}
+\item{x, q}{a vector of quantiles at which the pdf or cdf needs to be computed.}
 
-\item{p}{vector or matrix of probabilities at which the quantile needs to be computed.}
+\item{p}{a vector of probabilities at which the quantile needs to be computed.}
 
 \item{n}{number of random numbers to be generated.}
 }
