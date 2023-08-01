@@ -32,11 +32,11 @@ remotes::install_github("dmazarei/ntsDists")
 
 ## To cite package `ntsDists` in publications use:
   Mazarei D, Norouzirad M, Rao, G. S. (2023). _ntsDists: Neutrosophic distributions_. R package version 1.0.0,
-  <!---
+ 
   <https://github.com/dmazarei/ntsDists>
-  -->
+  <!---
   <https://cran.r-project.org/package=ntsDists>.
-
+ -->
 A BibTeX entry for LaTeX users is
 
   @Manual{ImpShrinkage,
