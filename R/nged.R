@@ -11,11 +11,11 @@
 #' and \eqn{\nu_N > 0}, the scale parameter.
 #'
 #' @name NGED
-#' @param x,q vector or matrix of quantiles at which the pdf or cdf needs to be computed.
-#' @param p vector or matrix of probabilities at which the quantile needs to be computed.
+#' @param x,q quantiles at which the pdf or cdf needs to be computed.
+#' @param p probabilities at which the quantile needs to be computed.
 #' @param n number of random numbers to be generated.
-#' @param nu the positive value or vector of the scale parameter.
-#' @param delta the positive value or vector of the shape parameter.
+#' @param nu scale parameter, must be positive.
+#' @param delta  shape parameter, must be positive.
 #'
 #' @return
 #'  \code{pnged} gives the distribution function,
