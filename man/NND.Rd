@@ -19,7 +19,7 @@ rnnd(n, mu, sigma)
 \arguments{
 \item{mu}{mean.}
 
-\item{sigma}{standard deviations, must be positive.}
+\item{sigma}{the standard deviations that must be positive.}
 
 \item{x, q}{a vector or matrix of quantiles at which the pdf or cdf needs to be computed.}
 

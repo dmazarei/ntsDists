@@ -11,7 +11,7 @@
 #' @param x,q a vector or matrix of (non-negative integer) quantiles at which the pdf or cdf needs to be computed.
 #' @param p a vector or matrix of probabilities at which the quantile needs to be computed.
 #' @param n number of random numbers to be generated.
-#' @param lambda mean, must be positive.
+#' @param lambda the mean that must be positive.
 #'
 #' @return
 #'  \code{pnpd} gives the distribution function,

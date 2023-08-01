@@ -17,7 +17,7 @@ qnpd(p, lambda)
 rnpd(n, lambda)
 }
 \arguments{
-\item{lambda}{mean, must be positive.}
+\item{lambda}{the mean that must be positive.}
 
 \item{x, q}{a vector or matrix of (non-negative integer) quantiles at which the pdf or cdf needs to be computed.}
 

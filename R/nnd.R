@@ -15,7 +15,7 @@
 #' @param p a vector or matrix of probabilities at which the quantile needs to be computed.
 #' @param n number of random numbers to be generated.
 #' @param mu mean.
-#' @param sigma standard deviations, must be positive.
+#' @param sigma the standard deviations that must be positive.
 #'
 #' @return
 #' \code{pnnd} gives the distribution function,
