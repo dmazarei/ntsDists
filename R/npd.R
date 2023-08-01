@@ -8,10 +8,10 @@
 #' for   \eqn{\lambda_N > 0}.
 #'
 #' @name NPD
-#' @param x,q vector or matrix of (non-negative integer) quantiles at which the pdf or cdf needs to be computed.
-#' @param p vector or matrix of probabilities at which the quantile needs to be computed.
+#' @param x,q quantiles at which the pdf or cdf needs to be computed.
+#' @param p probabilities at which the quantile needs to be computed.
 #' @param n number of random numbers to be generated.
-#' @param lambda the value or vector of (non-negative)the first shape parameter, must be positive.
+#' @param lambda mean, must be positive.
 #'
 #' @return
 #'  \code{pnpd} gives the distribution function,
