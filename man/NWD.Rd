@@ -17,13 +17,13 @@ qnwd(p, beta, alpha)
 rnwd(n, beta, alpha)
 }
 \arguments{
-\item{beta}{the value or vector of the first shape parameter. must be positive.}
+\item{beta}{shape parameter. must be positive.}
 
-\item{alpha}{the value or vector of the second scale parameter, must be positive.}
+\item{alpha}{scale parameter, must be positive.}
 
-\item{x, q}{vector or matrix of quantiles at which the pdf or cdf needs to be computed.}
+\item{x, q}{quantiles at which the pdf or cdf needs to be computed.}
 
-\item{p}{vector or matrix of probabilities at which the quantile needs to be computed.}
+\item{p}{probabilities at which the quantile needs to be computed.}
 
 \item{n}{number of random numbers to be generated.}
 }

@@ -8,10 +8,10 @@
 #' for  \eqn{\theta_N > 0}.
 #'
 #' @name NRD
-#' @param x,q vector or matrix of quantiles at which the pdf or cdf needs to be computed.
-#' @param p vector or matrix of probabilities at which the quantile needs to be computed.
+#' @param x,q quantiles at which the pdf or cdf needs to be computed.
+#' @param p probabilities at which the quantile needs to be computed.
 #' @param n number of random numbers to be generated.
-#' @param theta the value or vector of the first shape parameter, must be positive.
+#' @param theta shape parameter, must be positive.
 #'
 #' @return
 #'  \code{pnrd} gives the distribution function,

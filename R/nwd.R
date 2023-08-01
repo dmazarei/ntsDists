@@ -12,11 +12,11 @@
 #' scale parameter.
 #'
 #' @name NWD
-#' @param x,q vector or matrix of quantiles at which the pdf or cdf needs to be computed.
-#' @param p vector or matrix of probabilities at which the quantile needs to be computed.
+#' @param x,q  quantiles at which the pdf or cdf needs to be computed.
+#' @param p probabilities at which the quantile needs to be computed.
 #' @param n number of random numbers to be generated.
-#' @param beta the value or vector of the first shape parameter. must be positive.
-#' @param alpha the value or vector of the second scale parameter, must be positive.
+#' @param beta shape parameter. must be positive.
+#' @param alpha scale parameter, must be positive.
 #'
 #' @return
 #'  \code{pnwd} gives the distribution function,

@@ -17,13 +17,13 @@ qnnd(p, mu, sigma)
 rnnd(n, mu, sigma)
 }
 \arguments{
-\item{mu}{the value or vector of the first parameter.}
+\item{mu}{mean.}
 
-\item{sigma}{the positive value or vector of the second parameter.}
+\item{sigma}{standard deviations, must be positive.}
 
-\item{x, q}{vector or matrix of quantiles at which the pdf or cdf needs to be computed.}
+\item{x, q}{quantiles at which the pdf or cdf needs to be computed.}
 
-\item{p}{vector or matrix of probabilities at which the quantile needs to be computed.}
+\item{p}{probabilities at which the quantile needs to be computed.}
 
 \item{n}{number of random numbers to be generated.}
 }
@@ -59,8 +59,6 @@ dnnd(x = 0.5, mu = c(1, 1), sigma = c(2, 2))
 x2 <- matrix(seq(-3, 3, length.out = 10), nrow = 5, ncol = 2)
 dnnd(x2, mu = c(1, 2), sigma = c(2, 2))
 
-x3 <- matrix(seq(-3, 3, length.out = 15), nrow = 5, ncol = 3)
-dnnd(x3, mu = c(1, 2, 1), sigma = c(2, 2, 2))
 q1 <- c(0.01)
 qnnd(q1, mu = 1, sigma = 2)
 x2 <- matrix(seq(0.1, 1, length.out = 40), ncol = 2)

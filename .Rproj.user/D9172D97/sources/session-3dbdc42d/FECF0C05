@@ -1,0 +1,26 @@
+{
+    "id": "FECF0C05",
+    "path": "D:/RProject/ReadyToSubmit/ntsDists/R/nbd.R",
+    "project_path": "R/nbd.R",
+    "type": "r_source",
+    "hash": "3936477946",
+    "contents": "",
+    "dirty": false,
+    "created": 1690878395359.0,
+    "source_on_save": false,
+    "relative_order": 2,
+    "properties": {
+        "source_window_id": "",
+        "Source": "Source",
+        "cursorPosition": "35,0",
+        "scrollLine": "29"
+    },
+    "folds": "",
+    "lastKnownWriteTime": 1690878561,
+    "encoding": "UTF-8",
+    "collab_server": "",
+    "source_window": "",
+    "last_content_update": 1690878561496,
+    "read_only": false,
+    "read_only_alternatives": []
+}

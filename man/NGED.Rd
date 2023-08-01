@@ -17,13 +17,13 @@ qnged(p, nu, delta)
 rnged(n, nu = 1, delta = 2)
 }
 \arguments{
-\item{nu}{the positive value or vector of the scale parameter.}
+\item{nu}{scale parameter, must be positive.}
 
-\item{delta}{the positive value or vector of the shape parameter.}
+\item{delta}{shape parameter, must be positive.}
 
-\item{x, q}{vector or matrix of quantiles at which the pdf or cdf needs to be computed.}
+\item{x, q}{quantiles at which the pdf or cdf needs to be computed.}
 
-\item{p}{vector or matrix of probabilities at which the quantile needs to be computed.}
+\item{p}{probabilities at which the quantile needs to be computed.}
 
 \item{n}{number of random numbers to be generated.}
 }
