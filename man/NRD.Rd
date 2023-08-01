@@ -17,11 +17,11 @@ qnrd(p, theta)
 rnrd(n, theta)
 }
 \arguments{
-\item{theta}{the value or vector of the first shape parameter, must be positive.}
+\item{theta}{shape parameter, must be positive.}
 
-\item{x, q}{vector or matrix of quantiles at which the pdf or cdf needs to be computed.}
+\item{x, q}{quantiles at which the pdf or cdf needs to be computed.}
 
-\item{p}{vector or matrix of probabilities at which the quantile needs to be computed.}
+\item{p}{probabilities at which the quantile needs to be computed.}
 
 \item{n}{number of random numbers to be generated.}
 }
