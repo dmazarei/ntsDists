@@ -17,11 +17,11 @@ qned(p, theta)
 rned(n, theta)
 }
 \arguments{
-\item{theta}{the positive value or vector of the first shape parameter.}
+\item{theta}{shape parameter, must be positive.}
 
-\item{x, q}{vector or matrix of quantiles at which the pdf or cdf needs to be computed.}
+\item{x, q}{quantiles at which the pdf or cdf needs to be computed.}
 
-\item{p}{vector or matrix of probabilities at which the quantile needs to be computed.}
+\item{p}{probabilities at which the quantile needs to be computed.}
 
 \item{n}{number of random numbers to be generated.}
 }
