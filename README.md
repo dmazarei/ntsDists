@@ -1,4 +1,4 @@
-ntsDists <img src="man/figures/logo1.png" align="right" />
+ntsDists <img src="man/figures/logo.png" align="right" />
 ======================
 <!---
 [![R-CMD-check](https://github.com/mnrzrad/ImpShrinkage/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/mnrzrad/ImpShrinkage/actions/workflows/R-CMD-check.yaml)
