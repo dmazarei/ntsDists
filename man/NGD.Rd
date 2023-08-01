@@ -21,9 +21,9 @@ rngd(n, alpha = 1, lambda = 2)
 
 \item{lambda}{scale parameter, must be positive.}
 
-\item{x, q}{quantiles at which the pdf or cdf needs to be computed.}
+\item{x, q}{a vector or matrix of quantiles at which the pdf or cdf needs to be computed.}
 
-\item{p}{probabilities at which the quantile needs to be computed.}
+\item{p}{a vector or matrix of probabilities at which the quantile needs to be computed.}
 
 \item{n}{number of random numbers to be generated.}
 }

@@ -8,8 +8,8 @@
 #' for   \eqn{\lambda_N > 0}.
 #'
 #' @name NPD
-#' @param x,q quantiles at which the pdf or cdf needs to be computed.
-#' @param p probabilities at which the quantile needs to be computed.
+#' @param x,q a vector or matrix of (non-negative integer) quantiles at which the pdf or cdf needs to be computed.
+#' @param p a vector or matrix of probabilities at which the quantile needs to be computed.
 #' @param n number of random numbers to be generated.
 #' @param lambda mean, must be positive.
 #'
