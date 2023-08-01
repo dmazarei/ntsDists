@@ -12,11 +12,12 @@
 #' function implemented by \code{\link{gamma}}.
 #'
 #' @name NGD
-#' @param x,q a vector or matrix of quantiles at which the pdf or cdf needs to be computed.
+#' @param x q a vector or matrix of quantiles at which the pdf needs to be computed.
+#' @param q a vector or matrix of quantiles at which the cdf needs to be computed.
 #' @param p a vector or matrix of probabilities at which the quantile needs to be computed.
 #' @param n number of random numbers to be generated.
-#' @param alpha shape parameter, must be positive.
-#' @param lambda scale parameter, must be positive.
+#' @param alpha the shape parameter that must be positive.
+#' @param lambda the scale parameter that must be positive.
 #'
 #' @return
 #'  \code{pngd} gives the distribution function,
