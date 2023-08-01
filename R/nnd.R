@@ -11,11 +11,11 @@
 #' the standard deviation.
 #'
 #' @name NND
-#' @param x,q vector or matrix of quantiles at which the pdf or cdf needs to be computed.
-#' @param p vector or matrix of probabilities at which the quantile needs to be computed.
+#' @param x,q quantiles at which the pdf or cdf needs to be computed.
+#' @param p probabilities at which the quantile needs to be computed.
 #' @param n number of random numbers to be generated.
-#' @param mu the value or vector of the first parameter.
-#' @param sigma the positive value or vector of the second parameter.
+#' @param mu mean.
+#' @param sigma standard deviations, must be positive.
 #'
 #' @return
 #' \code{pnnd} gives the distribution function,
@@ -62,8 +62,6 @@ pnnd <- function(q, mu, sigma) {
 #' x2 <- matrix(seq(-3, 3, length.out = 10), nrow = 5, ncol = 2)
 #' dnnd(x2, mu = c(1, 2), sigma = c(2, 2))
 #'
-#' x3 <- matrix(seq(-3, 3, length.out = 15), nrow = 5, ncol = 3)
-#' dnnd(x3, mu = c(1, 2, 1), sigma = c(2, 2, 2))
 #' @export
 dnnd <- function(x, mu, sigma) {
   if (any(sigma <= 0)) stop(message = "incompatible arguments.")
