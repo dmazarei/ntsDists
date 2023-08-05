@@ -1,126 +1,146 @@
 #' Neutrosophic Exponential Distribution (NED)
 #'
 #' Density, distribution function, quantile function and random generation for
-#' the nuetrosophic exponential distribution with parameter \code{rate}=\eqn{\theta_N}.
+#' the nuetrosophic exponential distribution with the parameter \code{rate}=\eqn{\theta_N}.
 #'
 #' The neutrosophic exponential distribution with parameters \code{rate}=\eqn{\theta_N}
 #' has density
 #' \deqn{f_N(x)=\theta_N \exp \left(-x \theta_N\right)}
 #' for \eqn{x \ge 0} and \eqn{\theta_N > 0}, the rate parameter.
 #' @name NED
-#' @param x a vector or matrix of quantiles at which the pdf needs to be computed.
+#' @param x a vector or matrix of observations at which the pdf needs to be computed.
 #' @param q a vector or matrix of quantiles at which the cdf needs to be computed.
 #' @param p a vector or matrix of probabilities at which the quantile needs to be computed.
-#' @param n number of random numbers to be generated.
-#' @param theta the shape parameter, must be positive.
+#' @param n number of random values to be generated.
+#' @param theta the shape parameter must be a positive interval.
+#' @param lower.tail logical; if TRUE (default), probabilities are
+#' \eqn{P(X \ge x)}; otherwise, \eqn{P(X >x)}.
 #'
 #' @return
 #'  \code{pned} gives the distribution function,
 #'  \code{dned} gives the density,
 #'  \code{qned} gives the quantile function and
 #'  \code{rned} generates random variables from the neutrosophic exponential distribution.
+#'
 #' @references
 #' Duan, W., Q., Khan, Z., Gulistan, M., Khurshid, A. (2021). Neutrosophic
 #' Exponential Distribution: Modeling and Applications for Complex Data Analysis,
 #' \emph{Complexity}, 2021, 1-8.
 #'
 #' @importFrom stats runif
+#'
 #' @examples
-#' x <- seq(0.01, 1, length.out = 21)
-#' pned(x, theta = 1)
+#' # Example 4 of Duan et al. (2021)
+#' data <- matrix(c(4,4,3.5,3.5,3.9,4.1,4.2,4.2,4.3,4.6, 4.7, 4.7), nrow = 6, ncol = 2, byrow = TRUE)
+#' # Note that we have a matrix of nuetrosophic observations
 #'
-#' x2 <- matrix(seq(0.01, 1, length.out = 40), ncol = 2)
-#' pned(x2, theta = c(2, 3))
-#' @export
-
-pned <- function(q, theta) {
-  if (any(theta <= 0)) stop(message = "incompatible arguments.")
-  if (any(q < 0)) stop(message = "[Warning] 0 < q ")
-  if (is.vector(q)) {
-    F0 <- 1 - exp(-q * theta[1])
-  } else {
-    if (length(theta) < ncol(q)) {
-      stop(message = "incompatible arguments.")
-    } else {
-      F0 <- matrix(data = NA, nrow = nrow(q), ncol = ncol(q))
-      for (i in 1:ncol(q)) {
-        F0[, i] <- 1 - exp(-q[, i] * theta[i])
-      }
-    }
-  }
-  return(F0)
-}
-
-#' @name NED
-#' @examples
+#' # The density function of data with the estimated value for parameters based
+#' # on Duan et al. (2021)
+#' dned(data, theta = c(0.23, 0.24))
+#' # The density function for the nuetrosophic observation (4,4.1)
+#' dned(x = c(4,4.1), theta = c(0.23, 0.24))
 #'
-#' dned(x, theta = 2)
-#'
-#' dned(x2, theta = c(2, 2))
+#' # The density function for the nuetrosophic observation 4
+#' # Here, 4 is equivalent to c(4,4).
+#' dned(4, theta = c(0.23, 0.24))
 #' @export
 dned <- function(x, theta) {
-  if (any(theta <= 0)) stop(message = "incompatible arguments.")
-  if (any(x < 0)) stop(message = "[Warning] 0 < x ")
-  if (is.vector(x)) {
-    df <- theta[1] * exp(-x * theta[1])
-  } else {
-    if (length(theta) < ncol(x)) {
-      stop(message = "incompatible arguments.")
-    } else {
-      df <- matrix(data = NA, nrow = nrow(x), ncol = ncol(x))
-      for (i in 1:ncol(x)) {
-        df[, i] <- theta[i] * exp(-x[, i] * theta[i])
-      }
-    }
-  }
-  return(df)
-}
+  if (any(theta <= 0) || any(x < 0))
+    stop("Arguments are incompatible.")
 
+  theta <- rep(theta, length.out = 2)
+  if(is.vector(x)){
+    x <- matrix(rep(x, length.out = 2), ncol = 2)
+    pdf <- theta * exp(-x * theta)
+   }
+
+  pdf <- matrix(data = NA, nrow = nrow(x), ncol = ncol(x))
+  for (i in 1:ncol(x)) {
+    pdf[, i] <- theta[i] * exp(-x[, i] * theta[i])
+  }
+
+  # Identify rows where col1 > col2
+  swap_rows <- pdf[, 1] > pdf[, 2]
+  # Swap values using logical indexing
+  pdf[swap_rows, c(1, 2)] <- pdf[swap_rows, c(2, 1)]
+
+  return(pdf)
+}
 #' @name NED
 #' @examples
 #'
-#' qned(x, theta = 2)
+#' # The cumulative distribution function for the nuetrosophic observation (4,4.1)
+#' pned(c(4,4.1), theta = c(0.23, 0.24), lower.tail = TRUE)
+#' pned2(c(4,4.1), theta = c(0.23, 0.24), lower.tail = TRUE)
 #'
-#' qned(x2, theta = c(2, 2))
+#'
+#' pned(4, theta = c(0.23, 0.24))
+#' pned1(4, theta = c(0.23, 0.24))
+#' pned2(4, theta = c(0.23, 0.24))
+#' @export
+pned <- function(q, theta, lower.tail = TRUE) {
+  if (any(theta <= 0) || any(q < 0))
+    stop("Arguments are incompatible.")
+
+  theta <- rep(theta, length.out = 2)
+  if (is.vector(q)){
+    q <- rep(q, length.out = 2)
+  }
+  cdf <- 1 - exp(-q * theta)
+
+  if (!lower.tail)
+    cdf <- 1 - cdf
+
+  return(cdf)
+}
+#' @name NED
+#' @examples
+#' The first percentile
+#' qned(p = 0.1, theta = 0.25)
+#'
+#' The quantiles
+#' qned(p = c(0.25, 0.5, 0.75), theta = c(0.24, 0.25))
+#'
+#'
 #'
 #' @export
 qned <- function(p, theta) {
-  if (any(p < 0) || any(p > 1)) stop(message = "[Warning] 0 < x < 1.")
-  if (any(theta <= 0)) stop(message = "incompatible arguments.")
-  if (is.vector(p) && length(theta) < 2) {
-    qf <- -log(1 - p) / theta[1]
-  } else {
-    if (length(theta) < ncol(p)) {
-      stop(message = "incompatible arguments.")
-    } else {
-      if (is.vector(p) && length(p) == ncol(p)) {
-        p <- matrix(p, nrow = 1, ncol = ncol(p))
-      }
-
-      qf <- matrix(data = NA, nrow = nrow(p), ncol = ncol(p))
-      for (i in 1:ncol(p)) {
-        qf[, i] <- -log(1 - p[, i]) / theta[i]
-      }
-    }
+  if (any(p < 0) || any(p > 1)) {
+    stop(message = "Warning: p should be in the interval [0,1].")
   }
-  return(qf)
+
+  if (any(theta <= 0)){
+    stop(message = "Arguments are incompatible.")
+  }
+
+  theta <- rep(theta, length.out = 2)
+  p <- matrix(rep(p, each = 2), ncol = 2, byrow = TRUE)
+
+  quantiles <- matrix(data = NA, nrow = nrow(p), ncol = 2)
+  for (i in 1:ncol(p)) {
+    quantiles[, i] <- -log(1 - p[, i]) / theta[i]
+  }
+
+  # Identify rows where col1 > col2
+  swap_rows <- quantiles[, 1] > quantiles[, 2]
+  # Swap values using logical indexing
+  quantiles[swap_rows, c(1, 2)] <- quantiles[swap_rows, c(2, 1)]
+
+return(quantiles)
 }
 
 #' @name NED
 #' @examples
-#' n <- 10
-#' rned(n, theta = 1)
-#'
-#' rned(n, theta = c(1, 2))
+#' Simulate 10 numbers
+#' rned(n, theta = c(0.23, 0.24))
 #' @export
+#'
 rned <- function(n, theta) {
-  if (any(theta <= 0)) stop(message = "incompatible arguments.")
-  if (length(theta) < 2) {
-    u <- runif(n)
-    X <- qned(u, theta)
-  } else {
-    u <- matrix(runif(n * length(theta)), nrow = n, ncol = length(theta))
-    X <- qned(u, theta)
-  }
+  if (any(theta <= 0))
+    stop(message = "Arguments are incompatible.")
+  theta <- rep(theta, length.out = 2)
+  u <- matrix(runif(n * length(theta)), nrow = n, ncol = length(theta))
+  X <- qned(u, theta)
+
   return(X)
 }

@@ -17,11 +17,13 @@ qngd(p, alpha = 1, lambda = 2)
 rngd(n, alpha = 1, lambda = 2)
 }
 \arguments{
-\item{alpha}{shape parameter, must be positive.}
+\item{q}{a vector or matrix of quantiles at which the cdf needs to be computed.}
 
-\item{lambda}{scale parameter, must be positive.}
+\item{alpha}{the shape parameter that must be positive.}
 
-\item{x, q}{a vector or matrix of quantiles at which the pdf or cdf needs to be computed.}
+\item{lambda}{the scale parameter that must be positive.}
+
+\item{x}{q a vector or matrix of quantiles at which the pdf needs to be computed.}
 
 \item{p}{a vector or matrix of probabilities at which the quantile needs to be computed.}
 

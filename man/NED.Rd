@@ -2,28 +2,33 @@
 % Please edit documentation in R/ned.R
 \name{NED}
 \alias{NED}
-\alias{pned}
 \alias{dned}
+\alias{pned}
 \alias{qned}
 \alias{rned}
 \title{Neutrosophic Exponential Distribution (NED)}
 \usage{
-pned(q, theta)
-
 dned(x, theta)
+
+pned(q, theta, lower.tail = TRUE)
 
 qned(p, theta)
 
 rned(n, theta)
 }
 \arguments{
-\item{theta}{the shape parameter, must be positive.}
+\item{x}{a vector or matrix of observations at which the pdf needs to be computed.}
 
-\item{x, q}{a vector or matrix of quantiles at which the pdf or cdf needs to be computed.}
+\item{theta}{the shape parameter must be a positive interval.}
+
+\item{q}{a vector or matrix of quantiles at which the cdf needs to be computed.}
+
+\item{lower.tail}{logical; if TRUE (default), probabilities are
+\eqn{P(X \ge x)}; otherwise, \eqn{P(X >x)}.}
 
 \item{p}{a vector or matrix of probabilities at which the quantile needs to be computed.}
 
-\item{n}{number of random numbers to be generated.}
+\item{n}{number of random values to be generated.}
 }
 \value{
 \code{pned} gives the distribution function,
@@ -33,7 +38,7 @@ rned(n, theta)
 }
 \description{
 Density, distribution function, quantile function and random generation for
-the nuetrosophic exponential distribution with parameter \code{rate}=\eqn{\theta_N}.
+the nuetrosophic exponential distribution with the parameter \code{rate}=\eqn{\theta_N}.
 }
 \details{
 The neutrosophic exponential distribution with parameters \code{rate}=\eqn{\theta_N}
@@ -42,24 +47,38 @@ has density
 for \eqn{x \ge 0} and \eqn{\theta_N > 0}, the rate parameter.
 }
 \examples{
-x <- seq(0.01, 1, length.out = 21)
-pned(x, theta = 1)
+# Example 4 of Duan et al. (2021)
+data <- matrix(c(4,4,3.5,3.5,3.9,4.1,4.2,4.2,4.3,4.6, 4.7, 4.7), nrow = 6, ncol = 2, byrow = TRUE)
+# Note that we have a matrix of nuetrosophic observations
 
-x2 <- matrix(seq(0.01, 1, length.out = 40), ncol = 2)
-pned(x2, theta = c(2, 3))
+# The density function of data with the estimated value for parameters based
+# on Duan et al. (2021)
+dned(data, theta = c(0.23, 0.24))
+# The density function for the nuetrosophic observation (4,4.1)
+dned(x = c(4,4.1), theta = c(0.23, 0.24))
 
-dned(x, theta = 2)
+# The density function for the nuetrosophic observation 4
+# Here, 4 is equivalent to c(4,4).
+dned(4, theta = c(0.23, 0.24))
 
-dned(x2, theta = c(2, 2))
+# The cumulative distribution function for the nuetrosophic observation (4,4.1)
+pned(c(4,4.1), theta = c(0.23, 0.24), lower.tail = TRUE)
+pned2(c(4,4.1), theta = c(0.23, 0.24), lower.tail = TRUE)
 
-qned(x, theta = 2)
 
-qned(x2, theta = c(2, 2))
+pned(4, theta = c(0.23, 0.24))
+pned1(4, theta = c(0.23, 0.24))
+pned2(4, theta = c(0.23, 0.24))
+The first percentile
+qned(p = 0.1, theta = 0.25)
 
-n <- 10
-rned(n, theta = 1)
+The quantiles
+qned(p = c(0.25, 0.5, 0.75), theta = c(0.24, 0.25))
 
-rned(n, theta = c(1, 2))
+
+
+Simulate 10 numbers
+rned(n, theta = c(0.23, 0.24))
 }
 \references{
 Duan, W., Q., Khan, Z., Gulistan, M., Khurshid, A. (2021). Neutrosophic

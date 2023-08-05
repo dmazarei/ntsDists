@@ -17,11 +17,13 @@ qnbd(p, alpha, beta)
 rnbd(n, alpha, beta)
 }
 \arguments{
-\item{alpha}{the first shape parameter, must be non-negative.}
+\item{q}{a vector or matrix of quantiles at which the cdf needs to be computed.}
 
-\item{beta}{the second shape parameter, must be non-negative.}
+\item{alpha}{the first shape parameter that must be non-negative.}
 
-\item{x, q}{a vector or matrix of quantiles at which the pdf or cdf needs to be computed.}
+\item{beta}{the second shape parameter that must be non-negative.}
+
+\item{x}{a vector or matrix of quantiles at which the pdf needs to be computed.}
 
 \item{p}{a vector or matrix of probabilities at which the quantile needs to be computed.}
 
