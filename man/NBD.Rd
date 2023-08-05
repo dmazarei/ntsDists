@@ -2,72 +2,79 @@
 % Please edit documentation in R/nbd.R
 \name{NBD}
 \alias{NBD}
-\alias{pnbd}
 \alias{dnbd}
+\alias{pnbd}
 \alias{qnbd}
 \alias{rnbd}
 \title{Neutrosophic Beta Distribution (NBD)}
 \usage{
-pnbd(q, alpha, beta)
-
 dnbd(x, alpha, beta)
+
+pnbd(q, alpha, beta, lower.tail = TRUE)
 
 qnbd(p, alpha, beta)
 
 rnbd(n, alpha, beta)
 }
 \arguments{
-\item{q}{a vector or matrix of quantiles at which the cdf needs to be computed.}
+\item{x}{a vector or matrix of quantiles for which the pdf needs to be computed.}
 
-\item{alpha}{the first shape parameter that must be non-negative.}
+\item{alpha}{the first shape parameter, which must be a positive interval.}
 
-\item{beta}{the second shape parameter that must be non-negative.}
+\item{beta}{the second shape parameter, which must be a positive interval.}
 
-\item{x}{a vector or matrix of quantiles at which the pdf needs to be computed.}
+\item{q}{a vector or matrix of quantiles for which the cdf needs to be computed.}
 
-\item{p}{a vector or matrix of probabilities at which the quantile needs to be computed.}
+\item{lower.tail}{logical; if TRUE (default), probabilities are
+\eqn{P(X \ge x)}; otherwise, \eqn{P(X >x)}.}
 
-\item{n}{number of random numbers to be generated.}
+\item{p}{a vector or matrix of probabilities for which the quantile needs to be computed.}
+
+\item{n}{number of random values to be generated.}
 }
 \value{
 \code{pnbd} gives the distribution function,
 \code{dnbd} gives the density,
 \code{qnbd} gives the quantile function and
-\code{rnbd} generates random variables from the neutrosophic Beta distribution.
+\code{rnbd} generates random values from the neutrosophic Beta distribution.
 }
 \description{
 Density, distribution function, quantile function and random generation for
-the nuetrosophic Beta distribution with parameters \code{shape1}=\eqn{\alpha_N} and
-\code{shape2}=\eqn{\beta_N}.
+the nuetrosophic Beta distribution with parameters \code{shape1}=\eqn{\alpha_N}
+and \code{shape2}=\eqn{\beta_N}.
 }
 \details{
-The neutrosophic beta distribution with parameters \code{shape1}=\eqn{\alpha_N} and
-\code{shape2}=\eqn{\beta_N} has density
-\deqn{f_N(X)=\frac{1}{B\left(\alpha_N, \beta_N\right)}X^{\alpha_N-1}(1-X)^{\beta_N-1}}
-for  \eqn{\alpha_N > 0}, the first shape parameter, and \eqn{\beta_N > 0},
-the second shape parameter and \eqn{0 \le x \le 1}. The function \eqn{B(a,b)}
-return the beta function that can be calculated by \code{\link{beta}}.
+The neutrosophic beta distribution with parameters \eqn{\alpha_N} and
+\eqn{\beta_N} has the probability density function
+\deqn{f_N(X) = \frac{1}{B(\alpha_N, \beta_N)} X^{\alpha_N - 1} (1 - X)^{\beta_N - 1}}
+for \eqn{\alpha_N \in (\alpha_L, \alpha_U)}, the first shape parameter which
+must be a positive interval, and \eqn{\beta_N \in (\beta_L, \beta_U)},
+the second shape parameter which must also be a positive interval, and
+\eqn{0 \le x \le 1}. The function \eqn{B(a, b)}
+returns the beta function and can be calculated using \code{\link{beta}}.
 }
 \examples{
-x <- seq(0.1, 1, length.out = 21) #'
-pnbd(x, alpha = 2, beta = 1)
+dnbd(x = c(0.1, 0.2), alpha = c(1,1), beta = c(2, 2))
 
-x2 <- matrix(seq(0.1, 1, length.out = 40), ncol = 2)
-pnbd(x2, alpha = c(1, 2), beta = c(2, 2))
+dnbd(x = c(0.1, 0.1), alpha = c(0.5,0.7), beta = c(0.2, 2))
 
-dnbd(x, alpha = 1, beta = 2)
+x <- matrix(c(0.1, 0.1, 0.2, 0.3, 0.5, 0.5), ncol = 2, byrow = TRUE)
+dnbd(x, alpha = c(1, 2), beta = c(2, 3))
 
-dnbd(x2, alpha = c(1, 2), beta = c(2, 2))
+pnbd(q = c(0.1, 0.1), alpha = c(3, 1), beta = c(1,3), lower.tail = FALSE)
+
+pnbd(x, alpha = c(1, 2), beta = c(2, 2))
 
 
-qnbd(x, alpha = 1, beta = 2)
-qnbd(x2, alpha = c(1, 2), beta = c(2, 2))
+qnbd(p = 0.1, alpha = c(1,1), beta = c(2, 2))
 
-n <- 10
-rnbd(n, alpha = 2, beta = 1)
-rnbd(n, alpha = c(1, 2), beta = c(1, 1))
+qnbd(p = c(0.25, 0.5, 0.75), alpha = c(1, 2), beta = c(2, 2))
+
+Simulate 10 numbers
+rnbd(n = 10, alpha = c(1, 2), beta = c(1, 1))
 }
 \references{
 Sherwani, R. Ah. K., Naeem, M., Aslam, M., Reza, M. A., Abid, M., Abbas, S. (2021).
-    Neutrosophic beta distribution with properties and applications. Neutrosophic Sets and Systems, 41, 209-214.
+    Neutrosophic beta distribution with properties and applications.
+    \emph{Neutrosophic Sets and Systems}, 41, 209-214.
 }

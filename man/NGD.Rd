@@ -2,32 +2,35 @@
 % Please edit documentation in R/ngd.R
 \name{NGD}
 \alias{NGD}
-\alias{pngd}
 \alias{dngd}
+\alias{pngd}
 \alias{qngd}
 \alias{rngd}
 \title{Neutrosophic Gamma Distribution (NGD)}
 \usage{
-pngd(q, alpha = 1, lambda = 2)
+dngd(x, alpha, lambda)
 
-dngd(x, alpha = 1, lambda = 2)
+pngd(q, alpha, lambda, lower.tail = TRUE)
 
-qngd(p, alpha = 1, lambda = 2)
+qngd(p, alpha, lambda)
 
-rngd(n, alpha = 1, lambda = 2)
+rngd(n, alpha, lambda)
 }
 \arguments{
-\item{q}{a vector or matrix of quantiles at which the cdf needs to be computed.}
+\item{x}{a vector or matrix of quantiles for which the pdf needs to be computed.}
 
-\item{alpha}{the shape parameter that must be positive.}
+\item{alpha}{the shape parameter, which must be a positive interval.}
 
-\item{lambda}{the scale parameter that must be positive.}
+\item{lambda}{the scale parameter, which must be a positive interval.}
 
-\item{x}{q a vector or matrix of quantiles at which the pdf needs to be computed.}
+\item{q}{a vector or matrix of quantiles for which the cdf needs to be computed.}
 
-\item{p}{a vector or matrix of probabilities at which the quantile needs to be computed.}
+\item{lower.tail}{logical; if TRUE (default), probabilities are
+\eqn{P(X \ge x)}; otherwise, \eqn{P(X >x)}.}
 
-\item{n}{number of random numbers to be generated.}
+\item{p}{a vector or matrix of probabilities for which the quantile needs to be computed.}
+
+\item{n}{number of random values to be generated.}
 }
 \value{
 \code{pngd} gives the distribution function,
@@ -37,32 +40,31 @@ rngd(n, alpha = 1, lambda = 2)
 }
 \description{
 Density, distribution function, quantile function and random generation for
-the nuetrosophic gamma distribution with parameter \code{shape}=\eqn{\alpha_N} and
-\code{scale}=\eqn{\lambda_N}.
+the nuetrosophic gamma distribution with parameter \code{shape}=\eqn{\alpha_N}
+and \code{scale}=\eqn{\lambda_N}.
 }
 \details{
-The neutrosophic gamma distribution with parameters \code{shape}=\eqn{\alpha_N} and
-\code{scale}=\eqn{\lambda_N} has density
-\deqn{f_n(x)=\frac{1}{\Gamma(\alpha_n) \lambda_n^{\alpha_n}} x^{\alpha_n-1} e^{-\left(x / \lambda_n\right)}}
-for \eqn{x \ge 0}, \eqn{\alpha_n > 0}, the shape parameter, and
-\eqn{\lambda_n > 0}, the scale parameter. Here, \eqn{\Gamma(\cdot)} is gamma
+The neutrosophic gamma distribution with parameters \eqn{\alpha_N} and
+\eqn{\lambda_N} has density
+\deqn{f_n(x)=\frac{1}{\Gamma(\alpha_n) \lambda_n^{\alpha_n}} x^{\alpha_n-1} \exp\{-\left(x / \lambda_n\right)\}}
+for \eqn{x \ge 0}, \eqn{\alpha_N \in (\alpha_L, \alpha_U)}, the shape
+parameter which must be a positive interval and
+\eqn{\lambda_n \in (\lambda_L, \lambda_U)}, the scale parameter which
+must be a positive interval. Here, \eqn{\Gamma(\cdot)} is gamma
 function implemented by \code{\link{gamma}}.
 }
 \examples{
-x <- seq(0.1, 1, length.out = 21)
-pngd(x, alpha = 2, lambda = 1)
 
-x2 <- matrix(seq(0.1, 1, length.out = 40), ncol = 2)
-pngd(x2, alpha = c(1, 2), lambda = c(2, 2))
-dngd(x, alpha = 1, lambda = 2)
+dngd(x = c(0.1, 0.2), alpha = c(2,2), lambda = c(1,1))
 
-dngd(x2, alpha = c(1, 2), lambda = c(2, 2))
-qngd(x, alpha = 1, lambda = 2)
+x <- matrix(c(1, 1, 2, 2.2, 3, 3.5), ncol = 2, byrow = TRUE)
+dngd(x, alpha = c(1, 2), lambda = c(2, 2))
+pngd(q = c(0.1, 0.1), alpha = c(1,1.5), lambda = c(2,2))
 
-qngd(x2, alpha = c(1, 2), lambda = c(2, 2))
-n <- 10
-rngd(n, alpha = 2, lambda = 1)
-rngd(n, alpha = c(1, 2), lambda = c(1, 1))
+
+qngd(p = 0.1, alpha = c(1, 2), lambda = c(2, 2))
+Simulate 10 numbers
+rngd(n=10, alpha = c(1, 2), lambda = c(1, 1))
 }
 \references{
 Khan, Z., Al-Bossly, A., Almazah, M. M. A., and Alduais, F. S. (2021).
