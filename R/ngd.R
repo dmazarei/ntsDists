@@ -14,7 +14,7 @@
 #' function implemented by \code{\link{gamma}}.
 #'
 #' @name NGD
-#' @param x a vector or matrix of quantiles for which the pdf needs to be computed.
+#' @param x a vector or matrix of observations for which the pdf needs to be computed.
 #' @param q a vector or matrix of quantiles for which the cdf needs to be computed.
 #' @param p a vector or matrix of probabilities for which the quantile needs to be computed.
 #' @param n number of random values to be generated.
@@ -35,7 +35,7 @@
 #' @importFrom stats runif dgamma pgamma qgamma
 #' @examples
 #'
-#' dngd(x = c(0.1, 0.2), alpha = c(2,2), lambda = c(1,1))
+#' dngd(x = 0.1, alpha = c(2,3), lambda = c(1,2))
 #'
 #' x <- matrix(c(1, 1, 2, 2.2, 3, 3.5), ncol = 2, byrow = TRUE)
 #' dngd(x, alpha = c(1, 2), lambda = c(2, 2))
@@ -83,7 +83,7 @@ pngd <- function(q, alpha, lambda, lower.tail = TRUE) {
   }
   q <- matrix(q, ncol = 2)
 
-  cdf <- stats::pgamma(q[, i], shape = alpha, scale = lambda)
+  cdf <- stats::pgamma(q, shape = alpha, scale = lambda)
 
   if (!lower.tail)
     cdf <- 1 - cdf

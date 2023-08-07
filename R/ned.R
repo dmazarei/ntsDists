@@ -1,14 +1,14 @@
 #' Neutrosophic Exponential Distribution (NED)
 #'
-#' Density, distribution function, quantile function and random generation for
-#' the nuetrosophic exponential distribution with the parameter
-#' \code{rate}=\eqn{\theta_N}.
+#' Density, distribution function, quantile function and random
+#' generation for the nuetrosophic exponential distribution with the
+#' parameter rate \eqn{\theta_N}.
 #'
 #' The neutrosophic exponential distribution with parameter \eqn{\theta_N}
 #' has density
 #' \deqn{f_N(x)=\theta_N \exp \left(-x \theta_N\right)}
 #' for \eqn{x \ge 0} and \eqn{\theta_N \in (\theta_L, \theta_U)},
-#' the rate parameter must be a positive interval.
+#' the rate parameter must be a positive interval and \eqn{x \ge 0}.
 #' @name NED
 #' @param x a vector or matrix of observations for which the pdf needs to be computed.
 #' @param q a vector or matrix of quantiles for which the cdf needs to be computed.
@@ -43,7 +43,7 @@
 #'
 #' # The density function for the nuetrosophic observation 4
 #' # Here, 4 is equivalent to c(4,4).
-#' dned(4, theta = c(0.23, 0.24))
+#' dned(4, theta = c(0.23, 0.23))
 #' @export
 dned <- function(x, theta) {
   if (any(theta <= 0) || any(x < 0))
@@ -52,8 +52,9 @@ dned <- function(x, theta) {
   theta <- rep(theta, length.out = 2)
   if(is.vector(x)){
     x <- matrix(rep(x, length.out = 2), ncol = 2)
-    pdf <- theta * exp(-x * theta)
-   }
+  }
+
+  x <- matrix(x, ncol = 2)
 
   pdf <- matrix(data = NA, nrow = nrow(x), ncol = ncol(x))
   for (i in 1:ncol(x)) {
@@ -121,11 +122,10 @@ qned <- function(p, theta) {
     quantiles[, i] <- -log(1 - p[, i]) / theta[i]
   }
 
-
   swap_rows <- quantiles[, 1] > quantiles[, 2]
   quantiles[swap_rows, c(1, 2)] <- quantiles[swap_rows, c(2, 1)]
 
-return(quantiles)
+  return(quantiles)
 }
 
 #' @name NED

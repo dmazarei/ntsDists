@@ -1,8 +1,8 @@
 #' Neutrosophic Beta Distribution (NBD)
 #'
-#' Density, distribution function, quantile function and random generation for
-#' the nuetrosophic Beta distribution with parameters \code{shape1}=\eqn{\alpha_N}
-#' and \code{shape2}=\eqn{\beta_N}.
+#' Density, distribution function, quantile function and random
+#' generation for the nuetrosophic Beta distribution with shape parameters
+#' \eqn{\alpha_N} and \eqn{\beta_N}.
 #'
 #' The neutrosophic beta distribution with parameters \eqn{\alpha_N} and
 #' \eqn{\beta_N} has the probability density function
@@ -15,7 +15,7 @@
 #'
 #' @name NBD
 #'
-#' @param x a vector or matrix of quantiles for which the pdf needs to be computed.
+#' @param x a vector or matrix of observations for which the pdf needs to be computed.
 #' @param q a vector or matrix of quantiles for which the cdf needs to be computed.
 #' @param p a vector or matrix of probabilities for which the quantile needs to be computed.
 #' @param n number of random values to be generated.
@@ -115,17 +115,6 @@ qnbd <- function(p, alpha, beta) {
 
   alpha <- rep(alpha, length.out = 2)
   beta  <- rep(beta, length.out = 2)
-  p <- matrix(rep(p, each = 2), ncol = 2, byrow = TRUE)
-
-
-  quantiles <- matrix(data = NA, nrow = nrow(p), ncol = 2)
-  for (i in 1:ncol(p)) {
-    quantiles[, i] <- stats::qbeta(p[, i], shape1 = alpha[i], shape2 = beta[i])
-  }
-  swap_rows <- quantiles[, 1] > quantiles[, 2]
-  quantiles[swap_rows, c(1, 2)] <- quantiles[swap_rows, c(2, 1)]
-
-  return(quantiles)
 }
 #' @name NBD
 #' @examples
