@@ -7,8 +7,8 @@
 #' The neutrosophic Poisson distribution with parameter \eqn{\lambda_N}
 #' has the density
 #' \deqn{f_X(x)=\bigg(\begin{array}{c}n \\ x\end{array}\bigg) p_N^{x}\left(1-p_N\right)^{n-x},  x=0, 1, 2, \ldots, n}
-#' for \eqn{p_N \in (pL, \lambda_U)} which must be \eqn{0<p_N<1}
-#' interval and \eqn{n \in \{0, 1, 2, \ldots\}} and \eqn{x \in \{0, 1, 2, \ldots\}}.
+#' for \eqn{n \in \{0, 1, 2, \ldots\}} and \eqn{p_N \in (pL, \lambda_U)} which must be \eqn{0<p_N<1}
+#' and \eqn{x \in \{0, 1, 2, \ldots\}}.
 #'
 #' @name NBIND
 #' @param x a vector or matrix of observations for which the pdf needs to be computed.
