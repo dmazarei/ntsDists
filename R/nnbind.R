@@ -52,7 +52,7 @@ dnnbind <- function(x, size, prob) {
 
   pdf <- matrix(data = NA, nrow = nrow(x), ncol = ncol(x))
   for (i in 1:ncol(x)) {
-    pdf[, i] <- stats::dbinom(x[, i], size = size[i], prob = prob[i])
+    pdf[, i] <- stats::dnbinom(x[, i], size = size[i], prob = prob[i])
   }
 
   swap_rows <- pdf[, 1] > pdf[, 2]
@@ -81,7 +81,7 @@ pnnbind <- function(q, size, prob, lower.tail = TRUE) {
   }
   q <- matrix(q, ncol = 2)
 
-  cdf <- stats::dbinom(q, size = size, prob = prob)
+  cdf <- stats::dnbinom(q, size = size, prob = prob)
 
   if (!lower.tail)
     cdf <- 1 - cdf
@@ -113,7 +113,7 @@ qnnbind <- function(p, size, prob) {
 
   quantiles <- matrix(data = NA, nrow = nrow(p), ncol = 2)
   for (i in 1:ncol(p)) {
-    quantiles[, i] <- stats::qbinom(p[, i], size = size[i], prob = prob[i])
+    quantiles[, i] <- stats::qnbinom(p[, i], size = size[i], prob = prob[i])
   }
 
   swap_rows <- quantiles[, 1] > quantiles[, 2]
@@ -132,10 +132,11 @@ rnnbind <- function(n, size, prob) {
   if (any(size < 1) || any(prob <= 0) || any(prob > 1))
     stop(message = "Arguments are incompatible.")
 
+
   size <- rep(size, length.out = 2)
-  prob  <- rep(prob, length.out = 2)
+  prob <- rep(prob, length.out = 2)
   u <- matrix(runif(n), ncol = 2)
-  X <- qnnbind(u, lambda)
+  X <- qnnbind(u, size, prob)
 
   return(X)
 }
