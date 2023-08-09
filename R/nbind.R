@@ -7,7 +7,7 @@
 #' The neutrosophic Binomial distribution with parameters \eqn{n} and \eqn{p_N}
 #' has the density
 #' \deqn{f_X(x)=\bigg(\begin{array}{c}n \\ x\end{array}\bigg) p_N^{x}\left(1-p_N\right)^{n-x}}
-#' for \eqn{n \in \{0, 1, 2, \ldots\}} and \eqn{p_N \in (p_L, p_U)} which must be \eqn{0<p_N<1}
+#' for \eqn{n \in \{1, 2, \ldots\}} and \eqn{p_N \in (p_L, p_U)} which must be \eqn{0<p_N<1}
 #' and \eqn{x \in \{0, 1, 2, \ldots\}}.
 #'
 #' @name NBIND
@@ -31,20 +31,22 @@
 #'         \emph{Hacettepe Journal of Mathematics and Statistics}, 51(5), 1442-1457.
 #' @importFrom stats runif dpois ppois qpois
 #' @examples
-#' dnbind(x, size = 2, prob= 0.5)
+#' dnbind(x, size = 2, prob = 0.5)
 #' dnbind(x2, lambda = c(2, 2))
 #' @export
 dnbind <- function(x, size, prob) {
-    if (any(size <= 0) || any(prob <= 0) || any(prob > 1) || any(x < 0))
+  if (any(size <= 0) || any(prob <= 0) || any(prob > 1) || any(x < 0)) {
     stop(message = "Arguments are incompatible.")
+  }
 
-  if (any(x < 0) && any(x - floor(x) == 0))
+  if (any(x < 0) && any(x - floor(x) == 0)) {
     stop(message = "Warning: x should be a positive integer.")
+  }
 
   size <- rep(size, length.out = 2)
-  prob  <- rep(prob, length.out = 2)
+  prob <- rep(prob, length.out = 2)
 
-  if(is.vector(x)){
+  if (is.vector(x)) {
     x <- matrix(rep(x, length.out = 2), ncol = 2)
   }
 
@@ -64,27 +66,30 @@ dnbind <- function(x, size, prob) {
 #' @examples
 #' x <- 1:10
 #' x2 <- matrix(1:20, ncol = 2)
-#' pnbind(x, size = 2, prob= 0.5)
-#' pnbind(x2, size = c(2,2), prob = c(.3 ,.6))
+#' pnbind(x, size = 2, prob = 0.5)
+#' pnbind(x2, size = c(2, 2), prob = c(.3, .6))
 #' @export
 
 pnbind <- function(q, size, prob, lower.tail = TRUE) {
-  if (any(size <= 0) || any(prob <= 0) || any(prob > 1) || any(q < 0))
+  if (any(size <= 0) || any(prob <= 0) || any(prob > 1) || any(q < 0)) {
     stop(message = "Arguments are incompatible.")
-  if (any(q < 0) && any(q - floor(q) == 0))
+  }
+  if (any(q < 0) && any(q - floor(q) == 0)) {
     stop(message = "Warning: q should be a  positive integer.")
+  }
 
   size <- rep(size, length.out = 2)
-  prob  <- rep(prob, length.out = 2)
-  if (is.vector(q)){
+  prob <- rep(prob, length.out = 2)
+  if (is.vector(q)) {
     q <- rep(q, length.out = 2)
   }
   q <- matrix(q, ncol = 2)
 
   cdf <- stats::dbinom(q, size = size, prob = prob)
 
-  if (!lower.tail)
+  if (!lower.tail) {
     cdf <- 1 - cdf
+  }
 
   cdf <- matrix(cdf, ncol = 2, byrow = TRUE)
 
@@ -96,19 +101,21 @@ pnbind <- function(q, size, prob, lower.tail = TRUE) {
 #' @name NBIND
 #' @examples
 #' q1 <- seq(0.1, 1, length.out = 40)
-#' qnbind(q1, size = 2, prob= 0.5)
+#' qnbind(q1, size = 2, prob = 0.5)
 #' q2 <- matrix(seq(0.1, 1, length.out = 40), ncol = 2)
 #' qnbind(q2, lambda = c(2, 2))
 #' @export
 qnbind <- function(p, size, prob) {
-  if (any(p < 0) || any(p > 1))
+  if (any(p < 0) || any(p > 1)) {
     stop(message = "Warning: p should be in the interval [0,1].")
+  }
 
-  if (any(lambda < 0))
+  if (any(lambda < 0)) {
     stop(message = "Arguments are incompatible.")
+  }
 
   size <- rep(size, length.out = 2)
-  prob  <- rep(prob, length.out = 2)
+  prob <- rep(prob, length.out = 2)
   p <- matrix(rep(p, each = 2), ncol = 2, byrow = TRUE)
 
   quantiles <- matrix(data = NA, nrow = nrow(p), ncol = 2)
@@ -125,15 +132,16 @@ qnbind <- function(p, size, prob) {
 #' @name NBIND
 #' @examples
 #' n <- 10
-#' rnbind(n, size = 2, prob= 0.5)
+#' rnbind(n, size = 2, prob = 0.5)
 #' rnbind(n, lambda = c(1, 2))
 #' @export
 rnbind <- function(n, size, prob) {
-  if (any(lambda < 0))
+  if (any(lambda < 0)) {
     stop(message = "Arguments are incompatible.")
+  }
 
   size <- rep(size, length.out = 2)
-  prob  <- rep(prob, length.out = 2)
+  prob <- rep(prob, length.out = 2)
   u <- matrix(runif(n), ncol = 2)
   X <- qnbind(u, lambda)
 
