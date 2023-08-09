@@ -21,7 +21,7 @@ rbind(n, size, prob)
 
 \item{size}{number of trials (zero or more), which must be a positive interval.}
 
-\item{prob}{probability of success on each trial.}
+\item{prob}{probability of success on each trial, \eqn{0 < prob <= 1}.}
 
 \item{q}{a vector or matrix of quantiles for which the cdf needs to be computed.}
 
@@ -36,7 +36,7 @@ rbind(n, size, prob)
 \code{pbind} gives the distribution function,
  \code{dbind} gives the density,
  \code{qbind} gives the quantile function and
- \code{rbind} generates random variables from the neutrosophic Poisson Distribution.
+ \code{rbind} generates random variables from the Binomial Poisson Distribution.
 }
 \description{
 Density, distribution function, quantile function and random
@@ -44,7 +44,7 @@ generation for the nuetrosophic Binomial distribution with
 parameters \eqn{n} and \eqn{p_N}.
 }
 \details{
-The neutrosophic Poisson distribution with parameter \eqn{\lambda_N}
+The neutrosophic Binomial distribution with parameters \eqn{n} and \eqn{p_N}
 has the density
 \deqn{f_X(x)=\bigg(\begin{array}{c}n \\ x\end{array}\bigg) p_N^{x}\left(1-p_N\right)^{n-x}}
 for \eqn{n \in \{0, 1, 2, \ldots\}} and \eqn{p_N \in (pL, \lambda_U)} which must be \eqn{0<p_N<1}

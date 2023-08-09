@@ -4,7 +4,7 @@
 #' generation for the nuetrosophic Binomial distribution with
 #' parameters \eqn{n} and \eqn{p_N}.
 #'
-#' The neutrosophic Poisson distribution with parameter \eqn{\lambda_N}
+#' The neutrosophic Binomial distribution with parameters \eqn{n} and \eqn{p_N}
 #' has the density
 #' \deqn{f_X(x)=\bigg(\begin{array}{c}n \\ x\end{array}\bigg) p_N^{x}\left(1-p_N\right)^{n-x}}
 #' for \eqn{n \in \{0, 1, 2, \ldots\}} and \eqn{p_N \in (pL, \lambda_U)} which must be \eqn{0<p_N<1}
@@ -16,7 +16,7 @@
 #' @param p a vector or matrix of probabilities for which the quantile needs to be computed.
 #' @param n number of random values to be generated.
 #' @param size number of trials (zero or more), which must be a positive interval.
-#' @param prob probability of success on each trial.
+#' @param prob probability of success on each trial, \eqn{0 < prob <= 1}.
 #' @param lower.tail logical; if TRUE (default), probabilities are
 #' \eqn{P(X \ge x)}; otherwise, \eqn{P(X >x)}.
 #'
@@ -24,7 +24,7 @@
 #'  \code{pbind} gives the distribution function,
 #'  \code{dbind} gives the density,
 #'  \code{qbind} gives the quantile function and
-#'  \code{rbind} generates random variables from the neutrosophic Poisson Distribution.
+#'  \code{rbind} generates random variables from the Binomial Poisson Distribution.
 #' @references
 #'        Granados, C. (2022).
 #'        Some discrete neutrosophic distributions with neutrosophic parameters based on neutrosophic random variables.
