@@ -2,19 +2,19 @@
 % Please edit documentation in R/nbind.R
 \name{NBIND}
 \alias{NBIND}
-\alias{dbind}
-\alias{pbind}
-\alias{qbind}
-\alias{rbind}
+\alias{dnbind}
+\alias{pnbind}
+\alias{qnbind}
+\alias{rnbind}
 \title{Neutrosophic Binomial Distribution (NBIND)}
 \usage{
-dbind(x, size, prob)
+dnbind(x, size, prob)
 
-pbind(q, size, prob, lower.tail = TRUE)
+pnbind(q, size, prob, lower.tail = TRUE)
 
-qbind(p, size, prob)
+qnbind(p, size, prob)
 
-rbind(n, size, prob)
+rnbind(n, size, prob)
 }
 \arguments{
 \item{x}{a vector or matrix of observations for which the pdf needs to be computed.}
@@ -33,10 +33,10 @@ rbind(n, size, prob)
 \item{n}{number of random values to be generated.}
 }
 \value{
-\code{pbind} gives the distribution function,
- \code{dbind} gives the density,
- \code{qbind} gives the quantile function and
- \code{rbind} generates random variables from the Binomial Poisson Distribution.
+\code{pnbind} gives the distribution function,
+ \code{dnbind} gives the density,
+ \code{qnbind} gives the quantile function and
+ \code{rnbind} generates random variables from the Binomial Poisson Distribution.
 }
 \description{
 Density, distribution function, quantile function and random
@@ -51,19 +51,19 @@ for \eqn{n \in \{0, 1, 2, \ldots\}} and \eqn{p_N \in (p_L, p_U)} which must be \
 and \eqn{x \in \{0, 1, 2, \ldots\}}.
 }
 \examples{
-dbind(x, size = 2, prob= 0.5)
-dbind(x2, lambda = c(2, 2))
+dnbind(x, size = 2, prob= 0.5)
+dnbind(x2, lambda = c(2, 2))
 x <- 1:10
 x2 <- matrix(1:20, ncol = 2)
-pbind(x, size = 2, prob= 0.5)
-pbind(x2, size = c(2,2), prob = c(.3 ,.6))
+pnbind(x, size = 2, prob= 0.5)
+pnbind(x2, size = c(2,2), prob = c(.3 ,.6))
 q1 <- seq(0.1, 1, length.out = 40)
-qbind(q1, size = 2, prob= 0.5)
+qnbind(q1, size = 2, prob= 0.5)
 q2 <- matrix(seq(0.1, 1, length.out = 40), ncol = 2)
-qbind(q2, lambda = c(2, 2))
+qnbind(q2, lambda = c(2, 2))
 n <- 10
-rbind(n, size = 2, prob= 0.5)
-rbind(n, lambda = c(1, 2))
+rnbind(n, size = 2, prob= 0.5)
+rnbind(n, lambda = c(1, 2))
 }
 \references{
 Granados, C. (2022).
