@@ -85,7 +85,7 @@ pnbind <- function(q, size, prob, lower.tail = TRUE) {
   }
   q <- matrix(q, ncol = 2)
 
-  cdf <- stats::dbinom(q, size = size, prob = prob)
+  cdf <- stats::pbinom(q, size = size, prob = prob)
 
   if (!lower.tail) {
     cdf <- 1 - cdf
