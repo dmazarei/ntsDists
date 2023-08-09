@@ -24,12 +24,12 @@
 #'  \code{pnnbind} gives the distribution function,
 #'  \code{dnnbind} gives the density,
 #'  \code{qnnbind} gives the quantile function and
-#'  \code{rnnbind} generates random variables from the Binomial Poisson Distribution.
+#'  \code{rnnbind} generates random variables from the Binomial Distribution.
 #' @references
 #'        Granados, C. (2022).
 #'        Some discrete neutrosophic distributions with neutrosophic parameters based on neutrosophic random variables.
 #'         \emph{Hacettepe Journal of Mathematics and Statistics}, 51(5), 1442-1457.
-#' @importFrom stats runif dpois ppois qpois
+#' @importFrom stats runif dnbinom pnbinom qnbinom
 #' @examples
 #' dnnbind(x, size = 2, prob= 0.5)
 #' dnnbind(x2, lambda = c(2, 2))

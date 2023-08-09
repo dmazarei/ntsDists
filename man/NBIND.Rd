@@ -36,7 +36,7 @@ rnbind(n, size, prob)
 \code{pnbind} gives the distribution function,
  \code{dnbind} gives the density,
  \code{qnbind} gives the quantile function and
- \code{rnbind} generates random variables from the Binomial Poisson Distribution.
+ \code{rnbind} generates random variables from the Binomial Distribution.
 }
 \description{
 Density, distribution function, quantile function and random
