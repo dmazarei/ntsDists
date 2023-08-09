@@ -143,7 +143,7 @@ rnbind <- function(n, size, prob) {
   size <- rep(size, length.out = 2)
   prob <- rep(prob, length.out = 2)
   u <- matrix(runif(n), ncol = 2)
-  X <- qnbind(u, lambda)
+  X <- qnbind(u, size, prob)
 
   return(X)
 }
