@@ -35,7 +35,7 @@
 #' dnbind(x2, lambda = c(2, 2))
 #' @export
 dnbind <- function(x, size, prob) {
-  if (any(size <= 0) || any(prob <= 0) || any(prob > 1) || any(x < 0)) {
+  if (any(size < 1) || any(prob <= 0) || any(prob > 1) || any(x < 0)) {
     stop(message = "Arguments are incompatible.")
   }
 
@@ -71,7 +71,7 @@ dnbind <- function(x, size, prob) {
 #' @export
 
 pnbind <- function(q, size, prob, lower.tail = TRUE) {
-  if (any(size <= 0) || any(prob <= 0) || any(prob > 1) || any(q < 0)) {
+  if (any(size < 1) || any(prob <= 0) || any(prob > 1) || any(q < 0)) {
     stop(message = "Arguments are incompatible.")
   }
   if (any(q < 0) && any(q - floor(q) == 0)) {
@@ -110,7 +110,7 @@ qnbind <- function(p, size, prob) {
     stop(message = "Warning: p should be in the interval [0,1].")
   }
 
-  if (any(lambda < 0)) {
+  if (any(size < 1) || any(prob <= 0) || any(prob > 1)) {
     stop(message = "Arguments are incompatible.")
   }
 
@@ -136,7 +136,7 @@ qnbind <- function(p, size, prob) {
 #' rnbind(n, lambda = c(1, 2))
 #' @export
 rnbind <- function(n, size, prob) {
-  if (any(lambda < 0)) {
+  if (any(size < 1) || any(prob <= 0) || any(prob > 1)) {
     stop(message = "Arguments are incompatible.")
   }
 

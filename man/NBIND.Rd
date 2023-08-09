@@ -51,18 +51,18 @@ for \eqn{n \in \{1, 2, \ldots\}} and \eqn{p_N \in (p_L, p_U)} which must be \eqn
 and \eqn{x \in \{0, 1, 2, \ldots\}}.
 }
 \examples{
-dnbind(x, size = 2, prob= 0.5)
+dnbind(x, size = 2, prob = 0.5)
 dnbind(x2, lambda = c(2, 2))
 x <- 1:10
 x2 <- matrix(1:20, ncol = 2)
-pnbind(x, size = 2, prob= 0.5)
-pnbind(x2, size = c(2,2), prob = c(.3 ,.6))
+pnbind(x, size = 2, prob = 0.5)
+pnbind(x2, size = c(2, 2), prob = c(.3, .6))
 q1 <- seq(0.1, 1, length.out = 40)
-qnbind(q1, size = 2, prob= 0.5)
+qnbind(q1, size = 2, prob = 0.5)
 q2 <- matrix(seq(0.1, 1, length.out = 40), ncol = 2)
 qnbind(q2, lambda = c(2, 2))
 n <- 10
-rnbind(n, size = 2, prob= 0.5)
+rnbind(n, size = 2, prob = 0.5)
 rnbind(n, lambda = c(1, 2))
 }
 \references{
