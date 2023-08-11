@@ -135,8 +135,8 @@ rnwd <- function(n, beta, alpha) {
   alpha <- rep(alpha, length.out = 2)
   beta  <- rep(beta, length.out = 2)
 
-  u <- matrix(runif(n * length(theta)), nrow = n, ncol = length(theta))
-  X <- qnwd(u, alpha, beta)
+  u <- matrix(runif(n), ncol = 2)
+  X <- qnbd(u, alpha, beta)
 
   return(X)
 }
