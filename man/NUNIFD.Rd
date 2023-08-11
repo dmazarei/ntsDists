@@ -44,8 +44,8 @@ parameters \eqn{a_N} and  \eqn{b_N}.
 The neutrosophic Rayleigh distribution with parameters
 \eqn{\max_N} and \eqn{\min_N} has the density
 \deqn{f_N(x)=\frac{1}{b_N-a_N}}
-for \eqn{a_N \in (a_L, a_U)}  parameter interval, \eqn{b_N \in (b_L,b_U)},
- parameter interval, and \eqn{x > 0}.
+for \eqn{a_N \in (a_L, a_U)}  lower parameter interval, \eqn{b_N \in (b_L,b_U)},
+ upper parameter interval, and \eqn{x > 0}.
 }
 \examples{
 dnunifd(x, min = 1, max = 2)
