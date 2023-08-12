@@ -37,12 +37,13 @@
 #' dnunifd(x2, min = c(1, 2), max = c(2, 2))
 #' @export
 dnunifd <- function(x, min, max) {
-  if (any(max <= min))
+  if (any(max <= min)) {
     stop(message = "Arguments are incompatible.")
+  }
   max <- rep(max, length.out = 2)
-  min  <- rep(min, length.out = 2)
+  min <- rep(min, length.out = 2)
 
-  if(is.vector(x)){
+  if (is.vector(x)) {
     x <- matrix(rep(x, length.out = 2), ncol = 2)
   }
 
@@ -65,21 +66,23 @@ dnunifd <- function(x, min, max) {
 #' pnunifd(x2, min = c(1, 2), max = c(2, 2))
 #' @export
 pnunifd <- function(q, min, max) {
-  if (any(max <= min))
+  if (any(max <= min)) {
     stop(message = "Arguments are incompatible.")
+  }
 
   max <- rep(max, length.out = 2)
-  min  <- rep(min, length.out = 2)
+  min <- rep(min, length.out = 2)
 
-  if (is.vector(q)){
+  if (is.vector(q)) {
     q <- rep(q, length.out = 2)
   }
   q <- matrix(q, ncol = 2)
 
   cdf <- stats::punif(q, min = min, max = max)
 
-  if (!lower.tail)
+  if (!lower.tail) {
     cdf <- 1 - cdf
+  }
 
   cdf <- matrix(cdf, ncol = 2, byrow = TRUE)
 
@@ -96,14 +99,15 @@ pnunifd <- function(q, min, max) {
 #' qnunifd(x2, min = c(1, 2), max = c(2, 2))
 #' @export
 qnunifd <- function(p, min, max) {
-  if (any(max <= min))
+  if (any(max <= min)) {
     stop(message = "Arguments are incompatible.")
+  }
   if (any(p < 0) || any(p > 1)) {
     stop(message = "Warning: p should be in the interval [0,1].")
   }
 
   max <- rep(max, length.out = 2)
-  min  <- rep(min, length.out = 2)
+  min <- rep(min, length.out = 2)
 
   p <- matrix(rep(p, each = 2), ncol = 2, byrow = TRUE)
 
@@ -124,10 +128,11 @@ qnunifd <- function(p, min, max) {
 #' rnunifd(n, min = c(1, 2), max = c(1, 1))
 #' @export
 rnunifd <- function(n, min, max) {
-  if (any(max <= min))
+  if (any(max <= min)) {
     stop(message = "Arguments are incompatible.")
+  }
   max <- rep(max, length.out = 2)
-  min  <- rep(min, length.out = 2)
+  min <- rep(min, length.out = 2)
 
   u <- matrix(runif(n * 2), nrow = n, ncol = 2)
   X <- qnunifd(u, max, min)
