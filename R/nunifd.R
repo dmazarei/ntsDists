@@ -37,6 +37,8 @@
 #' dnunifd(x2, min = c(1, 2), max = c(2, 2))
 #' @export
 dnunifd <- function(x, min, max) {
+  if (any(max <= min))
+    stop(message = "Arguments are incompatible.")
   max <- rep(max, length.out = 2)
   min  <- rep(min, length.out = 2)
 
@@ -63,7 +65,8 @@ dnunifd <- function(x, min, max) {
 #' pnunifd(x2, min = c(1, 2), max = c(2, 2))
 #' @export
 pnunifd <- function(q, min, max) {
-
+  if (any(max <= min))
+    stop(message = "Arguments are incompatible.")
 
   max <- rep(max, length.out = 2)
   min  <- rep(min, length.out = 2)
@@ -93,6 +96,8 @@ pnunifd <- function(q, min, max) {
 #' qnunifd(x2, min = c(1, 2), max = c(2, 2))
 #' @export
 qnunifd <- function(p, min, max) {
+  if (any(max <= min))
+    stop(message = "Arguments are incompatible.")
   if (any(p < 0) || any(p > 1)) {
     stop(message = "Warning: p should be in the interval [0,1].")
   }
@@ -119,6 +124,8 @@ qnunifd <- function(p, min, max) {
 #' rnunifd(n, min = c(1, 2), max = c(1, 1))
 #' @export
 rnunifd <- function(n, min, max) {
+  if (any(max <= min))
+    stop(message = "Arguments are incompatible.")
   max <- rep(max, length.out = 2)
   min  <- rep(min, length.out = 2)
 
