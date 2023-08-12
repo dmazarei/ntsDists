@@ -24,7 +24,7 @@
 #'  \code{pnunifd} gives the distribution function,
 #'  \code{dnunifd} gives the density,
 #'  \code{qnunifd} gives the quantile function and
-#'  \code{rnunifd} generates random variables from the neutrosophic Uniform dDistribution.
+#'  \code{rnunifd} generates random variables from the neutrosophic Uniform Distribution.
 #' @references
 #'    Alhabib, R., Ranna, M. M., Farah, H., & Salama, A. A. (2018).
 #'     Some neutrosophic probability distributions.

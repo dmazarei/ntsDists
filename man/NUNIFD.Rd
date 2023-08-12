@@ -33,7 +33,7 @@ rnunifd(n, min, max)
 \code{pnunifd} gives the distribution function,
  \code{dnunifd} gives the density,
  \code{qnunifd} gives the quantile function and
- \code{rnunifd} generates random variables from the neutrosophic Uniform dDistribution.
+ \code{rnunifd} generates random variables from the neutrosophic Uniform Distribution.
 }
 \description{
 Density, distribution function, quantile function and random
