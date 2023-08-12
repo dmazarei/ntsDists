@@ -36,7 +36,7 @@ rnnbind(n, size, prob)
 \code{pnnbind} gives the distribution function,
  \code{dnnbind} gives the density,
  \code{qnnbind} gives the quantile function and
- \code{rnnbind} generates random variables from the Binomial Distribution.
+ \code{rnnbind} generates random variables from the Negative Binomial Distribution.
 }
 \description{
 Density, distribution function, quantile function and random

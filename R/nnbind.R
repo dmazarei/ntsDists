@@ -24,7 +24,7 @@
 #'  \code{pnnbind} gives the distribution function,
 #'  \code{dnnbind} gives the density,
 #'  \code{qnnbind} gives the quantile function and
-#'  \code{rnnbind} generates random variables from the Binomial Distribution.
+#'  \code{rnnbind} generates random variables from the Negative Binomial Distribution.
 #' @references
 #'        Granados, C. (2022).
 #'        Some discrete neutrosophic distributions with neutrosophic parameters based on neutrosophic random variables.
