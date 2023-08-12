@@ -26,9 +26,9 @@
 #'  \code{qnunifd} gives the quantile function and
 #'  \code{rnunifd} generates random variables from the neutrosophic Uniform dDistribution.
 #' @references
-#'    Alhasan, K. F. H. and Smarandache, F. (2019). Neutrosophic Uniform
-#'    distribution and Neutrosophic Family Uniform Distribution,
-#'    \emph{Neutrosophic Sets and Systems}, 28, 191-199.
+#'    Alhabib, R., Ranna, M. M., Farah, H., & Salama, A. A. (2018).
+#'     Some neutrosophic probability distributions.
+#'     \emph{Neutrosophic Sets and Systems}, 22, 30-38.
 #'
 #' @importFrom stats runif dunif punif qunif
 #' @examples

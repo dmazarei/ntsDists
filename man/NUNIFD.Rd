@@ -59,7 +59,7 @@ rnunifd(n, min = 1, max = 2)
 rnunifd(n, min = c(1, 2), max = c(1, 1))
 }
 \references{
-Alhasan, K. F. H. and Smarandache, F. (2019). Neutrosophic Uniform
-   distribution and Neutrosophic Family Uniform Distribution,
-   \emph{Neutrosophic Sets and Systems}, 28, 191-199.
+Alhabib, R., Ranna, M. M., Farah, H., & Salama, A. A. (2018).
+    Some neutrosophic probability distributions.
+    \emph{Neutrosophic Sets and Systems}, 22, 30-38.
 }
