@@ -1,9 +1,9 @@
-#' Neutrosophic Normal Distribution (NND)
+#' Neutrosophic Normal Distribution
 #'
 #' Density, distribution function, quantile function and random
 #' generation for the nuetrosophic generalized exponential
-#' distribution with parameters mean \eqn{\mu_N} and standard deviation
-#' \eqn{\sigma_N}.
+#' distribution with parameters \code{mean} =  \eqn{\mu_N} and standard deviation
+#' \code{sd} = \eqn{\sigma_N}.
 #'
 #' The neutrosophic normal distribution with parameters mean
 #' \eqn{\mu_N} and standard deviation \eqn{\sigma_N} has density function
@@ -18,37 +18,37 @@
 #' @param q a vector or matrix of quantiles for which the cdf needs to be computed.
 #' @param p a vector or matrix of probabilities for which the quantile needs to be computed.
 #' @param n number of random values to be generated.
-#' @param mu the mean, which must be an interval.
-#' @param sigma the standard deviations that must be positive.
+#' @param mean the mean, which must be an interval.
+#' @param sd the standard deviations that must be positive.
 #' @param lower.tail logical; if TRUE (default), probabilities are
 #' \eqn{P(X \ge x)}; otherwise, \eqn{P(X >x)}.
 #'
 #' @return
-#' \code{pnnd} gives the distribution function,
-#' \code{dnnd} gives the density,
-#' \code{qnnd} gives the quantile function and
-#' \code{rnnd} generates random variables from the neutrosophic normal distribution.
+#' \code{pnnorm} gives the distribution function,
+#' \code{dnnorm} gives the density,
+#' \code{qnnorm} gives the quantile function and
+#' \code{rnnorm} generates random variables from the neutrosophic normal distribution.
 #'
 #' @references
 #'    Patro, S. and Smarandache, F. (2016). The Neutrosophic Statistical Distribution, More Problems, More Solutions. Infinite Study.
 #'
 #' @importFrom stats runif dnorm pnorm qnorm
 #' @examples
-#' dnnd(x = 0.5, mu = 1, sigma = 2)
+#' dnnorm(x = 0.5, mean = 1, sd = 2)
 #'
 #' x1 <- c(-0.8, 0.2, 1.6, 3.9)
-#' dnnd(x = 0.5, mu = c(1, 1), sigma = c(2, 2))
+#' dnnorm(x = 0.5, mean = c(1, 1), sd = c(2, 2))
 #'
 #' x2 <- matrix(seq(-3, 3, length.out = 10), nrow = 5, ncol = 2)
-#' dnnd(x2, mu = c(1, 2), sigma = c(2, 2))
+#' dnnorm(x2, mean = c(1, 2), sd = c(2, 2))
 #'
 #' @export
-dnnd <- function(x, mu, sigma) {
-  if (any(sigma <= 0))
+dnnorm <- function(x, mean, sd) {
+  if (any(sd <= 0))
     stop("Arguments are incompatible.")
 
-  mu    <- rep(mu, length.out = 2)
-  sigma <- rep(sigma, length.out = 2)
+  mean    <- rep(mean, length.out = 2)
+  sd <- rep(sd, length.out = 2)
 
   if (is.vector(x) && length(x) == 1) {
     x <- matrix(rep(x, each = 2), ncol = 2, byrow = TRUE)
@@ -58,7 +58,7 @@ dnnd <- function(x, mu, sigma) {
 
   pdf <- matrix(data = NA, nrow = nrow(x), ncol = ncol(x))
   for (i in 1:ncol(x)) {
-    pdf[, i] <- stats::dnorm(x[, i], mean = mu[i], sd = sigma[i])
+    pdf[, i] <- stats::dnorm(x[, i], mean = mean[i], sd = sd[i])
   }
 
   swap_rows <- pdf[, 1] > pdf[, 2]
@@ -69,25 +69,25 @@ dnnd <- function(x, mu, sigma) {
 #' @name NND
 #' @examples
 #' x <- seq(0.1, 1, length.out = 21)
-#' pnnd(x, mu = c(2, 2), sigma = c(1, 1))
+#' pnnorm(x, mean = c(2, 2), sd = c(1, 1))
 #'
 #' x2 <- matrix(seq(0.1, 1, length.out = 40), ncol = 2)
-#' pnnd(x2, mu = c(1, 2), sigma = c(2, 2))
+#' pnnorm(x2, mean = c(1, 2), sd = c(2, 2))
 #' @export
 
-pnnd <- function(q, mu, sigma, lower.tail = TRUE) {
-  if (any(sigma <= 0))
+pnnorm <- function(q, mean, sd, lower.tail = TRUE) {
+  if (any(sd <= 0))
     stop("Arguments are incompatible.")
 
-  mu    <- rep(mu, length.out = 2)
-  sigma <- rep(sigma, length.out = 2)
+  mean    <- rep(mean, length.out = 2)
+  sd <- rep(sd, length.out = 2)
 
   if (is.vector(q)){
     q <- rep(q, length.out = 2)
   }
   q <- matrix(q, ncol = 2)
 
-  cdf <- stats::pnorm(q, mean = mu, sd = sigma)
+  cdf <- stats::pnorm(q, mean = mean, sd = sd)
 
   if (!lower.tail)
     cdf <- 1 - cdf
@@ -102,26 +102,26 @@ pnnd <- function(q, mu, sigma, lower.tail = TRUE) {
 #' @name NND
 #' @examples
 #' q1 <- c(0.01)
-#' qnnd(q1, mu = 1, sigma = 2)
+#' qnnorm(q1, mean = 1, sd = 2)
 #' x2 <- matrix(seq(0.1, 1, length.out = 40), ncol = 2)
-#' qnnd(x2, mu = c(1, 2), sigma = c(2, 2))
+#' qnnorm(x2, mean = c(1, 2), sd = c(2, 2))
 #' @export
-qnnd <- function(p, mu, sigma) {
+qnnorm <- function(p, mean, sd) {
   if (any(p < 0) || any(p > 1)) {
     stop(message = "Warning: p should be in the interval [0,1].")
   }
 
-  if (any(sigma <= 0))
+  if (any(sd <= 0))
     stop(message = "Arguments are incompatible.")
 
-  mu    <- rep(mu, length.out = 2)
-  sigma <- rep(sigma, length.out = 2)
+  mean    <- rep(mean, length.out = 2)
+  sd <- rep(sd, length.out = 2)
 
   p <- matrix(rep(p, each = 2), ncol = 2, byrow = TRUE)
 
   quantiles <- matrix(data = NA, nrow = nrow(p), ncol = 2)
   for (i in 1:ncol(p)) {
-    quantiles[, i] <- stats::dnorm(p[, i], mean = mu[i], sd = sigma[i])
+    quantiles[, i] <- stats::dnorm(p[, i], mean = mean[i], sd = sd[i])
   }
   swap_rows <- quantiles[, 1] > quantiles[, 2]
   quantiles[swap_rows, c(1, 2)] <- quantiles[swap_rows, c(2, 1)]
@@ -132,18 +132,18 @@ qnnd <- function(p, mu, sigma) {
 #' @name NND
 #' @examples
 #' n <- 100
-#' rnnd(n, mu = c(1, 1), sigma = c(2, 2))
-#' rnnd(n, mu = c(1, 2), sigma = c(1, 1))
+#' rnnorm(n, mean = c(1, 1), sd = c(2, 2))
+#' rnnorm(n, mean = c(1, 2), sd = c(1, 1))
 #' @export
-rnnd <- function(n, mu, sigma) {
-  if (any(sigma <= 0))
+rnnorm <- function(n, mean, sd) {
+  if (any(sd <= 0))
     stop(message = "Arguments are incompatible.")
 
-  mu    <- rep(mu, length.out = 2)
-  sigma <- rep(sigma, length.out = 2)
+  mean    <- rep(mean, length.out = 2)
+  sd <- rep(sd, length.out = 2)
 
   u <- matrix(runif(n), ncol = 2)
-  X <- qnnd(u, mu, sigma)
+  X <- qnnorm(u, mean, sd)
 
   return(X)
 }
