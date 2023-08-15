@@ -2,55 +2,57 @@
 % Please edit documentation in R/nnd.R
 \name{NND}
 \alias{NND}
-\alias{pnnd}
 \alias{dnnd}
+\alias{pnnd}
 \alias{qnnd}
 \alias{rnnd}
 \title{Neutrosophic Normal Distribution (NND)}
 \usage{
-pnnd(q, mu, sigma)
-
 dnnd(x, mu, sigma)
+
+pnnd(q, mu, sigma, lower.tail = TRUE)
 
 qnnd(p, mu, sigma)
 
 rnnd(n, mu, sigma)
 }
 \arguments{
-\item{mu}{mean.}
+\item{x}{a vector or matrix of observations for which the pdf needs to be computed.}
+
+\item{mu}{the mean, which must be an interval.}
 
 \item{sigma}{the standard deviations that must be positive.}
 
-\item{x, q}{a vector or matrix of quantiles at which the pdf or cdf needs to be computed.}
+\item{q}{a vector or matrix of quantiles for which the cdf needs to be computed.}
 
-\item{p}{a vector or matrix of probabilities at which the quantile needs to be computed.}
+\item{lower.tail}{logical; if TRUE (default), probabilities are
+\eqn{P(X \ge x)}; otherwise, \eqn{P(X >x)}.}
 
-\item{n}{number of random numbers to be generated.}
+\item{p}{a vector or matrix of probabilities for which the quantile needs to be computed.}
+
+\item{n}{number of random values to be generated.}
 }
 \value{
 \code{pnnd} gives the distribution function,
- \code{dnnd} gives the density,
- \code{qnnd} gives the quantile function and
- \code{rnnd} generates random variables from the neutrosophic normal distribution.
+\code{dnnd} gives the density,
+\code{qnnd} gives the quantile function and
+\code{rnnd} generates random variables from the neutrosophic normal distribution.
 }
 \description{
-Density, distribution function, quantile function and random generation for
-the nuetrosophic generalized exponential distribution with parameters mean,
-\eqn{\mu}, and standard deviation \eqn{\sigma}.
+Density, distribution function, quantile function and random
+generation for the nuetrosophic generalized exponential
+distribution with parameters mean \eqn{\mu_N} and standard deviation
+\eqn{\sigma_N}.
 }
 \details{
-The neutrosophic normal distribution with parameters with \code{mean}=\eqn{\mu_N}
-and \code{std}=\eqn{\sigma_N} has density
-\deqn{f_N(x) = \frac{1}{\sigma_N \sqrt{2 \pi}} e^{\left(\frac{\left(X-\mu_N\right)^2}{2 \sigma_N^2}\right)}}
-for \eqn{-\infty < x < \infty}, \eqn{\mu_N}, the mean, and \eqn{\sigma_N > 0},
-the standard deviation.
+The neutrosophic normal distribution with parameters mean
+\eqn{\mu_N} and standard deviation \eqn{\sigma_N} has density function
+\deqn{f_N(x) = \frac{1}{\sigma_N \sqrt{2 \pi}} \exp\{\left(\frac{\left(X-\mu_N\right)^2}{2 \sigma_N^2}\right)}\}
+for \eqn{\mu_N \in (\mu_L, \mu_U)}, the mean which must be an interval, and
+\eqn{\sigma_N \in (\sigma_L, \sigma_U)}, the standard deviation which must
+also be a positive interval, and \eqn{-\infty < x < \infty}.
 }
 \examples{
-x <- seq(0.1, 1, length.out = 21)
-pnnd(x, mu = c(2, 2), sigma = c(1, 1))
-
-x2 <- matrix(seq(0.1, 1, length.out = 40), ncol = 2)
-pnnd(x2, mu = c(1, 2), sigma = c(2, 2))
 dnnd(x = 0.5, mu = 1, sigma = 2)
 
 x1 <- c(-0.8, 0.2, 1.6, 3.9)
@@ -59,6 +61,11 @@ dnnd(x = 0.5, mu = c(1, 1), sigma = c(2, 2))
 x2 <- matrix(seq(-3, 3, length.out = 10), nrow = 5, ncol = 2)
 dnnd(x2, mu = c(1, 2), sigma = c(2, 2))
 
+x <- seq(0.1, 1, length.out = 21)
+pnnd(x, mu = c(2, 2), sigma = c(1, 1))
+
+x2 <- matrix(seq(0.1, 1, length.out = 40), ncol = 2)
+pnnd(x2, mu = c(1, 2), sigma = c(2, 2))
 q1 <- c(0.01)
 qnnd(q1, mu = 1, sigma = 2)
 x2 <- matrix(seq(0.1, 1, length.out = 40), ncol = 2)
@@ -68,5 +75,5 @@ rnnd(n, mu = c(1, 1), sigma = c(2, 2))
 rnnd(n, mu = c(1, 2), sigma = c(1, 1))
 }
 \references{
-Patro, S. and F. Smarandache, The Neutrosophic Statistical Distribution, More Problems, More Solutions. 2016: Infinite Study.
+Patro, S. and Smarandache, F. (2016). The Neutrosophic Statistical Distribution, More Problems, More Solutions. Infinite Study.
 }

@@ -37,16 +37,16 @@ rned(n, theta)
  \code{rned} generates random values from the neutrosophic exponential distribution.
 }
 \description{
-Density, distribution function, quantile function and random generation for
-the nuetrosophic exponential distribution with the parameter
-\code{rate}=\eqn{\theta_N}.
+Density, distribution function, quantile function and random
+generation for the nuetrosophic exponential distribution with the
+parameter rate \eqn{\theta_N}.
 }
 \details{
 The neutrosophic exponential distribution with parameter \eqn{\theta_N}
 has density
 \deqn{f_N(x)=\theta_N \exp \left(-x \theta_N\right)}
 for \eqn{x \ge 0} and \eqn{\theta_N \in (\theta_L, \theta_U)},
-the rate parameter must be a positive interval.
+the rate parameter must be a positive interval and \eqn{x \ge 0}.
 }
 \examples{
 # Example 4 of Duan et al. (2021)
@@ -60,7 +60,7 @@ dned(x = c(4,4.1), theta = c(0.23, 0.24))
 
 # The density function for the nuetrosophic observation 4
 # Here, 4 is equivalent to c(4,4).
-dned(4, theta = c(0.23, 0.24))
+dned(4, theta = c(0.23, 0.23))
 
 # The cumulative distribution function for the nuetrosophic observation (4,4.1)
 pned(c(4,4.1), theta = c(0.23, 0.24), lower.tail = TRUE)

@@ -1,8 +1,8 @@
-#' Neutrosophic Beta Distribution (NBD)
+#' Neutrosophic Beta Distribution
 #'
 #' Density, distribution function, quantile function and random
 #' generation for the nuetrosophic Beta distribution with shape parameters
-#' \eqn{\alpha_N} and \eqn{\beta_N}.
+#' \code{shape1} = \eqn{\alpha_N} and \code{shape2} = \eqn{\beta_N}.
 #'
 #' The neutrosophic beta distribution with parameters \eqn{\alpha_N} and
 #' \eqn{\beta_N} has the probability density function
@@ -19,16 +19,16 @@
 #' @param q a vector or matrix of quantiles for which the cdf needs to be computed.
 #' @param p a vector or matrix of probabilities for which the quantile needs to be computed.
 #' @param n number of random values to be generated.
-#' @param alpha the first shape parameter, which must be a positive interval.
-#' @param beta the second shape parameter, which must be a positive interval.
+#' @param shape1 the first shape parameter, which must be a positive interval.
+#' @param shape2 the second shape parameter, which must be a positive interval.
 #' @param lower.tail logical; if TRUE (default), probabilities are
 #' \eqn{P(X \ge x)}; otherwise, \eqn{P(X >x)}.
 #'
 #' @return
-#' \code{pnbd} gives the distribution function,
-#' \code{dnbd} gives the density,
-#' \code{qnbd} gives the quantile function and
-#' \code{rnbd} generates random values from the neutrosophic Beta distribution.
+#' \code{pnbeta} gives the distribution function,
+#' \code{dnbeta} gives the density,
+#' \code{qnbeta} gives the quantile function and
+#' \code{rnbeta} generates random values from the neutrosophic Beta distribution.
 #'
 #' @references
 #'  Sherwani, R. Ah. K., Naeem, M., Aslam, M., Reza, M. A., Abid, M., Abbas, S. (2021).
@@ -36,20 +36,21 @@
 #'     \emph{Neutrosophic Sets and Systems}, 41, 209-214.
 #' @importFrom stats runif dbeta pbeta qbeta
 #' @examples
-#' dnbd(x = c(0.1, 0.2), alpha = c(1,1), beta = c(2, 2))
 #'
-#' dnbd(x = c(0.1, 0.1), alpha = c(0.5,0.7), beta = c(0.2, 2))
+#' dnbeta(x = c(0.1, 0.2), shape1 = c(1,1), shape2 = c(2, 2))
+#'
+#' dnbeta(x = c(0.1, 0.1), shape1 = c(0.5,0.7), shape2 = c(0.2, 2))
 #'
 #' x <- matrix(c(0.1, 0.1, 0.2, 0.3, 0.5, 0.5), ncol = 2, byrow = TRUE)
-#' dnbd(x, alpha = c(1, 2), beta = c(2, 3))
+#' dnbeta(x, shape1 = c(1, 2), shape2 = c(2, 3))
 #'
 #' @export
-dnbd <- function(x, alpha, beta) {
-  if (any(alpha <= 0) || any(beta <= 0) || any(x < 0))
+dnbeta <- function(x, shape1, shape2) {
+  if (any(shape1 <= 0) || any(shape2 <= 0) || any(x < 0))
     stop(message = "Arguments are incompatible.")
 
-  alpha <- rep(alpha, length.out = 2)
-  beta  <- rep(beta, length.out = 2)
+  shape1 <- rep(shape1, length.out = 2)
+  shape2  <- rep(shape2, length.out = 2)
 
 
   if (is.vector(x) && length(x) == 1) {
@@ -60,7 +61,7 @@ dnbd <- function(x, alpha, beta) {
 
   pdf <- matrix(data = NA, nrow = nrow(x), ncol = ncol(x))
   for (i in 1:ncol(x)) {
-    pdf[, i] <- stats::dbeta(x[, i], shape1 = alpha[i], shape2 = beta[i])
+    pdf[, i] <- stats::dbeta(x[, i], shape1 = shape1[i], shape2 = shape2[i])
   }
 
   swap_rows <- pdf[, 1] > pdf[, 2]
@@ -70,23 +71,23 @@ dnbd <- function(x, alpha, beta) {
 }
 #' @name NBD
 #' @examples
-#' pnbd(q = c(0.1, 0.1), alpha = c(3, 1), beta = c(1,3), lower.tail = FALSE)
+#' pnbeta(q = c(0.1, 0.1), shape1 = c(3, 1), shape2 = c(1,3), lower.tail = FALSE)
 #'
-#' pnbd(x, alpha = c(1, 2), beta = c(2, 2))
+#' pnbeta(x, shape1 = c(1, 2), shape2 = c(2, 2))
 #'
 #' @export
-pnbd <- function(q, alpha, beta, lower.tail = TRUE) {
+pnbeta <- function(q, shape1, shape2, lower.tail = TRUE) {
   if (any(theta <= 0) || any(q < 0))
     stop("Arguments are incompatible.")
 
-  alpha <- rep(alpha, length.out = 2)
-  beta  <- rep(beta, length.out = 2)
+  shape1 <- rep(shape1, length.out = 2)
+  shape2  <- rep(shape2, length.out = 2)
   if (is.vector(q)){
     q <- rep(q, length.out = 2)
   }
   q <- matrix(q, ncol = 2)
 
-  cdf <- stats::pbeta(q, shape1 = alpha, shape2 = beta)
+  cdf <- stats::pbeta(q, shape1 = shape1, shape2 = shape2)
 
   if (!lower.tail)
     cdf <- 1 - cdf
@@ -100,34 +101,34 @@ pnbd <- function(q, alpha, beta, lower.tail = TRUE) {
 #' @name NBD
 #' @examples
 #'
-#' qnbd(p = 0.1, alpha = c(1,1), beta = c(2, 2))
+#' qnbeta(p = 0.1, shape1 = c(1,1), shape2 = c(2, 2))
 #'
-#' qnbd(p = c(0.25, 0.5, 0.75), alpha = c(1, 2), beta = c(2, 2))
+#' qnbeta(p = c(0.25, 0.5, 0.75), shape1 = c(1, 2), shape2 = c(2, 2))
 #'
 #' @export
-qnbd <- function(p, alpha, beta) {
+qnbeta <- function(p, shape1, shape2) {
   if (any(p < 0) || any(p > 1)) {
     stop(message = "Warning: p should be in the interval [0,1].")
   }
 
-  if (any(alpha <= 0) || any(beta <= 0))
+  if (any(shape1 <= 0) || any(shape2 <= 0))
     stop(message = "Arguments are incompatible.")
 
-  alpha <- rep(alpha, length.out = 2)
-  beta  <- rep(beta, length.out = 2)
+  shape1 <- rep(shape1, length.out = 2)
+  shape2  <- rep(shape2, length.out = 2)
 }
 #' @name NBD
 #' @examples
 #' Simulate 10 numbers
-#' rnbd(n = 10, alpha = c(1, 2), beta = c(1, 1))
+#' rnbeta(n = 10, shape1 = c(1, 2), shape2 = c(1, 1))
 #' @export
-rnbd <- function(n, alpha, beta) {
-  if (any(alpha <= 0) || any(beta <= 0))
+rnbeta <- function(n, shape1, shape2) {
+  if (any(shape1 <= 0) || any(shape2 <= 0))
     stop(message = "Arguments are incompatible.")
-  alpha <- rep(alpha, length.out = 2)
-  beta  <- rep(beta, length.out = 2)
+  shape1 <- rep(shape1, length.out = 2)
+  shape2  <- rep(shape2, length.out = 2)
 
   u <- matrix(runif(n), ncol = 2)
-  X <- qnbd(u, alpha, beta)
+  X <- qnbeta(u, shape1, shape2)
   return(X)
 }

@@ -2,51 +2,59 @@
 % Please edit documentation in R/npd.R
 \name{NPD}
 \alias{NPD}
-\alias{pnpd}
 \alias{dnpd}
+\alias{pnpd}
 \alias{qnpd}
 \alias{rnpd}
 \title{Neutrosophic Poisson Distribution (NPD)}
 \usage{
-pnpd(q, lambda)
-
 dnpd(x, lambda)
+
+pnpd(q, lambda, lower.tail = TRUE)
 
 qnpd(p, lambda)
 
 rnpd(n, lambda)
 }
 \arguments{
-\item{lambda}{the mean that must be positive.}
+\item{x}{a vector or matrix of observations for which the pdf needs to be computed.}
 
-\item{x, q}{a vector or matrix of (non-negative integer) quantiles at which the pdf or cdf needs to be computed.}
+\item{lambda}{the mean, which must be a positive interval.}
 
-\item{p}{a vector or matrix of probabilities at which the quantile needs to be computed.}
+\item{q}{a vector or matrix of quantiles for which the cdf needs to be computed.}
 
-\item{n}{number of random numbers to be generated.}
+\item{lower.tail}{logical; if TRUE (default), probabilities are
+\eqn{P(X \ge x)}; otherwise, \eqn{P(X >x)}.}
+
+\item{p}{a vector or matrix of probabilities for which the quantile needs to be computed.}
+
+\item{n}{number of random values to be generated.}
 }
 \value{
 \code{pnpd} gives the distribution function,
  \code{dnpd} gives the density,
  \code{qnpd} gives the quantile function and
- \code{rnpd} generates random variables from the Neutrosophic Poisson Distribution (NPD).
+ \code{rnpd} generates random variables from the neutrosophic Poisson Distribution.
 }
 \description{
-Density, distribution function, quantile function and random generation for
-the nuetrosophic Poisson distribution with parameter \eqn{\lambda_N}.
+Density, distribution function, quantile function and random
+generation for the nuetrosophic Poisson distribution with
+parameter \eqn{\lambda_N}.
 }
 \details{
-The neutrosophic Poisson distribution with parameter \eqn{\theta} has the density
-\deqn{f_N(x)=e^{-\lambda_N}  \frac{\left(\lambda_N\right)^x}{x !}}
-for   \eqn{\lambda_N > 0}.
+The neutrosophic Poisson distribution with parameter \eqn{\lambda_N}
+has the density
+\deqn{f_N(x)= \exp\{-\lambda_N\}  \frac{\left(\lambda_N\right)^x}{x !}}
+for \eqn{\lambda_N \in (\lambda_L, \lambda_U)} which must be a positive
+interval and \eqn{x \in \{0, 1, 2, \ldots\}}.
 }
 \examples{
+dnpd(x, lambda = 2)
+dnpd(x2, lambda = c(2, 2))
 x <- 1:10
 x2 <- matrix(1:20, ncol = 2)
 pnpd(x, lambda = 1)
 pnpd(x2, lambda = c(2, 3))
-dnpd(x, lambda = 2)
-dnpd(x2, lambda = c(2, 2))
 q1 <- seq(0.1, 1, length.out = 40)
 qnpd(q1, lambda = 2)
 q2 <- matrix(seq(0.1, 1, length.out = 40), ncol = 2)

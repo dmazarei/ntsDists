@@ -2,30 +2,35 @@
 % Please edit documentation in R/nged.R
 \name{NGED}
 \alias{NGED}
-\alias{pnged}
 \alias{dnged}
+\alias{pnged}
 \alias{qnged}
 \alias{rnged}
 \title{Neutrosophic Generalized Exponential Distribution (NGED)}
 \usage{
-pnged(q, nu, delta)
-
 dnged(x, nu, delta)
+
+pnged(q, nu, delta, lower.tail = TRUE)
 
 qnged(p, nu, delta)
 
-rnged(n, nu = 1, delta = 2)
+rnged(n, nu, delta)
 }
 \arguments{
-\item{nu}{scale parameter, must be positive.}
+\item{x}{a vector or matrix of observations for which the pdf needs to be computed.}
 
-\item{delta}{shape parameter, must be positive.}
+\item{nu}{the scale parameter, which must be a positive interval.}
 
-\item{x, q}{a vector or matrix of quantiles at which the pdf or cdf needs to be computed.}
+\item{delta}{the shape parameter, which must be a positive interval.}
 
-\item{p}{a vector or matrix of probabilities at which the quantile needs to be computed.}
+\item{q}{a vector or matrix of quantiles for which the cdf needs to be computed.}
 
-\item{n}{number of random numbers to be generated.}
+\item{lower.tail}{logical; if TRUE (default), probabilities are
+\eqn{P(X \ge x)}; otherwise, \eqn{P(X >x)}.}
+
+\item{p}{a vector or matrix of probabilities for which the quantile needs to be computed.}
+
+\item{n}{number of random values to be generated.}
 }
 \value{
 \code{pnged} gives the distribution function,
@@ -35,32 +40,32 @@ rnged(n, nu = 1, delta = 2)
  from the neutrosophic generalized exponential distribution.
 }
 \description{
-Density, distribution function, quantile function and random generation for
-the nuetrosophic generalized exponential distribution with shape parameter
-\eqn{\delta} and scale parameter \eqn{\nu}.
+Density, distribution function, quantile function and random
+generation for the nuetrosophic generalized exponential
+distribution with shape parameter\eqn{\delta_N} and scale parameter
+\eqn{\nu_N}.
 }
 \details{
 The neutrosophic generalized exponential distribution with parameters
-\code{shape}=\eqn{\delta} and \code{scale}=\eqn{\nu} has density
+\eqn{\delta} and \eqn{\nu} has density
 \deqn{f_n(x)=\frac{\delta_N}{\nu_N}\left(1-\exp \left\{-\frac{x_N}{\nu_N}\right\}\right)^{\delta_N-1} e^{\left\{-\frac{x_N}{\nu_N}\right\}}}
-for\eqn{x \ge 0}, \eqn{\delta_N > 0}, the shape parameter,
-and \eqn{\nu_N > 0}, the scale parameter.
+for \eqn{\delta_N \in (\delta_L, \delta_U)}, the shape parameter
+which must be a positive interval, and \eqn{\nu_N \in (\nu_L, \nu_U)}, the
+scale parameter which must also be a positive interval, and \eqn{x \ge 0}.
 }
 \examples{
-x <- seq(0.1, 1, length.out = 21)
-pnged(x, nu = 2, delta = 1)
+dnged(x = 1, nu = c(1, 2), delta = c(2, 2))
+
+pnged(q=0.1, nu = c(1, 2), delta = c(2, 2))
 
 x2 <- matrix(seq(0.1, 1, length.out = 40), ncol = 2)
 pnged(x2, nu = c(1, 2), delta = c(2, 2))
-dnged(x, nu = 1, delta = 2)
-
-dnged(x2, nu = c(1, 2), delta = c(2, 2))
 qnged(x, nu = 1, delta = 2)
 
 qnged(x2, nu = c(1, 2), delta = c(2, 2))
 n <- 10
-rnged(n, nu = 2, delta = 1)
-rnged(n, nu = c(1, 2), delta = c(1, 1))
+rnged(n = 10, nu = 2, delta = 1)
+rnged(n = 10, nu = c(1, 2), delta = c(1, 1))
 }
 \references{
 Rao, G. S., Norouzirad, M., and Mazarei . D. (2023). Neutrosophic

@@ -17,7 +17,7 @@ qnbd(p, alpha, beta)
 rnbd(n, alpha, beta)
 }
 \arguments{
-\item{x}{a vector or matrix of quantiles for which the pdf needs to be computed.}
+\item{x}{a vector or matrix of observations for which the pdf needs to be computed.}
 
 \item{alpha}{the first shape parameter, which must be a positive interval.}
 
@@ -39,9 +39,9 @@ rnbd(n, alpha, beta)
 \code{rnbd} generates random values from the neutrosophic Beta distribution.
 }
 \description{
-Density, distribution function, quantile function and random generation for
-the nuetrosophic Beta distribution with parameters \code{shape1}=\eqn{\alpha_N}
-and \code{shape2}=\eqn{\beta_N}.
+Density, distribution function, quantile function and random
+generation for the nuetrosophic Beta distribution with shape parameters
+\eqn{\alpha_N} and \eqn{\beta_N}.
 }
 \details{
 The neutrosophic beta distribution with parameters \eqn{\alpha_N} and

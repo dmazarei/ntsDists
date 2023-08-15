@@ -1,9 +1,9 @@
-#' Neutrosophic Generalized Exponential Distribution (NGED)
+#' Neutrosophic Generalized Exponential Distribution
 #'
 #' Density, distribution function, quantile function and random
 #' generation for the nuetrosophic generalized exponential
-#' distribution with shape parameter\eqn{\delta_N} and scale parameter
-#' \eqn{\nu_N}.
+#' distribution with shape parameter \eqn{\delta_N} and scale parameter
+#' \eqn{\nu_N} or equ.
 #'
 #' The neutrosophic generalized exponential distribution with parameters
 #' \eqn{\delta} and \eqn{\nu} has density

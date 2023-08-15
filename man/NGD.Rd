@@ -17,7 +17,7 @@ qngd(p, alpha, lambda)
 rngd(n, alpha, lambda)
 }
 \arguments{
-\item{x}{a vector or matrix of quantiles for which the pdf needs to be computed.}
+\item{x}{a vector or matrix of observations for which the pdf needs to be computed.}
 
 \item{alpha}{the shape parameter, which must be a positive interval.}
 
@@ -55,7 +55,7 @@ function implemented by \code{\link{gamma}}.
 }
 \examples{
 
-dngd(x = c(0.1, 0.2), alpha = c(2,2), lambda = c(1,1))
+dngd(x = 0.1, alpha = c(2,3), lambda = c(1,2))
 
 x <- matrix(c(1, 1, 2, 2.2, 3, 3.5), ncol = 2, byrow = TRUE)
 dngd(x, alpha = c(1, 2), lambda = c(2, 2))

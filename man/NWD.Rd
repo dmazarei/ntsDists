@@ -2,14 +2,11 @@
 % Please edit documentation in R/nwd.R
 \name{NWD}
 \alias{NWD}
-\alias{pnwd}
 \alias{dnwd}
 \alias{qnwd}
 \alias{rnwd}
 \title{Neutrosophic Weibull Distribution (NWD)}
 \usage{
-pnwd(q, beta, alpha)
-
 dnwd(x, beta, alpha)
 
 qnwd(p, beta, alpha)
@@ -17,40 +14,42 @@ qnwd(p, beta, alpha)
 rnwd(n, beta, alpha)
 }
 \arguments{
-\item{beta}{shape parameter. must be positive.}
+\item{x}{a vector or matrix of observations for which the pdf needs to be computed.}
 
-\item{alpha}{scale parameter, must be positive.}
+\item{beta}{shape parameter, which must be a positive interval.}
 
-\item{x, q}{a vector or matrix of quantiles at which the pdf or cdf needs to be computed.}
+\item{alpha}{scale parameter, which must be a positive interval.}
 
-\item{p}{a vector or matrix of probabilities at which the quantile needs to be computed.}
+\item{p}{a vector or matrix of probabilities for which the quantile needs to be computed.}
 
-\item{n}{number of random numbers to be generated.}
+\item{n}{number of random values to be generated.}
+
+\item{q}{a vector or matrix of quantiles for which the cdf needs to be computed.}
+
+\item{lower.tail}{logical; if TRUE (default), probabilities are
+\eqn{P(X \ge x)}; otherwise, \eqn{P(X >x)}.}
 }
 \value{
 \code{pnwd} gives the distribution function,
  \code{dnwd} gives the density,
  \code{qnwd} gives the quantile function and
- \code{rnwd} generates random variables from the Neutrosophic Weibull Distribution (NWD).
+ \code{rnwd} generates random variables from the neutrosophic Weibull dDistribution.
 }
 \description{
-Density, distribution function, quantile function and random generation for
-the nuetrosophic Weibull distribution with scale parameter \eqn{\alpha_N} and
-shape parameter \eqn{\beta_N}.
+Density, distribution function, quantile function and random
+generation for the nuetrosophic Weibull distribution with scale
+parameter \eqn{\alpha_N} and shape parameter \eqn{\beta_N}.
 }
 \details{
-The neutrosophic Rayleigh distribution with parameters \eqn{\alpha_N} and
-\eqn{\beta_N} has the density
+The neutrosophic Rayleigh distribution with parameters
+\eqn{\alpha_N} and \eqn{\beta_N} has the density
 \deqn{f_N(x)=\frac{\beta_N}{\alpha_N^{\beta_N}} x^{\beta_N-1}
-    e^{-\left(x / \alpha_N\right)^{\beta_N}}}
-for \eqn{x > 0}, \eqn{\beta_N > 0}, shape parameter, and \eqn{\alpha_N > 0},
-scale parameter.
+    \exp\{-\left(x / \alpha_N\right)^{\beta_N}\}}
+for \eqn{\beta_N \in (\beta_L, \beta_U)} the shape parameter must
+be a positive interval, \eqn{\alpha_N \in (\alpha_L,\alpha_U)},
+the scale parameter which be a positive interval, and \eqn{x > 0}.
 }
 \examples{
-x <- seq(0.1, 1, length.out = 21)
-x2 <- matrix(seq(0.1, 1, length.out = 40), ncol = 2)
-pnwd(x, beta = 1, alpha = 2)
-pnwd(x2, beta = c(1, 2), alpha = c(2, 2))
 dnwd(x, beta = 1, alpha = 2)
 
 dnwd(x2, beta = c(1, 2), alpha = c(2, 2))

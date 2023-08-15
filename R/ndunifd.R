@@ -1,13 +1,13 @@
-#' Neutrosophic Discrete Uniform Distribution (NDUNIFD)
+#' Neutrosophic Discrete Uniform Distribution
 #'
 #' Density, distribution function, quantile function and random
-#' generation for the nuetrosophic Discrete Uniform distribution with
-#' parameters \eqn{a_N} and  \eqn{b_N}.
+#' generation for the nuetrosophic Discrete uniform distribution with
+#' parameters \code{min} = \eqn{a_N} and  \code{max} = \eqn{b_N}.
 #'
-#' The neutrosophic Discrete Uniform distribution with parameters
+#' The neutrosophic discrete uniform distribution with parameters
 #' \eqn{\max_N} and \eqn{\min_N} has the density
 #' \deqn{f_N(x)=\frac{1}{b_N-a_N+1}}
-#' for \eqn{a_N \in (a_L, a_U)}  lower parameter interval, \eqn{b_N \in (b_L,b_U)},
+#' for \eqn{a_N \in (a_L, a_U)},  lower parameter interval, and \eqn{b_N \in (b_L,b_U)},
 #'  upper parameter interval.
 #'
 #' @name NDUNIFD
@@ -15,20 +15,21 @@
 #' @param q a vector or matrix of quantiles for which the cdf needs to be computed.
 #' @param p a vector or matrix of probabilities for which the quantile needs to be computed.
 #' @param n number of random values to be generated.
-#' @param min lower limits of the distribution. Must be finite.
-#' @param max upper limits of the distribution. Must be finite.
+#' @param min lower limits of the distribution that must be a finite interval.
+#' @param max upper limits of the distribution that must be a finite interval.
 #' @param lower.tail logical; if TRUE (default), probabilities are
 #' \eqn{P(X \ge x)}; otherwise, \eqn{P(X >x)}.
 #'
 #' @return
-#'  \code{pndunifd} gives the distribution function,
-#'  \code{dndunifd} gives the density,
-#'  \code{qndunifd} gives the quantile function and
-#'  \code{rndunifd} generates random variables from the neutrosophic Discrete Uniform Distribution.
+#'  \code{pndunif} gives the distribution function,
+#'  \code{dndunif} gives the density,
+#'  \code{qndunif} gives the quantile function and
+#'  \code{rndunif} generates random variables from the neutrosophic Discrete Uniform Distribution.
 #' @references
-#'        Granados, C. (2022).
-#'        Some discrete neutrosophic distributions with neutrosophic parameters based on neutrosophic random variables.
-#'         \emph{Hacettepe Journal of Mathematics and Statistics}, 51(5), 1442-1457.
+#'        Granados, C. (2022). Some discrete neutrosophic distributions with
+#'        neutrosophic parameters based on neutrosophic random variables.
+#'         \emph{Hacettepe Journal of Mathematics and Statistics}, 51(5),
+#'          1442-1457.
 #'
 #' @examples
 #' dndunifd(x, min = 1, max = 2)

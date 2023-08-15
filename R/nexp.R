@@ -1,8 +1,8 @@
-#' Neutrosophic Exponential Distribution (NED)
+#' Neutrosophic Exponential Distribution
 #'
 #' Density, distribution function, quantile function and random
 #' generation for the nuetrosophic exponential distribution with the
-#' parameter rate \eqn{\theta_N}.
+#' parameter \code{rate} =  \eqn{\theta_N}.
 #'
 #' The neutrosophic exponential distribution with parameter \eqn{\theta_N}
 #' has density
@@ -14,15 +14,15 @@
 #' @param q a vector or matrix of quantiles for which the cdf needs to be computed.
 #' @param p a vector or matrix of probabilities for which the quantile needs to be computed.
 #' @param n number of random values to be generated.
-#' @param theta the shape parameter, which must be a positive interval.
+#' @param rate the shape parameter, which must be a positive interval.
 #' @param lower.tail logical; if TRUE (default), probabilities are
 #' \eqn{P(X \ge x)}; otherwise, \eqn{P(X >x)}.
 #'
 #' @return
-#'  \code{pned} gives the distribution function,
-#'  \code{dned} gives the density,
-#'  \code{qned} gives the quantile function and
-#'  \code{rned} generates random values from the neutrosophic exponential distribution.
+#'  \code{pnexp} gives the distribution function,
+#'  \code{dnexp} gives the density,
+#'  \code{qnexp} gives the quantile function and
+#'  \code{rnexp} generates random values from the neutrosophic exponential distribution.
 #'
 #' @references
 #' Duan, W., Q., Khan, Z., Gulistan, M., Khurshid, A. (2021). Neutrosophic
@@ -37,19 +37,19 @@
 #' # Note that we have a matrix of nuetrosophic observations
 #'
 #' # The density function of data with the estimated value for parameters based on Duan et al. (2021)
-#' dned(data, theta = c(0.23, 0.24))
+#' dnexp(data, rate = c(0.23, 0.24))
 #' # The density function for the nuetrosophic observation (4,4.1)
-#' dned(x = c(4,4.1), theta = c(0.23, 0.24))
+#' dnexp(x = c(4,4.1), rate = c(0.23, 0.24))
 #'
 #' # The density function for the nuetrosophic observation 4
 #' # Here, 4 is equivalent to c(4,4).
-#' dned(4, theta = c(0.23, 0.23))
+#' dnexp(4, rate = c(0.23, 0.23))
 #' @export
-dned <- function(x, theta) {
-  if (any(theta <= 0) || any(x < 0))
+dnexp <- function(x, rate) {
+  if (any(rate <= 0) || any(x < 0))
     stop("Arguments are incompatible.")
 
-  theta <- rep(theta, length.out = 2)
+  rate <- rep(rate, length.out = 2)
   if(is.vector(x)){
     x <- matrix(rep(x, length.out = 2), ncol = 2)
   }
@@ -58,7 +58,7 @@ dned <- function(x, theta) {
 
   pdf <- matrix(data = NA, nrow = nrow(x), ncol = ncol(x))
   for (i in 1:ncol(x)) {
-    pdf[, i] <- theta[i] * exp(-x[, i] * theta[i])
+    pdf[, i] <- rate[i] * exp(-x[, i] * rate[i])
   }
 
   swap_rows <- pdf[, 1] > pdf[, 2]
@@ -70,21 +70,21 @@ dned <- function(x, theta) {
 #' @examples
 #'
 #' # The cumulative distribution function for the nuetrosophic observation (4,4.1)
-#' pned(c(4,4.1), theta = c(0.23, 0.24), lower.tail = TRUE)
+#' pnexp(c(4,4.1), rate = c(0.23, 0.24), lower.tail = TRUE)
 #'
-#' pned(4, theta = c(0.23, 0.24))
+#' pnexp(4, rate = c(0.23, 0.24))
 #' @export
-pned <- function(q, theta, lower.tail = TRUE) {
-  if (any(theta <= 0) || any(q < 0))
+pnexp <- function(q, rate, lower.tail = TRUE) {
+  if (any(rate <= 0) || any(q < 0))
     stop("Arguments are incompatible.")
 
-  theta <- rep(theta, length.out = 2)
+  rate <- rep(rate, length.out = 2)
   if (is.vector(q)){
     q <- rep(q, length.out = 2)
   }
   q <- matrix(q, ncol = 2)
 
-  cdf <- 1 - exp(-q * theta)
+  cdf <- 1 - exp(-q * rate)
 
   if (!lower.tail)
     cdf <- 1 - cdf
@@ -99,27 +99,27 @@ pned <- function(q, theta, lower.tail = TRUE) {
 #' @name NED
 #' @examples
 #' # The first percentile
-#' qned(p = 0.1, theta = 0.25)
+#' qnexp(p = 0.1, rate = 0.25)
 #'
 #' # The quantiles
-#' qned(p = c(0.25, 0.5, 0.75), theta = c(0.24, 0.25))
+#' qnexp(p = c(0.25, 0.5, 0.75), rate = c(0.24, 0.25))
 #'
 #' @export
-qned <- function(p, theta) {
+qnexp <- function(p, rate) {
   if (any(p < 0) || any(p > 1)) {
     stop(message = "Warning: p should be in the interval [0,1].")
   }
 
-  if (any(theta <= 0)){
+  if (any(rate <= 0)){
     stop(message = "Arguments are incompatible.")
   }
 
-  theta <- rep(theta, length.out = 2)
+  rate <- rep(rate, length.out = 2)
   p <- matrix(rep(p, each = 2), ncol = 2, byrow = TRUE)
 
   quantiles <- matrix(data = NA, nrow = nrow(p), ncol = 2)
   for (i in 1:ncol(p)) {
-    quantiles[, i] <- -log(1 - p[, i]) / theta[i]
+    quantiles[, i] <- -log(1 - p[, i]) / rate[i]
   }
 
   swap_rows <- quantiles[, 1] > quantiles[, 2]
@@ -131,15 +131,15 @@ qned <- function(p, theta) {
 #' @name NED
 #' @examples
 #' Simulate 10 numbers
-#' rned(n = 10, theta = c(0.23, 0.24))
+#' rnexp(n = 10, rate = c(0.23, 0.24))
 #' @export
 #'
-rned <- function(n, theta) {
-  if (any(theta <= 0))
+rnexp <- function(n, rate) {
+  if (any(rate <= 0))
     stop(message = "Arguments are incompatible.")
-  theta <- rep(theta, length.out = 2)
-  u <- matrix(runif(n * length(theta)), nrow = n, ncol = length(theta))
-  X <- qned(u, theta)
+  rate <- rep(rate, length.out = 2)
+  u <- matrix(runif(n * length(rate)), nrow = n, ncol = length(rate))
+  X <- qnexp(u, rate)
 
   return(X)
 }

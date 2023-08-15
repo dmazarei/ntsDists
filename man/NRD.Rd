@@ -2,28 +2,33 @@
 % Please edit documentation in R/nrd.R
 \name{NRD}
 \alias{NRD}
-\alias{pnrd}
 \alias{dnrd}
+\alias{pnrd}
 \alias{qnrd}
 \alias{rnrd}
 \title{Neutrosophic Rayleigh Distribution (NRD)}
 \usage{
-pnrd(q, theta)
-
 dnrd(x, theta)
+
+pnrd(q, theta, lower.tail = TRUE)
 
 qnrd(p, theta)
 
 rnrd(n, theta)
 }
 \arguments{
-\item{theta}{shape parameter, must be positive.}
+\item{x}{a vector or matrix of observations for which the pdf needs to be computed.}
 
-\item{x, q}{a vector or matrix of quantiles at which the pdf or cdf needs to be computed.}
+\item{theta}{the shape parameter, which must be a positive interval.}
 
-\item{p}{a vector or matrix of probabilities at which the quantile needs to be computed.}
+\item{q}{a vector or matrix of quantiles for which the cdf needs to be computed.}
 
-\item{n}{number of random numbers to be generated.}
+\item{lower.tail}{logical; if TRUE (default), probabilities are
+\eqn{P(X \ge x)}; otherwise, \eqn{P(X >x)}.}
+
+\item{p}{a vector or matrix of probabilities for which the quantile needs to be computed.}
+
+\item{n}{number of random values to be generated.}
 }
 \value{
 \code{pnrd} gives the distribution function,
@@ -32,22 +37,25 @@ rnrd(n, theta)
  \code{rnrd} generates random variables from the Neutrosophic Rayleigh Distribution (NRD).
 }
 \description{
-Density, distribution function, quantile function and random generation for
-the nuetrosophic Rayleigh distribution with parameter \eqn{\theta_N}.
+Density, distribution function, quantile function and random
+generation for the nuetrosophic Rayleigh distribution with
+parameter \eqn{\theta_N}.
 }
 \details{
-The neutrosophic Rayleigh distribution with parameter \eqn{\theta} has the density
+The neutrosophic Rayleigh distribution with parameter \eqn{\theta}
+has the density
 \deqn{f_N(x)=\frac{x}{\theta_N^2} e^{-\frac{1}{2}\left(\frac{x}{\theta_N}\right)^2}}
-for  \eqn{\theta_N > 0}.
+for  \eqn{\theta_N \in (\theta_L, \theta_U)}, which must be a positive
+interval and \eqn{x \ge 0}.
 }
 \examples{
+dnrd(x, theta = 2)
+dnrd(x2, theta = c(2, 2))
 x <- seq(0.01, 1, length.out = 21)
 pnrd(x, theta = 1)
 
 x2 <- matrix(seq(0.01, 1, length.out = 40), ncol = 2) #'
 pnrd(x2, theta = c(2, 3))
-dnrd(x, theta = 2)
-dnrd(x2, theta = c(2, 2))
 qnrd(x, theta = 2)
 
 qnrd(x2, theta = c(2, 2))
@@ -56,5 +64,7 @@ rnrd(n, theta = 1)
 rnrd(n, theta = c(1, 2))
 }
 \references{
-Khan, Z., Gulistan, M., Kausar, N. and Park, C. (2021). Neutrosophic Rayleigh Model With Some Basic Characteristics and Engineering Applications, in \emph{IEEE Access}, 9, 71277-71283.
+Khan, Z., Gulistan, M., Kausar, N. and Park, C. (2021).
+Neutrosophic Rayleigh Model With Some Basic Characteristics and
+Engineering Applications, in \emph{IEEE Access}, 9, 71277-71283.
 }

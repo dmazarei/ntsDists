@@ -1,10 +1,10 @@
-#' Neutrosophic Binomial Distribution (NBIND)
+#' Neutrosophic Binomial Distribution
 #'
 #' Density, distribution function, quantile function and random
-#' generation for the nuetrosophic Binomial distribution with
-#' parameters \eqn{n} and \eqn{p_N}.
+#' generation for the nuetrosophic binomial distribution with
+#' parameters \code{size} = \eqn{n} and \code{prob} = \eqn{p_N}.
 #'
-#' The neutrosophic Binomial distribution with parameters \eqn{n} and \eqn{p_N}
+#' The neutrosophic binomial distribution with parameters \eqn{n} and \eqn{p_N}
 #' has the density
 #' \deqn{f_X(x)=\bigg(\begin{array}{c}n \\ x\end{array}\bigg) p_N^{x}\left(1-p_N\right)^{n-x}}
 #' for \eqn{n \in \{1, 2, \ldots\}} and \eqn{p_N \in (p_L, p_U)} which must be \eqn{0<p_N<1}
@@ -26,13 +26,13 @@
 #'  \code{qnbind} gives the quantile function and
 #'  \code{rnbind} generates random variables from the Binomial Distribution.
 #' @references
-#'        Granados, C. (2022).
-#'        Some discrete neutrosophic distributions with neutrosophic parameters based on neutrosophic random variables.
-#'         \emph{Hacettepe Journal of Mathematics and Statistics}, 51(5), 1442-1457.
+#'        Granados, C. (2022). Some discrete neutrosophic distributions with
+#'         neutrosophic parameters based on neutrosophic random variables.
+#'         \emph{Hacettepe Journal of Mathematics and Statistics}, 51(5),
+#'         1442-1457.
 #' @importFrom stats runif dbinom pbinom qbinom
 #' @examples
 #' dnbind(x, size = 2, prob = 0.5)
-#' dnbind(x2, lambda = c(2, 2))
 #' @export
 dnbind <- function(x, size, prob) {
   if (any(size < 1) || any(prob <= 0) || any(prob > 1) || any(x < 0)) {
