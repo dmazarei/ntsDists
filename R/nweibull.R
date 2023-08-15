@@ -1,8 +1,8 @@
 #' Neutrosophic Weibull Distribution (NWD)
 #'
 #' Density, distribution function, quantile function and random
-#' generation for the nuetrosophic Weibull distribution with scale
-#' parameter \eqn{\alpha_N} and shape parameter \eqn{\beta_N}.
+#' generation for the nuetrosophic Weibull distribution with \code{scale}
+#' parameter \eqn{\alpha_N} and \code{shape} parameter \eqn{\beta_N}.
 #'
 #' The neutrosophic Rayleigh distribution with parameters
 #' \eqn{\alpha_N} and \eqn{\beta_N} has the density
@@ -17,16 +17,16 @@
 #' @param q a vector or matrix of quantiles for which the cdf needs to be computed.
 #' @param p a vector or matrix of probabilities for which the quantile needs to be computed.
 #' @param n number of random values to be generated.
-#' @param beta shape parameter, which must be a positive interval.
-#' @param alpha scale parameter, which must be a positive interval.
+#' @param shape shape parameter, which must be a positive interval.
+#' @param scale scale parameter, which must be a positive interval.
 #' @param lower.tail logical; if TRUE (default), probabilities are
 #' \eqn{P(X \ge x)}; otherwise, \eqn{P(X >x)}.
 #'
 #' @return
-#'  \code{pnwd} gives the distribution function,
-#'  \code{dnwd} gives the density,
-#'  \code{qnwd} gives the quantile function and
-#'  \code{rnwd} generates random variables from the neutrosophic Weibull dDistribution.
+#'  \code{pnweibull} gives the distribution function,
+#'  \code{dnweibull} gives the density,
+#'  \code{qnweibull} gives the quantile function and
+#'  \code{rnweibull} generates random variables from the neutrosophic Weibull dDistribution.
 #' @references
 #'    Alhasan, K. F. H. and Smarandache, F. (2019). Neutrosophic Weibull
 #'    distribution and Neutrosophic Family Weibull Distribution,
@@ -34,16 +34,16 @@
 #'
 #' @importFrom stats runif dweibull pweibull qweibull
 #' @examples
-#' dnwd(x, beta = 1, alpha = 2)
+#' dnweibull(x, shape = 1, scale = 2)
 #'
-#' dnwd(x2, beta = c(1, 2), alpha = c(2, 2))
+#' dnweibull(x2, shape = c(1, 2), scale = c(2, 2))
 #' @export
-dnwd <- function(x, beta, alpha) {
-  if (any(alpha <= 0) || any(beta <= 0) || any(x < 0))
+dnweibull <- function(x, shape, scale) {
+  if (any(scale <= 0) || any(shape <= 0) || any(x < 0))
     stop("Arguments are incompatible.")
 
-  alpha <- rep(alpha, length.out = 2)
-  beta  <- rep(beta, length.out = 2)
+  scale <- rep(scale, length.out = 2)
+  shape  <- rep(shape, length.out = 2)
 
   if(is.vector(x)){
     x <- matrix(rep(x, length.out = 2), ncol = 2)
@@ -53,7 +53,7 @@ dnwd <- function(x, beta, alpha) {
 
   pdf <- matrix(data = NA, nrow = nrow(x), ncol = ncol(x))
   for (i in 1:ncol(x)) {
-    pdf[, i] <- stats::dweibull(x[, i], shape = beta[i], scale = alpha[i])
+    pdf[, i] <- stats::dweibull(x[, i], shape = shape[i], scale = scale[i])
   }
 
   swap_rows <- pdf[, 1] > pdf[, 2]
@@ -64,22 +64,22 @@ dnwd <- function(x, beta, alpha) {
 #' @examples
 #' x <- seq(0.1, 1, length.out = 21)
 #' x2 <- matrix(seq(0.1, 1, length.out = 40), ncol = 2)
-#' pnwd(x, beta = 1, alpha = 2)
-#' pnwd(x2, beta = c(1, 2), alpha = c(2, 2))
+#' pnweibull(x, shape = 1, scale = 2)
+#' pnweibull(x2, shape = c(1, 2), scale = c(2, 2))
 #' @export
-pnwd <- function(q, beta, alpha) {
-  if (any(alpha <= 0) || any(beta <= 0) || any(q < 0))
+pnweibull <- function(q, shape, scale) {
+  if (any(scale <= 0) || any(shape <= 0) || any(q < 0))
     stop("Arguments are incompatible.")
 
-  alpha <- rep(alpha, length.out = 2)
-  beta  <- rep(beta, length.out = 2)
+  scale <- rep(scale, length.out = 2)
+  shape  <- rep(shape, length.out = 2)
 
   if (is.vector(q)){
     q <- rep(q, length.out = 2)
   }
   q <- matrix(q, ncol = 2)
 
-  cdf <- stats::pweibull(q, shape = beta, scale = alpha)
+  cdf <- stats::pweibull(q, shape = shape, scale = scale)
 
   if (!lower.tail)
     cdf <- 1 - cdf
@@ -94,27 +94,27 @@ pnwd <- function(q, beta, alpha) {
 #' @name NWD
 #' @name NWD
 #' @examples
-#' qnwd(x, beta = 1, alpha = 2)
+#' qnweibull(x, shape = 1, scale = 2)
 #' x2 <- matrix(seq(0.1, 1, length.out = 40), ncol = 2)
-#' qnwd(x2, beta = c(1, 2), alpha = c(2, 2))
+#' qnweibull(x2, shape = c(1, 2), scale = c(2, 2))
 #' @export
-qnwd <- function(p, beta, alpha) {
+qnweibull <- function(p, shape, scale) {
   if (any(p < 0) || any(p > 1)) {
     stop(message = "Warning: p should be in the interval [0,1].")
   }
 
-  if (any(alpha <= 0) || any(beta <= 0)){
+  if (any(scale <= 0) || any(shape <= 0)){
     stop(message = "Arguments are incompatible.")
   }
 
-  alpha <- rep(alpha, length.out = 2)
-  beta  <- rep(beta, length.out = 2)
+  scale <- rep(scale, length.out = 2)
+  shape  <- rep(shape, length.out = 2)
 
   p <- matrix(rep(p, each = 2), ncol = 2, byrow = TRUE)
 
   quantiles <- matrix(data = NA, nrow = nrow(p), ncol = 2)
   for (i in 1:ncol(p)) {
-    quantiles[, i] <- stats::qweibull(p[, i], shape = beta[i], scale = alpha[i])
+    quantiles[, i] <- stats::qweibull(p[, i], shape = shape[i], scale = scale[i])
   }
 
   swap_rows <- quantiles[, 1] > quantiles[, 2]
@@ -125,18 +125,18 @@ qnwd <- function(p, beta, alpha) {
 #' @name NWD
 #' @examples
 #' n <- 10
-#' rnwd(n, beta = 1, alpha = 2)
-#' rnwd(n, beta = c(1, 2), alpha = c(1, 1))
+#' rnweibull(n, shape = 1, scale = 2)
+#' rnweibull(n, shape = c(1, 2), scale = c(1, 1))
 #' @export
-rnwd <- function(n, beta, alpha) {
-  if (any(alpha <= 0) || any(beta <= 0))
+rnweibull <- function(n, shape, scale) {
+  if (any(scale <= 0) || any(shape <= 0))
     stop(message = "Arguments are incompatible.")
 
-  alpha <- rep(alpha, length.out = 2)
-  beta  <- rep(beta, length.out = 2)
+  scale <- rep(scale, length.out = 2)
+  shape  <- rep(shape, length.out = 2)
 
   u <- matrix(runif(n), ncol = 2)
-  X <- qnbd(u, alpha, beta)
+  X <- qnweibull(u, scale, shape)
 
   return(X)
 }
