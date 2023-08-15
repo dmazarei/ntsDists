@@ -1,32 +1,31 @@
-#' Neutrosophic HyperGeometric Distribution (NHGEOMD)
+#' Neutrosophic Hypergeometric Distribution
 #'
 #' Density, distribution function, quantile function and random
-#' generation for the nuetrosophic HyperGeometric distribution with
-#' parameter \eqn{p_N}.
+#' generation for the nuetrosophic hypergeometric distribution with
+#' parameters \eqn{m_N}, \eqn{n_N}, and \eqn{k_N}.
 #'
-#' The neutrosophic HyperGeometric distribution with parameters \eqn{K_N}
-#' and \eqn{N_N} and \eqn{k}
-#' has the density
+#' The neutrosophic hypergeometric distribution with parameters \eqn{k_N}
+#' and \eqn{n_N} and \eqn{m_N}  has the density
 #' \deqn{\frac{\left(\begin{array}{c}
-#' K_N \\
+#' m_N \\
 #' x
 #' \end{array}\right)\left(\begin{array}{c}
-#'                        N_N-K_N \\
-#'                        k-x
+#'                        n_N \\
+#'                        k_N-x
 #'                        \end{array}\right)}{\left(\begin{array}{c}
-#'                                                  N_N \\
-#'                                                  k
+#'                                                  m_N + n_N \\
+#'                                                  k_N
 #'                                                  \end{array}\right)}}
-#' for \eqn{N_N \in (N_L, N_U)} which must be a positive interval and
-#'  \eqn{K_N \in (K_L, K_U)} which must be a positive interval and
+#' for \eqn{n_N \in (n_L, n_U)} which must be a positive interval and
+#'  \eqn{k_N \in (k_L, k_U)} which must be a positive interval and
 #'  \eqn{k \in \{0, 1, 2, \ldots\}} and
-#' and \eqn{x \in \{0, 1, 2, \ldots\}}.
+#' and \eqn{x \in \{0, 1, 2, \ldots, k\}}.
 #'
 #' @name NHGEOMD
 #' @param x a vector or matrix of observations for which the pdf needs to be computed.
 #' @param q a vector or matrix of quantiles for which the cdf needs to be computed.
 #' @param p a vector or matrix of probabilities for which the quantile needs to be computed.
-#' @param n number of random values to be generated.
+#' @param nn number of random values to be generated.
 #' @param N number of population size, which must be a positive interval.
 #' @param K number of success states in the population, which must be a positive interval.
 #' @param k number of draws (i.e. quantity drawn in each trial), , which must be a positive interval.
@@ -152,8 +151,8 @@ qnhgeomd <- function(p, N, K, k) {
 #' rnhgeomd(n, N, K, k)
 #' rnhgeomd(n, N, K, k)
 #' @export
-rnhgeomd <- function(n, N, K, k) {
-  if (any(K <= 0) || any(N <= 0) || any(k <= 0)) {
+rnhgeomd <- function(nn, m, n, k) {
+  if (any(k <= 0) || any(N <= 0) || any(k <= 0)) {
     stop(message = "Arguments are incompatible.")
   }
 
