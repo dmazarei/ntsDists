@@ -1,10 +1,10 @@
-#' Neutrosophic Negative Binomial Distribution (NNBIND)
+#' Neutrosophic Negative Binomial Distribution
 #'
 #' Density, distribution function, quantile function and random
 #' generation for the nuetrosophic Negative Binomial distribution with
-#' parameters \eqn{r_N} and \eqn{p_N}.
+#' parameters \code{size} = \eqn{r_N} and \code{prob} = \eqn{p_N}.
 #'
-#' The neutrosophic Negative Binomial distribution with parameters \eqn{r_N} and \eqn{p_N}
+#' The neutrosophic negative binomial distribution with parameters \eqn{r_N} and \eqn{p_N}
 #' has the density
 #' \deqn{\left(\begin{array}{c} r_N+x-1 \\ x \end{array}\right) p_N^{r_N}\left(1-p_N\right)^{x}}
 #' for \eqn{r_N \in \{1, 2, \ldots\}} and \eqn{p_N \in (p_L, p_U)} which must be \eqn{0<p_N<1}
@@ -21,20 +21,20 @@
 #' \eqn{P(X \ge x)}; otherwise, \eqn{P(X >x)}.
 #'
 #' @return
-#'  \code{pnnbind} gives the distribution function,
-#'  \code{dnnbind} gives the density,
-#'  \code{qnnbind} gives the quantile function and
-#'  \code{rnnbind} generates random variables from the Negative Binomial Distribution.
+#'  \code{pnnbinom} gives the distribution function,
+#'  \code{dnnbinom} gives the density,
+#'  \code{qnnbinom} gives the quantile function and
+#'  \code{rnnbinom} generates random variables from the Negative Binomial Distribution.
 #' @references
 #'        Granados, C. (2022).
 #'        Some discrete neutrosophic distributions with neutrosophic parameters based on neutrosophic random variables.
 #'         \emph{Hacettepe Journal of Mathematics and Statistics}, 51(5), 1442-1457.
 #' @importFrom stats runif dnbinom pnbinom qnbinom
 #' @examples
-#' dnnbind(x, size = 2, prob= 0.5)
-#' dnnbind(x2, lambda = c(2, 2))
+#' dnnbinom(x, size = 2, prob= 0.5)
+#' dnnbinom(x2, lambda = c(2, 2))
 #' @export
-dnnbind <- function(x, size, prob) {
+dnnbinom <- function(x, size, prob) {
   if (any(size < 1) || any(prob <= 0) || any(prob > 1) || any(x < 0))
     stop(message = "Arguments are incompatible.")
 
@@ -64,11 +64,11 @@ dnnbind <- function(x, size, prob) {
 #' @examples
 #' x <- 1:10
 #' x2 <- matrix(1:20, ncol = 2)
-#' pnnbind(x, size = 2, prob= 0.5)
-#' pnnbind(x2, size = c(2,2), prob = c(.3 ,.6))
+#' pnnbinom(x, size = 2, prob= 0.5)
+#' pnnbinom(x2, size = c(2,2), prob = c(.3 ,.6))
 #' @export
 
-pnnbind <- function(q, size, prob, lower.tail = TRUE) {
+pnnbinom <- function(q, size, prob, lower.tail = TRUE) {
   if (any(size < 1) || any(prob <= 0) || any(prob > 1) || any(q < 0))
     stop(message = "Arguments are incompatible.")
   if (any(q < 0) && any(q - floor(q) == 0))
@@ -96,11 +96,11 @@ pnnbind <- function(q, size, prob, lower.tail = TRUE) {
 #' @name NNBIND
 #' @examples
 #' q1 <- seq(0.1, 1, length.out = 40)
-#' qnnbind(q1, size = 2, prob= 0.5)
+#' qnnbinom(q1, size = 2, prob= 0.5)
 #' q2 <- matrix(seq(0.1, 1, length.out = 40), ncol = 2)
-#' qnnbind(q2, lambda = c(2, 2))
+#' qnnbinom(q2, lambda = c(2, 2))
 #' @export
-qnnbind <- function(p, size, prob) {
+qnnbinom <- function(p, size, prob) {
   if (any(p < 0) || any(p > 1))
     stop(message = "Warning: p should be in the interval [0,1].")
 
@@ -125,10 +125,10 @@ qnnbind <- function(p, size, prob) {
 #' @name NNBIND
 #' @examples
 #' n <- 10
-#' rnnbind(n, size = 2, prob= 0.5)
-#' rnnbind(n, lambda = c(1, 2))
+#' rnnbinom(n, size = 2, prob= 0.5)
+#' rnnbinom(n, lambda = c(1, 2))
 #' @export
-rnnbind <- function(n, size, prob) {
+rnnbinom <- function(n, size, prob) {
   if (any(size < 1) || any(prob <= 0) || any(prob > 1))
     stop(message = "Arguments are incompatible.")
 
@@ -136,7 +136,7 @@ rnnbind <- function(n, size, prob) {
   size <- rep(size, length.out = 2)
   prob <- rep(prob, length.out = 2)
   u <- matrix(runif(n), ncol = 2)
-  X <- qnnbind(u, size, prob)
+  X <- qnnbinom(u, size, prob)
 
   return(X)
 }
