@@ -1,8 +1,8 @@
-#' Neutrosophic Geometric Distribution (NGEOMD)
+#' Neutrosophic Geometric Distribution
 #'
 #' Density, distribution function, quantile function and random
 #' generation for the nuetrosophic Geometric distribution with
-#' parameter \eqn{p_N}.
+#' parameter \code{prob} = \eqn{p_N}.
 #'
 #' The neutrosophic Geometric distribution with parameter \eqn{p_N}
 #' has the density
@@ -20,20 +20,20 @@
 #' \eqn{P(X \ge x)}; otherwise, \eqn{P(X >x)}.
 #'
 #' @return
-#'  \code{pngeomd} gives the distribution function,
-#'  \code{dngeomd} gives the density,
-#'  \code{qngeomd} gives the quantile function and
-#'  \code{rngeomd} generates random variables from the Geometric Distribution.
+#'  \code{pngeom} gives the distribution function,
+#'  \code{dngeom} gives the density,
+#'  \code{qngeom} gives the quantile function and
+#'  \code{rngeom} generates random variables from the Geometric Distribution.
 #' @references
 #'        Granados, C. (2022).
 #'        Some discrete neutrosophic distributions with neutrosophic parameters based on neutrosophic random variables.
 #'         \emph{Hacettepe Journal of Mathematics and Statistics}, 51(5), 1442-1457.
 #' @importFrom stats runif dgeom pgeom qgeom
 #' @examples
-#' dngeomd(x, prob = 0.5)
-#' dngeomd(x2, lambda = c(2, 2))
+#' dngeom(x, prob = 0.5)
+#' dngeom(x2, lambda = c(2, 2))
 #' @export
-dngeomd <- function(x, prob) {
+dngeom <- function(x, prob) {
   if (any(prob <= 0) || any(prob > 1) || any(x < 0)) {
     stop(message = "Arguments are incompatible.")
   }
@@ -64,11 +64,11 @@ dngeomd <- function(x, prob) {
 #' @examples
 #' x <- 1:10
 #' x2 <- matrix(1:20, ncol = 2)
-#' pngeomd(x, prob = 0.5)
-#' pngeomd(x2, prob = c(.3, .6))
+#' pngeom(x, prob = 0.5)
+#' pngeom(x2, prob = c(.3, .6))
 #' @export
 
-pngeomd <- function(q, prob, lower.tail = TRUE) {
+pngeom <- function(q, prob, lower.tail = TRUE) {
   if (any(prob <= 0) || any(prob > 1) || any(q < 0)) {
     stop(message = "Arguments are incompatible.")
   }
@@ -98,11 +98,11 @@ pngeomd <- function(q, prob, lower.tail = TRUE) {
 #' @name NGEOMD
 #' @examples
 #' q1 <- seq(0.1, 1, length.out = 40)
-#' qngeomd(q1, prob = 0.5)
+#' qngeom(q1, prob = 0.5)
 #' q2 <- matrix(seq(0.1, 1, length.out = 40), ncol = 2)
-#' qngeomd(q2, lambda = c(2, 2))
+#' qngeom(q2, lambda = c(2, 2))
 #' @export
-qngeomd <- function(p, prob) {
+qngeom <- function(p, prob) {
   if (any(p < 0) || any(p > 1)) {
     stop(message = "Warning: p should be in the interval [0,1].")
   }
@@ -128,17 +128,17 @@ qngeomd <- function(p, prob) {
 #' @name NGEOMD
 #' @examples
 #' n <- 10
-#' rngeomd(n, prob = 0.5)
-#' rngeomd(n, lambda = c(1, 2))
+#' rngeom(n, prob = 0.5)
+#' rngeom(n, lambda = c(1, 2))
 #' @export
-rngeomd <- function(n, prob) {
+rngeom <- function(n, prob) {
   if (any(prob <= 0) || any(prob > 1)) {
     stop(message = "Arguments are incompatible.")
   }
 
   prob <- rep(prob, length.out = 2)
   u <- matrix(runif(n), ncol = 2)
-  X <- qngeomd(u, prob)
+  X <- qngeom(u, prob)
 
   return(X)
 }
