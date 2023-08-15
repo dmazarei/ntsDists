@@ -1,4 +1,4 @@
-#' Neutrosophic Poisson Distribution (NPD)
+#' Neutrosophic Poisson Distribution
 #'
 #' Density, distribution function, quantile function and random
 #' generation for the nuetrosophic Poisson distribution with
@@ -20,20 +20,20 @@
 #' \eqn{P(X \ge x)}; otherwise, \eqn{P(X >x)}.
 #'
 #' @return
-#'  \code{pnpd} gives the distribution function,
-#'  \code{dnpd} gives the density,
-#'  \code{qnpd} gives the quantile function and
-#'  \code{rnpd} generates random variables from the neutrosophic Poisson Distribution.
+#'  \code{pnpois} gives the distribution function,
+#'  \code{dnpois} gives the density,
+#'  \code{qnpois} gives the quantile function and
+#'  \code{rnpois} generates random variables from the neutrosophic Poisson Distribution.
 #' @references
 #'        Alhabib, R., Ranna, M. M., Farah, H., Salama, A. A. (2018).
 #'        Some neutrosophic probability distributions.
 #'        \emph{Neutrosophic Sets and Systems},  22, 30-38.
 #' @importFrom stats runif dpois ppois qpois
 #' @examples
-#' dnpd(x, lambda = 2)
-#' dnpd(x2, lambda = c(2, 2))
+#' dnpois(x, lambda = 2)
+#' dnpois(x2, lambda = c(2, 2))
 #' @export
-dnpd <- function(x, lambda) {
+dnpois <- function(x, lambda) {
   if (any(lambda < 0))
     stop(message = "Arguments are incompatible.")
 
@@ -61,10 +61,10 @@ dnpd <- function(x, lambda) {
 #' @examples
 #' x <- 1:10
 #' x2 <- matrix(1:20, ncol = 2)
-#' pnpd(x, lambda = 1)
-#' pnpd(x2, lambda = c(2, 3))
+#' pnpois(x, lambda = 1)
+#' pnpois(x2, lambda = c(2, 3))
 #' @export
-pnpd <- function(q, lambda, lower.tail = TRUE) {
+pnpois <- function(q, lambda, lower.tail = TRUE) {
   if (any(lambda < 0))
     stop("Arguments are incompatible.")
 
@@ -92,11 +92,11 @@ pnpd <- function(q, lambda, lower.tail = TRUE) {
 #' @name NPD
 #' @examples
 #' q1 <- seq(0.1, 1, length.out = 40)
-#' qnpd(q1, lambda = 2)
+#' qnpois(q1, lambda = 2)
 #' q2 <- matrix(seq(0.1, 1, length.out = 40), ncol = 2)
-#' qnpd(q2, lambda = c(2, 2))
+#' qnpois(q2, lambda = c(2, 2))
 #' @export
-qnpd <- function(p, lambda) {
+qnpois <- function(p, lambda) {
   if (any(p < 0) || any(p > 1))
     stop(message = "Warning: p should be in the interval [0,1].")
 
@@ -120,16 +120,16 @@ qnpd <- function(p, lambda) {
 #' @name NPD
 #' @examples
 #' n <- 10
-#' rnpd(n, lambda = 1)
-#' rnpd(n, lambda = c(1, 2))
+#' rnpois(n, lambda = 1)
+#' rnpois(n, lambda = c(1, 2))
 #' @export
-rnpd <- function(n, lambda) {
+rnpois <- function(n, lambda) {
   if (any(lambda < 0))
     stop(message = "Arguments are incompatible.")
 
   lambda <- rep(lambda, length.out = 2)
   u <- matrix(runif(n), ncol = 2)
-  X <- qnpd(u, lambda)
+  X <- qnpois(u, lambda)
 
   return(X)
 }
