@@ -34,7 +34,7 @@
 #' @examples
 #' dnbind(x, size = 2, prob = 0.5)
 #' @export
-dnbind <- function(x, size, prob) {
+dnbind <- function(x, size, prob, log = FALSE) {
   if (any(size < 1) || any(prob <= 0) || any(prob > 1) || any(x < 0)) {
     stop(message = "Arguments are incompatible.")
   }
@@ -54,7 +54,7 @@ dnbind <- function(x, size, prob) {
 
   pdf <- matrix(data = NA, nrow = nrow(x), ncol = ncol(x))
   for (i in 1:ncol(x)) {
-    pdf[, i] <- stats::dbinom(x[, i], size = size[i], prob = prob[i])
+    pdf[, i] <- stats::dbinom(x[, i], size = size[i], prob = prob[i], log = log)
   }
 
   swap_rows <- pdf[, 1] > pdf[, 2]
@@ -70,7 +70,7 @@ dnbind <- function(x, size, prob) {
 #' pnbind(x2, size = c(2, 2), prob = c(.3, .6))
 #' @export
 
-pnbind <- function(q, size, prob, lower.tail = TRUE) {
+pnbind <- function(q, size, prob, lower.tail = TRUE, log.p = FALSE) {
   if (any(size < 1) || any(prob <= 0) || any(prob > 1) || any(q < 0)) {
     stop(message = "Arguments are incompatible.")
   }
@@ -85,7 +85,7 @@ pnbind <- function(q, size, prob, lower.tail = TRUE) {
   }
   q <- matrix(q, ncol = 2)
 
-  cdf <- stats::pbinom(q, size = size, prob = prob)
+  cdf <- stats::pbinom(q, size = size, prob = prob, log.p = log.p)
 
   if (!lower.tail) {
     cdf <- 1 - cdf
@@ -105,7 +105,7 @@ pnbind <- function(q, size, prob, lower.tail = TRUE) {
 #' q2 <- matrix(seq(0.1, 1, length.out = 40), ncol = 2)
 #' qnbind(q2, lambda = c(2, 2))
 #' @export
-qnbind <- function(p, size, prob) {
+qnbind <- function(p, size, prob, log.p = FALSE) {
   if (any(p < 0) || any(p > 1)) {
     stop(message = "Warning: p should be in the interval [0,1].")
   }
@@ -120,7 +120,7 @@ qnbind <- function(p, size, prob) {
 
   quantiles <- matrix(data = NA, nrow = nrow(p), ncol = 2)
   for (i in 1:ncol(p)) {
-    quantiles[, i] <- stats::qbinom(p[, i], size = size[i], prob = prob[i])
+    quantiles[, i] <- stats::qbinom(p[, i], size = size[i], prob = prob[i], log.p = log.p)
   }
 
   swap_rows <- quantiles[, 1] > quantiles[, 2]
