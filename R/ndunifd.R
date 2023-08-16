@@ -92,7 +92,7 @@ pndunifd <- function(q, min, max, log.p = FALSE) {
   if (!lower.tail)
     cdf <- 1 - cdf
   if(log.p == TRUE){
-    pdf <- log(pdf)
+    cdf <- log(cdf)
   }
   cdf <- matrix(cdf, ncol = 2, byrow = TRUE)
 
@@ -126,7 +126,7 @@ qndunifd <- function(p, min, max, log.p = FALSE) {
 
   }
   if(log.p == TRUE){
-    pdf <- log(pdf)
+    quantiles <- log(quantiles)
   }
   swap_rows <- quantiles[, 1] > quantiles[, 2]
   quantiles[swap_rows, c(1, 2)] <- quantiles[swap_rows, c(2, 1)]
