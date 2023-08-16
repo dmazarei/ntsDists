@@ -41,7 +41,7 @@
 #' x <- matrix(c(1, 1, 2, 2.2, 3, 3.5), ncol = 2, byrow = TRUE)
 #' dngamma(x, shape = c(1, 2), scale = c(2, 2))
 #' @export
-dngamma <- function(x, shape, rate, scale = 1/rate) {
+dngamma <- function(x, shape, rate, scale = 1/rate, log = FALSE) {
   if (any(shape <= 0) || any(scale <= 0) || any(x < 0))
     stop(message = "Arguments are incompatible.")
 
@@ -56,7 +56,7 @@ dngamma <- function(x, shape, rate, scale = 1/rate) {
 
   pdf <- matrix(data = NA, nrow = nrow(x), ncol = ncol(x))
   for (i in 1:ncol(x)) {
-    pdf[, i] <- stats::dgamma(x[, i], shape = shape[i], scale = scale[i])
+    pdf[, i] <- stats::dgamma(x[, i], shape = shape[i], scale = scale[i], log = log)
   }
 
   # Identify rows where col1 > col2
@@ -72,7 +72,7 @@ dngamma <- function(x, shape, rate, scale = 1/rate) {
 #'
 #'
 #' @export
-pngamma <- function(q, shape, rate, scale = 1/rate, lower.tail = TRUE) {
+pngamma <- function(q, shape, rate, scale = 1/rate, lower.tail = TRUE, log.p = FALSE) {
   if (any(shape <= 0) || any(scale <= 0) || any(q < 0))
     stop(message = "incompatible arguments.")
 
@@ -84,7 +84,7 @@ pngamma <- function(q, shape, rate, scale = 1/rate, lower.tail = TRUE) {
   }
   q <- matrix(q, ncol = 2)
 
-  cdf <- stats::pgamma(q, shape = shape, scale = scale)
+  cdf <- stats::pgamma(q, shape = shape, scale = scale, log.p = log.p)
 
   if (!lower.tail)
     cdf <- 1 - cdf
@@ -102,7 +102,7 @@ pngamma <- function(q, shape, rate, scale = 1/rate, lower.tail = TRUE) {
 #' @examples
 #' qngamma(p = 0.1, shape = c(1, 2), scale = c(2, 2))
 #' @export
-qngamma <- function(p, shape, rate, scale = 1/rate) {
+qngamma <- function(p, shape, rate, scale = 1/rate, log.p = FALSE) {
   if (any(p < 0) || any(p > 1))
     stop(message = "Warning: p should be in the interval [0,1].")
 
@@ -116,7 +116,7 @@ qngamma <- function(p, shape, rate, scale = 1/rate) {
 
   quantiles <- matrix(data = NA, nrow = nrow(p), ncol = 2)
   for (i in 1:ncol(p)) {
-    quantiles[, i] <- stats::qgamma(p[, i], shape = shape[i], scale = scale[i])
+    quantiles[, i] <- stats::qgamma(p[, i], shape = shape[i], scale = scale[i], log.p = log.p)
   }
 
   swap_rows <- quantiles[, 1] > quantiles[, 2]
