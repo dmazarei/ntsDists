@@ -17,6 +17,7 @@
 #' @param n number of random values to be generated.
 #' @param min lower limits of the distribution that must be a finite interval.
 #' @param max upper limits of the distribution that must be a finite interval.
+#' @param log,log.p logical; if TRUE, probabilities p are given as log(p).
 #' @param lower.tail logical; if TRUE (default), probabilities are
 #' \eqn{P(X \ge x)}; otherwise, \eqn{P(X >x)}.
 #'
