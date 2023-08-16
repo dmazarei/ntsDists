@@ -37,7 +37,7 @@ dnpois <- function(x, lambda) {
   if (any(lambda < 0))
     stop(message = "Arguments are incompatible.")
 
-  if (any(x < 0) && any(x - floor(x) == 0))
+  if (any(x < 0) || any(round(x) != x))
     stop(message = "Warning: x should be a positive integer.")
 
   lambda <- rep(lambda, length.out = 2)
@@ -68,7 +68,7 @@ pnpois <- function(q, lambda, lower.tail = TRUE) {
   if (any(lambda < 0))
     stop("Arguments are incompatible.")
 
-  if (any(q < 0) && any(q - floor(q) == 0))
+  if (any(x < q) || any(round(q) != q))
     stop(message = "Warning: q should be a  positive integer.")
 
   lambda <- rep(lambda, length.out = 2)
