@@ -77,7 +77,7 @@ dnbeta <- function(x, shape1, shape2, log = FALSE) {
 #' pnbeta(x, shape1 = c(1, 2), shape2 = c(2, 2))
 #'
 #' @export
-pnbeta <- function(q, shape1, shape2, log.p = FALSE, lower.tail = TRUE) {
+pnbeta <- function(q, shape1, shape2, lower.tail = TRUE, log.p = FALSE) {
   if (any(theta <= 0) || any(q < 0))
     stop("Arguments are incompatible.")
 
