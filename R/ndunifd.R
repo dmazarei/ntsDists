@@ -58,7 +58,7 @@ dndunifd <- function(x, min, max, log = FALSE) {
     pdf[, i] <- ifelse(x[,i]>=min[i] & x[,i]<=max[i] & round(x[,i])==x[,i], 1/(max[i]-min[i]+1), 0)
   }
 
-  if(log == TRUE){
+  if(log){
     pdf <- log(pdf)
   }
 
@@ -91,7 +91,7 @@ pndunifd <- function(q, min, max, log.p = FALSE) {
 
   if (!lower.tail)
     cdf <- 1 - cdf
-  if(log.p == TRUE){
+  if(log.p){
     cdf <- log(cdf)
   }
   cdf <- matrix(cdf, ncol = 2, byrow = TRUE)
@@ -125,7 +125,7 @@ qndunifd <- function(p, min, max, log.p = FALSE) {
     quantiles[, i] <- ceiling((max[i]-min[i]+1)*p[,i]+min[i]-1)
 
   }
-  if(log.p == TRUE){
+  if(log.p){
     quantiles <- log(quantiles)
   }
   swap_rows <- quantiles[, 1] > quantiles[, 2]
