@@ -19,6 +19,7 @@
 #' @param p a vector or matrix of probabilities for which the quantile needs to be computed.
 #' @param n number of random values to be generated.
 #' @param shape the shape parameter, which must be a positive interval.
+#' @param rate the rate parameter, which must be a positive interval.
 #' @param scale the scale parameter, which must be a positive interval.
 #' @param lower.tail logical; if TRUE (default), probabilities are
 #' \eqn{P(X \ge x)}; otherwise, \eqn{P(X >x)}.
@@ -40,7 +41,7 @@
 #' x <- matrix(c(1, 1, 2, 2.2, 3, 3.5), ncol = 2, byrow = TRUE)
 #' dngamma(x, shape = c(1, 2), scale = c(2, 2))
 #' @export
-dngamma <- function(x, shape, scale) {
+dngamma <- function(x, shape, rate, scale = 1/rate) {
   if (any(shape <= 0) || any(scale <= 0) || any(x < 0))
     stop(message = "Arguments are incompatible.")
 
@@ -71,7 +72,7 @@ dngamma <- function(x, shape, scale) {
 #'
 #'
 #' @export
-pngamma <- function(q, shape, scale, lower.tail = TRUE) {
+pngamma <- function(q, shape, rate, scale = 1/rate, lower.tail = TRUE) {
   if (any(shape <= 0) || any(scale <= 0) || any(q < 0))
     stop(message = "incompatible arguments.")
 
@@ -101,7 +102,7 @@ pngamma <- function(q, shape, scale, lower.tail = TRUE) {
 #' @examples
 #' qngamma(p = 0.1, shape = c(1, 2), scale = c(2, 2))
 #' @export
-qngamma <- function(p, shape, scale) {
+qngamma <- function(p, shape, rate, scale = 1/rate) {
   if (any(p < 0) || any(p > 1))
     stop(message = "Warning: p should be in the interval [0,1].")
 
@@ -129,7 +130,7 @@ qngamma <- function(p, shape, scale) {
 #' Simulate 10 numbers
 #' rngamma(n=10, shape = c(1, 2), scale = c(1, 1))
 #' @export
-rngamma <- function(n, shape, scale) {
+rngamma <- function(n, shape, rate, scale = 1/rate) {
   if (any(shape <= 0) || any(scale <= 0))
     stop(message = "Arguments are incompatible.")
 
