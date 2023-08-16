@@ -15,6 +15,7 @@
 #' @param p a vector or matrix of probabilities for which the quantile needs to be computed.
 #' @param n number of random values to be generated.
 #' @param rate the shape parameter, which must be a positive interval.
+#' @param log,log.p logical; if TRUE, probabilities p are given as log(p).
 #' @param lower.tail logical; if TRUE (default), probabilities are
 #' \eqn{P(X \ge x)}; otherwise, \eqn{P(X >x)}.
 #'
@@ -45,7 +46,7 @@
 #' # Here, 4 is equivalent to c(4,4).
 #' dnexp(4, rate = c(0.23, 0.23))
 #' @export
-dnexp <- function(x, rate) {
+dnexp <- function(x, rate, log = FALSE) {
   if (any(rate <= 0) || any(x < 0))
     stop("Arguments are incompatible.")
 
@@ -60,7 +61,9 @@ dnexp <- function(x, rate) {
   for (i in 1:ncol(x)) {
     pdf[, i] <- rate[i] * exp(-x[, i] * rate[i])
   }
-
+  if(log.p == TRUE){
+    pdf <- log(pdf)
+  }
   swap_rows <- pdf[, 1] > pdf[, 2]
   pdf[swap_rows, c(1, 2)] <- pdf[swap_rows, c(2, 1)]
 
@@ -74,7 +77,7 @@ dnexp <- function(x, rate) {
 #'
 #' pnexp(4, rate = c(0.23, 0.24))
 #' @export
-pnexp <- function(q, rate, lower.tail = TRUE) {
+pnexp <- function(q, rate, lower.tail = TRUE, log.p = FALSE) {
   if (any(rate <= 0) || any(q < 0))
     stop("Arguments are incompatible.")
 
@@ -88,7 +91,9 @@ pnexp <- function(q, rate, lower.tail = TRUE) {
 
   if (!lower.tail)
     cdf <- 1 - cdf
-
+  if(log.p == TRUE){
+    cdf <- log(cdf)
+  }
   cdf <- matrix(cdf, ncol = 2, byrow = TRUE)
 
   swap_rows <- cdf[, 1] > cdf[, 2]
@@ -105,7 +110,7 @@ pnexp <- function(q, rate, lower.tail = TRUE) {
 #' qnexp(p = c(0.25, 0.5, 0.75), rate = c(0.24, 0.25))
 #'
 #' @export
-qnexp <- function(p, rate) {
+qnexp <- function(p, rate, log.p = FALSE) {
   if (any(p < 0) || any(p > 1)) {
     stop(message = "Warning: p should be in the interval [0,1].")
   }
@@ -121,7 +126,9 @@ qnexp <- function(p, rate) {
   for (i in 1:ncol(p)) {
     quantiles[, i] <- -log(1 - p[, i]) / rate[i]
   }
-
+  if(log.p == TRUE){
+    quantiles <- log(quantiles)
+  }
   swap_rows <- quantiles[, 1] > quantiles[, 2]
   quantiles[swap_rows, c(1, 2)] <- quantiles[swap_rows, c(2, 1)]
 
