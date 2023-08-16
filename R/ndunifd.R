@@ -36,11 +36,11 @@
 #'
 #' dndunifd(x2, min = c(1, 2), max = c(2, 2))
 #' @export
-dndunifd <- function(x, min, max) {
+dndunifd <- function(x, min, max, log = FALSE) {
   if (any(max <= min))
     stop(message = "Arguments are incompatible.")
 
-  if (any(round(x) == x))
+  if (any(round(x) != x))
     warning(paste("non-integer"))
 
   max <- rep(max, length.out = 2)
@@ -57,6 +57,9 @@ dndunifd <- function(x, min, max) {
     pdf[, i] <- ifelse(x[,i]>=min[i] & x[,i]<=max[i] & round(x[,i])==x[,i], 1/(max[i]-min[i]+1), 0)
   }
 
+  if(log == TRUE){
+    pdf <- log(pdf)
+  }
 
   swap_rows <- pdf[, 1] > pdf[, 2]
   pdf[swap_rows, c(1, 2)] <- pdf[swap_rows, c(2, 1)]
@@ -69,10 +72,11 @@ dndunifd <- function(x, min, max) {
 #' pndunifd(x, min = 1, max = 2)
 #' pndunifd(x2, min = c(1, 2), max = c(2, 2))
 #' @export
-pndunifd <- function(q, min, max) {
+pndunifd <- function(q, min, max, log.p = FALSE) {
   if (any(max <= min))
     stop(message = "Arguments are incompatible.")
-
+  if (any(round(q) != q))
+    warning(paste("non-integer"))
   q <- floor(q)
   max <- rep(max, length.out = 2)
   min  <- rep(min, length.out = 2)
@@ -86,7 +90,9 @@ pndunifd <- function(q, min, max) {
 
   if (!lower.tail)
     cdf <- 1 - cdf
-
+  if(log.p == TRUE){
+    pdf <- log(pdf)
+  }
   cdf <- matrix(cdf, ncol = 2, byrow = TRUE)
 
   swap_rows <- cdf[, 1] > cdf[, 2]
@@ -101,7 +107,7 @@ pndunifd <- function(q, min, max) {
 #' x2 <- matrix(seq(0.1, 1, length.out = 40), ncol = 2)
 #' qndunifd(x2, min = c(1, 2), max = c(2, 2))
 #' @export
-qndunifd <- function(p, min, max) {
+qndunifd <- function(p, min, max, log.p = FALSE) {
   if (any(max <= min))
     stop(message = "Arguments are incompatible.")
   if (any(p < 0) || any(p > 1)) {
@@ -118,7 +124,9 @@ qndunifd <- function(p, min, max) {
     quantiles[, i] <- ceiling((max[i]-min[i]+1)*p[,i]+min[i]-1)
 
   }
-
+  if(log.p == TRUE){
+    pdf <- log(pdf)
+  }
   swap_rows <- quantiles[, 1] > quantiles[, 2]
   quantiles[swap_rows, c(1, 2)] <- quantiles[swap_rows, c(2, 1)]
 
