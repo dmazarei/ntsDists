@@ -61,7 +61,7 @@ dnexp <- function(x, rate, log = FALSE) {
   for (i in 1:ncol(x)) {
     pdf[, i] <- rate[i] * exp(-x[, i] * rate[i])
   }
-  if(log == TRUE){
+  if(log){
     pdf <- log(pdf)
   }
   swap_rows <- pdf[, 1] > pdf[, 2]
@@ -91,7 +91,7 @@ pnexp <- function(q, rate, lower.tail = TRUE, log.p = FALSE) {
 
   if (!lower.tail)
     cdf <- 1 - cdf
-  if(log.p == TRUE){
+  if(log.p){
     cdf <- log(cdf)
   }
   cdf <- matrix(cdf, ncol = 2, byrow = TRUE)
@@ -126,7 +126,7 @@ qnexp <- function(p, rate, log.p = FALSE) {
   for (i in 1:ncol(p)) {
     quantiles[, i] <- -log(1 - p[, i]) / rate[i]
   }
-  if(log.p == TRUE){
+  if(log.p){
     quantiles <- log(quantiles)
   }
   swap_rows <- quantiles[, 1] > quantiles[, 2]
