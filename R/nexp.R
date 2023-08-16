@@ -61,7 +61,7 @@ dnexp <- function(x, rate, log = FALSE) {
   for (i in 1:ncol(x)) {
     pdf[, i] <- rate[i] * exp(-x[, i] * rate[i])
   }
-  if(log.p == TRUE){
+  if(log == TRUE){
     pdf <- log(pdf)
   }
   swap_rows <- pdf[, 1] > pdf[, 2]
