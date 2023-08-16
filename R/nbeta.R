@@ -21,6 +21,7 @@
 #' @param n number of random values to be generated.
 #' @param shape1 the first shape parameter, which must be a positive interval.
 #' @param shape2 the second shape parameter, which must be a positive interval.
+#' @param log,log.p logical; if TRUE, probabilities p are given as log(p).
 #' @param lower.tail logical; if TRUE (default), probabilities are
 #' \eqn{P(X \ge x)}; otherwise, \eqn{P(X >x)}.
 #'
@@ -45,7 +46,7 @@
 #' dnbeta(x, shape1 = c(1, 2), shape2 = c(2, 3))
 #'
 #' @export
-dnbeta <- function(x, shape1, shape2) {
+dnbeta <- function(x, shape1, shape2, log = FALSE) {
   if (any(shape1 <= 0) || any(shape2 <= 0) || any(x < 0))
     stop(message = "Arguments are incompatible.")
 
@@ -61,7 +62,7 @@ dnbeta <- function(x, shape1, shape2) {
 
   pdf <- matrix(data = NA, nrow = nrow(x), ncol = ncol(x))
   for (i in 1:ncol(x)) {
-    pdf[, i] <- stats::dbeta(x[, i], shape1 = shape1[i], shape2 = shape2[i])
+    pdf[, i] <- stats::dbeta(x[, i], shape1 = shape1[i], shape2 = shape2[i], log = log)
   }
 
   swap_rows <- pdf[, 1] > pdf[, 2]
@@ -76,7 +77,7 @@ dnbeta <- function(x, shape1, shape2) {
 #' pnbeta(x, shape1 = c(1, 2), shape2 = c(2, 2))
 #'
 #' @export
-pnbeta <- function(q, shape1, shape2, lower.tail = TRUE) {
+pnbeta <- function(q, shape1, shape2, log.p = FALSE, lower.tail = TRUE) {
   if (any(theta <= 0) || any(q < 0))
     stop("Arguments are incompatible.")
 
@@ -87,7 +88,7 @@ pnbeta <- function(q, shape1, shape2, lower.tail = TRUE) {
   }
   q <- matrix(q, ncol = 2)
 
-  cdf <- stats::pbeta(q, shape1 = shape1, shape2 = shape2)
+  cdf <- stats::pbeta(q, shape1 = shape1, shape2 = shape2, log.p =log.p)
 
   if (!lower.tail)
     cdf <- 1 - cdf
@@ -106,7 +107,7 @@ pnbeta <- function(q, shape1, shape2, lower.tail = TRUE) {
 #' qnbeta(p = c(0.25, 0.5, 0.75), shape1 = c(1, 2), shape2 = c(2, 2))
 #'
 #' @export
-qnbeta <- function(p, shape1, shape2) {
+qnbeta <- function(p, shape1, shape2, log.p = FALSE) {
   if (any(p < 0) || any(p > 1)) {
     stop(message = "Warning: p should be in the interval [0,1].")
   }
@@ -129,6 +130,6 @@ rnbeta <- function(n, shape1, shape2) {
   shape2  <- rep(shape2, length.out = 2)
 
   u <- matrix(runif(n), ncol = 2)
-  X <- qnbeta(u, shape1, shape2)
+  X <- qnbeta(u, shape1, shape2, log.p=log.p)
   return(X)
 }
