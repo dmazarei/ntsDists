@@ -84,7 +84,7 @@ pngamma <- function(q, shape, rate, scale = 1/rate, lower.tail = TRUE, log.p = F
   }
   q <- matrix(q, ncol = 2)
 
-  cdf <- stats::pgamma(q, shape = shape, scale = scale, log.p = log.p)
+  cdf <- stats::pgamma(q, shape = shape, scale = scale, lower.tail = lower.tail, log.p =log.p)
 
   if (!lower.tail)
     cdf <- 1 - cdf
@@ -102,7 +102,7 @@ pngamma <- function(q, shape, rate, scale = 1/rate, lower.tail = TRUE, log.p = F
 #' @examples
 #' qngamma(p = 0.1, shape = c(1, 2), scale = c(2, 2))
 #' @export
-qngamma <- function(p, shape, rate, scale = 1/rate, log.p = FALSE) {
+qngamma <- function(p, shape, rate, scale = 1/rate, lower.tail = TRUE, log.p = FALSE) {
   if (any(p < 0) || any(p > 1))
     stop(message = "Warning: p should be in the interval [0,1].")
 
@@ -116,7 +116,7 @@ qngamma <- function(p, shape, rate, scale = 1/rate, log.p = FALSE) {
 
   quantiles <- matrix(data = NA, nrow = nrow(p), ncol = 2)
   for (i in 1:ncol(p)) {
-    quantiles[, i] <- stats::qgamma(p[, i], shape = shape[i], scale = scale[i], log.p = log.p)
+    quantiles[, i] <- stats::qgamma(p[, i], shape = shape[i], scale = scale[i], lower.tail = lower.tail, log.p =log.p)
   }
 
   swap_rows <- quantiles[, 1] > quantiles[, 2]
