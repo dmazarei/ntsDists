@@ -43,7 +43,7 @@
 #' dnnorm(x2, mean = c(1, 2), sd = c(2, 2))
 #'
 #' @export
-dnnorm <- function(x, mean, sd) {
+dnnorm <- function(x, mean, sd, log = FALSE) {
   if (any(sd <= 0))
     stop("Arguments are incompatible.")
 
@@ -58,7 +58,7 @@ dnnorm <- function(x, mean, sd) {
 
   pdf <- matrix(data = NA, nrow = nrow(x), ncol = ncol(x))
   for (i in 1:ncol(x)) {
-    pdf[, i] <- stats::dnorm(x[, i], mean = mean[i], sd = sd[i])
+    pdf[, i] <- stats::dnorm(x[, i], mean = mean[i], sd = sd[i], log = log)
   }
 
   swap_rows <- pdf[, 1] > pdf[, 2]
@@ -75,7 +75,7 @@ dnnorm <- function(x, mean, sd) {
 #' pnnorm(x2, mean = c(1, 2), sd = c(2, 2))
 #' @export
 
-pnnorm <- function(q, mean, sd, lower.tail = TRUE) {
+pnnorm <- function(q, mean, sd, lower.tail = TRUE, log.p = FALSE) {
   if (any(sd <= 0))
     stop("Arguments are incompatible.")
 
@@ -87,7 +87,7 @@ pnnorm <- function(q, mean, sd, lower.tail = TRUE) {
   }
   q <- matrix(q, ncol = 2)
 
-  cdf <- stats::pnorm(q, mean = mean, sd = sd)
+  cdf <- stats::pnorm(q, mean = mean, sd = sd, log.p = log.p)
 
   if (!lower.tail)
     cdf <- 1 - cdf
@@ -106,7 +106,7 @@ pnnorm <- function(q, mean, sd, lower.tail = TRUE) {
 #' x2 <- matrix(seq(0.1, 1, length.out = 40), ncol = 2)
 #' qnnorm(x2, mean = c(1, 2), sd = c(2, 2))
 #' @export
-qnnorm <- function(p, mean, sd) {
+qnnorm <- function(p, mean, sd, log.p = log.p) {
   if (any(p < 0) || any(p > 1)) {
     stop(message = "Warning: p should be in the interval [0,1].")
   }
