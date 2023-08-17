@@ -33,7 +33,7 @@
 #' dngeom(x, prob = 0.5)
 #' dngeom(x2, lambda = c(2, 2))
 #' @export
-dngeom <- function(x, prob) {
+dngeom <- function(x, prob, log = FALSE) {
   if (any(prob <= 0) || any(prob > 1) || any(x < 0)) {
     stop(message = "Arguments are incompatible.")
   }
@@ -52,7 +52,7 @@ dngeom <- function(x, prob) {
 
   pdf <- matrix(data = NA, nrow = nrow(x), ncol = ncol(x))
   for (i in 1:ncol(x)) {
-    pdf[, i] <- stats::dgeon(x[, i], prob = prob[i])
+    pdf[, i] <- stats::dgeon(x[, i], prob = prob[i], log = log)
   }
 
   swap_rows <- pdf[, 1] > pdf[, 2]
@@ -68,7 +68,7 @@ dngeom <- function(x, prob) {
 #' pngeom(x2, prob = c(.3, .6))
 #' @export
 
-pngeom <- function(q, prob, lower.tail = TRUE) {
+pngeom <- function(q, prob, lower.tail = TRUE, log.p = FALSE) {
   if (any(prob <= 0) || any(prob > 1) || any(q < 0)) {
     stop(message = "Arguments are incompatible.")
   }
@@ -82,7 +82,7 @@ pngeom <- function(q, prob, lower.tail = TRUE) {
   }
   q <- matrix(q, ncol = 2)
 
-  cdf <- stats::pgeom(q, prob = prob)
+  cdf <- stats::pgeom(q, prob = prob, log.p = log.p)
 
   if (!lower.tail) {
     cdf <- 1 - cdf
@@ -102,7 +102,7 @@ pngeom <- function(q, prob, lower.tail = TRUE) {
 #' q2 <- matrix(seq(0.1, 1, length.out = 40), ncol = 2)
 #' qngeom(q2, lambda = c(2, 2))
 #' @export
-qngeom <- function(p, prob) {
+qngeom <- function(p, prob, log.p = FALSE) {
   if (any(p < 0) || any(p > 1)) {
     stop(message = "Warning: p should be in the interval [0,1].")
   }
@@ -116,7 +116,7 @@ qngeom <- function(p, prob) {
 
   quantiles <- matrix(data = NA, nrow = nrow(p), ncol = 2)
   for (i in 1:ncol(p)) {
-    quantiles[, i] <- stats::qgeom(p[, i], prob = prob[i])
+    quantiles[, i] <- stats::qgeom(p[, i], prob = prob[i], log.p = log.p)
   }
 
   swap_rows <- quantiles[, 1] > quantiles[, 2]
