@@ -85,11 +85,8 @@ pnbind <- function(q, size, prob, lower.tail = TRUE, log.p = FALSE) {
   }
   q <- matrix(q, ncol = 2)
 
-  cdf <- stats::pbinom(q, size = size, prob = prob, log.p = log.p)
+  cdf <- stats::pbinom(q, size = size, prob = prob, lower.tail = lower.tail, log.p =log.p)
 
-  if (!lower.tail) {
-    cdf <- 1 - cdf
-  }
 
   cdf <- matrix(cdf, ncol = 2, byrow = TRUE)
 
@@ -105,7 +102,7 @@ pnbind <- function(q, size, prob, lower.tail = TRUE, log.p = FALSE) {
 #' q2 <- matrix(seq(0.1, 1, length.out = 40), ncol = 2)
 #' qnbind(q2, lambda = c(2, 2))
 #' @export
-qnbind <- function(p, size, prob, log.p = FALSE) {
+qnbind <- function(p, size, prob, lower.tail = TRUE, log.p = FALSE) {
   if (any(p < 0) || any(p > 1)) {
     stop(message = "Warning: p should be in the interval [0,1].")
   }
@@ -120,7 +117,7 @@ qnbind <- function(p, size, prob, log.p = FALSE) {
 
   quantiles <- matrix(data = NA, nrow = nrow(p), ncol = 2)
   for (i in 1:ncol(p)) {
-    quantiles[, i] <- stats::qbinom(p[, i], size = size[i], prob = prob[i], log.p = log.p)
+    quantiles[, i] <- stats::qbinom(p[, i], size = size[i], prob = prob[i], lower.tail = lower.tail, log.p =log.p)
   }
 
   swap_rows <- quantiles[, 1] > quantiles[, 2]
