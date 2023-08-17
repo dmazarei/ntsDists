@@ -88,10 +88,8 @@ pnbeta <- function(q, shape1, shape2, lower.tail = TRUE, log.p = FALSE) {
   }
   q <- matrix(q, ncol = 2)
 
-  cdf <- stats::pbeta(q, shape1 = shape1, shape2 = shape2, log.p =log.p)
+  cdf <- stats::pbeta(q, shape1 = shape1, shape2 = shape2, lower.tail = lower.tail, log.p =log.p)
 
-  if (!lower.tail)
-    cdf <- 1 - cdf
 
   cdf <- matrix(cdf, ncol = 2, byrow = TRUE)
   swap_rows <- cdf[, 1] > cdf[, 2]
@@ -107,7 +105,7 @@ pnbeta <- function(q, shape1, shape2, lower.tail = TRUE, log.p = FALSE) {
 #' qnbeta(p = c(0.25, 0.5, 0.75), shape1 = c(1, 2), shape2 = c(2, 2))
 #'
 #' @export
-qnbeta <- function(p, shape1, shape2, log.p = FALSE) {
+qnbeta <- function(p, shape1, shape2, lower.tail = TRUE, log.p = FALSE) {
   if (any(p < 0) || any(p > 1)) {
     stop(message = "Warning: p should be in the interval [0,1].")
   }
@@ -130,6 +128,6 @@ rnbeta <- function(n, shape1, shape2) {
   shape2  <- rep(shape2, length.out = 2)
 
   u <- matrix(runif(n), ncol = 2)
-  X <- qnbeta(u, shape1, shape2, log.p=log.p)
+  X <- qnbeta(u, shape1, shape2, lower.tail = lower.tail, log.p=log.p)
   return(X)
 }
