@@ -110,7 +110,7 @@ pnexp <- function(q, rate, lower.tail = TRUE, log.p = FALSE) {
 #' qnexp(p = c(0.25, 0.5, 0.75), rate = c(0.24, 0.25))
 #'
 #' @export
-qnexp <- function(p, rate, log.p = FALSE) {
+qnexp <- function(p, rate, lower.tail = TRUE, log.p = FALSE) {
   if (any(p < 0) || any(p > 1)) {
     stop(message = "Warning: p should be in the interval [0,1].")
   }
@@ -126,6 +126,8 @@ qnexp <- function(p, rate, log.p = FALSE) {
   for (i in 1:ncol(p)) {
     quantiles[, i] <- -log(1 - p[, i]) / rate[i]
   }
+  if (!lower.tail)
+    quantiles <- 1 - quantiles
   if(log.p){
     quantiles <- log(quantiles)
   }
