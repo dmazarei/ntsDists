@@ -46,7 +46,7 @@
 #' dnhgeomd(x, N, K, k)
 #' dnhgeomd(x2, N, K, k)
 #' @export
-dnhgeomd <- function(x, N, K, k) {
+dnhgeomd <- function(x, N, K, k, log = FALSE) {
   if (any(K <= 0) || any(N <= 0) || any(k <= 0) || any(x < 0)) {
     stop(message = "Arguments are incompatible.")
   }
@@ -67,7 +67,7 @@ dnhgeomd <- function(x, N, K, k) {
 
   pdf <- matrix(data = NA, nrow = nrow(x), ncol = ncol(x))
   for (i in 1:ncol(x)) {
-    pdf[, i] <- stats::dhyper(x[, i], m = K[i], n = N[i] - K[i], k = k[i])
+    pdf[, i] <- stats::dhyper(x[, i], m = K[i], n = N[i] - K[i], k = k[i], log = log)
   }
 
   swap_rows <- pdf[, 1] > pdf[, 2]
@@ -83,7 +83,7 @@ dnhgeomd <- function(x, N, K, k) {
 #' pnhgeomd(x2, N, K, k)
 #' @export
 
-pnhgeomd <- function(q, N, K, k, lower.tail = TRUE) {
+pnhgeomd <- function(q, N, K, k, lower.tail = TRUE, log.p = FALSE) {
   if (any(K <= 0) || any(N <= 0) || any(k <= 0) || any(x < 0)) {
     stop(message = "Arguments are incompatible.")
   }
@@ -100,7 +100,7 @@ pnhgeomd <- function(q, N, K, k, lower.tail = TRUE) {
   }
   q <- matrix(q, ncol = 2)
 
-  cdf <- stats::phyper(q[, i], m = K, n = N - K, k = k)
+  cdf <- stats::phyper(q[, i], m = K, n = N - K, k = k, log.p = log.p)
 
   if (!lower.tail) {
     cdf <- 1 - cdf
@@ -120,7 +120,7 @@ pnhgeomd <- function(q, N, K, k, lower.tail = TRUE) {
 #' q2 <- matrix(seq(0.1, 1, length.out = 40), ncol = 2)
 #' qnhgeomd(q2, N, K, k)
 #' @export
-qnhgeomd <- function(p, N, K, k) {
+qnhgeomd <- function(p, N, K, k, log.p = FALSE) {
   if (any(p < 0) || any(p > 1)) {
     stop(message = "Warning: p should be in the interval [0,1].")
   }
@@ -136,7 +136,7 @@ qnhgeomd <- function(p, N, K, k) {
 
   quantiles <- matrix(data = NA, nrow = nrow(p), ncol = 2)
   for (i in 1:ncol(p)) {
-    quantiles[, i] <- stats::qhyper(p[, i], m = K[i], n = N[i] - K[i], k = k[i])
+    quantiles[, i] <- stats::qhyper(p[, i], m = K[i], n = N[i] - K[i], k = k[i], log.p = log.p)
   }
 
   swap_rows <- quantiles[, 1] > quantiles[, 2]
