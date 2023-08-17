@@ -107,7 +107,7 @@ pnged <- function(q, nu, delta, lower.tail = TRUE, log.p = FALSE) {
 #'
 #' qnged(x2, nu = c(1, 2), delta = c(2, 2))
 #' @export
-qnged <- function(p, nu, delta, log.p = FALSE) {
+qnged <- function(p, nu, delta, lower.tail = TRUE, log.p = FALSE) {
   if (any(p < 0) || any(p > 1)) {
     stop(message = "Warning: p should be in the interval [0,1].")
   }
@@ -125,6 +125,8 @@ qnged <- function(p, nu, delta, log.p = FALSE) {
   for (i in 1:ncol(p)) {
     quantiles[, i] <- log(-p[, i]^(1 / delta[i]) + 1) * (-nu[i])
   }
+  if (!lower.tail)
+    quantiles <- 1 - quantiles
   if(log.p){
     quantiles <- log(quantiles)
   }
