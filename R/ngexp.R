@@ -39,7 +39,7 @@
 #' dnged(x = 1, nu = c(1, 2), delta = c(2, 2))
 #'
 #' @export
-dnged <- function(x, nu, delta) {
+dnged <- function(x, nu, delta, log = FALSE) {
   if (any(nu <= 0) || any(delta <= 0) || any(x < 0))
     stop(message = "Arguments are incompatible.")
 
@@ -57,7 +57,9 @@ dnged <- function(x, nu, delta) {
   for (i in 1:ncol(x)) {
     pdf[, i] <- (delta[i] / nu[i]) * (1 - exp(-x[, i] / nu[i]))^(delta[i] - 1) * exp(-x[, i] / nu[i])
   }
-
+  if(log){
+    pdf <- log(pdf)
+  }
   swap_rows <- pdf[, 1] > pdf[, 2]
   pdf[swap_rows, c(1, 2)] <- pdf[swap_rows, c(2, 1)]
 
@@ -71,7 +73,7 @@ dnged <- function(x, nu, delta) {
 #' x2 <- matrix(seq(0.1, 1, length.out = 40), ncol = 2)
 #' pnged(x2, nu = c(1, 2), delta = c(2, 2))
 #' @export
-pnged <- function(q, nu, delta, lower.tail = TRUE) {
+pnged <- function(q, nu, delta, lower.tail = TRUE, log.p = FALSE) {
   if (any(nu <= 0) || any(delta <= 0) || any(q < 0))
     stop(message = "incompatible arguments.")
 
@@ -87,7 +89,9 @@ pnged <- function(q, nu, delta, lower.tail = TRUE) {
 
   if (!lower.tail)
     cdf <- 1 - cdf
-
+  if(log.p){
+    cdf <- log(cdf)
+  }
   cdf <- matrix(cdf, ncol = 2, byrow = TRUE)
   # Identify rows where col1 > col2
   swap_rows <- cdf[, 1] > cdf[, 2]
@@ -103,7 +107,7 @@ pnged <- function(q, nu, delta, lower.tail = TRUE) {
 #'
 #' qnged(x2, nu = c(1, 2), delta = c(2, 2))
 #' @export
-qnged <- function(p, nu, delta) {
+qnged <- function(p, nu, delta, log.p = FALSE) {
   if (any(p < 0) || any(p > 1)) {
     stop(message = "Warning: p should be in the interval [0,1].")
   }
@@ -121,7 +125,9 @@ qnged <- function(p, nu, delta) {
   for (i in 1:ncol(p)) {
     quantiles[, i] <- log(-p[, i]^(1 / delta[i]) + 1) * (-nu[i])
   }
-
+  if(log.p){
+    quantiles <- log(quantiles)
+  }
   swap_rows <- quantiles[, 1] > quantiles[, 2]
   quantiles[swap_rows, c(1, 2)] <- quantiles[swap_rows, c(2, 1)]
 
