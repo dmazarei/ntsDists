@@ -86,8 +86,6 @@ pngamma <- function(q, shape, rate, scale = 1/rate, lower.tail = TRUE, log.p = F
 
   cdf <- stats::pgamma(q, shape = shape, scale = scale, lower.tail = lower.tail, log.p =log.p)
 
-  if (!lower.tail)
-    cdf <- 1 - cdf
 
   cdf <- matrix(cdf, ncol = 2, byrow = TRUE)
   # Identify rows where col1 > col2
