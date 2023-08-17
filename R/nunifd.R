@@ -36,7 +36,7 @@
 #'
 #' dnunifd(x2, min = c(1, 2), max = c(2, 2))
 #' @export
-dnunifd <- function(x, min, max) {
+dnunifd <- function(x, min, max, log = FALSE) {
   if (any(max <= min)) {
     stop(message = "Arguments are incompatible.")
   }
@@ -51,7 +51,7 @@ dnunifd <- function(x, min, max) {
 
   pdf <- matrix(data = NA, nrow = nrow(x), ncol = ncol(x))
   for (i in 1:ncol(x)) {
-    pdf[, i] <- stats::dunif(x[, i], min = min[i], max = max[i])
+    pdf[, i] <- stats::dunif(x[, i], min = min[i], max = max[i], log = log)
   }
 
   swap_rows <- pdf[, 1] > pdf[, 2]
@@ -65,7 +65,7 @@ dnunifd <- function(x, min, max) {
 #' pnunifd(x, min = 1, max = 2)
 #' pnunifd(x2, min = c(1, 2), max = c(2, 2))
 #' @export
-pnunifd <- function(q, min, max) {
+pnunifd <- function(q, min, max, log.p = FALSE) {
   if (any(max <= min)) {
     stop(message = "Arguments are incompatible.")
   }
@@ -78,7 +78,7 @@ pnunifd <- function(q, min, max) {
   }
   q <- matrix(q, ncol = 2)
 
-  cdf <- stats::punif(q, min = min, max = max)
+  cdf <- stats::punif(q, min = min, max = max, log.p = log.p)
 
   if (!lower.tail) {
     cdf <- 1 - cdf
@@ -98,7 +98,7 @@ pnunifd <- function(q, min, max) {
 #' x2 <- matrix(seq(0.1, 1, length.out = 40), ncol = 2)
 #' qnunifd(x2, min = c(1, 2), max = c(2, 2))
 #' @export
-qnunifd <- function(p, min, max) {
+qnunifd <- function(p, min, max, log.p = FALSE) {
   if (any(max <= min)) {
     stop(message = "Arguments are incompatible.")
   }
@@ -113,7 +113,7 @@ qnunifd <- function(p, min, max) {
 
   quantiles <- matrix(data = NA, nrow = nrow(p), ncol = 2)
   for (i in 1:ncol(p)) {
-    quantiles[, i] <- stats::qunif(p[, i], min = min[i], max = max[i])
+    quantiles[, i] <- stats::qunif(p[, i], min = min[i], max = max[i], log.p = log.p)
   }
 
   swap_rows <- quantiles[, 1] > quantiles[, 2]
