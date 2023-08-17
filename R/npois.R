@@ -33,7 +33,7 @@
 #' dnpois(x, lambda = 2)
 #' dnpois(x2, lambda = c(2, 2))
 #' @export
-dnpois <- function(x, lambda) {
+dnpois <- function(x, lambda, log = FALSE) {
   if (any(lambda < 0))
     stop(message = "Arguments are incompatible.")
 
@@ -49,7 +49,7 @@ dnpois <- function(x, lambda) {
 
   pdf <- matrix(data = NA, nrow = nrow(x), ncol = ncol(x))
   for (i in 1:ncol(x)) {
-    pdf[, i] <- stats::dpois(x[, i], lambda = lambda[i])
+    pdf[, i] <- stats::dpois(x[, i], lambda = lambda[i], log = log)
   }
 
   swap_rows <- pdf[, 1] > pdf[, 2]
@@ -64,7 +64,7 @@ dnpois <- function(x, lambda) {
 #' pnpois(x, lambda = 1)
 #' pnpois(x2, lambda = c(2, 3))
 #' @export
-pnpois <- function(q, lambda, lower.tail = TRUE) {
+pnpois <- function(q, lambda, lower.tail = TRUE, log.p = FALSE) {
   if (any(lambda < 0))
     stop("Arguments are incompatible.")
 
@@ -77,7 +77,7 @@ pnpois <- function(q, lambda, lower.tail = TRUE) {
   }
   q <- matrix(q, ncol = 2)
 
-  cdf <- stats::ppois(q, lambda)
+  cdf <- stats::ppois(q, lambda, log.p = log.p)
 
   if (!lower.tail)
     cdf <- 1 - cdf
@@ -96,7 +96,7 @@ pnpois <- function(q, lambda, lower.tail = TRUE) {
 #' q2 <- matrix(seq(0.1, 1, length.out = 40), ncol = 2)
 #' qnpois(q2, lambda = c(2, 2))
 #' @export
-qnpois <- function(p, lambda) {
+qnpois <- function(p, lambda, log.p = FALSE) {
   if (any(p < 0) || any(p > 1))
     stop(message = "Warning: p should be in the interval [0,1].")
 
@@ -108,7 +108,7 @@ qnpois <- function(p, lambda) {
 
   quantiles <- matrix(data = NA, nrow = nrow(p), ncol = 2)
   for (i in 1:ncol(p)) {
-    quantiles[, i] <- stats::qpois(p[, i], lambda = lambda[i])
+    quantiles[, i] <- stats::qpois(p[, i], lambda = lambda[i], log.p = log.p)
   }
 
   swap_rows <- quantiles[, 1] > quantiles[, 2]
