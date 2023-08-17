@@ -38,7 +38,7 @@
 #'
 #' dnweibull(x2, shape = c(1, 2), scale = c(2, 2))
 #' @export
-dnweibull <- function(x, shape, scale) {
+dnweibull <- function(x, shape, scale, log = FALSE) {
   if (any(scale <= 0) || any(shape <= 0) || any(x < 0))
     stop("Arguments are incompatible.")
 
@@ -53,7 +53,7 @@ dnweibull <- function(x, shape, scale) {
 
   pdf <- matrix(data = NA, nrow = nrow(x), ncol = ncol(x))
   for (i in 1:ncol(x)) {
-    pdf[, i] <- stats::dweibull(x[, i], shape = shape[i], scale = scale[i])
+    pdf[, i] <- stats::dweibull(x[, i], shape = shape[i], scale = scale[i], log = log)
   }
 
   swap_rows <- pdf[, 1] > pdf[, 2]
@@ -67,7 +67,7 @@ dnweibull <- function(x, shape, scale) {
 #' pnweibull(x, shape = 1, scale = 2)
 #' pnweibull(x2, shape = c(1, 2), scale = c(2, 2))
 #' @export
-pnweibull <- function(q, shape, scale) {
+pnweibull <- function(q, shape, scale, log.p = FALSE) {
   if (any(scale <= 0) || any(shape <= 0) || any(q < 0))
     stop("Arguments are incompatible.")
 
@@ -79,7 +79,7 @@ pnweibull <- function(q, shape, scale) {
   }
   q <- matrix(q, ncol = 2)
 
-  cdf <- stats::pweibull(q, shape = shape, scale = scale)
+  cdf <- stats::pweibull(q, shape = shape, scale = scale, log.p = log.p)
 
   if (!lower.tail)
     cdf <- 1 - cdf
@@ -98,7 +98,7 @@ pnweibull <- function(q, shape, scale) {
 #' x2 <- matrix(seq(0.1, 1, length.out = 40), ncol = 2)
 #' qnweibull(x2, shape = c(1, 2), scale = c(2, 2))
 #' @export
-qnweibull <- function(p, shape, scale) {
+qnweibull <- function(p, shape, scale, log.p = FALSE) {
   if (any(p < 0) || any(p > 1)) {
     stop(message = "Warning: p should be in the interval [0,1].")
   }
@@ -114,7 +114,7 @@ qnweibull <- function(p, shape, scale) {
 
   quantiles <- matrix(data = NA, nrow = nrow(p), ncol = 2)
   for (i in 1:ncol(p)) {
-    quantiles[, i] <- stats::qweibull(p[, i], shape = shape[i], scale = scale[i])
+    quantiles[, i] <- stats::qweibull(p[, i], shape = shape[i], scale = scale[i], log.p = log.p)
   }
 
   swap_rows <- quantiles[, 1] > quantiles[, 2]
