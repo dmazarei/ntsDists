@@ -73,7 +73,7 @@ dndunifd <- function(x, min, max, log = FALSE) {
 #' pndunifd(x, min = 1, max = 2)
 #' pndunifd(x2, min = c(1, 2), max = c(2, 2))
 #' @export
-pndunifd <- function(q, min, max, log.p = FALSE) {
+pndunifd <- function(q, min, max, lower.tail = TRUE, log.p = FALSE) {
   if (any(max <= min))
     stop(message = "Arguments are incompatible.")
   if (any(round(q) != q))
@@ -108,7 +108,7 @@ pndunifd <- function(q, min, max, log.p = FALSE) {
 #' x2 <- matrix(seq(0.1, 1, length.out = 40), ncol = 2)
 #' qndunifd(x2, min = c(1, 2), max = c(2, 2))
 #' @export
-qndunifd <- function(p, min, max, log.p = FALSE) {
+qndunifd <- function(p, min, max, lower.tail = TRUE, log.p = FALSE) {
   if (any(max <= min))
     stop(message = "Arguments are incompatible.")
   if (any(p < 0) || any(p > 1)) {
@@ -125,6 +125,8 @@ qndunifd <- function(p, min, max, log.p = FALSE) {
     quantiles[, i] <- ceiling((max[i]-min[i]+1)*p[,i]+min[i]-1)
 
   }
+  if (!lower.tail)
+    quantiles <- 1 - quantiles
   if(log.p){
     quantiles <- log(quantiles)
   }
