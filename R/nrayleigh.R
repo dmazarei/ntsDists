@@ -34,7 +34,7 @@
 #' dnrd(x, theta = 2)
 #' dnrd(x2, theta = c(2, 2))
 #' @export
-dnrd <- function(x, theta) {
+dnrd <- function(x, theta, log = FALSE) {
   if (any(theta <= 0))
     stop("Arguments are incompatible.")
 
@@ -49,7 +49,9 @@ dnrd <- function(x, theta) {
   for (i in 1:ncol(x)) {
     pdf[, i] <- (x[, i] / theta[i]^2) * exp((-1 / 2) * (x[, i] / theta[i])^2)
   }
-
+  if(log){
+    pdf <- log(pdf)
+  }
   swap_rows <- pdf[, 1] > pdf[, 2]
   pdf[swap_rows, c(1, 2)] <- pdf[swap_rows, c(2, 1)]
 
@@ -63,7 +65,7 @@ dnrd <- function(x, theta) {
 #' x2 <- matrix(seq(0.01, 1, length.out = 40), ncol = 2) #'
 #' pnrd(x2, theta = c(2, 3))
 #' @export
-pnrd <- function(q, theta, lower.tail = TRUE) {
+pnrd <- function(q, theta, lower.tail = TRUE, log.p = FALSE) {
   if (any(theta <= 0) || any(q < 0))
     stop("Arguments are incompatible.")
 
@@ -77,7 +79,9 @@ pnrd <- function(q, theta, lower.tail = TRUE) {
 
   if (!lower.tail)
     cdf <- 1 - cdf
-
+  if(log.p){
+    cdf <- log(cdf)
+  }
   cdf <- matrix(cdf, ncol = 2, byrow = TRUE)
 
   swap_rows <- cdf[, 1] > cdf[, 2]
@@ -91,7 +95,7 @@ pnrd <- function(q, theta, lower.tail = TRUE) {
 #'
 #' qnrd(x2, theta = c(2, 2))
 #' @export
-qnrd <- function(p, theta) {
+qnrd <- function(p, theta, log.p = FALSE) {
   if (any(p < 0) || any(p > 1)) {
     stop(message = "Warning: p should be in the interval [0,1].")
   }
@@ -107,7 +111,9 @@ qnrd <- function(p, theta) {
   for (i in 1:ncol(p)) {
     quantiles[, i] <- theta[i] * sqrt(-2 * log(1 - p[, i]))
   }
-
+  if(log.p){
+    quantiles <- log(quantiles)
+  }
   swap_rows <- quantiles[, 1] > quantiles[, 2]
   quantiles[swap_rows, c(1, 2)] <- quantiles[swap_rows, c(2, 1)]
 
