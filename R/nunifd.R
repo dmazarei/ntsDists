@@ -78,11 +78,8 @@ pnunifd <- function(q, min, max, log.p = FALSE) {
   }
   q <- matrix(q, ncol = 2)
 
-  cdf <- stats::punif(q, min = min, max = max, log.p = log.p)
+  cdf <- stats::punif(q, min = min, max = max, lower.tail = lower.tail, log.p =log.p)
 
-  if (!lower.tail) {
-    cdf <- 1 - cdf
-  }
 
   cdf <- matrix(cdf, ncol = 2, byrow = TRUE)
 
@@ -98,7 +95,7 @@ pnunifd <- function(q, min, max, log.p = FALSE) {
 #' x2 <- matrix(seq(0.1, 1, length.out = 40), ncol = 2)
 #' qnunifd(x2, min = c(1, 2), max = c(2, 2))
 #' @export
-qnunifd <- function(p, min, max, log.p = FALSE) {
+qnunifd <- function(p, min, max, lower.tail = TRUE, log.p = FALSE) {
   if (any(max <= min)) {
     stop(message = "Arguments are incompatible.")
   }
@@ -113,7 +110,7 @@ qnunifd <- function(p, min, max, log.p = FALSE) {
 
   quantiles <- matrix(data = NA, nrow = nrow(p), ncol = 2)
   for (i in 1:ncol(p)) {
-    quantiles[, i] <- stats::qunif(p[, i], min = min[i], max = max[i], log.p = log.p)
+    quantiles[, i] <- stats::qunif(p[, i], min = min[i], max = max[i], lower.tail = lower.tail, log.p =log.p)
   }
 
   swap_rows <- quantiles[, 1] > quantiles[, 2]

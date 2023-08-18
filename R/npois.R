@@ -77,10 +77,7 @@ pnpois <- function(q, lambda, lower.tail = TRUE, log.p = FALSE) {
   }
   q <- matrix(q, ncol = 2)
 
-  cdf <- stats::ppois(q, lambda, log.p = log.p)
-
-  if (!lower.tail)
-    cdf <- 1 - cdf
+  cdf <- stats::ppois(q, lambda, lower.tail = lower.tail, log.p =log.p)
 
   cdf <- matrix(cdf, ncol = 2, byrow = TRUE)
 
@@ -96,7 +93,7 @@ pnpois <- function(q, lambda, lower.tail = TRUE, log.p = FALSE) {
 #' q2 <- matrix(seq(0.1, 1, length.out = 40), ncol = 2)
 #' qnpois(q2, lambda = c(2, 2))
 #' @export
-qnpois <- function(p, lambda, log.p = FALSE) {
+qnpois <- function(p, lambda, lower.tail = TRUE, log.p = FALSE) {
   if (any(p < 0) || any(p > 1))
     stop(message = "Warning: p should be in the interval [0,1].")
 
@@ -108,7 +105,7 @@ qnpois <- function(p, lambda, log.p = FALSE) {
 
   quantiles <- matrix(data = NA, nrow = nrow(p), ncol = 2)
   for (i in 1:ncol(p)) {
-    quantiles[, i] <- stats::qpois(p[, i], lambda = lambda[i], log.p = log.p)
+    quantiles[, i] <- stats::qpois(p[, i], lambda = lambda[i], lower.tail = lower.tail, log.p =log.p)
   }
 
   swap_rows <- quantiles[, 1] > quantiles[, 2]

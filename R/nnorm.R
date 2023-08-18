@@ -87,10 +87,7 @@ pnnorm <- function(q, mean, sd, lower.tail = TRUE, log.p = FALSE) {
   }
   q <- matrix(q, ncol = 2)
 
-  cdf <- stats::pnorm(q, mean = mean, sd = sd, log.p = log.p)
-
-  if (!lower.tail)
-    cdf <- 1 - cdf
+  cdf <- stats::pnorm(q, mean = mean, sd = sd, lower.tail = lower.tail, log.p =log.p)
 
   cdf <- matrix(cdf, ncol = 2, byrow = TRUE)
   swap_rows <- cdf[, 1] > cdf[, 2]
@@ -106,7 +103,7 @@ pnnorm <- function(q, mean, sd, lower.tail = TRUE, log.p = FALSE) {
 #' x2 <- matrix(seq(0.1, 1, length.out = 40), ncol = 2)
 #' qnnorm(x2, mean = c(1, 2), sd = c(2, 2))
 #' @export
-qnnorm <- function(p, mean, sd, log.p = log.p) {
+qnnorm <- function(p, mean, sd, lower.tail = TRUE, log.p = FALSE) {
   if (any(p < 0) || any(p > 1)) {
     stop(message = "Warning: p should be in the interval [0,1].")
   }
@@ -121,7 +118,7 @@ qnnorm <- function(p, mean, sd, log.p = log.p) {
 
   quantiles <- matrix(data = NA, nrow = nrow(p), ncol = 2)
   for (i in 1:ncol(p)) {
-    quantiles[, i] <- stats::dnorm(p[, i], mean = mean[i], sd = sd[i])
+    quantiles[, i] <- stats::qnorm(p[, i], mean = mean[i], sd = sd[i], lower.tail = lower.tail, log.p =log.p)
   }
   swap_rows <- quantiles[, 1] > quantiles[, 2]
   quantiles[swap_rows, c(1, 2)] <- quantiles[swap_rows, c(2, 1)]
