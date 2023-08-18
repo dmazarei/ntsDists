@@ -100,7 +100,7 @@ pnhgeomd <- function(q, N, K, k, lower.tail = TRUE, log.p = FALSE) {
   }
   q <- matrix(q, ncol = 2)
 
-  cdf <- stats::phyper(q[, i], m = K, n = N - K, k = k, log.p = log.p)
+  cdf <- stats::phyper(q[, i], m = K, n = N - K, k = k, lower.tail = lower.tail, log.p =log.p)
 
   if (!lower.tail) {
     cdf <- 1 - cdf
@@ -120,7 +120,7 @@ pnhgeomd <- function(q, N, K, k, lower.tail = TRUE, log.p = FALSE) {
 #' q2 <- matrix(seq(0.1, 1, length.out = 40), ncol = 2)
 #' qnhgeomd(q2, N, K, k)
 #' @export
-qnhgeomd <- function(p, N, K, k, log.p = FALSE) {
+qnhgeomd <- function(p, N, K, k, lower.tail = TRUE, log.p = FALSE) {
   if (any(p < 0) || any(p > 1)) {
     stop(message = "Warning: p should be in the interval [0,1].")
   }
@@ -136,7 +136,7 @@ qnhgeomd <- function(p, N, K, k, log.p = FALSE) {
 
   quantiles <- matrix(data = NA, nrow = nrow(p), ncol = 2)
   for (i in 1:ncol(p)) {
-    quantiles[, i] <- stats::qhyper(p[, i], m = K[i], n = N[i] - K[i], k = k[i], log.p = log.p)
+    quantiles[, i] <- stats::qhyper(p[, i], m = K[i], n = N[i] - K[i], k = k[i], lower.tail = lower.tail, log.p =log.p)
   }
 
   swap_rows <- quantiles[, 1] > quantiles[, 2]
