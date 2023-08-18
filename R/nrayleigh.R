@@ -95,7 +95,7 @@ pnrd <- function(q, theta, lower.tail = TRUE, log.p = FALSE) {
 #'
 #' qnrd(x2, theta = c(2, 2))
 #' @export
-qnrd <- function(p, theta, log.p = FALSE) {
+qnrd <- function(p, theta, lower.tail = TRUE, log.p = FALSE) {
   if (any(p < 0) || any(p > 1)) {
     stop(message = "Warning: p should be in the interval [0,1].")
   }
@@ -111,6 +111,8 @@ qnrd <- function(p, theta, log.p = FALSE) {
   for (i in 1:ncol(p)) {
     quantiles[, i] <- theta[i] * sqrt(-2 * log(1 - p[, i]))
   }
+  if (!lower.tail)
+    quantiles <- 1 - quantiles
   if(log.p){
     quantiles <- log(quantiles)
   }
