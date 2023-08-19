@@ -1,4 +1,4 @@
-#' Neutrosophic Weibull Distribution (NWD)
+#' Neutrosophic Weibull Distribution
 #'
 #' Density, distribution function, quantile function and random
 #' generation for the nuetrosophic Weibull distribution with \code{scale}
@@ -12,14 +12,13 @@
 #' be a positive interval, \eqn{\alpha_N \in (\alpha_L,\alpha_U)},
 #' the scale parameter which be a positive interval, and \eqn{x > 0}.
 #'
-#' @name NWD
+#' @name Neutrosophic Weibull
 #' @param x a vector or matrix of observations for which the pdf needs to be computed.
 #' @param q a vector or matrix of quantiles for which the cdf needs to be computed.
 #' @param p a vector or matrix of probabilities for which the quantile needs to be computed.
 #' @param n number of random values to be generated.
 #' @param shape shape parameter, which must be a positive interval.
 #' @param scale scale parameter, which must be a positive interval.
-#' @param log,log.p logical; if TRUE, probabilities p are given as log(p).
 #' @param lower.tail logical; if TRUE (default), probabilities are
 #' \eqn{P(X \ge x)}; otherwise, \eqn{P(X >x)}.
 #'
@@ -39,7 +38,7 @@
 #'
 #' dnweibull(x2, shape = c(1, 2), scale = c(2, 2))
 #' @export
-dnweibull <- function(x, shape, scale, log = FALSE) {
+dnweibull <- function(x, shape, scale) {
   if (any(scale <= 0) || any(shape <= 0) || any(x < 0))
     stop("Arguments are incompatible.")
 
@@ -54,7 +53,7 @@ dnweibull <- function(x, shape, scale, log = FALSE) {
 
   pdf <- matrix(data = NA, nrow = nrow(x), ncol = ncol(x))
   for (i in 1:ncol(x)) {
-    pdf[, i] <- stats::dweibull(x[, i], shape = shape[i], scale = scale[i], log = log)
+    pdf[, i] <- stats::dweibull(x[, i], shape = shape[i], scale = scale[i])
   }
 
   swap_rows <- pdf[, 1] > pdf[, 2]
@@ -62,13 +61,14 @@ dnweibull <- function(x, shape, scale, log = FALSE) {
 
   return(pdf)
 }
+#' @name Neutrosophic Weibull
 #' @examples
 #' x <- seq(0.1, 1, length.out = 21)
 #' x2 <- matrix(seq(0.1, 1, length.out = 40), ncol = 2)
 #' pnweibull(x, shape = 1, scale = 2)
 #' pnweibull(x2, shape = c(1, 2), scale = c(2, 2))
 #' @export
-pnweibull <- function(q, shape, scale, lower.tail = TRUE, log.p = FALSE) {
+pnweibull <- function(q, shape, scale, lower.tail = TRUE) {
   if (any(scale <= 0) || any(shape <= 0) || any(q < 0))
     stop("Arguments are incompatible.")
 
@@ -80,8 +80,10 @@ pnweibull <- function(q, shape, scale, lower.tail = TRUE, log.p = FALSE) {
   }
   q <- matrix(q, ncol = 2)
 
-  cdf <- stats::pweibull(q, shape = shape, scale = scale, lower.tail = lower.tail, log.p =log.p)
+  cdf <- stats::pweibull(q, shape = shape, scale = scale)
 
+  if (!lower.tail)
+    cdf <- 1 - cdf
 
   cdf <- matrix(cdf, ncol = 2, byrow = TRUE)
 
@@ -90,14 +92,13 @@ pnweibull <- function(q, shape, scale, lower.tail = TRUE, log.p = FALSE) {
 
   return(cdf)
   }
-#' @name NWD
-#' @name NWD
+#' @name Neutrosophic Weibull
 #' @examples
 #' qnweibull(x, shape = 1, scale = 2)
 #' x2 <- matrix(seq(0.1, 1, length.out = 40), ncol = 2)
 #' qnweibull(x2, shape = c(1, 2), scale = c(2, 2))
 #' @export
-qnweibull <- function(p, shape, scale, lower.tail = TRUE, log.p = FALSE) {
+qnweibull <- function(p, shape, scale) {
   if (any(p < 0) || any(p > 1)) {
     stop(message = "Warning: p should be in the interval [0,1].")
   }
@@ -113,7 +114,7 @@ qnweibull <- function(p, shape, scale, lower.tail = TRUE, log.p = FALSE) {
 
   quantiles <- matrix(data = NA, nrow = nrow(p), ncol = 2)
   for (i in 1:ncol(p)) {
-    quantiles[, i] <- stats::qweibull(p[, i], shape = shape[i], scale = scale[i], lower.tail = lower.tail, log.p =log.p)
+    quantiles[, i] <- stats::qweibull(p[, i], shape = shape[i], scale = scale[i])
   }
 
   swap_rows <- quantiles[, 1] > quantiles[, 2]
@@ -121,7 +122,7 @@ qnweibull <- function(p, shape, scale, lower.tail = TRUE, log.p = FALSE) {
 
   return(quantiles)
 }
-#' @name NWD
+#' @name Neutrosophic Weibull
 #' @examples
 #' n <- 10
 #' rnweibull(n, shape = 1, scale = 2)
