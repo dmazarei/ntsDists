@@ -21,33 +21,32 @@
 #'  \eqn{k \in \{0, 1, 2, \ldots\}} and
 #' and \eqn{x \in \{0, 1, 2, \ldots, k\}}.
 #'
-#' @name NHGEOMD
+#' @name Neutrosophic Hypergeometric
 #' @param x a vector or matrix of observations for which the pdf needs to be computed.
 #' @param q a vector or matrix of quantiles for which the cdf needs to be computed.
 #' @param p a vector or matrix of probabilities for which the quantile needs to be computed.
 #' @param nn number of random values to be generated.
 #' @param N number of population size, which must be a positive interval.
 #' @param K number of success states in the population, which must be a positive interval.
-#' @param k number of draws (i.e. quantity drawn in each trial), which must be a positive interval.
-#' @param log,log.p logical; if TRUE, probabilities p are given as log(p).
+#' @param k number of draws (i.e. quantity drawn in each trial), , which must be a positive interval.
 #' @param lower.tail logical; if TRUE (default), probabilities are
 #' \eqn{P(X \ge x)}; otherwise, \eqn{P(X >x)}.
 #'
 #' @return
-#'  \code{pnhgeomd} gives the distribution function,
-#'  \code{dnhgeomd} gives the density,
-#'  \code{qnhgeomd} gives the quantile function and
-#'  \code{rnhgeomd} generates random variables from the HyperGeometric Distribution.
+#'  \code{pnhyper} gives the distribution function,
+#'  \code{dnhyper} gives the density,
+#'  \code{qnhyper} gives the quantile function and
+#'  \code{rnhyper} generates random variables from the HyperGeometric Distribution.
 #' @references
 #'        Granados, C. (2022).
 #'        Some discrete neutrosophic distributions with neutrosophic parameters based on neutrosophic random variables.
 #'         \emph{Hacettepe Journal of Mathematics and Statistics}, 51(5), 1442-1457.
 #' @importFrom stats runif dhyper phyper qhyper
 #' @examples
-#' dnhgeomd(x, N, K, k)
-#' dnhgeomd(x2, N, K, k)
+#' dnhyper(x, N, K, k)
+#' dnhyper(x2, N, K, k)
 #' @export
-dnhgeomd <- function(x, N, K, k, log = FALSE) {
+dnhyper <- function(x, N, K, k) {
   if (any(K <= 0) || any(N <= 0) || any(k <= 0) || any(x < 0)) {
     stop(message = "Arguments are incompatible.")
   }
@@ -68,7 +67,7 @@ dnhgeomd <- function(x, N, K, k, log = FALSE) {
 
   pdf <- matrix(data = NA, nrow = nrow(x), ncol = ncol(x))
   for (i in 1:ncol(x)) {
-    pdf[, i] <- stats::dhyper(x[, i], m = K[i], n = N[i] - K[i], k = k[i], log = log)
+    pdf[, i] <- stats::dhyper(x[, i], m = K[i], n = N[i] - K[i], k = k[i])
   }
 
   swap_rows <- pdf[, 1] > pdf[, 2]
@@ -76,16 +75,16 @@ dnhgeomd <- function(x, N, K, k, log = FALSE) {
 
   return(pdf)
 }
-#' @name NHGEOMD
+#' @name Neutrosophic Hypergeometric
 #' @examples
 #' x <- 1:10
 #' x2 <- matrix(1:20, ncol = 2)
-#' pnhgeomd(x, N, K, k)
-#' pnhgeomd(x2, N, K, k)
+#' pnhyper(x, N, K, k)
+#' pnhyper(x2, N, K, k)
 #' @export
 
-pnhgeomd <- function(q, N, K, k, lower.tail = TRUE, log.p = FALSE) {
-  if (any(K <= 0) || any(N <= 0) || any(k <= 0) || any(x < 0)) {
+pnhyper <- function(q, N, K, k, lower.tail = TRUE) {
+  if (any(K <= 0) || any(N <= 0) || any(k <= 0) || any(q < 0)) {
     stop(message = "Arguments are incompatible.")
   }
   if (any(q < 0) && any(q - floor(q) == 0)) {
@@ -101,7 +100,7 @@ pnhgeomd <- function(q, N, K, k, lower.tail = TRUE, log.p = FALSE) {
   }
   q <- matrix(q, ncol = 2)
 
-  cdf <- stats::phyper(q[, i], m = K, n = N - K, k = k, lower.tail = lower.tail, log.p =log.p)
+  cdf <- stats::phyper(q, m = K, n = N - K, k = k)
 
   if (!lower.tail) {
     cdf <- 1 - cdf
@@ -114,14 +113,14 @@ pnhgeomd <- function(q, N, K, k, lower.tail = TRUE, log.p = FALSE) {
 
   return(cdf)
 }
-#' @name NHGEOMD
+#' @name Neutrosophic Hypergeometric
 #' @examples
 #' q1 <- seq(0.1, 1, length.out = 40)
-#' qnhgeomd(q1, N, K, k)
+#' qnhyper(q1, N, K, k)
 #' q2 <- matrix(seq(0.1, 1, length.out = 40), ncol = 2)
-#' qnhgeomd(q2, N, K, k)
+#' qnhyper(q2, N, K, k)
 #' @export
-qnhgeomd <- function(p, N, K, k, lower.tail = TRUE, log.p = FALSE) {
+qnhyper <- function(p, N, K, k) {
   if (any(p < 0) || any(p > 1)) {
     stop(message = "Warning: p should be in the interval [0,1].")
   }
@@ -137,7 +136,7 @@ qnhgeomd <- function(p, N, K, k, lower.tail = TRUE, log.p = FALSE) {
 
   quantiles <- matrix(data = NA, nrow = nrow(p), ncol = 2)
   for (i in 1:ncol(p)) {
-    quantiles[, i] <- stats::qhyper(p[, i], m = K[i], n = N[i] - K[i], k = k[i], lower.tail = lower.tail, log.p =log.p)
+    quantiles[, i] <- stats::qhyper(p[, i], m = K[i], n = N[i] - K[i], k = k[i])
   }
 
   swap_rows <- quantiles[, 1] > quantiles[, 2]
@@ -146,13 +145,13 @@ qnhgeomd <- function(p, N, K, k, lower.tail = TRUE, log.p = FALSE) {
   return(quantiles)
 }
 
-#' @name NHGEOMD
+#' @name Neutrosophic Hypergeometric
 #' @examples
 #' n <- 10
-#' rnhgeomd(n, N, K, k)
-#' rnhgeomd(n, N, K, k)
+#' rnhyper(n, N, K, k)
+#' rnhyper(n, N, K, k)
 #' @export
-rnhgeomd <- function(nn, m, n, k) {
+rnhyper <- function(nn, m, n, k) {
   if (any(k <= 0) || any(N <= 0) || any(k <= 0)) {
     stop(message = "Arguments are incompatible.")
   }
@@ -161,7 +160,7 @@ rnhgeomd <- function(nn, m, n, k) {
   N <- rep(N, length.out = 2)
   k <- rep(k, length.out = 2)
   u <- matrix(runif(n), ncol = 2)
-  X <- qnhgeomd(u, N, K, k)
+  X <- qnhyper(u, N, K, k)
 
   return(X)
 }
