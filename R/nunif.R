@@ -1,8 +1,8 @@
-#' Neutrosophic Uniform Distribution (NUNIFD)
+#' Neutrosophic Uniform Distribution
 #'
 #' Density, distribution function, quantile function and random
-#' generation for the nuetrosophic Uniform distribution with
-#' parameters \eqn{a_N} and  \eqn{b_N}.
+#' generation for the nuetrosophic Uniform distribution of a continuous
+#' variable \eqn{X} with parameters \eqn{a_N} and  \eqn{b_N}.
 #'
 #' The neutrosophic Uniform distribution with parameters
 #' \eqn{\max_N} and \eqn{\min_N} has the density
@@ -10,22 +10,21 @@
 #' for \eqn{a_N \in (a_L, a_U)}  lower parameter interval, \eqn{b_N \in (b_L,b_U)},
 #'  upper parameter interval.
 #'
-#' @name NUNIFD
+#' @name Neutrosophic Uniform
 #' @param x a vector or matrix of observations for which the pdf needs to be computed.
 #' @param q a vector or matrix of quantiles for which the cdf needs to be computed.
 #' @param p a vector or matrix of probabilities for which the quantile needs to be computed.
 #' @param n number of random values to be generated.
 #' @param min lower limits of the distribution. Must be finite.
 #' @param max upper limits of the distribution. Must be finite.
-#' @param log,log.p logical; if TRUE, probabilities p are given as log(p).
 #' @param lower.tail logical; if TRUE (default), probabilities are
 #' \eqn{P(X \ge x)}; otherwise, \eqn{P(X >x)}.
 #'
 #' @return
-#'  \code{pnunifd} gives the distribution function,
-#'  \code{dnunifd} gives the density,
-#'  \code{qnunifd} gives the quantile function and
-#'  \code{rnunifd} generates random variables from the neutrosophic Uniform Distribution.
+#'  \code{pnunif} gives the distribution function,
+#'  \code{dnunif} gives the density,
+#'  \code{qnunif} gives the quantile function and
+#'  \code{rnunif} generates random variables from the neutrosophic Uniform Distribution.
 #' @references
 #'    Alhabib, R., Ranna, M. M., Farah, H., & Salama, A. A. (2018).
 #'     Some neutrosophic probability distributions.
@@ -33,11 +32,20 @@
 #'
 #' @importFrom stats runif dunif punif qunif
 #' @examples
-#' dnunifd(x, min = 1, max = 2)
 #'
-#' dnunifd(x2, min = c(1, 2), max = c(2, 2))
+#' dnunif(x = 1, min = c(0,5), max = c(15,20))
+#' dnunif(x = c(6,10), min = c(0,5), max = c(15,20))
+#'
+#' punif(x = 1, min = c(0,5), max = c(15,20))
+#' punif(x = c(6,10), min = c(0,5), max = c(15,20))
+#'
+#' qnunif(x, min = c(0,5), max = c(15,20))
+#'
+#' n <- 10
+#' rnunif(n, min = c(0,5), max = c(15,20))
+#'
 #' @export
-dnunifd <- function(x, min, max, log = FALSE) {
+dnunif <- function(x, min, max) {
   if (any(max <= min)) {
     stop(message = "Arguments are incompatible.")
   }
@@ -52,7 +60,7 @@ dnunifd <- function(x, min, max, log = FALSE) {
 
   pdf <- matrix(data = NA, nrow = nrow(x), ncol = ncol(x))
   for (i in 1:ncol(x)) {
-    pdf[, i] <- stats::dunif(x[, i], min = min[i], max = max[i], log = log)
+    pdf[, i] <- stats::dunif(x[, i], min = min[i], max = max[i])
   }
 
   swap_rows <- pdf[, 1] > pdf[, 2]
@@ -60,13 +68,9 @@ dnunifd <- function(x, min, max, log = FALSE) {
 
   return(pdf)
 }
-#' @examples
-#' x <- seq(0.1, 1, length.out = 21)
-#' x2 <- matrix(seq(0.1, 1, length.out = 40), ncol = 2)
-#' pnunifd(x, min = 1, max = 2)
-#' pnunifd(x2, min = c(1, 2), max = c(2, 2))
+#' @name Neutrosophic Uniform
 #' @export
-pnunifd <- function(q, min, max, log.p = FALSE) {
+pnunif <- function(q, min, max, lower.tail = TRUE) {
   if (any(max <= min)) {
     stop(message = "Arguments are incompatible.")
   }
@@ -79,8 +83,11 @@ pnunifd <- function(q, min, max, log.p = FALSE) {
   }
   q <- matrix(q, ncol = 2)
 
-  cdf <- stats::punif(q, min = min, max = max, lower.tail = lower.tail, log.p =log.p)
+  cdf <- stats::punif(q, min = min, max = max)
 
+  if (!lower.tail) {
+    cdf <- 1 - cdf
+  }
 
   cdf <- matrix(cdf, ncol = 2, byrow = TRUE)
 
@@ -89,14 +96,9 @@ pnunifd <- function(q, min, max, log.p = FALSE) {
 
   return(cdf)
 }
-#' @name NUNIFD
-#' @name NUNIFD
-#' @examples
-#' qnunifd(x, min = 1, max = 2)
-#' x2 <- matrix(seq(0.1, 1, length.out = 40), ncol = 2)
-#' qnunifd(x2, min = c(1, 2), max = c(2, 2))
+#' @name Neutrosophic Uniform
 #' @export
-qnunifd <- function(p, min, max, lower.tail = TRUE, log.p = FALSE) {
+qnunif <- function(p, min, max) {
   if (any(max <= min)) {
     stop(message = "Arguments are incompatible.")
   }
@@ -111,7 +113,7 @@ qnunifd <- function(p, min, max, lower.tail = TRUE, log.p = FALSE) {
 
   quantiles <- matrix(data = NA, nrow = nrow(p), ncol = 2)
   for (i in 1:ncol(p)) {
-    quantiles[, i] <- stats::qunif(p[, i], min = min[i], max = max[i], lower.tail = lower.tail, log.p =log.p)
+    quantiles[, i] <- stats::qunif(p[, i], min = min[i], max = max[i])
   }
 
   swap_rows <- quantiles[, 1] > quantiles[, 2]
@@ -119,13 +121,9 @@ qnunifd <- function(p, min, max, lower.tail = TRUE, log.p = FALSE) {
 
   return(quantiles)
 }
-#' @name NUNIFD
-#' @examples
-#' n <- 10
-#' rnunifd(n, min = 1, max = 2)
-#' rnunifd(n, min = c(1, 2), max = c(1, 1))
+#' @name Neutrosophic Uniform
 #' @export
-rnunifd <- function(n, min, max) {
+rnunif <- function(n, min, max) {
   if (any(max <= min)) {
     stop(message = "Arguments are incompatible.")
   }
@@ -133,7 +131,7 @@ rnunifd <- function(n, min, max) {
   min <- rep(min, length.out = 2)
 
   u <- matrix(runif(n * 2), nrow = n, ncol = 2)
-  X <- qnunifd(u, max, min)
+  X <- qnunif(u, max, min)
 
   return(X)
 }
