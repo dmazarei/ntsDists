@@ -13,7 +13,7 @@
 #' \eqn{0 \le x \le 1}. The function \eqn{B(a, b)}
 #' returns the beta function and can be calculated using \code{\link{beta}}.
 #'
-#' @name NBD
+#' @name Neutrosophic Beta
 #'
 #' @param x a vector or matrix of observations for which the pdf needs to be computed.
 #' @param q a vector or matrix of quantiles for which the cdf needs to be computed.
@@ -21,7 +21,6 @@
 #' @param n number of random values to be generated.
 #' @param shape1 the first shape parameter, which must be a positive interval.
 #' @param shape2 the second shape parameter, which must be a positive interval.
-#' @param log,log.p logical; if TRUE, probabilities p are given as log(p).
 #' @param lower.tail logical; if TRUE (default), probabilities are
 #' \eqn{P(X \ge x)}; otherwise, \eqn{P(X >x)}.
 #'
@@ -39,14 +38,13 @@
 #' @examples
 #'
 #' dnbeta(x = c(0.1, 0.2), shape1 = c(1,1), shape2 = c(2, 2))
-#'
 #' dnbeta(x = c(0.1, 0.1), shape1 = c(0.5,0.7), shape2 = c(0.2, 2))
 #'
 #' x <- matrix(c(0.1, 0.1, 0.2, 0.3, 0.5, 0.5), ncol = 2, byrow = TRUE)
 #' dnbeta(x, shape1 = c(1, 2), shape2 = c(2, 3))
 #'
 #' @export
-dnbeta <- function(x, shape1, shape2, log = FALSE) {
+dnbeta <- function(x, shape1, shape2) {
   if (any(shape1 <= 0) || any(shape2 <= 0) || any(x < 0))
     stop(message = "Arguments are incompatible.")
 
@@ -62,7 +60,7 @@ dnbeta <- function(x, shape1, shape2, log = FALSE) {
 
   pdf <- matrix(data = NA, nrow = nrow(x), ncol = ncol(x))
   for (i in 1:ncol(x)) {
-    pdf[, i] <- stats::dbeta(x[, i], shape1 = shape1[i], shape2 = shape2[i], log = log)
+    pdf[, i] <- stats::dbeta(x[, i], shape1 = shape1[i], shape2 = shape2[i])
   }
 
   swap_rows <- pdf[, 1] > pdf[, 2]
@@ -70,15 +68,15 @@ dnbeta <- function(x, shape1, shape2, log = FALSE) {
 
   return(pdf)
 }
-#' @name NBD
+#' @name Neutrosophic Beta
 #' @examples
-#' pnbeta(q = c(0.1, 0.1), shape1 = c(3, 1), shape2 = c(1,3), lower.tail = FALSE)
 #'
+#' pnbeta(q = c(0.1, 0.1), shape1 = c(3, 1), shape2 = c(1,3), lower.tail = FALSE)
 #' pnbeta(x, shape1 = c(1, 2), shape2 = c(2, 2))
 #'
 #' @export
-pnbeta <- function(q, shape1, shape2, lower.tail = TRUE, log.p = FALSE) {
-  if (any(theta <= 0) || any(q < 0))
+pnbeta <- function(q, shape1, shape2, lower.tail = TRUE) {
+  if (any(shape1 <= 0) || any(q < 0))
     stop("Arguments are incompatible.")
 
   shape1 <- rep(shape1, length.out = 2)
@@ -88,8 +86,10 @@ pnbeta <- function(q, shape1, shape2, lower.tail = TRUE, log.p = FALSE) {
   }
   q <- matrix(q, ncol = 2)
 
-  cdf <- stats::pbeta(q, shape1 = shape1, shape2 = shape2, lower.tail = lower.tail, log.p =log.p)
+  cdf <- stats::pbeta(q, shape1 = shape1, shape2 = shape2)
 
+  if (!lower.tail)
+    cdf <- 1 - cdf
 
   cdf <- matrix(cdf, ncol = 2, byrow = TRUE)
   swap_rows <- cdf[, 1] > cdf[, 2]
@@ -97,15 +97,14 @@ pnbeta <- function(q, shape1, shape2, lower.tail = TRUE, log.p = FALSE) {
 
   return(cdf)
 }
-#' @name NBD
+#' @name Neutrosophic Beta
 #' @examples
 #'
 #' qnbeta(p = 0.1, shape1 = c(1,1), shape2 = c(2, 2))
-#'
 #' qnbeta(p = c(0.25, 0.5, 0.75), shape1 = c(1, 2), shape2 = c(2, 2))
 #'
 #' @export
-qnbeta <- function(p, shape1, shape2, lower.tail = TRUE, log.p = FALSE) {
+qnbeta <- function(p, shape1, shape2) {
   if (any(p < 0) || any(p > 1)) {
     stop(message = "Warning: p should be in the interval [0,1].")
   }
@@ -116,9 +115,9 @@ qnbeta <- function(p, shape1, shape2, lower.tail = TRUE, log.p = FALSE) {
   shape1 <- rep(shape1, length.out = 2)
   shape2  <- rep(shape2, length.out = 2)
 }
-#' @name NBD
+#' @name Neutrosophic Beta
 #' @examples
-#' Simulate 10 numbers
+#' # Simulate 10 numbers
 #' rnbeta(n = 10, shape1 = c(1, 2), shape2 = c(1, 1))
 #' @export
 rnbeta <- function(n, shape1, shape2) {
@@ -128,6 +127,6 @@ rnbeta <- function(n, shape1, shape2) {
   shape2  <- rep(shape2, length.out = 2)
 
   u <- matrix(runif(n), ncol = 2)
-  X <- qnbeta(u, shape1, shape2, lower.tail = lower.tail, log.p=log.p)
+  X <- qnbeta(u, shape1, shape2)
   return(X)
 }
