@@ -12,22 +12,21 @@
 #' which must be a positive interval, and \eqn{\nu_N \in (\nu_L, \nu_U)}, the
 #' scale parameter which must also be a positive interval, and \eqn{x \ge 0}.
 #'
-#' @name NGED
+#' @name Neutrosophic Generalized Exponential
 #' @param x a vector or matrix of observations for which the pdf needs to be computed.
 #' @param q a vector or matrix of quantiles for which the cdf needs to be computed.
 #' @param p a vector or matrix of probabilities for which the quantile needs to be computed.
 #' @param n number of random values to be generated.
 #' @param nu the scale parameter, which must be a positive interval.
 #' @param delta  the shape parameter, which must be a positive interval.
-#' @param log,log.p logical; if TRUE, probabilities p are given as log(p).
 #' @param lower.tail logical; if TRUE (default), probabilities are
 #' \eqn{P(X \ge x)}; otherwise, \eqn{P(X >x)}.
 #'
 #' @return
-#'  \code{pnged} gives the distribution function,
-#'  \code{dnged} gives the density,
-#'  \code{qnged} gives the quantile function and
-#'  \code{rnged} generates random variables
+#'  \code{pngexp} gives the distribution function,
+#'  \code{dngexp} gives the density,
+#'  \code{qngexp} gives the quantile function and
+#'  \code{rngexp} generates random variables
 #'  from the neutrosophic generalized exponential distribution.
 #'
 #' @references
@@ -37,10 +36,10 @@
 #'
 #' @importFrom stats runif
 #' @examples
-#' dnged(x = 1, nu = c(1, 2), delta = c(2, 2))
+#' dngexp(x = 1, nu = c(1, 2), delta = c(2, 2))
 #'
 #' @export
-dnged <- function(x, nu, delta, log = FALSE) {
+dngexp <- function(x, nu, delta) {
   if (any(nu <= 0) || any(delta <= 0) || any(x < 0))
     stop(message = "Arguments are incompatible.")
 
@@ -58,23 +57,21 @@ dnged <- function(x, nu, delta, log = FALSE) {
   for (i in 1:ncol(x)) {
     pdf[, i] <- (delta[i] / nu[i]) * (1 - exp(-x[, i] / nu[i]))^(delta[i] - 1) * exp(-x[, i] / nu[i])
   }
-  if(log){
-    pdf <- log(pdf)
-  }
+
   swap_rows <- pdf[, 1] > pdf[, 2]
   pdf[swap_rows, c(1, 2)] <- pdf[swap_rows, c(2, 1)]
 
   return(pdf)
 }
 
-#' @name NGED
+#' @name Neutrosophic Generalized Exponential
 #' @examples
-#' pnged(q=0.1, nu = c(1, 2), delta = c(2, 2))
+#' pngexp(q=0.1, nu = c(1, 2), delta = c(2, 2))
 #'
 #' x2 <- matrix(seq(0.1, 1, length.out = 40), ncol = 2)
-#' pnged(x2, nu = c(1, 2), delta = c(2, 2))
+#' pngexp(x2, nu = c(1, 2), delta = c(2, 2))
 #' @export
-pnged <- function(q, nu, delta, lower.tail = TRUE, log.p = FALSE) {
+pngexp <- function(q, nu, delta, lower.tail = TRUE) {
   if (any(nu <= 0) || any(delta <= 0) || any(q < 0))
     stop(message = "incompatible arguments.")
 
@@ -90,9 +87,7 @@ pnged <- function(q, nu, delta, lower.tail = TRUE, log.p = FALSE) {
 
   if (!lower.tail)
     cdf <- 1 - cdf
-  if(log.p){
-    cdf <- log(cdf)
-  }
+
   cdf <- matrix(cdf, ncol = 2, byrow = TRUE)
   # Identify rows where col1 > col2
   swap_rows <- cdf[, 1] > cdf[, 2]
@@ -102,13 +97,13 @@ pnged <- function(q, nu, delta, lower.tail = TRUE, log.p = FALSE) {
   return(cdf)
 }
 
-#' @name NGED
+#' @name Neutrosophic Generalized Exponential
 #' @examples
-#' qnged(x, nu = 1, delta = 2)
+#' qngexp(x, nu = 1, delta = 2)
 #'
-#' qnged(x2, nu = c(1, 2), delta = c(2, 2))
+#' qngexp(x2, nu = c(1, 2), delta = c(2, 2))
 #' @export
-qnged <- function(p, nu, delta, lower.tail = TRUE, log.p = FALSE) {
+qngexp <- function(p, nu, delta) {
   if (any(p < 0) || any(p > 1)) {
     stop(message = "Warning: p should be in the interval [0,1].")
   }
@@ -126,11 +121,7 @@ qnged <- function(p, nu, delta, lower.tail = TRUE, log.p = FALSE) {
   for (i in 1:ncol(p)) {
     quantiles[, i] <- log(-p[, i]^(1 / delta[i]) + 1) * (-nu[i])
   }
-  if (!lower.tail)
-    quantiles <- 1 - quantiles
-  if(log.p){
-    quantiles <- log(quantiles)
-  }
+
   swap_rows <- quantiles[, 1] > quantiles[, 2]
   quantiles[swap_rows, c(1, 2)] <- quantiles[swap_rows, c(2, 1)]
 
@@ -138,13 +129,13 @@ qnged <- function(p, nu, delta, lower.tail = TRUE, log.p = FALSE) {
 }
 
 
-#' @name NGED
+#' @name Neutrosophic Generalized Exponential
 #' @examples
 #' n <- 10
-#' rnged(n = 10, nu = 2, delta = 1)
-#' rnged(n = 10, nu = c(1, 2), delta = c(1, 1))
+#' rngexp(n = 10, nu = 2, delta = 1)
+#' rngexp(n = 10, nu = c(1, 2), delta = c(1, 1))
 #' @export
-rnged <- function(n, nu, delta) {
+rngexp <- function(n, nu, delta) {
   if (any(nu <= 0) || any(delta <= 0))
     stop(message = "Arguments are incompatible.")
 
@@ -152,7 +143,7 @@ rnged <- function(n, nu, delta) {
   delta  <- rep(delta, length.out = 2)
 
   u <- matrix(runif(n), ncol = 2)
-  X <- qnged(u, nu, delta)
+  X <- qngexp(u, nu, delta)
 
 
   return(X)
