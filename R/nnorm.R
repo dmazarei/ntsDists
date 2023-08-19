@@ -13,14 +13,13 @@
 #' also be a positive interval, and \eqn{-\infty < x < \infty}.
 #'
 #'
-#' @name NND
+#' @name Neutrosophic Normal
 #' @param x a vector or matrix of observations for which the pdf needs to be computed.
 #' @param q a vector or matrix of quantiles for which the cdf needs to be computed.
 #' @param p a vector or matrix of probabilities for which the quantile needs to be computed.
 #' @param n number of random values to be generated.
 #' @param mean the mean, which must be an interval.
 #' @param sd the standard deviations that must be positive.
-#' @param log,log.p logical; if TRUE, probabilities p are given as log(p).
 #' @param lower.tail logical; if TRUE (default), probabilities are
 #' \eqn{P(X \ge x)}; otherwise, \eqn{P(X >x)}.
 #'
@@ -44,7 +43,7 @@
 #' dnnorm(x2, mean = c(1, 2), sd = c(2, 2))
 #'
 #' @export
-dnnorm <- function(x, mean, sd, log = FALSE) {
+dnnorm <- function(x, mean, sd) {
   if (any(sd <= 0))
     stop("Arguments are incompatible.")
 
@@ -59,7 +58,7 @@ dnnorm <- function(x, mean, sd, log = FALSE) {
 
   pdf <- matrix(data = NA, nrow = nrow(x), ncol = ncol(x))
   for (i in 1:ncol(x)) {
-    pdf[, i] <- stats::dnorm(x[, i], mean = mean[i], sd = sd[i], log = log)
+    pdf[, i] <- stats::dnorm(x[, i], mean = mean[i], sd = sd[i])
   }
 
   swap_rows <- pdf[, 1] > pdf[, 2]
@@ -67,7 +66,7 @@ dnnorm <- function(x, mean, sd, log = FALSE) {
 
   return(pdf)}
 
-#' @name NND
+#' @name Neutrosophic Normal
 #' @examples
 #' x <- seq(0.1, 1, length.out = 21)
 #' pnnorm(x, mean = c(2, 2), sd = c(1, 1))
@@ -76,7 +75,7 @@ dnnorm <- function(x, mean, sd, log = FALSE) {
 #' pnnorm(x2, mean = c(1, 2), sd = c(2, 2))
 #' @export
 
-pnnorm <- function(q, mean, sd, lower.tail = TRUE, log.p = FALSE) {
+pnnorm <- function(q, mean, sd, lower.tail = TRUE) {
   if (any(sd <= 0))
     stop("Arguments are incompatible.")
 
@@ -88,7 +87,10 @@ pnnorm <- function(q, mean, sd, lower.tail = TRUE, log.p = FALSE) {
   }
   q <- matrix(q, ncol = 2)
 
-  cdf <- stats::pnorm(q, mean = mean, sd = sd, lower.tail = lower.tail, log.p =log.p)
+  cdf <- stats::pnorm(q, mean = mean, sd = sd)
+
+  if (!lower.tail)
+    cdf <- 1 - cdf
 
   cdf <- matrix(cdf, ncol = 2, byrow = TRUE)
   swap_rows <- cdf[, 1] > cdf[, 2]
@@ -97,14 +99,14 @@ pnnorm <- function(q, mean, sd, lower.tail = TRUE, log.p = FALSE) {
   return(cdf)
 }
 
-#' @name NND
+#' @name Neutrosophic Normal
 #' @examples
 #' q1 <- c(0.01)
 #' qnnorm(q1, mean = 1, sd = 2)
 #' x2 <- matrix(seq(0.1, 1, length.out = 40), ncol = 2)
 #' qnnorm(x2, mean = c(1, 2), sd = c(2, 2))
 #' @export
-qnnorm <- function(p, mean, sd, lower.tail = TRUE, log.p = FALSE) {
+qnnorm <- function(p, mean, sd) {
   if (any(p < 0) || any(p > 1)) {
     stop(message = "Warning: p should be in the interval [0,1].")
   }
@@ -119,7 +121,7 @@ qnnorm <- function(p, mean, sd, lower.tail = TRUE, log.p = FALSE) {
 
   quantiles <- matrix(data = NA, nrow = nrow(p), ncol = 2)
   for (i in 1:ncol(p)) {
-    quantiles[, i] <- stats::qnorm(p[, i], mean = mean[i], sd = sd[i], lower.tail = lower.tail, log.p =log.p)
+    quantiles[, i] <- stats::dnorm(p[, i], mean = mean[i], sd = sd[i])
   }
   swap_rows <- quantiles[, 1] > quantiles[, 2]
   quantiles[swap_rows, c(1, 2)] <- quantiles[swap_rows, c(2, 1)]
@@ -127,7 +129,7 @@ qnnorm <- function(p, mean, sd, lower.tail = TRUE, log.p = FALSE) {
   return(quantiles)
 }
 
-#' @name NND
+#' @name Neutrosophic Normal
 #' @examples
 #' n <- 100
 #' rnnorm(n, mean = c(1, 1), sd = c(2, 2))
