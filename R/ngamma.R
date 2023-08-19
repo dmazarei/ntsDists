@@ -13,15 +13,13 @@
 #' must be a positive interval. Here, \eqn{\Gamma(\cdot)} is gamma
 #' function implemented by \code{\link{gamma}}.
 #'
-#' @name NGD
+#' @name Neutrosophic Gamma
 #' @param x a vector or matrix of observations for which the pdf needs to be computed.
 #' @param q a vector or matrix of quantiles for which the cdf needs to be computed.
 #' @param p a vector or matrix of probabilities for which the quantile needs to be computed.
 #' @param n number of random values to be generated.
 #' @param shape the shape parameter, which must be a positive interval.
-#' @param rate the rate parameter, which must be a positive interval.
 #' @param scale the scale parameter, which must be a positive interval.
-#' @param log,log.p logical; if TRUE, probabilities p are given as log(p).
 #' @param lower.tail logical; if TRUE (default), probabilities are
 #' \eqn{P(X \ge x)}; otherwise, \eqn{P(X >x)}.
 #'
@@ -41,8 +39,9 @@
 #'
 #' x <- matrix(c(1, 1, 2, 2.2, 3, 3.5), ncol = 2, byrow = TRUE)
 #' dngamma(x, shape = c(1, 2), scale = c(2, 2))
+#'
 #' @export
-dngamma <- function(x, shape, rate, scale = 1/rate, log = FALSE) {
+dngamma <- function(x, shape, scale) {
   if (any(shape <= 0) || any(scale <= 0) || any(x < 0))
     stop(message = "Arguments are incompatible.")
 
@@ -57,7 +56,7 @@ dngamma <- function(x, shape, rate, scale = 1/rate, log = FALSE) {
 
   pdf <- matrix(data = NA, nrow = nrow(x), ncol = ncol(x))
   for (i in 1:ncol(x)) {
-    pdf[, i] <- stats::dgamma(x[, i], shape = shape[i], scale = scale[i], log = log)
+    pdf[, i] <- stats::dgamma(x[, i], shape = shape[i], scale = scale[i])
   }
 
   # Identify rows where col1 > col2
@@ -67,13 +66,12 @@ dngamma <- function(x, shape, rate, scale = 1/rate, log = FALSE) {
 
   return(pdf)
 }
-#' @name NGD
+#' @name Neutrosophic Gamma
 #' @examples
 #' pngamma(q = c(0.1, 0.1), shape = c(1,1.5), scale = c(2,2))
 #'
-#'
 #' @export
-pngamma <- function(q, shape, rate, scale = 1/rate, lower.tail = TRUE, log.p = FALSE) {
+pngamma <- function(q, shape, scale, lower.tail = TRUE) {
   if (any(shape <= 0) || any(scale <= 0) || any(q < 0))
     stop(message = "incompatible arguments.")
 
@@ -85,8 +83,10 @@ pngamma <- function(q, shape, rate, scale = 1/rate, lower.tail = TRUE, log.p = F
   }
   q <- matrix(q, ncol = 2)
 
-  cdf <- stats::pgamma(q, shape = shape, scale = scale, lower.tail = lower.tail, log.p =log.p)
+  cdf <- stats::pgamma(q, shape = shape, scale = scale)
 
+  if (!lower.tail)
+    cdf <- 1 - cdf
 
   cdf <- matrix(cdf, ncol = 2, byrow = TRUE)
   # Identify rows where col1 > col2
@@ -97,11 +97,11 @@ pngamma <- function(q, shape, rate, scale = 1/rate, lower.tail = TRUE, log.p = F
   return(cdf)
 }
 
-#' @name NGD
+#' @name Neutrosophic Gamma
 #' @examples
 #' qngamma(p = 0.1, shape = c(1, 2), scale = c(2, 2))
 #' @export
-qngamma <- function(p, shape, rate, scale = 1/rate, lower.tail = TRUE, log.p = FALSE) {
+qngamma <- function(p, shape, scale) {
   if (any(p < 0) || any(p > 1))
     stop(message = "Warning: p should be in the interval [0,1].")
 
@@ -115,7 +115,7 @@ qngamma <- function(p, shape, rate, scale = 1/rate, lower.tail = TRUE, log.p = F
 
   quantiles <- matrix(data = NA, nrow = nrow(p), ncol = 2)
   for (i in 1:ncol(p)) {
-    quantiles[, i] <- stats::qgamma(p[, i], shape = shape[i], scale = scale[i], lower.tail = lower.tail, log.p =log.p)
+    quantiles[, i] <- stats::qgamma(p[, i], shape = shape[i], scale = scale[i])
   }
 
   swap_rows <- quantiles[, 1] > quantiles[, 2]
@@ -124,12 +124,13 @@ qngamma <- function(p, shape, rate, scale = 1/rate, lower.tail = TRUE, log.p = F
   return(quantiles)
 }
 
-#' @name NGD
+#' @name Neutrosophic Gamma
 #' @examples
-#' Simulate 10 numbers
+#'
+#' # Simulate 10 numbers
 #' rngamma(n=10, shape = c(1, 2), scale = c(1, 1))
 #' @export
-rngamma <- function(n, shape, rate, scale = 1/rate) {
+rngamma <- function(n, shape, scale) {
   if (any(shape <= 0) || any(scale <= 0))
     stop(message = "Arguments are incompatible.")
 
