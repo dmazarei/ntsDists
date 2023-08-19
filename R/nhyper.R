@@ -28,7 +28,8 @@
 #' @param nn number of random values to be generated.
 #' @param N number of population size, which must be a positive interval.
 #' @param K number of success states in the population, which must be a positive interval.
-#' @param k number of draws (i.e. quantity drawn in each trial), , which must be a positive interval.
+#' @param k number of draws (i.e. quantity drawn in each trial), which must be a positive interval.
+#' @param log,log.p logical; if TRUE, probabilities p are given as log(p).
 #' @param lower.tail logical; if TRUE (default), probabilities are
 #' \eqn{P(X \ge x)}; otherwise, \eqn{P(X >x)}.
 #'
