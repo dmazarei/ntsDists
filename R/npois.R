@@ -10,13 +10,12 @@
 #' for \eqn{\lambda_N \in (\lambda_L, \lambda_U)} which must be a positive
 #' interval and \eqn{x \in \{0, 1, 2, \ldots\}}.
 #'
-#' @name NPD
+#' @name Neutrosophic Poisson
 #' @param x a vector or matrix of observations for which the pdf needs to be computed.
 #' @param q a vector or matrix of quantiles for which the cdf needs to be computed.
 #' @param p a vector or matrix of probabilities for which the quantile needs to be computed.
 #' @param n number of random values to be generated.
 #' @param lambda the mean, which must be a positive interval.
-#' @param log,log.p logical; if TRUE, probabilities p are given as log(p).
 #' @param lower.tail logical; if TRUE (default), probabilities are
 #' \eqn{P(X \ge x)}; otherwise, \eqn{P(X >x)}.
 #'
@@ -34,11 +33,11 @@
 #' dnpois(x, lambda = 2)
 #' dnpois(x2, lambda = c(2, 2))
 #' @export
-dnpois <- function(x, lambda, log = FALSE) {
+dnpois <- function(x, lambda) {
   if (any(lambda < 0))
     stop(message = "Arguments are incompatible.")
 
-  if (any(x < 0) || any(round(x) != x))
+  if (any(x < 0) && any(x - floor(x) == 0))
     stop(message = "Warning: x should be a positive integer.")
 
   lambda <- rep(lambda, length.out = 2)
@@ -50,7 +49,7 @@ dnpois <- function(x, lambda, log = FALSE) {
 
   pdf <- matrix(data = NA, nrow = nrow(x), ncol = ncol(x))
   for (i in 1:ncol(x)) {
-    pdf[, i] <- stats::dpois(x[, i], lambda = lambda[i], log = log)
+    pdf[, i] <- stats::dpois(x[, i], lambda = lambda[i])
   }
 
   swap_rows <- pdf[, 1] > pdf[, 2]
@@ -58,18 +57,18 @@ dnpois <- function(x, lambda, log = FALSE) {
 
   return(pdf)
 }
-#' @name NPD
+#' @name Neutrosophic Poisson
 #' @examples
 #' x <- 1:10
 #' x2 <- matrix(1:20, ncol = 2)
 #' pnpois(x, lambda = 1)
 #' pnpois(x2, lambda = c(2, 3))
 #' @export
-pnpois <- function(q, lambda, lower.tail = TRUE, log.p = FALSE) {
+pnpois <- function(q, lambda, lower.tail = TRUE) {
   if (any(lambda < 0))
     stop("Arguments are incompatible.")
 
-  if (any(x < q) || any(round(q) != q))
+  if (any(q < 0) && any(q - floor(q) == 0))
     stop(message = "Warning: q should be a  positive integer.")
 
   lambda <- rep(lambda, length.out = 2)
@@ -78,7 +77,10 @@ pnpois <- function(q, lambda, lower.tail = TRUE, log.p = FALSE) {
   }
   q <- matrix(q, ncol = 2)
 
-  cdf <- stats::ppois(q, lambda, lower.tail = lower.tail, log.p =log.p)
+  cdf <- stats::ppois(q, lambda)
+
+  if (!lower.tail)
+    cdf <- 1 - cdf
 
   cdf <- matrix(cdf, ncol = 2, byrow = TRUE)
 
@@ -87,14 +89,14 @@ pnpois <- function(q, lambda, lower.tail = TRUE, log.p = FALSE) {
 
   return(cdf)
 }
-#' @name NPD
+#' @name Neutrosophic Poisson
 #' @examples
 #' q1 <- seq(0.1, 1, length.out = 40)
 #' qnpois(q1, lambda = 2)
 #' q2 <- matrix(seq(0.1, 1, length.out = 40), ncol = 2)
 #' qnpois(q2, lambda = c(2, 2))
 #' @export
-qnpois <- function(p, lambda, lower.tail = TRUE, log.p = FALSE) {
+qnpois <- function(p, lambda) {
   if (any(p < 0) || any(p > 1))
     stop(message = "Warning: p should be in the interval [0,1].")
 
@@ -106,7 +108,7 @@ qnpois <- function(p, lambda, lower.tail = TRUE, log.p = FALSE) {
 
   quantiles <- matrix(data = NA, nrow = nrow(p), ncol = 2)
   for (i in 1:ncol(p)) {
-    quantiles[, i] <- stats::qpois(p[, i], lambda = lambda[i], lower.tail = lower.tail, log.p =log.p)
+    quantiles[, i] <- stats::qpois(p[, i], lambda = lambda[i])
   }
 
   swap_rows <- quantiles[, 1] > quantiles[, 2]
@@ -115,7 +117,7 @@ qnpois <- function(p, lambda, lower.tail = TRUE, log.p = FALSE) {
   return(quantiles)
 }
 
-#' @name NPD
+#' @name Neutrosophic Poisson
 #' @examples
 #' n <- 10
 #' rnpois(n, lambda = 1)
