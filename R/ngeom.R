@@ -10,13 +10,12 @@
 #' for \eqn{p_N \in (p_L, p_U)} which must be \eqn{0<p_N<1}
 #' and \eqn{x \in \{0, 1, 2, \ldots\}}.
 #'
-#' @name NGEOMD
+#' @name Neutrosophic Geometric
 #' @param x a vector or matrix of observations for which the pdf needs to be computed.
 #' @param q a vector or matrix of quantiles for which the cdf needs to be computed.
 #' @param p a vector or matrix of probabilities for which the quantile needs to be computed.
 #' @param n number of random values to be generated.
 #' @param prob probability of success on each trial, \eqn{0 < prob <= 1}.
-#' @param log,log.p logical; if TRUE, probabilities p are given as log(p).
 #' @param lower.tail logical; if TRUE (default), probabilities are
 #' \eqn{P(X \ge x)}; otherwise, \eqn{P(X >x)}.
 #'
@@ -34,7 +33,7 @@
 #' dngeom(x, prob = 0.5)
 #' dngeom(x2, lambda = c(2, 2))
 #' @export
-dngeom <- function(x, prob, log = FALSE) {
+dngeom <- function(x, prob) {
   if (any(prob <= 0) || any(prob > 1) || any(x < 0)) {
     stop(message = "Arguments are incompatible.")
   }
@@ -53,7 +52,7 @@ dngeom <- function(x, prob, log = FALSE) {
 
   pdf <- matrix(data = NA, nrow = nrow(x), ncol = ncol(x))
   for (i in 1:ncol(x)) {
-    pdf[, i] <- stats::dgeon(x[, i], prob = prob[i], log = log)
+    pdf[, i] <- stats::dgeom(x[, i], prob = prob[i])
   }
 
   swap_rows <- pdf[, 1] > pdf[, 2]
@@ -61,7 +60,7 @@ dngeom <- function(x, prob, log = FALSE) {
 
   return(pdf)
 }
-#' @name NGEOMD
+#' @name Neutrosophic Geometric
 #' @examples
 #' x <- 1:10
 #' x2 <- matrix(1:20, ncol = 2)
@@ -69,7 +68,7 @@ dngeom <- function(x, prob, log = FALSE) {
 #' pngeom(x2, prob = c(.3, .6))
 #' @export
 
-pngeom <- function(q, prob, lower.tail = TRUE, log.p = FALSE) {
+pngeom <- function(q, prob, lower.tail = TRUE) {
   if (any(prob <= 0) || any(prob > 1) || any(q < 0)) {
     stop(message = "Arguments are incompatible.")
   }
@@ -83,8 +82,11 @@ pngeom <- function(q, prob, lower.tail = TRUE, log.p = FALSE) {
   }
   q <- matrix(q, ncol = 2)
 
-  cdf <- stats::pgeom(q, prob = prob, lower.tail = lower.tail, log.p =log.p)
+  cdf <- stats::pgeom(q, prob = prob)
 
+  if (!lower.tail) {
+    cdf <- 1 - cdf
+  }
 
   cdf <- matrix(cdf, ncol = 2, byrow = TRUE)
 
@@ -93,14 +95,14 @@ pngeom <- function(q, prob, lower.tail = TRUE, log.p = FALSE) {
 
   return(cdf)
 }
-#' @name NGEOMD
+#' @name Neutrosophic Geometric
 #' @examples
 #' q1 <- seq(0.1, 1, length.out = 40)
 #' qngeom(q1, prob = 0.5)
 #' q2 <- matrix(seq(0.1, 1, length.out = 40), ncol = 2)
 #' qngeom(q2, lambda = c(2, 2))
 #' @export
-qngeom <- function(p, prob, lower.tail = TRUE, log.p = FALSE) {
+qngeom <- function(p, prob) {
   if (any(p < 0) || any(p > 1)) {
     stop(message = "Warning: p should be in the interval [0,1].")
   }
@@ -114,7 +116,7 @@ qngeom <- function(p, prob, lower.tail = TRUE, log.p = FALSE) {
 
   quantiles <- matrix(data = NA, nrow = nrow(p), ncol = 2)
   for (i in 1:ncol(p)) {
-    quantiles[, i] <- stats::qgeom(p[, i], prob = prob[i], lower.tail = lower.tail, log.p =log.p)
+    quantiles[, i] <- stats::qgeom(p[, i], prob = prob[i])
   }
 
   swap_rows <- quantiles[, 1] > quantiles[, 2]
@@ -123,7 +125,7 @@ qngeom <- function(p, prob, lower.tail = TRUE, log.p = FALSE) {
   return(quantiles)
 }
 
-#' @name NGEOMD
+#' @name Neutrosophic Geometric
 #' @examples
 #' n <- 10
 #' rngeom(n, prob = 0.5)
