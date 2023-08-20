@@ -68,7 +68,7 @@ dngamma <- function(x, shape, scale) {
 }
 #' @name Neutrosophic Gamma
 #' @examples
-#' pngamma(q = c(0.1, 0.1), shape = c(1,1.5), scale = c(2,2))
+#' pngamma(q = 0.1, shape = c(1,1.5), scale = c(2,2))
 #'
 #' @export
 pngamma <- function(q, shape, scale, lower.tail = TRUE) {
@@ -137,7 +137,7 @@ rngamma <- function(n, shape, scale) {
   shape <- rep(shape, length.out = 2)
   scale  <- rep(scale, length.out = 2)
 
-  u <- matrix(runif(n), ncol = 2)
-  X <- qngamma(u, shape, beta)
+  u <- matrix(runif(10), ncol = 2)
+  X <- qngamma(u, shape, scale)
   return(X)
 }
