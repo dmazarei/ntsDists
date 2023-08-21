@@ -21,20 +21,20 @@
 #' \eqn{P(X \ge x)}; otherwise, \eqn{P(X >x)}.
 #'
 #' @return
-#'  \code{pnnbinom} gives the distribution function,
-#'  \code{dnnbinom} gives the density,
-#'  \code{qnnbinom} gives the quantile function and
-#'  \code{rnnbinom} generates random variables from the Negative Binomial Distribution.
+#'  \code{pnsnbinom} gives the distribution function,
+#'  \code{dnsnbinom} gives the density,
+#'  \code{qnsnbinom} gives the quantile function and
+#'  \code{rnsnbinom} generates random variables from the Negative Binomial Distribution.
 #' @references
 #'        Granados, C. (2022).
 #'        Some discrete neutrosophic distributions with neutrosophic parameters based on neutrosophic random variables.
 #'         \emph{Hacettepe Journal of Mathematics and Statistics}, 51(5), 1442-1457.
 #' @importFrom stats runif dnbinom pnbinom qnbinom
 #' @examples
-#' dnnbinom(x, size = 2, prob= 0.5)
-#' dnnbinom(x2, lambda = c(2, 2))
+#' dnsnbinom(x, size = 2, prob= 0.5)
+#' dnsnbinom(x2, lambda = c(2, 2))
 #' @export
-dnnbinom <- function(x, size, prob) {
+dnsnbinom <- function(x, size, prob) {
   if (any(size < 1) || any(prob <= 0) || any(prob > 1) || any(x < 0))
     stop(message = "Arguments are incompatible.")
 
@@ -64,11 +64,11 @@ dnnbinom <- function(x, size, prob) {
 #' @examples
 #' x <- 1:10
 #' x2 <- matrix(1:20, ncol = 2)
-#' pnnbinom(x, size = 2, prob= 0.5)
-#' pnnbinom(x2, size = c(2,2), prob = c(.3 ,.6))
+#' pnsnbinom(x, size = 2, prob= 0.5)
+#' pnsnbinom(x2, size = c(2,2), prob = c(.3 ,.6))
 #' @export
 
-pnnbinom <- function(q, size, prob, lower.tail = TRUE) {
+pnsnbinom <- function(q, size, prob, lower.tail = TRUE) {
   if (any(size < 1) || any(prob <= 0) || any(prob > 1) || any(q < 0))
     stop(message = "Arguments are incompatible.")
   if (any(q < 0) && any(q - floor(q) == 0))
@@ -96,11 +96,11 @@ pnnbinom <- function(q, size, prob, lower.tail = TRUE) {
 #' @name Neutrosophic Negative Binomial
 #' @examples
 #' q1 <- seq(0.1, 1, length.out = 40)
-#' qnnbinom(q1, size = 2, prob= 0.5)
+#' qnsnbinom(q1, size = 2, prob= 0.5)
 #' q2 <- matrix(seq(0.1, 1, length.out = 40), ncol = 2)
-#' qnnbinom(q2, lambda = c(2, 2))
+#' qnsnbinom(q2, lambda = c(2, 2))
 #' @export
-qnnbinom <- function(p, size, prob) {
+qnsnbinom <- function(p, size, prob) {
   if (any(p < 0) || any(p > 1))
     stop(message = "Warning: p should be in the interval [0,1].")
 
@@ -125,10 +125,10 @@ qnnbinom <- function(p, size, prob) {
 #' @name Neutrosophic Negative Binomial
 #' @examples
 #' n <- 10
-#' rnnbinom(n, size = 2, prob= 0.5)
-#' rnnbinom(n, lambda = c(1, 2))
+#' rnsnbinom(n, size = 2, prob= 0.5)
+#' rnsnbinom(n, lambda = c(1, 2))
 #' @export
-rnnbinom <- function(n, size, prob) {
+rnsnbinom <- function(n, size, prob) {
   if (any(size < 1) || any(prob <= 0) || any(prob > 1))
     stop(message = "Arguments are incompatible.")
 
@@ -136,7 +136,7 @@ rnnbinom <- function(n, size, prob) {
   size <- rep(size, length.out = 2)
   prob <- rep(prob, length.out = 2)
   u <- matrix(runif(n), ncol = 2)
-  X <- qnnbinom(u, size, prob)
+  X <- qnsnbinom(u, size, prob)
 
   return(X)
 }

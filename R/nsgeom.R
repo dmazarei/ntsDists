@@ -20,20 +20,20 @@
 #' \eqn{P(X \ge x)}; otherwise, \eqn{P(X >x)}.
 #'
 #' @return
-#'  \code{pngeom} gives the distribution function,
-#'  \code{dngeom} gives the density,
-#'  \code{qngeom} gives the quantile function and
-#'  \code{rngeom} generates random variables from the Geometric Distribution.
+#'  \code{pnsgeom} gives the distribution function,
+#'  \code{dnsgeom} gives the density,
+#'  \code{qnsgeom} gives the quantile function and
+#'  \code{rnsgeom} generates random variables from the Geometric Distribution.
 #' @references
 #'        Granados, C. (2022).
 #'        Some discrete neutrosophic distributions with neutrosophic parameters based on neutrosophic random variables.
 #'         \emph{Hacettepe Journal of Mathematics and Statistics}, 51(5), 1442-1457.
 #' @importFrom stats runif dgeom pgeom qgeom
 #' @examples
-#' dngeom(x, prob = 0.5)
-#' dngeom(x2, lambda = c(2, 2))
+#' dnsgeom(x, prob = 0.5)
+#' dnsgeom(x2, lambda = c(2, 2))
 #' @export
-dngeom <- function(x, prob) {
+dnsgeom <- function(x, prob) {
   if (any(prob <= 0) || any(prob > 1) || any(x < 0)) {
     stop(message = "Arguments are incompatible.")
   }
@@ -64,11 +64,11 @@ dngeom <- function(x, prob) {
 #' @examples
 #' x <- 1:10
 #' x2 <- matrix(1:20, ncol = 2)
-#' pngeom(x, prob = 0.5)
-#' pngeom(x2, prob = c(.3, .6))
+#' pnsgeom(x, prob = 0.5)
+#' pnsgeom(x2, prob = c(.3, .6))
 #' @export
 
-pngeom <- function(q, prob, lower.tail = TRUE) {
+pnsgeom <- function(q, prob, lower.tail = TRUE) {
   if (any(prob <= 0) || any(prob > 1) || any(q < 0)) {
     stop(message = "Arguments are incompatible.")
   }
@@ -98,11 +98,11 @@ pngeom <- function(q, prob, lower.tail = TRUE) {
 #' @name Neutrosophic Geometric
 #' @examples
 #' q1 <- seq(0.1, 1, length.out = 40)
-#' qngeom(q1, prob = 0.5)
+#' qnsgeom(q1, prob = 0.5)
 #' q2 <- matrix(seq(0.1, 1, length.out = 40), ncol = 2)
-#' qngeom(q2, lambda = c(2, 2))
+#' qnsgeom(q2, lambda = c(2, 2))
 #' @export
-qngeom <- function(p, prob) {
+qnsgeom <- function(p, prob) {
   if (any(p < 0) || any(p > 1)) {
     stop(message = "Warning: p should be in the interval [0,1].")
   }
@@ -128,17 +128,17 @@ qngeom <- function(p, prob) {
 #' @name Neutrosophic Geometric
 #' @examples
 #' n <- 10
-#' rngeom(n, prob = 0.5)
-#' rngeom(n, lambda = c(1, 2))
+#' rnsgeom(n, prob = 0.5)
+#' rnsgeom(n, lambda = c(1, 2))
 #' @export
-rngeom <- function(n, prob) {
+rnsgeom <- function(n, prob) {
   if (any(prob <= 0) || any(prob > 1)) {
     stop(message = "Arguments are incompatible.")
   }
 
   prob <- rep(prob, length.out = 2)
   u <- matrix(runif(n), ncol = 2)
-  X <- qngeom(u, prob)
+  X <- qnsgeom(u, prob)
 
   return(X)
 }

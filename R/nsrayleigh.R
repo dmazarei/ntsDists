@@ -20,10 +20,10 @@
 #' \eqn{P(X \ge x)}; otherwise, \eqn{P(X >x)}.
 #'
 #' @return
-#'  \code{dnrayleigh} gives the density,
-#'  \code{pnrayleigh} gives the distribution function,
-#'  \code{qnrayleigh} gives the quantile function and
-#'  \code{rnrayleigh} generates random variables from the Neutrosophic Rayleigh Distribution.
+#'  \code{dnsrayleigh} gives the density,
+#'  \code{pnsrayleigh} gives the distribution function,
+#'  \code{qnsrayleigh} gives the quantile function and
+#'  \code{rnsrayleigh} generates random variables from the Neutrosophic Rayleigh Distribution.
 #' @references
 #' Khan, Z., Gulistan, M., Kausar, N. and Park, C. (2021).
 #' Neutrosophic Rayleigh Model With Some Basic Characteristics and
@@ -31,10 +31,19 @@
 #'
 #' @importFrom stats runif
 #' @examples
-#' dnrayleigh(x, theta = 2)
-#' dnrayleigh(x2, theta = c(2, 2))
+#' data(remission)
+#' dnsrayleigh(x = remission, theta = c(9.6432,9.8702))
+#'
+#' pnsrayleigh(q = 20, theta = c(9.6432,9.8702))
+#'
+#' # Calculate quantiles
+#' qnsrayleigh(p = c(0.25,0.5,0.75), theta = c(9.6432,9.8702))
+#'
+#' # Simulate 10 values
+#' rnsrayleigh(n, theta = c(9.6432,9.8702))
+#'
 #' @export
-dnrayleigh <- function(x, theta) {
+dnsrayleigh <- function(x, theta) {
   if (any(theta <= 0))
     stop("Arguments are incompatible.")
 
@@ -56,14 +65,8 @@ dnrayleigh <- function(x, theta) {
   return(pdf)
 }
 #' @name Neutrosophic Rayleigh
-#' @examples
-#' x <- seq(0.01, 1, length.out = 21)
-#' pnrayleigh(x, theta = 1)
-#'
-#' x2 <- matrix(seq(0.01, 1, length.out = 40), ncol = 2) #'
-#' pnrayleigh(x2, theta = c(2, 3))
 #' @export
-pnrayleigh <- function(q, theta, lower.tail = TRUE) {
+pnsrayleigh <- function(q, theta, lower.tail = TRUE) {
   if (any(theta <= 0) || any(q < 0))
     stop("Arguments are incompatible.")
 
@@ -86,12 +89,8 @@ pnrayleigh <- function(q, theta, lower.tail = TRUE) {
   return(cdf)
 }
 #' @name Neutrosophic Rayleigh
-#' @examples
-#' qnrayleigh(x, theta = 2)
-#'
-#' qnrayleigh(x2, theta = c(2, 2))
 #' @export
-qnrayleigh <- function(p, theta) {
+qnsrayleigh <- function(p, theta) {
   if (any(p < 0) || any(p > 1)) {
     stop(message = "Warning: p should be in the interval [0,1].")
   }
@@ -115,17 +114,13 @@ qnrayleigh <- function(p, theta) {
 }
 
 #' @name Neutrosophic Rayleigh
-#' @examples
-#' n <- 10
-#' rnrayleigh(n, theta = 1)
-#' rnrayleigh(n, theta = c(1, 2))
 #' @export
-rnrayleigh <- function(n, theta) {
+rnsrayleigh <- function(n, theta) {
   if (any(theta <= 0))
     stop(message = "Arguments are incompatible.")
 
   theta <- rep(theta, length.out = 2)
   u <- matrix(runif(n * length(theta)), nrow = n, ncol = length(theta))
-  X <- qnrayleigh(u, theta)
+  X <- qnsrayleigh(u, theta)
   return(X)
 }

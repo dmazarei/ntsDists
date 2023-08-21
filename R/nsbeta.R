@@ -25,10 +25,10 @@
 #' \eqn{P(X \ge x)}; otherwise, \eqn{P(X >x)}.
 #'
 #' @return
-#' \code{pnbeta} gives the distribution function,
-#' \code{dnbeta} gives the density,
-#' \code{qnbeta} gives the quantile function and
-#' \code{rnbeta} generates random values from the neutrosophic Beta distribution.
+#' \code{pnsbeta} gives the distribution function,
+#' \code{dnsbeta} gives the density,
+#' \code{qnsbeta} gives the quantile function and
+#' \code{rnsbeta} generates random values from the neutrosophic Beta distribution.
 #'
 #' @references
 #'  Sherwani, R. Ah. K., Naeem, M., Aslam, M., Reza, M. A., Abid, M., Abbas, S. (2021).
@@ -37,14 +37,14 @@
 #' @importFrom stats runif dbeta pbeta qbeta
 #' @examples
 #'
-#' dnbeta(x = c(0.1, 0.2), shape1 = c(1,1), shape2 = c(2, 2))
-#' dnbeta(x = c(0.1, 0.1), shape1 = c(0.5,0.7), shape2 = c(0.2, 2))
+#' dnsbeta(x = c(0.1, 0.2), shape1 = c(1,1), shape2 = c(2, 2))
+#' dnsbeta(x = c(0.1, 0.1), shape1 = c(0.5,0.7), shape2 = c(0.2, 2))
 #'
 #' x <- matrix(c(0.1, 0.1, 0.2, 0.3, 0.5, 0.5), ncol = 2, byrow = TRUE)
-#' dnbeta(x, shape1 = c(1, 2), shape2 = c(2, 3))
+#' dnsbeta(x, shape1 = c(1, 2), shape2 = c(2, 3))
 #'
 #' @export
-dnbeta <- function(x, shape1, shape2) {
+dnsbeta <- function(x, shape1, shape2) {
   if (any(shape1 <= 0) || any(shape2 <= 0) || any(x < 0))
     stop(message = "Arguments are incompatible.")
 
@@ -71,11 +71,11 @@ dnbeta <- function(x, shape1, shape2) {
 #' @name Neutrosophic Beta
 #' @examples
 #'
-#' pnbeta(q = c(0.1, 0.1), shape1 = c(3, 1), shape2 = c(1,3), lower.tail = FALSE)
-#' pnbeta(x, shape1 = c(1, 2), shape2 = c(2, 2))
+#' pnsbeta(q = c(0.1, 0.1), shape1 = c(3, 1), shape2 = c(1,3), lower.tail = FALSE)
+#' pnsbeta(x, shape1 = c(1, 2), shape2 = c(2, 2))
 #'
 #' @export
-pnbeta <- function(q, shape1, shape2, lower.tail = TRUE) {
+pnsbeta <- function(q, shape1, shape2, lower.tail = TRUE) {
   if (any(shape1 <= 0) || any(q < 0))
     stop("Arguments are incompatible.")
 
@@ -100,11 +100,11 @@ pnbeta <- function(q, shape1, shape2, lower.tail = TRUE) {
 #' @name Neutrosophic Beta
 #' @examples
 #'
-#' qnbeta(p = 0.1, shape1 = c(1,1), shape2 = c(2, 2))
-#' qnbeta(p = c(0.25, 0.5, 0.75), shape1 = c(1, 2), shape2 = c(2, 2))
+#' qnsbeta(p = 0.1, shape1 = c(1,1), shape2 = c(2, 2))
+#' qnsbeta(p = c(0.25, 0.5, 0.75), shape1 = c(1, 2), shape2 = c(2, 2))
 #'
 #' @export
-qnbeta <- function(p, shape1, shape2) {
+qnsbeta <- function(p, shape1, shape2) {
   if (any(p < 0) || any(p > 1)) {
     stop(message = "Warning: p should be in the interval [0,1].")
   }
@@ -118,15 +118,15 @@ qnbeta <- function(p, shape1, shape2) {
 #' @name Neutrosophic Beta
 #' @examples
 #' # Simulate 10 numbers
-#' rnbeta(n = 10, shape1 = c(1, 2), shape2 = c(1, 1))
+#' rnsbeta(n = 10, shape1 = c(1, 2), shape2 = c(1, 1))
 #' @export
-rnbeta <- function(n, shape1, shape2) {
+rnsbeta <- function(n, shape1, shape2) {
   if (any(shape1 <= 0) || any(shape2 <= 0))
     stop(message = "Arguments are incompatible.")
   shape1 <- rep(shape1, length.out = 2)
   shape2  <- rep(shape2, length.out = 2)
 
   u <- matrix(runif(n), ncol = 2)
-  X <- qnbeta(u, shape1, shape2)
+  X <- qnsbeta(u, shape1, shape2)
   return(X)
 }

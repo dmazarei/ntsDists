@@ -23,10 +23,10 @@
 #' \eqn{P(X \ge x)}; otherwise, \eqn{P(X >x)}.
 #'
 #' @return
-#'  \code{pngexp} gives the distribution function,
-#'  \code{dngexp} gives the density,
-#'  \code{qngexp} gives the quantile function and
-#'  \code{rngexp} generates random variables
+#'  \code{pnsgexp} gives the distribution function,
+#'  \code{dnsgexp} gives the density,
+#'  \code{qnsgexp} gives the quantile function and
+#'  \code{rnsgexp} generates random variables
 #'  from the neutrosophic generalized exponential distribution.
 #'
 #' @references
@@ -36,10 +36,12 @@
 #'
 #' @importFrom stats runif
 #' @examples
-#' dngexp(x = 1, nu = c(1, 2), delta = c(2, 2))
+#'
+#' data(remission)
+#' dnsgexp(x = remission, nu = c(7.9506,8.0568), delta = c(1.2390,1.2397))
 #'
 #' @export
-dngexp <- function(x, nu, delta) {
+dnsgexp <- function(x, nu, delta) {
   if (any(nu <= 0) || any(delta <= 0) || any(x < 0))
     stop(message = "Arguments are incompatible.")
 
@@ -66,12 +68,10 @@ dngexp <- function(x, nu, delta) {
 
 #' @name Neutrosophic Generalized Exponential
 #' @examples
-#' pngexp(q=0.1, nu = c(1, 2), delta = c(2, 2))
+#' pnsgexp(q = 20, nu = c(7.9506,8.0568), delta = c(1.2390,1.2397))
 #'
-#' x2 <- matrix(seq(0.1, 1, length.out = 40), ncol = 2)
-#' pngexp(x2, nu = c(1, 2), delta = c(2, 2))
 #' @export
-pngexp <- function(q, nu, delta, lower.tail = TRUE) {
+pnsgexp <- function(q, nu, delta, lower.tail = TRUE) {
   if (any(nu <= 0) || any(delta <= 0) || any(q < 0))
     stop(message = "incompatible arguments.")
 
@@ -99,11 +99,12 @@ pngexp <- function(q, nu, delta, lower.tail = TRUE) {
 
 #' @name Neutrosophic Generalized Exponential
 #' @examples
-#' qngexp(x, nu = 1, delta = 2)
 #'
-#' qngexp(x2, nu = c(1, 2), delta = c(2, 2))
+#' # Calcluate quantiles
+#' qnsgexp(c(0.25,0.5,0.75), nu = c(7.9506,8.0568), delta = c(1.2390,1.2397))
+#'
 #' @export
-qngexp <- function(p, nu, delta) {
+qnsgexp <- function(p, nu, delta) {
   if (any(p < 0) || any(p > 1)) {
     stop(message = "Warning: p should be in the interval [0,1].")
   }
@@ -128,14 +129,13 @@ qngexp <- function(p, nu, delta) {
   return(quantiles)
 }
 
-
 #' @name Neutrosophic Generalized Exponential
 #' @examples
-#' n <- 10
-#' rngexp(n = 10, nu = 2, delta = 1)
-#' rngexp(n = 10, nu = c(1, 2), delta = c(1, 1))
+#' # Simulate 10 values
+#' rnsgexp(n = 10, nu = c(7.9506,8.0568), delta = c(1.2390,1.2397))
+#'
 #' @export
-rngexp <- function(n, nu, delta) {
+rnsgexp <- function(n, nu, delta) {
   if (any(nu <= 0) || any(delta <= 0))
     stop(message = "Arguments are incompatible.")
 
@@ -143,7 +143,7 @@ rngexp <- function(n, nu, delta) {
   delta  <- rep(delta, length.out = 2)
 
   u <- matrix(runif(n), ncol = 2)
-  X <- qngexp(u, nu, delta)
+  X <- qnsgexp(u, nu, delta)
 
 
   return(X)

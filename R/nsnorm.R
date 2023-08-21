@@ -24,26 +24,29 @@
 #' \eqn{P(X \ge x)}; otherwise, \eqn{P(X >x)}.
 #'
 #' @return
-#' \code{pnnorm} gives the distribution function,
-#' \code{dnnorm} gives the density,
-#' \code{qnnorm} gives the quantile function and
-#' \code{rnnorm} generates random variables from the neutrosophic normal distribution.
+#' \code{pnsnorm} gives the distribution function,
+#' \code{dnsnorm} gives the density,
+#' \code{qnsnorm} gives the quantile function and
+#' \code{rnsnorm} generates random variables from the neutrosophic normal distribution.
 #'
 #' @references
 #'    Patro, S. and Smarandache, F. (2016). The Neutrosophic Statistical Distribution, More Problems, More Solutions. Infinite Study.
 #'
 #' @importFrom stats runif dnorm pnorm qnorm
 #' @examples
-#' dnnorm(x = 0.5, mean = 1, sd = 2)
+#' data(remission)
+#' dnsnorm(x = remission, mean = c(9.1196,9.2453), sd = c(10.1397,10.4577))
 #'
-#' x1 <- c(-0.8, 0.2, 1.6, 3.9)
-#' dnnorm(x = 0.5, mean = c(1, 1), sd = c(2, 2))
+#' pnsnorm(q = 20, mean = c(9.1196,9.2453), sd = c(10.1397,10.4577))
 #'
-#' x2 <- matrix(seq(-3, 3, length.out = 10), nrow = 5, ncol = 2)
-#' dnnorm(x2, mean = c(1, 2), sd = c(2, 2))
+#' # Calculate quantiles
+#' qnsnorm(p = c(0.25,0.5,0.75),  mean = c(9.1196,9.2453), sd = c(10.1397,10.4577))
+#'
+#' # Simulate 10 values
+#' rnsnorm(n = 10, mean = c(9.1196,9.2453), sd = c(10.1397,10.4577))
 #'
 #' @export
-dnnorm <- function(x, mean, sd) {
+dnsnorm <- function(x, mean, sd) {
   if (any(sd <= 0))
     stop("Arguments are incompatible.")
 
@@ -67,15 +70,9 @@ dnnorm <- function(x, mean, sd) {
   return(pdf)}
 
 #' @name Neutrosophic Normal
-#' @examples
-#' x <- seq(0.1, 1, length.out = 21)
-#' pnnorm(x, mean = c(2, 2), sd = c(1, 1))
-#'
-#' x2 <- matrix(seq(0.1, 1, length.out = 40), ncol = 2)
-#' pnnorm(x2, mean = c(1, 2), sd = c(2, 2))
 #' @export
 
-pnnorm <- function(q, mean, sd, lower.tail = TRUE) {
+pnsnorm <- function(q, mean, sd, lower.tail = TRUE) {
   if (any(sd <= 0))
     stop("Arguments are incompatible.")
 
@@ -100,13 +97,8 @@ pnnorm <- function(q, mean, sd, lower.tail = TRUE) {
 }
 
 #' @name Neutrosophic Normal
-#' @examples
-#' q1 <- c(0.01)
-#' qnnorm(q1, mean = 1, sd = 2)
-#' x2 <- matrix(seq(0.1, 1, length.out = 40), ncol = 2)
-#' qnnorm(x2, mean = c(1, 2), sd = c(2, 2))
 #' @export
-qnnorm <- function(p, mean, sd) {
+qnsnorm <- function(p, mean, sd) {
   if (any(p < 0) || any(p > 1)) {
     stop(message = "Warning: p should be in the interval [0,1].")
   }
@@ -130,12 +122,8 @@ qnnorm <- function(p, mean, sd) {
 }
 
 #' @name Neutrosophic Normal
-#' @examples
-#' n <- 100
-#' rnnorm(n, mean = c(1, 1), sd = c(2, 2))
-#' rnnorm(n, mean = c(1, 2), sd = c(1, 1))
 #' @export
-rnnorm <- function(n, mean, sd) {
+rnsnorm <- function(n, mean, sd) {
   if (any(sd <= 0))
     stop(message = "Arguments are incompatible.")
 
@@ -143,7 +131,7 @@ rnnorm <- function(n, mean, sd) {
   sd <- rep(sd, length.out = 2)
 
   u <- matrix(runif(n), ncol = 2)
-  X <- qnnorm(u, mean, sd)
+  X <- qnsnorm(u, mean, sd)
 
   return(X)
 }

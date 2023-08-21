@@ -20,20 +20,20 @@
 #' \eqn{P(X \ge x)}; otherwise, \eqn{P(X >x)}.
 #'
 #' @return
-#'  \code{pnpois} gives the distribution function,
-#'  \code{dnpois} gives the density,
-#'  \code{qnpois} gives the quantile function and
-#'  \code{rnpois} generates random variables from the neutrosophic Poisson Distribution.
+#'  \code{pnspois} gives the distribution function,
+#'  \code{dnspois} gives the density,
+#'  \code{qnspois} gives the quantile function and
+#'  \code{rnspois} generates random variables from the neutrosophic Poisson Distribution.
 #' @references
 #'        Alhabib, R., Ranna, M. M., Farah, H., Salama, A. A. (2018).
 #'        Some neutrosophic probability distributions.
 #'        \emph{Neutrosophic Sets and Systems},  22, 30-38.
 #' @importFrom stats runif dpois ppois qpois
 #' @examples
-#' dnpois(x, lambda = 2)
-#' dnpois(x2, lambda = c(2, 2))
+#' dnspois(x, lambda = 2)
+#' dnspois(x2, lambda = c(2, 2))
 #' @export
-dnpois <- function(x, lambda) {
+dnspois <- function(x, lambda) {
   if (any(lambda < 0))
     stop(message = "Arguments are incompatible.")
 
@@ -61,10 +61,10 @@ dnpois <- function(x, lambda) {
 #' @examples
 #' x <- 1:10
 #' x2 <- matrix(1:20, ncol = 2)
-#' pnpois(x, lambda = 1)
-#' pnpois(x2, lambda = c(2, 3))
+#' pnspois(x, lambda = 1)
+#' pnspois(x2, lambda = c(2, 3))
 #' @export
-pnpois <- function(q, lambda, lower.tail = TRUE) {
+pnspois <- function(q, lambda, lower.tail = TRUE) {
   if (any(lambda < 0))
     stop("Arguments are incompatible.")
 
@@ -92,11 +92,11 @@ pnpois <- function(q, lambda, lower.tail = TRUE) {
 #' @name Neutrosophic Poisson
 #' @examples
 #' q1 <- seq(0.1, 1, length.out = 40)
-#' qnpois(q1, lambda = 2)
+#' qnspois(q1, lambda = 2)
 #' q2 <- matrix(seq(0.1, 1, length.out = 40), ncol = 2)
-#' qnpois(q2, lambda = c(2, 2))
+#' qnspois(q2, lambda = c(2, 2))
 #' @export
-qnpois <- function(p, lambda) {
+qnspois <- function(p, lambda) {
   if (any(p < 0) || any(p > 1))
     stop(message = "Warning: p should be in the interval [0,1].")
 
@@ -120,16 +120,16 @@ qnpois <- function(p, lambda) {
 #' @name Neutrosophic Poisson
 #' @examples
 #' n <- 10
-#' rnpois(n, lambda = 1)
-#' rnpois(n, lambda = c(1, 2))
+#' rnspois(n, lambda = 1)
+#' rnspois(n, lambda = c(1, 2))
 #' @export
-rnpois <- function(n, lambda) {
+rnspois <- function(n, lambda) {
   if (any(lambda < 0))
     stop(message = "Arguments are incompatible.")
 
   lambda <- rep(lambda, length.out = 2)
   u <- matrix(runif(n), ncol = 2)
-  X <- qnpois(u, lambda)
+  X <- qnspois(u, lambda)
 
   return(X)
 }

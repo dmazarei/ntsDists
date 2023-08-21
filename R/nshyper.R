@@ -33,20 +33,20 @@
 #' \eqn{P(X \ge x)}; otherwise, \eqn{P(X >x)}.
 #'
 #' @return
-#'  \code{pnhyper} gives the distribution function,
-#'  \code{dnhyper} gives the density,
-#'  \code{qnhyper} gives the quantile function and
-#'  \code{rnhyper} generates random variables from the HyperGeometric Distribution.
+#'  \code{pnshyper} gives the distribution function,
+#'  \code{dnshyper} gives the density,
+#'  \code{qnshyper} gives the quantile function and
+#'  \code{rnshyper} generates random variables from the HyperGeometric Distribution.
 #' @references
 #'        Granados, C. (2022).
 #'        Some discrete neutrosophic distributions with neutrosophic parameters based on neutrosophic random variables.
 #'         \emph{Hacettepe Journal of Mathematics and Statistics}, 51(5), 1442-1457.
 #' @importFrom stats runif dhyper phyper qhyper
 #' @examples
-#' dnhyper(x, N, K, k)
-#' dnhyper(x2, N, K, k)
+#' dnshyper(x, N, K, k)
+#' dnshyper(x2, N, K, k)
 #' @export
-dnhyper <- function(x, N, K, k) {
+dnshyper <- function(x, N, K, k) {
   if (any(K <= 0) || any(N <= 0) || any(k <= 0) || any(x < 0)) {
     stop(message = "Arguments are incompatible.")
   }
@@ -79,11 +79,11 @@ dnhyper <- function(x, N, K, k) {
 #' @examples
 #' x <- 1:10
 #' x2 <- matrix(1:20, ncol = 2)
-#' pnhyper(x, N, K, k)
-#' pnhyper(x2, N, K, k)
+#' pnshyper(x, N, K, k)
+#' pnshyper(x2, N, K, k)
 #' @export
 
-pnhyper <- function(q, N, K, k, lower.tail = TRUE) {
+pnshyper <- function(q, N, K, k, lower.tail = TRUE) {
   if (any(K <= 0) || any(N <= 0) || any(k <= 0) || any(q < 0)) {
     stop(message = "Arguments are incompatible.")
   }
@@ -116,11 +116,11 @@ pnhyper <- function(q, N, K, k, lower.tail = TRUE) {
 #' @name Neutrosophic Hypergeometric
 #' @examples
 #' q1 <- seq(0.1, 1, length.out = 40)
-#' qnhyper(q1, N, K, k)
+#' qnshyper(q1, N, K, k)
 #' q2 <- matrix(seq(0.1, 1, length.out = 40), ncol = 2)
-#' qnhyper(q2, N, K, k)
+#' qnshyper(q2, N, K, k)
 #' @export
-qnhyper <- function(p, N, K, k) {
+qnshyper <- function(p, N, K, k) {
   if (any(p < 0) || any(p > 1)) {
     stop(message = "Warning: p should be in the interval [0,1].")
   }
@@ -148,10 +148,10 @@ qnhyper <- function(p, N, K, k) {
 #' @name Neutrosophic Hypergeometric
 #' @examples
 #' n <- 10
-#' rnhyper(n, N, K, k)
-#' rnhyper(n, N, K, k)
+#' rnshyper(n, N, K, k)
+#' rnshyper(n, N, K, k)
 #' @export
-rnhyper <- function(nn, m, n, k) {
+rnshyper <- function(nn, m, n, k) {
   if (any(k <= 0) || any(N <= 0) || any(k <= 0)) {
     stop(message = "Arguments are incompatible.")
   }
@@ -160,7 +160,7 @@ rnhyper <- function(nn, m, n, k) {
   N <- rep(N, length.out = 2)
   k <- rep(k, length.out = 2)
   u <- matrix(runif(n), ncol = 2)
-  X <- qnhyper(u, N, K, k)
+  X <- qnshyper(u, N, K, k)
 
   return(X)
 }

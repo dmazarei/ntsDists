@@ -21,10 +21,10 @@
 #' \eqn{P(X \ge x)}; otherwise, \eqn{P(X >x)}.
 #'
 #' @return
-#'  \code{pnunif} gives the distribution function,
-#'  \code{dnunif} gives the density,
-#'  \code{qnunif} gives the quantile function and
-#'  \code{rnunif} generates random variables from the neutrosophic Uniform Distribution.
+#'  \code{pnsunif} gives the distribution function,
+#'  \code{dnsunif} gives the density,
+#'  \code{qnsunif} gives the quantile function and
+#'  \code{rnsunif} generates random variables from the neutrosophic Uniform Distribution.
 #' @references
 #'    Alhabib, R., Ranna, M. M., Farah, H., & Salama, A. A. (2018).
 #'     Some neutrosophic probability distributions.
@@ -33,19 +33,19 @@
 #' @importFrom stats runif dunif punif qunif
 #' @examples
 #'
-#' dnunif(x = 1, min = c(0,5), max = c(15,20))
-#' dnunif(x = c(6,10), min = c(0,5), max = c(15,20))
+#' dnsunif(x = 1, min = c(0,5), max = c(15,20))
+#' dnsunif(x = c(6,10), min = c(0,5), max = c(15,20))
 #'
 #' punif(x = 1, min = c(0,5), max = c(15,20))
 #' punif(x = c(6,10), min = c(0,5), max = c(15,20))
 #'
-#' qnunif(x, min = c(0,5), max = c(15,20))
+#' qnsunif(x, min = c(0,5), max = c(15,20))
 #'
 #' n <- 10
-#' rnunif(n, min = c(0,5), max = c(15,20))
+#' rnsunif(n, min = c(0,5), max = c(15,20))
 #'
 #' @export
-dnunif <- function(x, min, max) {
+dnsunif <- function(x, min, max) {
   if (any(max <= min)) {
     stop(message = "Arguments are incompatible.")
   }
@@ -70,7 +70,7 @@ dnunif <- function(x, min, max) {
 }
 #' @name Neutrosophic Uniform
 #' @export
-pnunif <- function(q, min, max, lower.tail = TRUE) {
+pnsunif <- function(q, min, max, lower.tail = TRUE) {
   if (any(max <= min)) {
     stop(message = "Arguments are incompatible.")
   }
@@ -98,7 +98,7 @@ pnunif <- function(q, min, max, lower.tail = TRUE) {
 }
 #' @name Neutrosophic Uniform
 #' @export
-qnunif <- function(p, min, max) {
+qnsunif <- function(p, min, max) {
   if (any(max <= min)) {
     stop(message = "Arguments are incompatible.")
   }
@@ -123,7 +123,7 @@ qnunif <- function(p, min, max) {
 }
 #' @name Neutrosophic Uniform
 #' @export
-rnunif <- function(n, min, max) {
+rnsunif <- function(n, min, max) {
   if (any(max <= min)) {
     stop(message = "Arguments are incompatible.")
   }
@@ -131,7 +131,7 @@ rnunif <- function(n, min, max) {
   min <- rep(min, length.out = 2)
 
   u <- matrix(runif(n * 2), nrow = n, ncol = 2)
-  X <- qnunif(u, max, min)
+  X <- qnsunif(u, max, min)
 
   return(X)
 }

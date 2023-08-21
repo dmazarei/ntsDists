@@ -20,10 +20,10 @@
 #' \eqn{P(X \ge x)}; otherwise, \eqn{P(X >x)}.
 #'
 #' @return
-#'  \code{pndunif} gives the distribution function,
-#'  \code{dndunif} gives the density,
-#'  \code{qndunif} gives the quantile function and
-#'  \code{rndunif} generates random variables from the neutrosophic Discrete Uniform Distribution.
+#'  \code{pnsdunif} gives the distribution function,
+#'  \code{dnsdunif} gives the density,
+#'  \code{qnsdunif} gives the quantile function and
+#'  \code{rnsdunif} generates random variables from the neutrosophic Discrete Uniform Distribution.
 #' @references
 #'        Granados, C. (2022). Some discrete neutrosophic distributions with
 #'        neutrosophic parameters based on neutrosophic random variables.
@@ -31,10 +31,10 @@
 #'          1442-1457.
 #'
 #' @examples
-#' dndunif(x = 8, k = c(10,11))
-#' dndunif(x = c(8,9), k = c(10,11))
+#' dnsdunif(x = 8, k = c(10,11))
+#' dnsdunif(x = c(8,9), k = c(10,11))
 #' @export
-dndunif <- function(x, k) {
+dnsdunif <- function(x, k) {
   if (any(k <= 0)) {
     stop("Arguments are incompatible.")
   }
@@ -65,9 +65,9 @@ dndunif <- function(x, k) {
 #' @name Neutrosophic Discrete Uniform
 #' @examples
 #'
-#' pndunif(q = 2, k = c(10,11))
+#' pnsdunif(q = 2, k = c(10,11))
 #' @export
-pndunif <- function(q, k, lower.tail = TRUE) {
+pnsdunif <- function(q, k, lower.tail = TRUE) {
   if (any(k <= 0)) {
     stop("Arguments are incompatible.")
   }
@@ -97,10 +97,10 @@ pndunif <- function(q, k, lower.tail = TRUE) {
 #' @name Neutrosophic Discrete Uniform
 #' @examples
 #'
-#' qndunif(p = 0.2, k = c(10,11))
+#' qnsdunif(p = 0.2, k = c(10,11))
 #'
 #' @export
-qndunif <- function(p, k) {
+qnsdunif <- function(p, k) {
   if (any(k <= 0)) {
     stop("Arguments are incompatible.")
   }
@@ -129,10 +129,10 @@ qndunif <- function(p, k) {
 #' @examples
 #'
 #' # Simulate 10 numbers
-#' rndunif(n = 10, k = c(10,11))
+#' rnsdunif(n = 10, k = c(10,11))
 #'
 #' @export
-rndunif <- function(n, k) {
+rnsdunif <- function(n, k) {
   if (any(k < 0) || any(k == 0)) {
     stop("Arguments are incompatible.")
   }
@@ -147,7 +147,7 @@ rndunif <- function(n, k) {
   #   }
 
   u <- matrix(runif(n * length(k)), nrow = n, ncol = length(k))
-  X <- qndunif(u, k)
+  X <- qnsdunif(u, k)
     # X[, i] <- sample(1:k[i], size = n, replace = TRUE)
   # }
 

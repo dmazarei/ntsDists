@@ -21,10 +21,10 @@
 #' \eqn{P(X \ge x)}; otherwise, \eqn{P(X >x)}.
 #'
 #' @return
-#'  \code{pnbinom} gives the distribution function,
-#'  \code{dnbinom} gives the density,
-#'  \code{qnbinom} gives the quantile function and
-#'  \code{rnbinom} generates random variables from the Binomial Distribution.
+#'  \code{pnsbinom} gives the distribution function,
+#'  \code{dnsbinom} gives the density,
+#'  \code{qnsbinom} gives the quantile function and
+#'  \code{rnsbinom} generates random variables from the Binomial Distribution.
 #' @references
 #'        Granados, C. (2022). Some discrete neutrosophic distributions with
 #'         neutrosophic parameters based on neutrosophic random variables.
@@ -33,10 +33,10 @@
 #' @importFrom stats runif dbinom pbinom qbinom
 #' @examples
 #'
-#' dnbinom(x = 1, size = 5, prob = c(0.5,0.6))
+#' dnsbinom(x = 1, size = 5, prob = c(0.5,0.6))
 #'
 #' @export
-dnbinom <- function(x, size, prob) {
+dnsbinom <- function(x, size, prob) {
   if (any(size < 1) || any(prob <= 0) || any(prob > 1) || any(x < 0)) {
     stop(message = "Arguments are incompatible.")
   }
@@ -67,11 +67,11 @@ dnbinom <- function(x, size, prob) {
 #' @name Neutrosophic Binomial
 #' @examples
 #'
-#' pnbinom(q = 2, size = 5, prob = c(0.5,0.6))
+#' pnsbinom(q = 2, size = 5, prob = c(0.5,0.6))
 #'
 #' @export
 
-pnbinom <- function(q, size, prob, lower.tail = TRUE) {
+pnsbinom <- function(q, size, prob, lower.tail = TRUE) {
   if (any(size < 1) || any(prob <= 0) || any(prob > 1) || any(q < 0)) {
     stop(message = "Arguments are incompatible.")
   }
@@ -102,10 +102,10 @@ pnbinom <- function(q, size, prob, lower.tail = TRUE) {
 #' @name Neutrosophic Binomial
 #' @examples
 #'
-#' qnbinom(p = 0.5, size = 5, prob = c(0.5,0.6))
+#' qnsbinom(p = 0.5, size = 5, prob = c(0.5,0.6))
 #'
 #' @export
-qnbinom <- function(p, size, prob) {
+qnsbinom <- function(p, size, prob) {
   if (any(p < 0) || any(p > 1)) {
     stop(message = "Warning: p should be in the interval [0,1].")
   }
@@ -133,10 +133,10 @@ qnbinom <- function(p, size, prob) {
 #' @examples
 #'
 #' # Simulate 10 numbers
-#' rnbinom(n = 10, size = 5, prob = c(0.5,0.6))
+#' rnsbinom(n = 10, size = 5, prob = c(0.5,0.6))
 #'
 #' @export
-rnbinom <- function(n, size, prob) {
+rnsbinom <- function(n, size, prob) {
   if (any(size < 1) || any(prob <= 0) || any(prob > 1)) {
     stop(message = "Arguments are incompatible.")
   }
@@ -144,7 +144,7 @@ rnbinom <- function(n, size, prob) {
   size <- rep(size, length.out = 2)
   prob <- rep(prob, length.out = 2)
   u <- matrix(runif(n), ncol = 2)
-  X <- qnbinom(u, size, prob)
+  X <- qnsbinom(u, size, prob)
 
   return(X)
 }
