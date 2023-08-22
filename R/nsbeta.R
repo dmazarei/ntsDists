@@ -114,6 +114,18 @@ qnsbeta <- function(p, shape1, shape2) {
 
   shape1 <- rep(shape1, length.out = 2)
   shape2  <- rep(shape2, length.out = 2)
+  p <- matrix(rep(p, each = 2), ncol = 2, byrow = TRUE)
+
+  quantiles <- matrix(data = NA, nrow = nrow(p), ncol = 2)
+  for (i in 1:ncol(p)) {
+    quantiles[, i] <- stats::qbeta(p[, i], shape1 = shape1[i], shape2 = shape2[i])
+  }
+
+  swap_rows <- quantiles[, 1] > quantiles[, 2]
+  quantiles[swap_rows, c(1, 2)] <- quantiles[swap_rows, c(2, 1)]
+
+  return(quantiles)
+
 }
 #' @name Neutrosophic Beta
 #' @examples
