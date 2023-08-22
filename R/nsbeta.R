@@ -54,17 +54,17 @@ dnsbeta <- function(x, shape1, shape2) {
 
   if (is.vector(x) && length(x) == 1) {
     x <- matrix(rep(x, each = 2), ncol = 2, byrow = TRUE)
-  }
+    }
 
-  x <- matrix(x, ncol = 2)
+  if (ncol(x)>2){
+    stop(message = "Arguments are incompatible.")
+    }
 
-  pdf <- matrix(data = NA, nrow = nrow(x), ncol = ncol(x))
-  for (i in 1:ncol(x)) {
-    pdf[, i] <- stats::dbeta(x[, i], shape1 = shape1[i], shape2 = shape2[i])
-  }
 
-  swap_rows <- pdf[, 1] > pdf[, 2]
-  pdf[swap_rows, c(1, 2)] <- pdf[swap_rows, c(2, 1)]
+  pdf <- stats::dbeta(x, shape1 = shape1, shape2 = shape2)
+
+
+  pdf <- matrix(pdf, ncol = 2, byrow = TRUE)
 
   return(pdf)
 }
@@ -82,9 +82,12 @@ pnsbeta <- function(q, shape1, shape2, lower.tail = TRUE) {
   shape1 <- rep(shape1, length.out = 2)
   shape2  <- rep(shape2, length.out = 2)
   if (is.vector(q)){
-    q <- rep(q, length.out = 2)
+    q <- matrix(rep(q, each = 2), ncol = 2)
   }
-  q <- matrix(q, ncol = 2)
+  if (ncol(q)>2){
+    stop(message = "Arguments are incompatible.")
+  }
+
 
   cdf <- stats::pbeta(q, shape1 = shape1, shape2 = shape2)
 
@@ -92,8 +95,7 @@ pnsbeta <- function(q, shape1, shape2, lower.tail = TRUE) {
     cdf <- 1 - cdf
 
   cdf <- matrix(cdf, ncol = 2, byrow = TRUE)
-  swap_rows <- cdf[, 1] > cdf[, 2]
-  cdf[swap_rows, c(1, 2)] <- cdf[swap_rows, c(2, 1)]
+
 
   return(cdf)
 }
@@ -114,15 +116,15 @@ qnsbeta <- function(p, shape1, shape2) {
 
   shape1 <- rep(shape1, length.out = 2)
   shape2  <- rep(shape2, length.out = 2)
+  if (is.vector(p)){
   p <- matrix(rep(p, each = 2), ncol = 2, byrow = TRUE)
-
-  quantiles <- matrix(data = NA, nrow = nrow(p), ncol = 2)
-  for (i in 1:ncol(p)) {
-    quantiles[, i] <- stats::qbeta(p[, i], shape1 = shape1[i], shape2 = shape2[i])
   }
+  if (ncol(p)>2){
+    stop(message = "Arguments are incompatible.")
+  }
+  quantiles <- stats::qbeta(p, shape1 = shape1, shape2 = shape2)
+  quantiles <- matrix(quantiles, ncol = 2, byrow = TRUE)
 
-  swap_rows <- quantiles[, 1] > quantiles[, 2]
-  quantiles[swap_rows, c(1, 2)] <- quantiles[swap_rows, c(2, 1)]
 
   return(quantiles)
 
@@ -138,7 +140,6 @@ rnsbeta <- function(n, shape1, shape2) {
   shape1 <- rep(shape1, length.out = 2)
   shape2  <- rep(shape2, length.out = 2)
 
-  u <- matrix(runif(n), ncol = 2)
-  X <- qnsbeta(u, shape1, shape2)
+  X <- qnsbeta(runif(n), shape1, shape2)
   return(X)
 }
