@@ -56,7 +56,7 @@ returns the beta function and can be calculated using \code{\link{beta}}.
 \examples{
 
 dnsbeta(x = c(0.1, 0.2), shape1 = c(1,1), shape2 = c(2, 2))
-dnsbeta(x = c(0.1, 0.1), shape1 = c(0.5,0.7), shape2 = c(0.2, 2))
+dnsbeta(x = 0.1, shape1 = c(1,1), shape2 = c(2, 2))
 
 x <- matrix(c(0.1, 0.1, 0.2, 0.3, 0.5, 0.5), ncol = 2, byrow = TRUE)
 dnsbeta(x, shape1 = c(1, 2), shape2 = c(2, 3))

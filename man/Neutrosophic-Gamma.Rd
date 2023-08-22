@@ -54,18 +54,16 @@ must be a positive interval. Here, \eqn{\Gamma(\cdot)} is gamma
 function implemented by \code{\link{gamma}}.
 }
 \examples{
+data(remission)
+dnsgamma(x = remission, shape = c(1.1884,1.1896), scale = c(7.6658,7.7796))
 
-dnsgamma(x = 0.1, shape = c(2,3), scale = c(1,2))
+pnsgamma(q = 20, shape = c(1.1884,1.1896), scale = c(7.6658,7.7796))
 
-x <- matrix(c(1, 1, 2, 2.2, 3, 3.5), ncol = 2, byrow = TRUE)
-dnsgamma(x, shape = c(1, 2), scale = c(2, 2))
-
-pnsgamma(q = 0.1, shape = c(1,1.5), scale = c(2,2))
-
-qnsgamma(p = 0.1, shape = c(1, 2), scale = c(2, 2))
+# Calculate quantiles
+qnsgamma(p = c(0.25,0.5,0.75), shape = c(1.1884,1.1896), scale = c(7.6658,7.7796))
 
 # Simulate 10 numbers
-rnsgamma(n=10, shape = c(1, 2), scale = c(1, 1))
+rnsgamma(n=10, shape = c(1.1884,1.1896), scale = c(7.6658,7.7796))
 }
 \references{
 Khan, Z., Al-Bossly, A., Almazah, M. M. A., and Alduais, F. S. (2021).

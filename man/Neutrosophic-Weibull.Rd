@@ -53,19 +53,17 @@ be a positive interval, \eqn{\alpha_N \in (\alpha_L,\alpha_U)},
 the scale parameter which be a positive interval, and \eqn{x > 0}.
 }
 \examples{
-dnsweibull(x, shape = 1, scale = 2)
+data(remission)
+dnsweibull(x = remission, shape = c(1.0519,1.0553), scale = c(9.3370,9.4544))
 
-dnsweibull(x2, shape = c(1, 2), scale = c(2, 2))
-x <- seq(0.1, 1, length.out = 21)
-x2 <- matrix(seq(0.1, 1, length.out = 40), ncol = 2)
-pnsweibull(x, shape = 1, scale = 2)
-pnsweibull(x2, shape = c(1, 2), scale = c(2, 2))
-qnsweibull(x, shape = 1, scale = 2)
-x2 <- matrix(seq(0.1, 1, length.out = 40), ncol = 2)
-qnsweibull(x2, shape = c(1, 2), scale = c(2, 2))
-n <- 10
-rnsweibull(n, shape = 1, scale = 2)
-rnsweibull(n, shape = c(1, 2), scale = c(1, 1))
+pnsweibull(q = 20, shape = c(1.0519,1.0553), scale = c(9.3370,9.4544))
+
+# Calculate quantiles
+qnsweibull(p = c(0.25,0.5,0.75), shape = c(1.0519,1.0553), scale = c(9.3370,9.4544))
+
+# Simulate 10 numbers
+rnsweibull(n = 10, shape = c(1.0519,1.0553), scale = c(9.3370,9.4544))
+
 }
 \references{
 Alhasan, K. F. H. and Smarandache, F. (2019). Neutrosophic Weibull

@@ -49,19 +49,17 @@ for  \eqn{\theta_N \in (\theta_L, \theta_U)}, which must be a positive
 interval and \eqn{x \ge 0}.
 }
 \examples{
-dnsrayleigh(x, theta = 2)
-dnsrayleigh(x2, theta = c(2, 2))
-x <- seq(0.01, 1, length.out = 21)
-pnsrayleigh(x, theta = 1)
+data(remission)
+dnsrayleigh(x = remission, theta = c(9.6432,9.8702))
 
-x2 <- matrix(seq(0.01, 1, length.out = 40), ncol = 2) #'
-pnsrayleigh(x2, theta = c(2, 3))
-qnsrayleigh(x, theta = 2)
+pnsrayleigh(q = 20, theta = c(9.6432,9.8702))
 
-qnsrayleigh(x2, theta = c(2, 2))
-n <- 10
-rnsrayleigh(n, theta = 1)
-rnsrayleigh(n, theta = c(1, 2))
+# Calculate quantiles
+qnsrayleigh(p = c(0.25,0.5,0.75), theta = c(9.6432,9.8702))
+
+# Simulate 10 values
+rnsrayleigh(n, theta = c(9.6432,9.8702))
+
 }
 \references{
 Khan, Z., Gulistan, M., Kausar, N. and Park, C. (2021).

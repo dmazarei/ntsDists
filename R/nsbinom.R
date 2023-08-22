@@ -32,8 +32,8 @@
 #'         1442-1457.
 #' @importFrom stats runif dbinom pbinom qbinom
 #' @examples
-#'
-#' dnsbinom(x = 1, size = 5, prob = c(0.5,0.6))
+#' # Probability of X = 17 when X follows bin(n = 20, p = [0.8,0.9])
+#' dnsbinom(x = 17, size = 20, prob = c(0.8,0.9))
 #'
 #' @export
 dnsbinom <- function(x, size, prob) {
@@ -67,7 +67,7 @@ dnsbinom <- function(x, size, prob) {
 #' @name Neutrosophic Binomial
 #' @examples
 #'
-#' pnsbinom(q = 2, size = 5, prob = c(0.5,0.6))
+#' pnsbinom(q = 17, size = 20, prob = c(0.8,0.9))
 #'
 #' @export
 
@@ -102,7 +102,7 @@ pnsbinom <- function(q, size, prob, lower.tail = TRUE) {
 #' @name Neutrosophic Binomial
 #' @examples
 #'
-#' qnsbinom(p = 0.5, size = 5, prob = c(0.5,0.6))
+#' qnsbinom(p = 0.5, size = 20, prob = c(0.8,0.9))
 #'
 #' @export
 qnsbinom <- function(p, size, prob) {
@@ -133,7 +133,7 @@ qnsbinom <- function(p, size, prob) {
 #' @examples
 #'
 #' # Simulate 10 numbers
-#' rnsbinom(n = 10, size = 5, prob = c(0.5,0.6))
+#' rnsbinom(n = 10, size = 20, prob = c(0.8,0.9))
 #'
 #' @export
 rnsbinom <- function(n, size, prob) {

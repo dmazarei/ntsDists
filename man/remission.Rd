@@ -4,7 +4,7 @@
 \alias{remission}
 \title{Remission data}
 \format{
-A data.frame with 128 observations of remission time in months of 128 cancer patients.
+A data.frame with 128 observations of remission time in months of cancer patients.
 }
 \source{
 Lee, E.T. and Wang, J. (2003), Statistical Methods for Survival Data Analysis.

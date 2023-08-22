@@ -30,8 +30,10 @@
 #'         \emph{Hacettepe Journal of Mathematics and Statistics}, 51(5), 1442-1457.
 #' @importFrom stats runif dgeom pgeom qgeom
 #' @examples
-#' dnsgeom(x, prob = 0.5)
-#' dnsgeom(x2, lambda = c(2, 2))
+#' # One person participates each week with a ticket in a lottery game, where
+#' # the probability of winning the first prize is (10^(-8), 10^(-6)).
+#' # Probability of one persons wins at the fifth year?
+#' dnsgeom(x = 5, prob = c(1e-8,1e-6))
 #' @export
 dnsgeom <- function(x, prob) {
   if (any(prob <= 0) || any(prob > 1) || any(x < 0)) {
@@ -62,10 +64,8 @@ dnsgeom <- function(x, prob) {
 }
 #' @name Neutrosophic Geometric
 #' @examples
-#' x <- 1:10
-#' x2 <- matrix(1:20, ncol = 2)
-#' pnsgeom(x, prob = 0.5)
-#' pnsgeom(x2, prob = c(.3, .6))
+#' # Probability of one persons wins after 10 years?
+#' pnsgeom(x = 10, prob = c(1e-8,1e-6), lower.tail = FALSE)
 #' @export
 
 pnsgeom <- function(q, prob, lower.tail = TRUE) {
@@ -97,10 +97,8 @@ pnsgeom <- function(q, prob, lower.tail = TRUE) {
 }
 #' @name Neutrosophic Geometric
 #' @examples
-#' q1 <- seq(0.1, 1, length.out = 40)
-#' qnsgeom(q1, prob = 0.5)
-#' q2 <- matrix(seq(0.1, 1, length.out = 40), ncol = 2)
-#' qnsgeom(q2, lambda = c(2, 2))
+#' # Calculate the quantiles
+#' qnsgeom(q = c(0.25,0.5,0.75), prob = c(1e-8,1e-6))
 #' @export
 qnsgeom <- function(p, prob) {
   if (any(p < 0) || any(p > 1)) {
@@ -127,9 +125,8 @@ qnsgeom <- function(p, prob) {
 
 #' @name Neutrosophic Geometric
 #' @examples
-#' n <- 10
-#' rnsgeom(n, prob = 0.5)
-#' rnsgeom(n, lambda = c(1, 2))
+#' # Simulate 10 numbers
+#' rnsgeom(n = 10, prob = 0.5)
 #' @export
 rnsgeom <- function(n, prob) {
   if (any(prob <= 0) || any(prob > 1)) {

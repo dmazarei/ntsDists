@@ -51,18 +51,18 @@ for \eqn{n \in \{1, 2, \ldots\}} and \eqn{p_N \in (p_L, p_U)} which must be \eqn
 and \eqn{x \in \{0, 1, 2, \ldots\}}.
 }
 \examples{
-
-dnsbinom(x = 1, size = 5, prob = c(0.5,0.6))
-
-
-pnsbinom(q = 2, size = 5, prob = c(0.5,0.6))
+# Probability of X = 17 when X follows bin(n = 20, p = [0.8,0.9])
+dnsbinom(x = 17, size = 20, prob = c(0.8,0.9))
 
 
-qnsbinom(p = 0.5, size = 5, prob = c(0.5,0.6))
+pnsbinom(q = 17, size = 20, prob = c(0.8,0.9))
+
+
+qnsbinom(p = 0.5, size = 20, prob = c(0.8,0.9))
 
 
 # Simulate 10 numbers
-rnsbinom(n = 10, size = 5, prob = c(0.5,0.6))
+rnsbinom(n = 10, size = 20, prob = c(0.8,0.9))
 
 }
 \references{
