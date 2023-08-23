@@ -112,7 +112,12 @@ qnsdunif <- function(p, k) {
 
   k <- rep(k, length.out = 2)
 
-  p <- matrix(rep(p, each = 2), ncol = 2, byrow = TRUE)
+  if (is.vector(p)){
+    p <- matrix(rep(p, each = 2), ncol = 2, byrow = TRUE)
+  }
+  if (ncol(p)>2){
+    stop(message = "Arguments are incompatible.")
+  }
 
   quantiles <- matrix(data = NA, nrow = nrow(p), ncol = 2)
   for (i in 1:ncol(p)) {
@@ -137,7 +142,6 @@ rnsdunif <- function(n, k) {
     stop("Arguments are incompatible.")
   }
 
-
   k <- rep(k, length.out = 2)
 
   X <- matrix(NA, nrow = n, ncol = 2)
@@ -145,11 +149,12 @@ rnsdunif <- function(n, k) {
   #   if (is.na(k[i]) || !is.numeric(k[i]) || k[i] <= 0) {
   #     stop("Invalid value in vector k.")
   #   }
-
-  u <- matrix(runif(n * length(k)), nrow = n, ncol = length(k))
-  X <- qnsdunif(u, k)
-    # X[, i] <- sample(1:k[i], size = n, replace = TRUE)
   # }
+
+  X <- qnsdunif(runif(n), k)
+
+  condition <- X[, 1] > X[, 2]
+  X[condition, 1:2] <- X[condition, 2:1]
 
   return(X)
 }
