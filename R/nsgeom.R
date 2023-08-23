@@ -137,5 +137,8 @@ rnsgeom <- function(n, prob) {
   u <- matrix(runif(n), ncol = 2)
   X <- qnsgeom(u, prob)
 
+  condition <- X[, 1] > X[, 2]
+  X[condition, 1:2] <- X[condition, 2:1]
+
   return(X)
 }
