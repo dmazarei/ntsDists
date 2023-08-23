@@ -54,9 +54,9 @@ and \eqn{x \in \{0, 1, 2, \ldots\}}.
 # Probability of one persons wins at the fifth year?
 dnsgeom(x = 5, prob = c(1e-8,1e-6))
 # Probability of one persons wins after 10 years?
-pnsgeom(x = 10, prob = c(1e-8,1e-6), lower.tail = FALSE)
+pnsgeom(q = 10, prob = c(1e-8,1e-6), lower.tail = FALSE)
 # Calculate the quantiles
-qnsgeom(q = c(0.25,0.5,0.75), prob = c(1e-8,1e-6))
+qnsgeom(p = c(0.25,0.5,0.75), prob = c(1e-8,1e-6))
 # Simulate 10 numbers
 rnsgeom(n = 10, prob = 0.5)
 }

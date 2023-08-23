@@ -65,7 +65,7 @@ dnsgeom <- function(x, prob) {
 #' @name Neutrosophic Geometric
 #' @examples
 #' # Probability of one persons wins after 10 years?
-#' pnsgeom(x = 10, prob = c(1e-8,1e-6), lower.tail = FALSE)
+#' pnsgeom(q = 10, prob = c(1e-8,1e-6), lower.tail = FALSE)
 #' @export
 
 pnsgeom <- function(q, prob, lower.tail = TRUE) {
@@ -98,7 +98,7 @@ pnsgeom <- function(q, prob, lower.tail = TRUE) {
 #' @name Neutrosophic Geometric
 #' @examples
 #' # Calculate the quantiles
-#' qnsgeom(q = c(0.25,0.5,0.75), prob = c(1e-8,1e-6))
+#' qnsgeom(p = c(0.25,0.5,0.75), prob = c(1e-8,1e-6))
 #' @export
 qnsgeom <- function(p, prob) {
   if (any(p < 0) || any(p > 1)) {

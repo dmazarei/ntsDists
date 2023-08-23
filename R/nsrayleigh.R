@@ -40,7 +40,7 @@
 #' qnsrayleigh(p = c(0.25,0.5,0.75), theta = c(9.6432,9.8702))
 #'
 #' # Simulate 10 values
-#' rnsrayleigh(n, theta = c(9.6432,9.8702))
+#' rnsrayleigh(n = 10, theta = c(9.6432,9.8702))
 #'
 #' @export
 dnsrayleigh <- function(x, theta) {

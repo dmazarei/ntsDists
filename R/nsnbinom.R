@@ -31,8 +31,7 @@
 #'         \emph{Hacettepe Journal of Mathematics and Statistics}, 51(5), 1442-1457.
 #' @importFrom stats runif dnbinom pnbinom qnbinom
 #' @examples
-#' dnsnbinom(x, size = 2, prob= 0.5)
-#' dnsnbinom(x2, lambda = c(2, 2))
+#' dnsnbinom(x=1, size = 2, prob= 0.5)
 #' @export
 dnsnbinom <- function(x, size, prob) {
   if (any(size < 1) || any(prob <= 0) || any(prob > 1) || any(x < 0))
@@ -62,10 +61,7 @@ dnsnbinom <- function(x, size, prob) {
 }
 #' @name Neutrosophic Negative Binomial
 #' @examples
-#' x <- 1:10
-#' x2 <- matrix(1:20, ncol = 2)
-#' pnsnbinom(x, size = 2, prob= 0.5)
-#' pnsnbinom(x2, size = c(2,2), prob = c(.3 ,.6))
+#' pnsnbinom(q = 1, size = 2, prob= 0.5)
 #' @export
 
 pnsnbinom <- function(q, size, prob, lower.tail = TRUE) {
@@ -95,10 +91,7 @@ pnsnbinom <- function(q, size, prob, lower.tail = TRUE) {
 }
 #' @name Neutrosophic Negative Binomial
 #' @examples
-#' q1 <- seq(0.1, 1, length.out = 40)
-#' qnsnbinom(q1, size = 2, prob= 0.5)
-#' q2 <- matrix(seq(0.1, 1, length.out = 40), ncol = 2)
-#' qnsnbinom(q2, lambda = c(2, 2))
+#' qnsnbinom(p = c(0.25,0.5,0.75), size = 2, prob= 0.5)
 #' @export
 qnsnbinom <- function(p, size, prob) {
   if (any(p < 0) || any(p > 1))
@@ -124,9 +117,7 @@ qnsnbinom <- function(p, size, prob) {
 
 #' @name Neutrosophic Negative Binomial
 #' @examples
-#' n <- 10
-#' rnsnbinom(n, size = 2, prob= 0.5)
-#' rnsnbinom(n, lambda = c(1, 2))
+#' rnsnbinom(n = 10, size = 2, prob= 0.5)
 #' @export
 rnsnbinom <- function(n, size, prob) {
   if (any(size < 1) || any(prob <= 0) || any(prob > 1))

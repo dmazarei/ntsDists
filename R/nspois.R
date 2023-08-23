@@ -30,8 +30,7 @@
 #'        \emph{Neutrosophic Sets and Systems},  22, 30-38.
 #' @importFrom stats runif dpois ppois qpois
 #' @examples
-#' dnspois(x, lambda = 2)
-#' dnspois(x2, lambda = c(2, 2))
+#' dnspois(x = 1, lambda = 2)
 #' @export
 dnspois <- function(x, lambda) {
   if (any(lambda < 0))
@@ -59,10 +58,7 @@ dnspois <- function(x, lambda) {
 }
 #' @name Neutrosophic Poisson
 #' @examples
-#' x <- 1:10
-#' x2 <- matrix(1:20, ncol = 2)
-#' pnspois(x, lambda = 1)
-#' pnspois(x2, lambda = c(2, 3))
+#' pnspois(q = 1, lambda = 1)
 #' @export
 pnspois <- function(q, lambda, lower.tail = TRUE) {
   if (any(lambda < 0))
@@ -91,10 +87,7 @@ pnspois <- function(q, lambda, lower.tail = TRUE) {
 }
 #' @name Neutrosophic Poisson
 #' @examples
-#' q1 <- seq(0.1, 1, length.out = 40)
-#' qnspois(q1, lambda = 2)
-#' q2 <- matrix(seq(0.1, 1, length.out = 40), ncol = 2)
-#' qnspois(q2, lambda = c(2, 2))
+#' qnspois(p = c(0.25,0.5,0.75), lambda = 2)
 #' @export
 qnspois <- function(p, lambda) {
   if (any(p < 0) || any(p > 1))
@@ -119,9 +112,7 @@ qnspois <- function(p, lambda) {
 
 #' @name Neutrosophic Poisson
 #' @examples
-#' n <- 10
-#' rnspois(n, lambda = 1)
-#' rnspois(n, lambda = c(1, 2))
+#' rnspois(n = 10, lambda = 1)
 #' @export
 rnspois <- function(n, lambda) {
   if (any(lambda < 0))

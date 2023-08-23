@@ -55,13 +55,12 @@ for \eqn{a_N \in (a_L, a_U)}  lower parameter interval, \eqn{b_N \in (b_L,b_U)},
 dnsunif(x = 1, min = c(0,5), max = c(15,20))
 dnsunif(x = c(6,10), min = c(0,5), max = c(15,20))
 
-punif(x = 1, min = c(0,5), max = c(15,20))
-punif(x = c(6,10), min = c(0,5), max = c(15,20))
+punif(q = 1, min = c(0,5), max = c(15,20))
+punif(q = c(6,10), min = c(0,5), max = c(15,20))
 
-qnsunif(x, min = c(0,5), max = c(15,20))
+qnsunif(p = c(0.25,0.5,0.75), min = c(0,5), max = c(15,20))
 
-n <- 10
-rnsunif(n, min = c(0,5), max = c(15,20))
+rnsunif(n = 10, min = c(0,5), max = c(15,20))
 
 }
 \references{

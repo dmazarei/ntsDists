@@ -54,10 +54,8 @@ dnsbinom <- function(x, size, prob) {
 
   x <- matrix(x, ncol = 2)
 
-  pdf <- matrix(data = NA, nrow = nrow(x), ncol = ncol(x))
-  for (i in 1:ncol(x)) {
-    pdf[, i] <- stats::dbinom(x[, i], size = size[i], prob = prob[i])
-  }
+  pdf <- stats::dbinom(x, size = size, prob = prob)
+  pdf <- matrix(pdf, ncol = 2, byrow = TRUE)
 
   swap_rows <- pdf[, 1] > pdf[, 2]
   pdf[swap_rows, c(1, 2)] <- pdf[swap_rows, c(2, 1)]

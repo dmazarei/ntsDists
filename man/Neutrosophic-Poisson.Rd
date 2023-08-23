@@ -49,19 +49,10 @@ for \eqn{\lambda_N \in (\lambda_L, \lambda_U)} which must be a positive
 interval and \eqn{x \in \{0, 1, 2, \ldots\}}.
 }
 \examples{
-dnspois(x, lambda = 2)
-dnspois(x2, lambda = c(2, 2))
-x <- 1:10
-x2 <- matrix(1:20, ncol = 2)
-pnspois(x, lambda = 1)
-pnspois(x2, lambda = c(2, 3))
-q1 <- seq(0.1, 1, length.out = 40)
-qnspois(q1, lambda = 2)
-q2 <- matrix(seq(0.1, 1, length.out = 40), ncol = 2)
-qnspois(q2, lambda = c(2, 2))
-n <- 10
-rnspois(n, lambda = 1)
-rnspois(n, lambda = c(1, 2))
+dnspois(x = 1, lambda = 2)
+pnspois(q = 1, lambda = 1)
+qnspois(p = c(0.25,0.5,0.75), lambda = 2)
+rnspois(n = 10, lambda = 1)
 }
 \references{
 Alhabib, R., Ranna, M. M., Farah, H., Salama, A. A. (2018).
