@@ -134,5 +134,9 @@ rnsgamma <- function(n, shape, scale) {
 
   u <- matrix(runif(10), ncol = 2)
   X <- qnsgamma(u, shape, scale)
+
+  condition <- X[, 1] < X[, 2]
+  X[condition, 1:2] <- X[condition, 2:1]
+
   return(X)
 }
