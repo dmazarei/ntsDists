@@ -68,10 +68,13 @@ pnspois <- function(q, lambda, lower.tail = TRUE) {
     stop(message = "Warning: q should be a  positive integer.")
 
   lambda <- rep(lambda, length.out = 2)
+
   if (is.vector(q)){
-    q <- rep(q, length.out = 2)
+    q <- matrix(rep(q, each = 2), ncol = 2, byrow = TRUE)
   }
-  q <- matrix(q, ncol = 2)
+  if (ncol(q)>2){
+    stop(message = "Arguments are incompatible.")
+  }
 
   cdf <- stats::ppois(q, lambda)
 
@@ -97,12 +100,15 @@ qnspois <- function(p, lambda) {
     stop(message = "Arguments are incompatible.")
 
   lambda <- rep(lambda, length.out = 2)
-  p <- matrix(rep(p, each = 2), ncol = 2, byrow = TRUE)
 
-  quantiles <- matrix(data = NA, nrow = nrow(p), ncol = 2)
-  for (i in 1:ncol(p)) {
-    quantiles[, i] <- stats::qpois(p[, i], lambda = lambda[i])
+  if (is.vector(p)){
+    p <- matrix(rep(p, each = 2), ncol = 2, byrow = TRUE)
   }
+  if (ncol(p)>2){
+    stop(message = "Arguments are incompatible.")
+  }
+  quantiles <- stats::qpois(p, lambda = lambda)
+  quantiles <- matrix(quantiles, ncol = 2, byrow = TRUE)
 
   swap_rows <- quantiles[, 1] > quantiles[, 2]
   quantiles[swap_rows, c(1, 2)] <- quantiles[swap_rows, c(2, 1)]
@@ -119,8 +125,10 @@ rnspois <- function(n, lambda) {
     stop(message = "Arguments are incompatible.")
 
   lambda <- rep(lambda, length.out = 2)
-  u <- matrix(runif(n), ncol = 2)
-  X <- qnspois(u, lambda)
+
+  X <- qnspois(runif(n), lambda)
+  condition <- X[, 1] > X[, 2]
+  X[condition, 1:2] <- X[condition, 2:1]
 
   return(X)
 }

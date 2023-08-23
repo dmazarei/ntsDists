@@ -77,10 +77,12 @@ pnsunif <- function(q, min, max, lower.tail = TRUE) {
   max <- rep(max, length.out = 2)
   min <- rep(min, length.out = 2)
 
-  if (is.vector(q)) {
-    q <- rep(q, length.out = 2)
+  if (is.vector(q)){
+    q <- matrix(rep(q, each = 2), ncol = 2, byrow = TRUE)
   }
-  q <- matrix(q, ncol = 2)
+  if (ncol(q)>2){
+    stop(message = "Arguments are incompatible.")
+  }
 
   cdf <- stats::punif(q, min = min, max = max)
 
@@ -108,12 +110,14 @@ qnsunif <- function(p, min, max) {
   max <- rep(max, length.out = 2)
   min <- rep(min, length.out = 2)
 
-  p <- matrix(rep(p, each = 2), ncol = 2, byrow = TRUE)
-
-  quantiles <- matrix(data = NA, nrow = nrow(p), ncol = 2)
-  for (i in 1:ncol(p)) {
-    quantiles[, i] <- stats::qunif(p[, i], min = min[i], max = max[i])
+  if (is.vector(p)){
+    p <- matrix(rep(p, each = 2), ncol = 2, byrow = TRUE)
   }
+  if (ncol(p)>2){
+    stop(message = "Arguments are incompatible.")
+  }
+  quantiles <- stats::qunif(p, min = min, max = max)
+  quantiles <- matrix(quantiles, ncol = 2, byrow = TRUE)
 
   swap_rows <- quantiles[, 1] > quantiles[, 2]
   quantiles[swap_rows, c(1, 2)] <- quantiles[swap_rows, c(2, 1)]
@@ -129,8 +133,9 @@ rnsunif <- function(n, min, max) {
   max <- rep(max, length.out = 2)
   min <- rep(min, length.out = 2)
 
-  u <- matrix(runif(n * 2), nrow = n, ncol = 2)
-  X <- qnsunif(u, max, min)
+  X <- qnsunif(runif(n), min, max)
+  condition <- X[, 1] > X[, 2]
+  X[condition, 1:2] <- X[condition, 2:1]
 
   return(X)
 }

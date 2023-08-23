@@ -80,9 +80,11 @@ pnsgamma <- function(q, shape, scale, lower.tail = TRUE) {
   scale  <- rep(scale, length.out = 2)
 
   if (is.vector(q)){
-    q <- rep(q, length.out = 2)
+    q <- matrix(rep(q, each = 2), ncol = 2, byrow = TRUE)
   }
-  q <- matrix(q, ncol = 2)
+  if (ncol(q)>2){
+    stop(message = "Arguments are incompatible.")
+  }
 
   cdf <- stats::pgamma(q, shape = shape, scale = scale)
 
@@ -110,12 +112,16 @@ qnsgamma <- function(p, shape, scale) {
   shape <- rep(shape, length.out = 2)
   scale  <- rep(scale, length.out = 2)
 
-  p <- matrix(rep(p, each = 2), ncol = 2, byrow = TRUE)
-
-  quantiles <- matrix(data = NA, nrow = nrow(p), ncol = 2)
-  for (i in 1:ncol(p)) {
-    quantiles[, i] <- stats::qgamma(p[, i], shape = shape[i], scale = scale[i])
+  if (is.vector(p)){
+    p <- matrix(rep(p, each = 2), ncol = 2, byrow = TRUE)
   }
+
+  if (ncol(p)>2){
+    stop(message = "Arguments are incompatible.")
+  }
+
+  quantiles <- stats::qgamma(p, shape = shape, scale = scale)
+  quantiles <- matrix(quantiles, ncol = 2, byrow = TRUE)
 
   swap_rows <- quantiles[, 1] > quantiles[, 2]
   quantiles[swap_rows, c(1, 2)] <- quantiles[swap_rows, c(2, 1)]
@@ -132,10 +138,8 @@ rnsgamma <- function(n, shape, scale) {
   shape <- rep(shape, length.out = 2)
   scale  <- rep(scale, length.out = 2)
 
-  u <- matrix(runif(10), ncol = 2)
-  X <- qnsgamma(u, shape, scale)
-
-  condition <- X[, 1] < X[, 2]
+  X <- qnsgamma(runif(n), shape, scale)
+  condition <- X[, 1] > X[, 2]
   X[condition, 1:2] <- X[condition, 2:1]
 
   return(X)

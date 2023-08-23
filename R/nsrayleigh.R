@@ -71,10 +71,13 @@ pnsrayleigh <- function(q, theta, lower.tail = TRUE) {
     stop("Arguments are incompatible.")
 
   theta <- rep(theta, length.out = 2)
+
   if (is.vector(q)){
-    q <- rep(q, length.out = 2)
+    q <- matrix(rep(q, each = 2), ncol = 2, byrow = TRUE)
   }
-  q <- matrix(q, ncol = 2)
+  if (ncol(q)>2){
+    stop(message = "Arguments are incompatible.")
+  }
 
   cdf <- 1 - exp((-1 / 2) * (q / theta)^2)
 
@@ -100,12 +103,19 @@ qnsrayleigh <- function(p, theta) {
   }
 
   theta <- rep(theta, length.out = 2)
-  p <- matrix(rep(p, each = 2), ncol = 2, byrow = TRUE)
+
+  if (is.vector(p)){
+    p <- matrix(rep(p, each = 2), ncol = 2, byrow = TRUE)
+  }
+  if (ncol(p)>2){
+    stop(message = "Arguments are incompatible.")
+  }
 
   quantiles <- matrix(data = NA, nrow = nrow(p), ncol = 2)
   for (i in 1:ncol(p)) {
     quantiles[, i] <- theta[i] * sqrt(-2 * log(1 - p[, i]))
   }
+  quantiles <- matrix(quantiles, ncol = 2, byrow = TRUE)
 
   swap_rows <- quantiles[, 1] > quantiles[, 2]
   quantiles[swap_rows, c(1, 2)] <- quantiles[swap_rows, c(2, 1)]
@@ -120,7 +130,10 @@ rnsrayleigh <- function(n, theta) {
     stop(message = "Arguments are incompatible.")
 
   theta <- rep(theta, length.out = 2)
-  u <- matrix(runif(n * length(theta)), nrow = n, ncol = length(theta))
-  X <- qnsrayleigh(u, theta)
+
+  X <- qnsrayleigh(runif(n), theta)
+  condition <- X[, 1] > X[, 2]
+  X[condition, 1:2] <- X[condition, 2:1]
+
   return(X)
 }

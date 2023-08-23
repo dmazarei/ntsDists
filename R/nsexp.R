@@ -80,9 +80,11 @@ pnsexp <- function(q, rate, lower.tail = TRUE) {
 
   rate <- rep(rate, length.out = 2)
   if (is.vector(q)){
-    q <- rep(q, length.out = 2)
+    q <- matrix(rep(q, each = 2), ncol = 2, byrow = TRUE)
   }
-  q <- matrix(q, ncol = 2)
+  if (ncol(q)>2){
+    stop(message = "Arguments are incompatible.")
+  }
 
   cdf <- 1 - exp(-q * rate)
 
@@ -141,8 +143,7 @@ rnsexp <- function(n, rate) {
     stop(message = "Arguments are incompatible.")
   rate <- rep(rate, length.out = 2)
 
-  X <- qnsexp(u, rate)
-
+  X <- qnsexp(runif(n), rate)
   condition <- X[, 1] > X[, 2]
   X[condition, 1:2] <- X[condition, 2:1]
 

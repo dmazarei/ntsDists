@@ -79,9 +79,11 @@ pnsgexp <- function(q, nu, delta, lower.tail = TRUE) {
   delta  <- rep(delta, length.out = 2)
 
   if (is.vector(q)){
-    q <- rep(q, length.out = 2)
+    q <- matrix(rep(q, each = 2), ncol = 2, byrow = TRUE)
   }
-  q <- matrix(q, ncol = 2)
+  if (ncol(q)>2){
+    stop(message = "Arguments are incompatible.")
+  }
 
   cdf <- (1 - exp(-q / nu))^delta
 
@@ -116,12 +118,18 @@ qnsgexp <- function(p, nu, delta) {
   nu     <- rep(nu, length.out = 2)
   delta  <- rep(delta, length.out = 2)
 
-  p <- matrix(rep(p, each = 2), ncol = 2, byrow = TRUE)
+  if (is.vector(p)){
+    p <- matrix(rep(p, each = 2), ncol = 2, byrow = TRUE)
+  }
+  if (ncol(p)>2){
+    stop(message = "Arguments are incompatible.")
+  }
 
   quantiles <- matrix(data = NA, nrow = nrow(p), ncol = 2)
   for (i in 1:ncol(p)) {
     quantiles[, i] <- log(-p[, i]^(1 / delta[i]) + 1) * (-nu[i])
   }
+  quantiles <- matrix(quantiles, ncol = 2, byrow = TRUE)
 
   swap_rows <- quantiles[, 1] > quantiles[, 2]
   quantiles[swap_rows, c(1, 2)] <- quantiles[swap_rows, c(2, 1)]
@@ -142,8 +150,9 @@ rnsgexp <- function(n, nu, delta) {
   nu     <- rep(nu, length.out = 2)
   delta  <- rep(delta, length.out = 2)
 
-  u <- matrix(runif(n), ncol = 2)
-  X <- qnsgexp(u, nu, delta)
+  X <- qnsgexp(runif(n), nu, delta)
+  condition <- X[, 1] > X[, 2]
+  X[condition, 1:2] <- X[condition, 2:1]
 
 
   return(X)

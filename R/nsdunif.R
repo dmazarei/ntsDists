@@ -77,9 +77,11 @@ pnsdunif <- function(q, k, lower.tail = TRUE) {
   k <- rep(k, length.out = 2)
 
   if (is.vector(q)){
-    q <- rep(q, length.out = 2)
+    q <- matrix(rep(q, each = 2), ncol = 2, byrow = TRUE)
   }
-  q <- matrix(q, ncol = 2)
+  if (ncol(q)>2){
+    stop(message = "Arguments are incompatible.")
+  }
 
 
   cdf <- ifelse(q<1,0,ifelse(q<=k,floor(q)/k,1))
@@ -143,13 +145,6 @@ rnsdunif <- function(n, k) {
   }
 
   k <- rep(k, length.out = 2)
-
-  X <- matrix(NA, nrow = n, ncol = 2)
-  # for (i in 1:nrow(X)) {
-  #   if (is.na(k[i]) || !is.numeric(k[i]) || k[i] <= 0) {
-  #     stop("Invalid value in vector k.")
-  #   }
-  # }
 
   X <- qnsdunif(runif(n), k)
 

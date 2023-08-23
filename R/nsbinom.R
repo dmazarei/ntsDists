@@ -79,10 +79,13 @@ pnsbinom <- function(q, size, prob, lower.tail = TRUE) {
 
   size <- rep(size, length.out = 2)
   prob <- rep(prob, length.out = 2)
-  if (is.vector(q)) {
-    q <- rep(q, length.out = 2)
+
+  if (is.vector(q)){
+    q <- matrix(rep(q, each = 2), ncol = 2, byrow = TRUE)
   }
-  q <- matrix(q, ncol = 2)
+  if (ncol(q)>2){
+    stop(message = "Arguments are incompatible.")
+  }
 
   cdf <- stats::pbinom(q, size = size, prob = prob)
 
@@ -147,9 +150,7 @@ rnsbinom <- function(n, size, prob) {
   size <- rep(size, length.out = 2)
   prob <- rep(prob, length.out = 2)
 
-  u <- matrix(runif(n), ncol = 2)
-  X <- qnsbinom(u, size, prob)
-
+  X <- qnsbinom(runif(n), size, prob)
   condition <- X[, 1] > X[, 2]
   X[condition, 1:2] <- X[condition, 2:1]
 

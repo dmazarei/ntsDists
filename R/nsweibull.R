@@ -79,9 +79,11 @@ pnsweibull <- function(q, shape, scale, lower.tail = TRUE) {
   shape  <- rep(shape, length.out = 2)
 
   if (is.vector(q)){
-    q <- rep(q, length.out = 2)
+    q <- matrix(rep(q, each = 2), ncol = 2, byrow = TRUE)
   }
-  q <- matrix(q, ncol = 2)
+  if (ncol(q)>2){
+    stop(message = "Arguments are incompatible.")
+  }
 
   cdf <- stats::pweibull(q, shape = shape, scale = scale)
 
@@ -109,12 +111,14 @@ qnsweibull <- function(p, shape, scale) {
   scale <- rep(scale, length.out = 2)
   shape  <- rep(shape, length.out = 2)
 
-  p <- matrix(rep(p, each = 2), ncol = 2, byrow = TRUE)
-
-  quantiles <- matrix(data = NA, nrow = nrow(p), ncol = 2)
-  for (i in 1:ncol(p)) {
-    quantiles[, i] <- stats::qweibull(p[, i], shape = shape[i], scale = scale[i])
+  if (is.vector(p)){
+    p <- matrix(rep(p, each = 2), ncol = 2, byrow = TRUE)
   }
+  if (ncol(p)>2){
+    stop(message = "Arguments are incompatible.")
+  }
+  quantiles <- stats::qweibull(p, shape = shape, scale = scale)
+  quantiles <- matrix(quantiles, ncol = 2, byrow = TRUE)
 
   swap_rows <- quantiles[, 1] > quantiles[, 2]
   quantiles[swap_rows, c(1, 2)] <- quantiles[swap_rows, c(2, 1)]
@@ -130,8 +134,9 @@ rnsweibull <- function(n, shape, scale) {
   scale <- rep(scale, length.out = 2)
   shape  <- rep(shape, length.out = 2)
 
-  u <- matrix(runif(n), ncol = 2)
-  X <- qnsweibull(u, scale, shape)
+  X <- qnsweibull(runif(n), scale, shape)
+  condition <- X[, 1] > X[, 2]
+  X[condition, 1:2] <- X[condition, 2:1]
 
   return(X)
 }

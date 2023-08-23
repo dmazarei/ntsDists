@@ -77,10 +77,13 @@ pnsgeom <- function(q, prob, lower.tail = TRUE) {
   }
 
   prob <- rep(prob, length.out = 2)
-  if (is.vector(q)) {
-    q <- rep(q, length.out = 2)
+
+  if (is.vector(q)){
+    q <- matrix(rep(q, each = 2), ncol = 2, byrow = TRUE)
   }
-  q <- matrix(q, ncol = 2)
+  if (ncol(q)>2){
+    stop(message = "Arguments are incompatible.")
+  }
 
   cdf <- stats::pgeom(q, prob = prob)
 
@@ -110,12 +113,15 @@ qnsgeom <- function(p, prob) {
   }
 
   prob <- rep(prob, length.out = 2)
-  p <- matrix(rep(p, each = 2), ncol = 2, byrow = TRUE)
 
-  quantiles <- matrix(data = NA, nrow = nrow(p), ncol = 2)
-  for (i in 1:ncol(p)) {
-    quantiles[, i] <- stats::qgeom(p[, i], prob = prob[i])
+  if (is.vector(p)){
+    p <- matrix(rep(p, each = 2), ncol = 2, byrow = TRUE)
   }
+  if (ncol(p)>2){
+    stop(message = "Arguments are incompatible.")
+  }
+  quantiles <- stats::qgeom(p, prob = prob)
+  quantiles <- matrix(quantiles, ncol = 2, byrow = TRUE)
 
   swap_rows <- quantiles[, 1] > quantiles[, 2]
   quantiles[swap_rows, c(1, 2)] <- quantiles[swap_rows, c(2, 1)]
@@ -134,9 +140,8 @@ rnsgeom <- function(n, prob) {
   }
 
   prob <- rep(prob, length.out = 2)
-  u <- matrix(runif(n), ncol = 2)
-  X <- qnsgeom(u, prob)
 
+  X <- qnsgeom(runif(n), u, prob)
   condition <- X[, 1] > X[, 2]
   X[condition, 1:2] <- X[condition, 2:1]
 
