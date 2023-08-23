@@ -82,7 +82,7 @@ pnsbeta <- function(q, shape1, shape2, lower.tail = TRUE) {
   shape1 <- rep(shape1, length.out = 2)
   shape2  <- rep(shape2, length.out = 2)
   if (is.vector(q)){
-    q <- matrix(rep(q, each = 2), ncol = 2)
+    q <- matrix(rep(q, each = 2), ncol = 2, byrow = TRUE)
   }
   if (ncol(q)>2){
     stop(message = "Arguments are incompatible.")
