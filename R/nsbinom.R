@@ -114,12 +114,17 @@ qnsbinom <- function(p, size, prob) {
 
   size <- rep(size, length.out = 2)
   prob <- rep(prob, length.out = 2)
-  p <- matrix(rep(p, each = 2), ncol = 2, byrow = TRUE)
 
-  quantiles <- matrix(data = NA, nrow = nrow(p), ncol = 2)
-  for (i in 1:ncol(p)) {
-    quantiles[, i] <- stats::qbinom(p[, i], size = size[i], prob = prob[i])
+  if (is.vector(p)){
+    p <- matrix(rep(p, each = 2), ncol = 2, byrow = TRUE)
   }
+
+  if (ncol(p)>2){
+    stop(message = "Arguments are incompatible.")
+  }
+
+  quantiles <- stats::qbinom(p, size = size, prob = prob)
+  quantiles <- matrix(quantiles, ncol = 2, byrow = TRUE)
 
   swap_rows <- quantiles[, 1] > quantiles[, 2]
   quantiles[swap_rows, c(1, 2)] <- quantiles[swap_rows, c(2, 1)]
@@ -141,8 +146,12 @@ rnsbinom <- function(n, size, prob) {
 
   size <- rep(size, length.out = 2)
   prob <- rep(prob, length.out = 2)
+
   u <- matrix(runif(n), ncol = 2)
   X <- qnsbinom(u, size, prob)
+
+  condition <- X[, 1] > X[, 2]
+  X[condition, 1:2] <- X[condition, 2:1]
 
   return(X)
 }
