@@ -59,19 +59,17 @@ dnsbeta <- function(x, shape1, shape2) {
   if (ncol(x)>2){
     stop(message = "Arguments are incompatible.")
     }
-
-
-  pdf <- stats::dbeta(x, shape1 = shape1, shape2 = shape2)
-
-
-  pdf <- matrix(pdf, ncol = 2, byrow = TRUE)
+  pdf <- matrix(NA,nrow=nrow(x), ncol = 2)
+  for (i in 1:2) {
+    pdf[,i] <- stats::dbeta(x[,i], shape1 = shape1[i], shape2 = shape2[i])
+  }
 
   return(pdf)
 }
 #' @name Neutrosophic Beta
 #' @examples
 #'
-#' pnsbeta(q = c(0.1, 0.1), shape1 = c(3, 1), shape2 = c(1,3), lower.tail = FALSE)
+#' pnsbeta(q = c(0.2, 0.1), shape1 = c(1, 3), shape2 = c(3,1), lower.tail = FALSE)
 #' pnsbeta(x, shape1 = c(1, 2), shape2 = c(2, 2))
 #'
 #' @export
@@ -82,20 +80,18 @@ pnsbeta <- function(q, shape1, shape2, lower.tail = TRUE) {
   shape1 <- rep(shape1, length.out = 2)
   shape2  <- rep(shape2, length.out = 2)
   if (is.vector(q)){
-    q <- matrix(rep(q, each = 2), ncol = 2, byrow = TRUE)
+    q <- matrix(rep(q, times = 2), ncol = 2)
   }
   if (ncol(q)>2){
     stop(message = "Arguments are incompatible.")
   }
-
-
-  cdf <- stats::pbeta(q, shape1 = shape1, shape2 = shape2)
+  cdf <- matrix(NA,nrow=nrow(q), ncol = 2)
+  for (i in 1:2) {
+    cdf[,i] <- stats::pbeta(q[,i], shape1 = shape1[i], shape2 = shape2[i])
+  }
 
   if (!lower.tail)
     cdf <- 1 - cdf
-
-  cdf <- matrix(cdf, ncol = 2, byrow = TRUE)
-
 
   return(cdf)
 }
@@ -122,8 +118,10 @@ qnsbeta <- function(p, shape1, shape2) {
   if (ncol(p)>2){
     stop(message = "Arguments are incompatible.")
   }
-  quantiles <- stats::qbeta(p, shape1 = shape1, shape2 = shape2)
-  quantiles <- matrix(quantiles, ncol = 2, byrow = TRUE)
+  quantiles <- matrix(NA,nrow=nrow(p), ncol = 2)
+  for (i in 1:2) {
+    quantiles[,i] <- stats::qbeta(p[,i], shape1 = shape1[i], shape2 = shape2[i])
+  }
 
 
   return(quantiles)
