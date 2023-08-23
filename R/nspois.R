@@ -30,7 +30,13 @@
 #'        \emph{Neutrosophic Sets and Systems},  22, 30-38.
 #' @importFrom stats runif dpois ppois qpois
 #' @examples
-#' dnspois(x = 1, lambda = 2)
+#' # In a company, Phone employee receives phone calls, the calls arrive with
+#' # rate of [1 , 3] calls per minute, we will calculate
+#' # the probability that the employee will not receive any call within a minute
+#' dnspois(x = 0, lambda = c(1,3))
+#'
+#' # the probability that employee would not receive any call within 5 minutes
+#' dnspois(x = 0, lambda = c(5,15))
 #' @export
 dnspois <- function(x, lambda) {
   if (any(lambda < 0))
@@ -58,7 +64,10 @@ dnspois <- function(x, lambda) {
 }
 #' @name Neutrosophic Poisson
 #' @examples
-#' pnspois(q = 1, lambda = 1)
+#' # the probability that the employee will receive at least one call within a minute
+#' pnspois(q = 1, lambda = c(1,3), lower.tail = FALSE)
+#' # the probability that the employee will receive at most three calls within 5 minutes
+#' pnspois(q = 3, lambda = c(5,15), lower.tail = TRUE)
 #' @export
 pnspois <- function(q, lambda, lower.tail = TRUE) {
   if (any(lambda < 0))
@@ -90,7 +99,8 @@ pnspois <- function(q, lambda, lower.tail = TRUE) {
 }
 #' @name Neutrosophic Poisson
 #' @examples
-#' qnspois(p = c(0.25,0.5,0.75), lambda = 2)
+#' # Calcaute the quantiles
+#' qnspois(p = c(0.25,0.5,0.75), lambda = c(1,3))
 #' @export
 qnspois <- function(p, lambda) {
   if (any(p < 0) || any(p > 1))
@@ -118,6 +128,7 @@ qnspois <- function(p, lambda) {
 
 #' @name Neutrosophic Poisson
 #' @examples
+#' # Simulate 10 values
 #' rnspois(n = 10, lambda = 1)
 #' @export
 rnspois <- function(n, lambda) {

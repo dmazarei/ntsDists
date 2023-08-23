@@ -51,10 +51,10 @@ for \eqn{r_N \in \{1, 2, \ldots\}} and \eqn{p_N \in (p_L, p_U)} which must be \e
 and \eqn{x \in \{0, 1, 2, \ldots\}}.
 }
 \examples{
-dnsnbinom(x=1, size = 2, prob= 0.5)
-pnsnbinom(q = 1, size = 2, prob= 0.5)
-qnsnbinom(p = c(0.25,0.5,0.75), size = 2, prob= 0.5)
-rnsnbinom(n = 10, size = 2, prob= 0.5)
+dnsnbinom(x=1, size = 2, prob= c(0.5,0.6))
+pnsnbinom(q = 1, size = 2, prob= c(0.5,0.6))
+qnsnbinom(p = c(0.25,0.5,0.75), size = 2, prob= c(0.5,0.6))
+rnsnbinom(n = 10, size = 2, prob= c(0.6,0.6))
 }
 \references{
 Granados, C. (2022).

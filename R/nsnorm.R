@@ -34,16 +34,16 @@
 #'
 #' @importFrom stats runif dnorm pnorm qnorm
 #' @examples
-#' data(remission)
-#' dnsnorm(x = remission, mean = c(9.1196,9.2453), sd = c(10.1397,10.4577))
+#' data(balls)
+#' dnsnorm(x = balls, mean = c(4.141, 4.180), sd = c(0.513, 0.521))
 #'
-#' pnsnorm(q = 20, mean = c(9.1196,9.2453), sd = c(10.1397,10.4577))
+#' pnsnorm(q = 5,  mean = c(4.141, 4.180), sd = c(0.513, 0.521))
 #'
 #' # Calculate quantiles
 #' qnsnorm(p = c(0.25,0.5,0.75),  mean = c(9.1196,9.2453), sd = c(10.1397,10.4577))
 #'
 #' # Simulate 10 values
-#' rnsnorm(n = 10, mean = c(9.1196,9.2453), sd = c(10.1397,10.4577))
+#' rnsnorm(n = 10,mean = c(4.141, 4.180), sd = c(0.513, 0.521))
 #'
 #' @export
 dnsnorm <- function(x, mean, sd) {
@@ -135,7 +135,7 @@ rnsnorm <- function(n, mean, sd) {
   mean    <- rep(mean, length.out = 2)
   sd <- rep(sd, length.out = 2)
 
-  X <- qnsnorma(runif(n), mean, sd)
+  X <- qnsnorm(runif(n), mean, sd)
   condition <- X[, 1] > X[, 2]
   X[condition, 1:2] <- X[condition, 2:1]
 

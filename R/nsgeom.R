@@ -67,7 +67,6 @@ dnsgeom <- function(x, prob) {
 #' # Probability of one persons wins after 10 years?
 #' pnsgeom(q = 10, prob = c(1e-8,1e-6), lower.tail = FALSE)
 #' @export
-
 pnsgeom <- function(q, prob, lower.tail = TRUE) {
   if (any(prob <= 0) || any(prob > 1) || any(q < 0)) {
     stop(message = "Arguments are incompatible.")
@@ -132,7 +131,7 @@ qnsgeom <- function(p, prob) {
 #' @name Neutrosophic Geometric
 #' @examples
 #' # Simulate 10 numbers
-#' rnsgeom(n = 10, prob = 0.5)
+#' rnsgeom(n = 10, prob = c(1e-8,1e-6))
 #' @export
 rnsgeom <- function(n, prob) {
   if (any(prob <= 0) || any(prob > 1)) {
@@ -141,7 +140,7 @@ rnsgeom <- function(n, prob) {
 
   prob <- rep(prob, length.out = 2)
 
-  X <- qnsgeom(runif(n), u, prob)
+  X <- qnsgeom(runif(n), prob)
   condition <- X[, 1] > X[, 2]
   X[condition, 1:2] <- X[condition, 2:1]
 

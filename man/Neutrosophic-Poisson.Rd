@@ -49,9 +49,20 @@ for \eqn{\lambda_N \in (\lambda_L, \lambda_U)} which must be a positive
 interval and \eqn{x \in \{0, 1, 2, \ldots\}}.
 }
 \examples{
-dnspois(x = 1, lambda = 2)
-pnspois(q = 1, lambda = 1)
-qnspois(p = c(0.25,0.5,0.75), lambda = 2)
+# In a company, Phone employee receives phone calls, the calls arrive with
+# rate of [1 , 3] calls per minute, we will calculate
+# the probability that the employee will not receive any call within a minute
+dnspois(x = 0, lambda = c(1,3))
+
+# the probability that employee would not receive any call within 5 minutes
+dnspois(x = 0, lambda = c(5,15))
+# the probability that the employee will receive at least one call within a minute
+pnspois(q = 1, lambda = c(1,3), lower.tail = FALSE)
+# the probability that the employee will receive at most three calls within 5 minutes
+pnspois(q = 3, lambda = c(5,15), lower.tail = TRUE)
+# Calcaute the quantiles
+qnspois(p = c(0.25,0.5,0.75), lambda = c(1,3))
+# Simulate 10 values
 rnspois(n = 10, lambda = 1)
 }
 \references{

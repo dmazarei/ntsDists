@@ -53,16 +53,16 @@ for \eqn{\mu_N \in (\mu_L, \mu_U)}, the mean which must be an interval, and
 also be a positive interval, and \eqn{-\infty < x < \infty}.
 }
 \examples{
-data(remission)
-dnsnorm(x = remission, mean = c(9.1196,9.2453), sd = c(10.1397,10.4577))
+data(balls)
+dnsnorm(x = balls, mean = c(4.141, 4.180), sd = c(0.513, 0.521))
 
-pnsnorm(q = 20, mean = c(9.1196,9.2453), sd = c(10.1397,10.4577))
+pnsnorm(q = 5,  mean = c(4.141, 4.180), sd = c(0.513, 0.521))
 
 # Calculate quantiles
 qnsnorm(p = c(0.25,0.5,0.75),  mean = c(9.1196,9.2453), sd = c(10.1397,10.4577))
 
 # Simulate 10 values
-rnsnorm(n = 10, mean = c(9.1196,9.2453), sd = c(10.1397,10.4577))
+rnsnorm(n = 10,mean = c(4.141, 4.180), sd = c(0.513, 0.521))
 
 }
 \references{
