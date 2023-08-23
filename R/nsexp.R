@@ -115,12 +115,14 @@ qnsexp <- function(p, rate) {
   }
 
   rate <- rep(rate, length.out = 2)
-  p <- matrix(rep(p, each = 2), ncol = 2, byrow = TRUE)
-
-  quantiles <- matrix(data = NA, nrow = nrow(p), ncol = 2)
-  for (i in 1:ncol(p)) {
-    quantiles[, i] <- -log(1 - p[, i]) / rate[i]
+  if (is.vector(p)){
+    p <- matrix(rep(p, each = 2), ncol = 2, byrow = TRUE)
   }
+  if (ncol(p)>2){
+    stop(message = "Arguments are incompatible.")
+  }
+  quantiles <- stats::qexp(p, rate = rate)
+  quantiles <- matrix(quantiles, ncol = 2, byrow = TRUE)
 
   swap_rows <- quantiles[, 1] > quantiles[, 2]
   quantiles[swap_rows, c(1, 2)] <- quantiles[swap_rows, c(2, 1)]
@@ -138,8 +140,11 @@ rnsexp <- function(n, rate) {
   if (any(rate <= 0))
     stop(message = "Arguments are incompatible.")
   rate <- rep(rate, length.out = 2)
-  u <- matrix(runif(n * length(rate)), nrow = n, ncol = length(rate))
+
   X <- qnsexp(u, rate)
+
+  condition <- X[, 1] > X[, 2]
+  X[condition, 1:2] <- X[condition, 2:1]
 
   return(X)
 }
