@@ -52,7 +52,7 @@ dnsbeta <- function(x, shape1, shape2) {
   shape2  <- rep(shape2, length.out = 2)
 
 
-  if (is.vector(x) && length(x) == 1) {
+  if (is.vector(x)) {
     x <- matrix(rep(x, each = 2), ncol = 2, byrow = TRUE)
     }
 
