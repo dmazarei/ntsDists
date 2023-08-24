@@ -55,18 +55,18 @@ returns the beta function and can be calculated using \code{\link{beta}}.
 }
 \examples{
 
-dnsbeta(x = c(0.1, 0.2), shape1 = c(1,1), shape2 = c(2, 2))
-dnsbeta(x = 0.1, shape1 = c(1,1), shape2 = c(2, 2))
+dnsbeta(x = c(0.1, 0.2), shape1 = c(1, 1), shape2 = c(2, 2))
+dnsbeta(x = 0.1, shape1 = c(1, 1), shape2 = c(2, 2))
 
 x <- matrix(c(0.1, 0.1, 0.2, 0.3, 0.5, 0.5), ncol = 2, byrow = TRUE)
 dnsbeta(x, shape1 = c(1, 2), shape2 = c(2, 3))
 
 
-pnsbeta(q = c(0.1, 0.1), shape1 = c(3, 1), shape2 = c(1,3), lower.tail = FALSE)
+pnsbeta(q = c(0.1, 0.1), shape1 = c(3, 1), shape2 = c(1, 3), lower.tail = FALSE)
 pnsbeta(x, shape1 = c(1, 2), shape2 = c(2, 2))
 
 
-qnsbeta(p = 0.1, shape1 = c(1,1), shape2 = c(2, 2))
+qnsbeta(p = 0.1, shape1 = c(1, 1), shape2 = c(2, 2))
 qnsbeta(p = c(0.25, 0.5, 0.75), shape1 = c(1, 2), shape2 = c(2, 2))
 
 # Simulate 10 numbers

@@ -56,16 +56,16 @@ scale parameter which must also be a positive interval, and \eqn{x \ge 0}.
 \examples{
 
 data(remission)
-dnsgexp(x = remission, nu = c(7.9506,8.0568), delta = c(1.2390,1.2397))
+dnsgexp(x = remission, nu = c(7.9506, 8.0568), delta = c(1.2390, 1.2397))
 
-pnsgexp(q = 20, nu = c(7.9506,8.0568), delta = c(1.2390,1.2397))
+pnsgexp(q = 20, nu = c(7.9506, 8.0568), delta = c(1.2390, 1.2397))
 
 
 # Calcluate quantiles
-qnsgexp(c(0.25,0.5,0.75), nu = c(7.9506,8.0568), delta = c(1.2390,1.2397))
+qnsgexp(c(0.25, 0.5, 0.75), nu = c(7.9506, 8.0568), delta = c(1.2390, 1.2397))
 
 # Simulate 10 values
-rnsgexp(n = 10, nu = c(7.9506,8.0568), delta = c(1.2390,1.2397))
+rnsgexp(n = 10, nu = c(7.9506, 8.0568), delta = c(1.2390, 1.2397))
 
 }
 \references{

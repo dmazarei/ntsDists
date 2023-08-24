@@ -50,20 +50,16 @@ the rate parameter must be a positive interval and \eqn{x \ge 0}.
 }
 \examples{
 # Example 4 of Duan et al. (2021)
-data <- matrix(c(4,4,3.5,3.5,3.9,4.1,4.2,4.2,4.3,4.6, 4.7, 4.7), nrow = 6, ncol = 2, byrow = TRUE)
-# Note that we have a matrix of nuetrosophic observations
+data <- matrix(c(4, 4, 3.5, 3.5, 3.9, 4.1, 4.2, 4.2, 4.3, 4.6, 4.7, 4.7),
+ nrow = 6, ncol = 2, byrow = TRUE)
 
-# The density function of data with the estimated value for parameters based on Duan et al. (2021)
 dnsexp(data, rate = c(0.23, 0.24))
-# The density function for the nuetrosophic observation (4,4.1)
-dnsexp(x = c(4,4.1), rate = c(0.23, 0.24))
+dnsexp(x = c(4, 4.1), rate = c(0.23, 0.24))
 
-# The density function for the nuetrosophic observation 4
-# Here, 4 is equivalent to c(4,4).
 dnsexp(4, rate = c(0.23, 0.23))
 
 # The cumulative distribution function for the nuetrosophic observation (4,4.1)
-pnsexp(c(4,4.1), rate = c(0.23, 0.24), lower.tail = TRUE)
+pnsexp(c(4, 4.1), rate = c(0.23, 0.24), lower.tail = TRUE)
 
 pnsexp(4, rate = c(0.23, 0.24))
 # The first percentile

@@ -51,18 +51,21 @@ for \eqn{n \in \{1, 2, \ldots\}} and \eqn{p_N \in (p_L, p_U)} which must be \eqn
 and \eqn{x \in \{0, 1, 2, \ldots\}}.
 }
 \examples{
-# Probability of X = 17 when X follows bin(n = 20, p = [0.8,0.9])
-dnsbinom(x = 17, size = 20, prob = c(0.8,0.9))
+# Probability of X = 17 when X follows bin(n = 20, p = [0.9,0.8])
+dnsbinom(x = 17, size = 20, prob = c(0.9, 0.8))
+x <- matrix(c(15, 15, 17, 18, 19, 19), ncol = 2, byrow = TRUE)
+dnsbinom(x = x, size = 20, prob = c(0.8, 0.9))
 
+pnsbinom(q = 17, size = 20, prob = c(0.9, 0.8))
+pnsbinom(q = c(17, 18), size = 20, prob = c(0.9, 0.8))
+pnsbinom(q = x, size = 20, prob = c(0.9, 0.8))
 
-pnsbinom(q = 17, size = 20, prob = c(0.8,0.9))
-
-
-qnsbinom(p = 0.5, size = 20, prob = c(0.8,0.9))
+qnsbinom(p = 0.5, size = 20, prob = c(0.8, 0.9))
+qnsbinom(p = c(0.25, 0.5, 0.75), size = 20, prob = c(0.8, 0.9))
 
 
 # Simulate 10 numbers
-rnsbinom(n = 10, size = 20, prob = c(0.8,0.9))
+rnsbinom(n = 10, size = 20, prob = c(0.8, 0.9))
 
 }
 \references{

@@ -54,15 +54,15 @@ also be a positive interval, and \eqn{-\infty < x < \infty}.
 }
 \examples{
 data(balls)
-dnsnorm(x = balls, mean = c(4.141, 4.180), sd = c(0.513, 0.521))
+dnsnorm(x = balls, mean = c(72.14087, 72.94087), sd = c(37.44544, 37.29067))
 
-pnsnorm(q = 5,  mean = c(4.141, 4.180), sd = c(0.513, 0.521))
+pnsnorm(q = 5, mean = c(72.14087, 72.94087), sd = c(37.44544, 37.29067))
 
 # Calculate quantiles
-qnsnorm(p = c(0.25,0.5,0.75),  mean = c(9.1196,9.2453), sd = c(10.1397,10.4577))
+qnsnorm(p = c(0.25, 0.5, 0.75), mean = c(9.1196, 9.2453), sd = c(10.1397, 10.4577))
 
 # Simulate 10 values
-rnsnorm(n = 10,mean = c(4.141, 4.180), sd = c(0.513, 0.521))
+rnsnorm(n = 10, mean = c(4.141, 4.180), sd = c(0.513, 0.521))
 
 }
 \references{

@@ -54,15 +54,15 @@ the scale parameter which be a positive interval, and \eqn{x > 0}.
 }
 \examples{
 data(remission)
-dnsweibull(x = remission, shape = c(1.0519,1.0553), scale = c(9.3370,9.4544))
+dnsweibull(x = remission, shape = c(1.0519, 1.0553), scale = c(9.3370, 9.4544))
 
-pnsweibull(q = 20, shape = c(1.0519,1.0553), scale = c(9.3370,9.4544))
+pnsweibull(q = 20, shape = c(1.0519, 1.0553), scale = c(9.3370, 9.4544))
 
 # Calculate quantiles
-qnsweibull(p = c(0.25,0.5,0.75), shape = c(1.0519,1.0553), scale = c(9.3370,9.4544))
+qnsweibull(p = c(0.25, 0.5, 0.75), shape = c(1.0519, 1.0553), scale = c(9.3370, 9.4544))
 
 # Simulate 10 numbers
-rnsweibull(n = 10, shape = c(1.0519,1.0553), scale = c(9.3370,9.4544))
+rnsweibull(n = 10, shape = c(1.0519, 1.0553), scale = c(9.3370, 9.4544))
 
 }
 \references{

@@ -55,15 +55,15 @@ function implemented by \code{\link{gamma}}.
 }
 \examples{
 data(remission)
-dnsgamma(x = remission, shape = c(1.1884,1.1896), scale = c(7.6658,7.7796))
+dnsgamma(x = remission, shape = c(1.1884, 1.1896), scale = c(7.6658, 7.7796))
 
-pnsgamma(q = 20, shape = c(1.1884,1.1896), scale = c(7.6658,7.7796))
+pnsgamma(q = 20, shape = c(1.1884, 1.1896), scale = c(7.6658, 7.7796))
 
 # Calculate quantiles
-qnsgamma(p = c(0.25,0.5,0.75), shape = c(1.1884,1.1896), scale = c(7.6658,7.7796))
+qnsgamma(p = c(0.25, 0.5, 0.75), shape = c(1.1884, 1.1896), scale = c(7.6658, 7.7796))
 
 # Simulate 10 numbers
-rnsgamma(n=10, shape = c(1.1884,1.1896), scale = c(7.6658,7.7796))
+rnsgamma(n = 10, shape = c(1.1884, 1.1896), scale = c(7.6658, 7.7796))
 }
 \references{
 Khan, Z., Al-Bossly, A., Almazah, M. M. A., and Alduais, F. S. (2021).

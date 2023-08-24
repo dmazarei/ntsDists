@@ -49,16 +49,16 @@ uniform distribution with parameter \eqn{k_N} has the density
 for \eqn{k_N \in (k_L, k_U)}.
 }
 \examples{
-dnsdunif(x = 8, k = c(10,11))
-dnsdunif(x = c(8,9), k = c(10,11))
+dnsdunif(x = 8, k = c(10, 11))
+dnsdunif(x = c(8, 9), k = c(10, 11))
 
-pnsdunif(q = 2, k = c(10,11))
+pnsdunif(q = 2, k = c(10, 11))
 
-qnsdunif(p = 0.2, k = c(10,11))
+qnsdunif(p = 0.2, k = c(10, 11))
 
 
 # Simulate 10 numbers
-rnsdunif(n = 10, k = c(10,11))
+rnsdunif(n = 10, k = c(10, 11))
 
 }
 \references{
