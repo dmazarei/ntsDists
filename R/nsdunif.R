@@ -31,8 +31,8 @@
 #'          1442-1457.
 #'
 #' @examples
-#' dnsdunif(x = 8, k = c(10,11))
-#' dnsdunif(x = c(8,9), k = c(10,11))
+#' dnsdunif(x = 8, k = c(10, 11))
+#' dnsdunif(x = c(8, 9), k = c(10, 11))
 #' @export
 dnsdunif <- function(x, k) {
   if (any(k <= 0)) {
@@ -40,32 +40,31 @@ dnsdunif <- function(x, k) {
   }
 
 
-  if (any(round(x) != x))
+  if (any(round(x) != x)) {
     warning(paste("non-integer"))
+  }
 
   k <- rep(k, length.out = 2)
 
-  if(is.vector(x)){
-    x <- matrix(rep(x, length.out = 2), ncol = 2)
+  if (is.vector(x) || ncol(x) == 1) {
+    x <- matrix(rep(as.numeric(x), each = 2), ncol = 2, byrow = TRUE)
   }
 
-  x <- matrix(x, ncol = 2)
-
-  pdf <- matrix(data = NA, nrow = nrow(x), ncol = ncol(x))
-  for (i in 1:ncol(x)) {
-    pdf[, i] <- ifelse(x[,i]>=1 & x[,i]<=k[i] & round(x[,i])==x[,i],1/k[i],0)
+  if (ncol(x) > 2) {
+    stop(message = "Arguments are incompatible.")
+  }
+  pdf <- matrix(NA, nrow = nrow(x), ncol = 2)
+  for (i in 1:2) {
+    pdf[, i] <- ifelse(x[, i] >= 1 & x[, i] <= k[i] & round(x[, i]) == x[, i], 1 / k[i], 0)
   }
 
-
-  swap_rows <- pdf[, 1] > pdf[, 2]
-  pdf[swap_rows, c(1, 2)] <- pdf[swap_rows, c(2, 1)]
 
   return(pdf)
 }
 #' @name Neutrosophic Discrete Uniform
 #' @examples
 #'
-#' pnsdunif(q = 2, k = c(10,11))
+#' pnsdunif(q = 2, k = c(10, 11))
 #' @export
 pnsdunif <- function(q, k, lower.tail = TRUE) {
   if (any(k <= 0)) {
@@ -73,33 +72,32 @@ pnsdunif <- function(q, k, lower.tail = TRUE) {
   }
 
 
-  q    <- floor(q)
+  q <- floor(q)
   k <- rep(k, length.out = 2)
 
-  if (is.vector(q)){
-    q <- matrix(rep(q, each = 2), ncol = 2, byrow = TRUE)
+  if (is.vector(q) || ncol(q) == 1) {
+    q <- matrix(rep(as.numeric(q), each = 2), ncol = 2, byrow = TRUE)
   }
-  if (ncol(q)>2){
+  if (ncol(q) > 2) {
     stop(message = "Arguments are incompatible.")
   }
 
 
-  cdf <- ifelse(q<1,0,ifelse(q<=k,floor(q)/k,1))
+  cdf <- matrix(NA, nrow = nrow(q), ncol = 2)
+  for (i in 1:2) {
+    cdf[, i] <- ifelse(q[, i] < 1, 0, ifelse(q[, i] <= k[i], floor(q[, i]) / k[i], 1))
+  }
 
-  if (!lower.tail)
+  if (!lower.tail) {
     cdf <- 1 - cdf
-
-  cdf <- matrix(cdf, ncol = 2, byrow = TRUE)
-
-  swap_rows <- cdf[, 1] > cdf[, 2]
-  cdf[swap_rows, c(1, 2)] <- cdf[swap_rows, c(2, 1)]
+  }
 
   return(cdf)
 }
 #' @name Neutrosophic Discrete Uniform
 #' @examples
 #'
-#' qnsdunif(p = 0.2, k = c(10,11))
+#' qnsdunif(p = 0.2, k = c(10, 11))
 #'
 #' @export
 qnsdunif <- function(p, k) {
@@ -114,21 +112,18 @@ qnsdunif <- function(p, k) {
 
   k <- rep(k, length.out = 2)
 
-  if (is.vector(p)){
+  if (is.vector(p)) {
     p <- matrix(rep(p, each = 2), ncol = 2, byrow = TRUE)
   }
-  if (ncol(p)>2){
+  if (ncol(p) > 2) {
     stop(message = "Arguments are incompatible.")
   }
 
-  quantiles <- matrix(data = NA, nrow = nrow(p), ncol = 2)
-  for (i in 1:ncol(p)) {
-    quantiles[, i] <- ceiling(k[i]*p[,i])
-
+  quantiles <- matrix(NA, nrow = nrow(p), ncol = 2)
+  for (i in 1:2) {
+    quantiles[, i] <- ceiling(k[i] * p[, i])
   }
 
-  swap_rows <- quantiles[, 1] > quantiles[, 2]
-  quantiles[swap_rows, c(1, 2)] <- quantiles[swap_rows, c(2, 1)]
 
   return(quantiles)
 }
@@ -136,7 +131,7 @@ qnsdunif <- function(p, k) {
 #' @examples
 #'
 #' # Simulate 10 numbers
-#' rnsdunif(n = 10, k = c(10,11))
+#' rnsdunif(n = 10, k = c(10, 11))
 #'
 #' @export
 rnsdunif <- function(n, k) {

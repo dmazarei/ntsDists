@@ -35,67 +35,72 @@
 #' @importFrom stats runif dgamma pgamma qgamma
 #' @examples
 #' data(remission)
-#' dnsgamma(x = remission, shape = c(1.1884,1.1896), scale = c(7.6658,7.7796))
+#' dnsgamma(x = remission, shape = c(1.1884, 1.1896), scale = c(7.6658, 7.7796))
 #'
-#' pnsgamma(q = 20, shape = c(1.1884,1.1896), scale = c(7.6658,7.7796))
+#' pnsgamma(q = 20, shape = c(1.1884, 1.1896), scale = c(7.6658, 7.7796))
 #'
 #' # Calculate quantiles
-#' qnsgamma(p = c(0.25,0.5,0.75), shape = c(1.1884,1.1896), scale = c(7.6658,7.7796))
+#' qnsgamma(p = c(0.25, 0.5, 0.75), shape = c(1.1884, 1.1896), scale = c(7.6658, 7.7796))
 #'
 #' # Simulate 10 numbers
-#' rnsgamma(n=10, shape = c(1.1884,1.1896), scale = c(7.6658,7.7796))
+#' rnsgamma(n = 10, shape = c(1.1884, 1.1896), scale = c(7.6658, 7.7796))
 #' @export
 dnsgamma <- function(x, shape, scale) {
-  if (any(shape <= 0) || any(scale <= 0) || any(x < 0))
+  if (any(shape <= 0) || any(scale <= 0) || any(x < 0)) {
     stop(message = "Arguments are incompatible.")
-
-  shape <- rep(shape, length.out = 2)
-  scale  <- rep(scale, length.out = 2)
-
-  if (is.vector(x) && length(x) == 1) {
-    x <- matrix(rep(x, each = 2), ncol = 2, byrow = TRUE)
   }
 
-  x <- matrix(x, ncol = 2)
+  shape <- rep(shape, length.out = 2)
+  scale <- rep(scale, length.out = 2)
 
-  pdf <- matrix(data = NA, nrow = nrow(x), ncol = ncol(x))
-  for (i in 1:ncol(x)) {
+  if (is.vector(x) || ncol(x) == 1) {
+    x <- matrix(rep(as.numeric(x), each = 2), ncol = 2, byrow = TRUE)
+  }
+
+  if (ncol(x) > 2) {
+    stop(message = "Arguments are incompatible.")
+  }
+
+
+  pdf <- matrix(NA, nrow = nrow(x), ncol = 2)
+  for (i in 1:2) {
     pdf[, i] <- stats::dgamma(x[, i], shape = shape[i], scale = scale[i])
   }
 
-  # Identify rows where col1 > col2
-  swap_rows <- pdf[, 1] > pdf[, 2]
-  # Swap values using logical indexing
-  pdf[swap_rows, c(1, 2)] <- pdf[swap_rows, c(2, 1)]
+
 
   return(pdf)
 }
 #' @name Neutrosophic Gamma
 #' @export
 pnsgamma <- function(q, shape, scale, lower.tail = TRUE) {
-  if (any(shape <= 0) || any(scale <= 0) || any(q < 0))
+  if (any(shape <= 0) || any(scale <= 0) || any(q < 0)) {
     stop(message = "incompatible arguments.")
+  }
 
   shape <- rep(shape, length.out = 2)
-  scale  <- rep(scale, length.out = 2)
+  scale <- rep(scale, length.out = 2)
 
-  if (is.vector(q)){
-    q <- matrix(rep(q, each = 2), ncol = 2, byrow = TRUE)
+  if (is.vector(q) || ncol(q) == 1) {
+    q <- matrix(rep(as.numeric(q), each = 2), ncol = 2, byrow = TRUE)
   }
-  if (ncol(q)>2){
+  if (ncol(q) > 2) {
     stop(message = "Arguments are incompatible.")
   }
 
-  cdf <- stats::pgamma(q, shape = shape, scale = scale)
 
-  if (!lower.tail)
+
+  cdf <- matrix(NA, nrow = nrow(q), ncol = 2)
+  for (i in 1:2) {
+    cdf[, i] <- stats::pgamma(q[, i], shape = shape[i], scale = scale[i])
+  }
+
+  if (!lower.tail) {
     cdf <- 1 - cdf
+  }
 
-  cdf <- matrix(cdf, ncol = 2, byrow = TRUE)
-  # Identify rows where col1 > col2
-  swap_rows <- cdf[, 1] > cdf[, 2]
-  # Swap values using logical indexing
-  cdf[swap_rows, c(1, 2)] <- cdf[swap_rows, c(2, 1)]
+
+
 
   return(cdf)
 }
@@ -103,28 +108,27 @@ pnsgamma <- function(q, shape, scale, lower.tail = TRUE) {
 #' @name Neutrosophic Gamma
 #' @export
 qnsgamma <- function(p, shape, scale) {
-  if (any(p < 0) || any(p > 1))
+  if (any(p < 0) || any(p > 1)) {
     stop(message = "Warning: p should be in the interval [0,1].")
+  }
 
-  if (any(shape <= 0) || any(scale <= 0))
+  if (any(shape <= 0) || any(scale <= 0)) {
     stop(message = "Arguments are incompatible.")
+  }
 
   shape <- rep(shape, length.out = 2)
-  scale  <- rep(scale, length.out = 2)
+  scale <- rep(scale, length.out = 2)
 
-  if (is.vector(p)){
-    p <- matrix(rep(p, each = 2), ncol = 2, byrow = TRUE)
+  if (is.vector(p) || ncol(p) == 1) {
+    p <- matrix(rep(as.numeric(p), each = 2), ncol = 2, byrow = TRUE)
   }
-
-  if (ncol(p)>2){
+  if (ncol(p) > 2) {
     stop(message = "Arguments are incompatible.")
   }
-
-  quantiles <- stats::qgamma(p, shape = shape, scale = scale)
-  quantiles <- matrix(quantiles, ncol = 2, byrow = TRUE)
-
-  swap_rows <- quantiles[, 1] > quantiles[, 2]
-  quantiles[swap_rows, c(1, 2)] <- quantiles[swap_rows, c(2, 1)]
+  quantiles <- matrix(NA, nrow = nrow(p), ncol = 2)
+  for (i in 1:2) {
+    quantiles[, i] <- stats::qgamma(p[, i], shape = shape[i], scale = scale[i])
+  }
 
   return(quantiles)
 }
@@ -132,11 +136,12 @@ qnsgamma <- function(p, shape, scale) {
 #' @name Neutrosophic Gamma
 #' @export
 rnsgamma <- function(n, shape, scale) {
-  if (any(shape <= 0) || any(scale <= 0))
+  if (any(shape <= 0) || any(scale <= 0)) {
     stop(message = "Arguments are incompatible.")
+  }
 
   shape <- rep(shape, length.out = 2)
-  scale  <- rep(scale, length.out = 2)
+  scale <- rep(scale, length.out = 2)
 
   X <- qnsgamma(runif(n), shape, scale)
   condition <- X[, 1] > X[, 2]

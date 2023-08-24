@@ -37,64 +37,67 @@
 #' @importFrom stats runif dbeta pbeta qbeta
 #' @examples
 #'
-#' dnsbeta(x = c(0.1, 0.2), shape1 = c(1,1), shape2 = c(2, 2))
-#' dnsbeta(x = 0.1, shape1 = c(1,1), shape2 = c(2, 2))
+#' dnsbeta(x = c(0.1, 0.2), shape1 = c(1, 1), shape2 = c(2, 2))
+#' dnsbeta(x = 0.1, shape1 = c(1, 1), shape2 = c(2, 2))
 #'
 #' x <- matrix(c(0.1, 0.1, 0.2, 0.3, 0.5, 0.5), ncol = 2, byrow = TRUE)
 #' dnsbeta(x, shape1 = c(1, 2), shape2 = c(2, 3))
 #'
 #' @export
 dnsbeta <- function(x, shape1, shape2) {
-  if (any(shape1 <= 0) || any(shape2 <= 0) || any(x < 0))
+  if (any(shape1 <= 0) || any(shape2 <= 0) || any(x < 0)) {
     stop(message = "Arguments are incompatible.")
+  }
 
   shape1 <- rep(shape1, length.out = 2)
-  shape2  <- rep(shape2, length.out = 2)
+  shape2 <- rep(shape2, length.out = 2)
 
 
-  if (is.vector(x)) {
-    x <- matrix(rep(x, each = 2), ncol = 2, byrow = TRUE)
-    }
+  if (is.vector(x) || ncol(x) == 1) {
+    x <- matrix(rep(as.numeric(x), each = 2), ncol = 2, byrow = TRUE)
+  }
 
-  if (ncol(x)>2){
+  if (ncol(x) > 2) {
     stop(message = "Arguments are incompatible.")
-    }
+  }
 
 
-  pdf <- stats::dbeta(x, shape1 = shape1, shape2 = shape2)
-
-
-  pdf <- matrix(pdf, ncol = 2, byrow = TRUE)
+  pdf <- matrix(NA, nrow = nrow(x), ncol = 2)
+  for (i in 1:2) {
+    pdf[, i] <- stats::dbeta(x[, i], shape1 = shape1[i], shape2 = shape2[i])
+  }
 
   return(pdf)
 }
 #' @name Neutrosophic Beta
 #' @examples
 #'
-#' pnsbeta(q = c(0.1, 0.1), shape1 = c(3, 1), shape2 = c(1,3), lower.tail = FALSE)
+#' pnsbeta(q = c(0.1, 0.1), shape1 = c(3, 1), shape2 = c(1, 3), lower.tail = FALSE)
 #' pnsbeta(x, shape1 = c(1, 2), shape2 = c(2, 2))
 #'
 #' @export
 pnsbeta <- function(q, shape1, shape2, lower.tail = TRUE) {
-  if (any(shape1 <= 0) || any(q < 0))
+  if (any(shape1 <= 0) || any(shape2 <= 0) || any(q < 0)) {
     stop("Arguments are incompatible.")
+  }
 
   shape1 <- rep(shape1, length.out = 2)
-  shape2  <- rep(shape2, length.out = 2)
-  if (is.vector(q)){
-    q <- matrix(rep(q, each = 2), ncol = 2, byrow = TRUE)
+  shape2 <- rep(shape2, length.out = 2)
+  if (is.vector(q) || ncol(q) == 1) {
+    q <- matrix(rep(as.numeric(q), each = 2), ncol = 2, byrow = TRUE)
   }
-  if (ncol(q)>2){
+  if (ncol(q) > 2) {
     stop(message = "Arguments are incompatible.")
   }
 
+  cdf <- matrix(NA, nrow = nrow(q), ncol = 2)
+  for (i in 1:2) {
+    cdf[, i] <- stats::pbeta(q[, i], shape1 = shape1[i], shape2 = shape2[i])
+  }
 
-  cdf <- stats::pbeta(q, shape1 = shape1, shape2 = shape2)
-
-  if (!lower.tail)
+  if (!lower.tail) {
     cdf <- 1 - cdf
-
-  cdf <- matrix(cdf, ncol = 2, byrow = TRUE)
+  }
 
 
   return(cdf)
@@ -102,7 +105,7 @@ pnsbeta <- function(q, shape1, shape2, lower.tail = TRUE) {
 #' @name Neutrosophic Beta
 #' @examples
 #'
-#' qnsbeta(p = 0.1, shape1 = c(1,1), shape2 = c(2, 2))
+#' qnsbeta(p = 0.1, shape1 = c(1, 1), shape2 = c(2, 2))
 #' qnsbeta(p = c(0.25, 0.5, 0.75), shape1 = c(1, 2), shape2 = c(2, 2))
 #'
 #' @export
@@ -111,22 +114,25 @@ qnsbeta <- function(p, shape1, shape2) {
     stop(message = "Warning: p should be in the interval [0,1].")
   }
 
-  if (any(shape1 <= 0) || any(shape2 <= 0))
+  if (any(shape1 <= 0) || any(shape2 <= 0)) {
     stop(message = "Arguments are incompatible.")
+  }
 
   shape1 <- rep(shape1, length.out = 2)
-  shape2  <- rep(shape2, length.out = 2)
-  if (is.vector(p)){
-  p <- matrix(rep(p, each = 2), ncol = 2, byrow = TRUE)
+  shape2 <- rep(shape2, length.out = 2)
+
+  if (is.vector(p) || ncol(p) == 1) {
+    p <- matrix(rep(as.numeric(p), each = 2), ncol = 2, byrow = TRUE)
   }
-  if (ncol(p)>2){
+  if (ncol(p) > 2) {
     stop(message = "Arguments are incompatible.")
   }
-  quantiles <- stats::qbeta(p, shape1 = shape1, shape2 = shape2)
-  quantiles <- matrix(quantiles, ncol = 2, byrow = TRUE)
+  quantiles <- matrix(NA, nrow = nrow(p), ncol = 2)
+  for (i in 1:2) {
+    quantiles[, i] <- stats::qbeta(p[, i], shape1 = shape1[i], shape2 = shape2[i])
+  }
 
   return(quantiles)
-
 }
 #' @name Neutrosophic Beta
 #' @examples
@@ -134,10 +140,11 @@ qnsbeta <- function(p, shape1, shape2) {
 #' rnsbeta(n = 10, shape1 = c(1, 2), shape2 = c(1, 1))
 #' @export
 rnsbeta <- function(n, shape1, shape2) {
-  if (any(shape1 <= 0) || any(shape2 <= 0))
+  if (any(shape1 <= 0) || any(shape2 <= 0)) {
     stop(message = "Arguments are incompatible.")
+  }
   shape1 <- rep(shape1, length.out = 2)
-  shape2  <- rep(shape2, length.out = 2)
+  shape2 <- rep(shape2, length.out = 2)
 
   X <- qnsbeta(runif(n), shape1, shape2)
   condition <- X[, 1] > X[, 2]

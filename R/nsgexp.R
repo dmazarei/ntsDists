@@ -38,63 +38,68 @@
 #' @examples
 #'
 #' data(remission)
-#' dnsgexp(x = remission, nu = c(7.9506,8.0568), delta = c(1.2390,1.2397))
+#' dnsgexp(x = remission, nu = c(7.9506, 8.0568), delta = c(1.2390, 1.2397))
 #'
 #' @export
 dnsgexp <- function(x, nu, delta) {
-  if (any(nu <= 0) || any(delta <= 0) || any(x < 0))
+  if (any(nu <= 0) || any(delta <= 0) || any(x < 0)) {
     stop(message = "Arguments are incompatible.")
-
-  nu     <- rep(nu, length.out = 2)
-  delta  <- rep(delta, length.out = 2)
-
-
-  if (is.vector(x) && length(x) == 1) {
-    x <- matrix(rep(x, each = 2), ncol = 2, byrow = TRUE)
   }
 
-  x <- matrix(x, ncol = 2)
+  nu <- rep(nu, length.out = 2)
+  delta <- rep(delta, length.out = 2)
 
-  pdf <- matrix(data = NA, nrow = nrow(x), ncol = ncol(x))
-  for (i in 1:ncol(x)) {
+
+  if (is.vector(x) || ncol(x) == 1) {
+    x <- matrix(rep(as.numeric(x), each = 2), ncol = 2, byrow = TRUE)
+  }
+
+  if (ncol(x) > 2) {
+    stop(message = "Arguments are incompatible.")
+  }
+
+
+  pdf <- matrix(NA, nrow = nrow(x), ncol = 2)
+  for (i in 1:2) {
     pdf[, i] <- (delta[i] / nu[i]) * (1 - exp(-x[, i] / nu[i]))^(delta[i] - 1) * exp(-x[, i] / nu[i])
   }
 
-  swap_rows <- pdf[, 1] > pdf[, 2]
-  pdf[swap_rows, c(1, 2)] <- pdf[swap_rows, c(2, 1)]
 
   return(pdf)
 }
 
 #' @name Neutrosophic Generalized Exponential
 #' @examples
-#' pnsgexp(q = 20, nu = c(7.9506,8.0568), delta = c(1.2390,1.2397))
+#' pnsgexp(q = 20, nu = c(7.9506, 8.0568), delta = c(1.2390, 1.2397))
 #'
 #' @export
 pnsgexp <- function(q, nu, delta, lower.tail = TRUE) {
-  if (any(nu <= 0) || any(delta <= 0) || any(q < 0))
+  if (any(nu <= 0) || any(delta <= 0) || any(q < 0)) {
     stop(message = "incompatible arguments.")
-
-  nu     <- rep(nu, length.out = 2)
-  delta  <- rep(delta, length.out = 2)
-
-  if (is.vector(q)){
-    q <- matrix(rep(q, each = 2), ncol = 2, byrow = TRUE)
   }
-  if (ncol(q)>2){
+
+  nu <- rep(nu, length.out = 2)
+  delta <- rep(delta, length.out = 2)
+
+  if (is.vector(q) || ncol(q) == 1) {
+    q <- matrix(rep(as.numeric(q), each = 2), ncol = 2, byrow = TRUE)
+  }
+  if (ncol(q) > 2) {
     stop(message = "Arguments are incompatible.")
   }
 
-  cdf <- (1 - exp(-q / nu))^delta
 
-  if (!lower.tail)
+
+  cdf <- matrix(NA, nrow = nrow(q), ncol = 2)
+  for (i in 1:2) {
+    cdf[, i] <- (1 - exp(-q[, i] / nu[i]))^delta[i]
+  }
+
+
+  if (!lower.tail) {
     cdf <- 1 - cdf
+  }
 
-  cdf <- matrix(cdf, ncol = 2, byrow = TRUE)
-  # Identify rows where col1 > col2
-  swap_rows <- cdf[, 1] > cdf[, 2]
-  # Swap values using logical indexing
-  cdf[swap_rows, c(1, 2)] <- cdf[swap_rows, c(2, 1)]
 
   return(cdf)
 }
@@ -103,7 +108,7 @@ pnsgexp <- function(q, nu, delta, lower.tail = TRUE) {
 #' @examples
 #'
 #' # Calcluate quantiles
-#' qnsgexp(c(0.25,0.5,0.75), nu = c(7.9506,8.0568), delta = c(1.2390,1.2397))
+#' qnsgexp(c(0.25, 0.5, 0.75), nu = c(7.9506, 8.0568), delta = c(1.2390, 1.2397))
 #'
 #' @export
 qnsgexp <- function(p, nu, delta) {
@@ -115,24 +120,19 @@ qnsgexp <- function(p, nu, delta) {
     stop(message = "Arguments are incompatible.")
   }
 
-  nu     <- rep(nu, length.out = 2)
-  delta  <- rep(delta, length.out = 2)
+  nu <- rep(nu, length.out = 2)
+  delta <- rep(delta, length.out = 2)
 
-  if (is.vector(p)){
-    p <- matrix(rep(p, each = 2), ncol = 2, byrow = TRUE)
+  if (is.vector(p) || ncol(p) == 1) {
+    p <- matrix(rep(as.numeric(p), each = 2), ncol = 2, byrow = TRUE)
   }
-  if (ncol(p)>2){
+  if (ncol(p) > 2) {
     stop(message = "Arguments are incompatible.")
   }
-
-  quantiles <- matrix(data = NA, nrow = nrow(p), ncol = 2)
-  for (i in 1:ncol(p)) {
+  quantiles <- matrix(NA, nrow = nrow(p), ncol = 2)
+  for (i in 1:2) {
     quantiles[, i] <- log(-p[, i]^(1 / delta[i]) + 1) * (-nu[i])
   }
-  quantiles <- matrix(quantiles, ncol = 2, byrow = TRUE)
-
-  swap_rows <- quantiles[, 1] > quantiles[, 2]
-  quantiles[swap_rows, c(1, 2)] <- quantiles[swap_rows, c(2, 1)]
 
   return(quantiles)
 }
@@ -140,15 +140,16 @@ qnsgexp <- function(p, nu, delta) {
 #' @name Neutrosophic Generalized Exponential
 #' @examples
 #' # Simulate 10 values
-#' rnsgexp(n = 10, nu = c(7.9506,8.0568), delta = c(1.2390,1.2397))
+#' rnsgexp(n = 10, nu = c(7.9506, 8.0568), delta = c(1.2390, 1.2397))
 #'
 #' @export
 rnsgexp <- function(n, nu, delta) {
-  if (any(nu <= 0) || any(delta <= 0))
+  if (any(nu <= 0) || any(delta <= 0)) {
     stop(message = "Arguments are incompatible.")
+  }
 
-  nu     <- rep(nu, length.out = 2)
-  delta  <- rep(delta, length.out = 2)
+  nu <- rep(nu, length.out = 2)
+  delta <- rep(delta, length.out = 2)
 
   X <- qnsgexp(runif(n), nu, delta)
   condition <- X[, 1] > X[, 2]

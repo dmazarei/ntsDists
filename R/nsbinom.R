@@ -32,9 +32,10 @@
 #'         1442-1457.
 #' @importFrom stats runif dbinom pbinom qbinom
 #' @examples
-#' # Probability of X = 17 when X follows bin(n = 20, p = [0.8,0.9])
-#' dnsbinom(x = 17, size = 20, prob = c(0.8,0.9))
-#'
+#' # Probability of X = 17 when X follows bin(n = 20, p = [0.9,0.8])
+#' dnsbinom(x = 17, size = 20, prob = c(0.9, 0.8))
+#' x <- matrix(c(15, 15, 17, 18, 19, 19), ncol = 2, byrow = TRUE)
+#' dnsbinom(x = x, size = 20, prob = c(0.8, 0.9))
 #' @export
 dnsbinom <- function(x, size, prob) {
   if (any(size < 1) || any(prob <= 0) || any(prob > 1) || any(x < 0)) {
@@ -48,25 +49,28 @@ dnsbinom <- function(x, size, prob) {
   size <- rep(size, length.out = 2)
   prob <- rep(prob, length.out = 2)
 
-  if (is.vector(x)) {
-    x <- matrix(rep(x, length.out = 2), ncol = 2)
+  if (is.vector(x) || ncol(x) == 1) {
+    x <- matrix(rep(as.numeric(x), each = 2), ncol = 2, byrow = TRUE)
   }
 
-  x <- matrix(x, ncol = 2)
+  if (ncol(x) > 2) {
+    stop(message = "Arguments are incompatible.")
+  }
 
-  pdf <- stats::dbinom(x, size = size, prob = prob)
-  pdf <- matrix(pdf, ncol = 2, byrow = TRUE)
 
-  swap_rows <- pdf[, 1] > pdf[, 2]
-  pdf[swap_rows, c(1, 2)] <- pdf[swap_rows, c(2, 1)]
+  pdf <- matrix(NA, nrow = nrow(x), ncol = 2)
+  for (i in 1:2) {
+    pdf[, i] <- stats::dbinom(x[, i], size = size[i], prob = prob[i])
+  }
 
   return(pdf)
 }
 #' @name Neutrosophic Binomial
 #' @examples
 #'
-#' pnsbinom(q = 17, size = 20, prob = c(0.8,0.9))
-#'
+#' pnsbinom(q = 17, size = 20, prob = c(0.9, 0.8))
+#' pnsbinom(q = c(17, 18), size = 20, prob = c(0.9, 0.8))
+#' pnsbinom(q = x, size = 20, prob = c(0.9, 0.8))
 #' @export
 
 pnsbinom <- function(q, size, prob, lower.tail = TRUE) {
@@ -80,30 +84,29 @@ pnsbinom <- function(q, size, prob, lower.tail = TRUE) {
   size <- rep(size, length.out = 2)
   prob <- rep(prob, length.out = 2)
 
-  if (is.vector(q)){
-    q <- matrix(rep(q, each = 2), ncol = 2, byrow = TRUE)
+  if (is.vector(q) || ncol(q) == 1) {
+    q <- matrix(rep(as.numeric(q), each = 2), ncol = 2, byrow = TRUE)
   }
-  if (ncol(q)>2){
+  if (ncol(q) > 2) {
     stop(message = "Arguments are incompatible.")
   }
 
-  cdf <- stats::pbinom(q, size = size, prob = prob)
-
+  cdf <- matrix(NA, nrow = nrow(q), ncol = 2)
+  for (i in 1:2) {
+    cdf[, i] <- stats::pbinom(q[, i], size = size[i], prob = prob[i])
+  }
   if (!lower.tail) {
     cdf <- 1 - cdf
   }
 
-  cdf <- matrix(cdf, ncol = 2, byrow = TRUE)
-
-  swap_rows <- cdf[, 1] > cdf[, 2]
-  cdf[swap_rows, c(1, 2)] <- cdf[swap_rows, c(2, 1)]
 
   return(cdf)
 }
 #' @name Neutrosophic Binomial
 #' @examples
 #'
-#' qnsbinom(p = 0.5, size = 20, prob = c(0.8,0.9))
+#' qnsbinom(p = 0.5, size = 20, prob = c(0.8, 0.9))
+#' qnsbinom(p = c(0.25, 0.5, 0.75), size = 20, prob = c(0.8, 0.9))
 #'
 #' @export
 qnsbinom <- function(p, size, prob) {
@@ -118,19 +121,18 @@ qnsbinom <- function(p, size, prob) {
   size <- rep(size, length.out = 2)
   prob <- rep(prob, length.out = 2)
 
-  if (is.vector(p)){
+  if (is.vector(p)) {
     p <- matrix(rep(p, each = 2), ncol = 2, byrow = TRUE)
   }
 
-  if (ncol(p)>2){
+  if (ncol(p) > 2) {
     stop(message = "Arguments are incompatible.")
   }
 
-  quantiles <- stats::qbinom(p, size = size, prob = prob)
-  quantiles <- matrix(quantiles, ncol = 2, byrow = TRUE)
-
-  swap_rows <- quantiles[, 1] > quantiles[, 2]
-  quantiles[swap_rows, c(1, 2)] <- quantiles[swap_rows, c(2, 1)]
+  quantiles <- matrix(NA, nrow = nrow(p), ncol = 2)
+  for (i in 1:2) {
+    quantiles[, i] <- stats::qbinom(p[, i], size = size[i], prob = prob[i])
+  }
 
   return(quantiles)
 }
@@ -139,7 +141,7 @@ qnsbinom <- function(p, size, prob) {
 #' @examples
 #'
 #' # Simulate 10 numbers
-#' rnsbinom(n = 10, size = 20, prob = c(0.8,0.9))
+#' rnsbinom(n = 10, size = 20, prob = c(0.8, 0.9))
 #'
 #' @export
 rnsbinom <- function(n, size, prob) {

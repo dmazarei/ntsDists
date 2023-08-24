@@ -33,36 +33,34 @@
 #'
 #' @examples
 #' # Example 4 of Duan et al. (2021)
-#' data <- matrix(c(4,4,3.5,3.5,3.9,4.1,4.2,4.2,4.3,4.6, 4.7, 4.7), nrow = 6, ncol = 2, byrow = TRUE)
-#' # Note that we have a matrix of nuetrosophic observations
+#' data <- matrix(c(4, 4, 3.5, 3.5, 3.9, 4.1, 4.2, 4.2, 4.3, 4.6, 4.7, 4.7),
+#'  nrow = 6, ncol = 2, byrow = TRUE)
 #'
-#' # The density function of data with the estimated value for parameters based on Duan et al. (2021)
 #' dnsexp(data, rate = c(0.23, 0.24))
-#' # The density function for the nuetrosophic observation (4,4.1)
-#' dnsexp(x = c(4,4.1), rate = c(0.23, 0.24))
+#' dnsexp(x = c(4, 4.1), rate = c(0.23, 0.24))
 #'
-#' # The density function for the nuetrosophic observation 4
-#' # Here, 4 is equivalent to c(4,4).
 #' dnsexp(4, rate = c(0.23, 0.23))
 #' @export
 dnsexp <- function(x, rate) {
-  if (any(rate <= 0) || any(x < 0))
+  if (any(rate <= 0) || any(x < 0)) {
     stop("Arguments are incompatible.")
-
-  rate <- rep(rate, length.out = 2)
-  if(is.vector(x)){
-    x <- matrix(rep(x, length.out = 2), ncol = 2)
   }
 
-  x <- matrix(x, ncol = 2)
+  rate <- rep(rate, length.out = 2)
+  if (is.vector(x) || ncol(x) == 1) {
+    x <- matrix(rep(as.numeric(x), each = 2), ncol = 2, byrow = TRUE)
+  }
 
-  pdf <- matrix(data = NA, nrow = nrow(x), ncol = ncol(x))
-  for (i in 1:ncol(x)) {
+  if (ncol(x) > 2) {
+    stop(message = "Arguments are incompatible.")
+  }
+
+  pdf <- matrix(NA, nrow = nrow(x), ncol = 2)
+  for (i in 1:2) {
     pdf[, i] <- rate[i] * exp(-x[, i] * rate[i])
   }
 
-  swap_rows <- pdf[, 1] > pdf[, 2]
-  pdf[swap_rows, c(1, 2)] <- pdf[swap_rows, c(2, 1)]
+
 
   return(pdf)
 }
@@ -70,31 +68,35 @@ dnsexp <- function(x, rate) {
 #' @examples
 #'
 #' # The cumulative distribution function for the nuetrosophic observation (4,4.1)
-#' pnsexp(c(4,4.1), rate = c(0.23, 0.24), lower.tail = TRUE)
+#' pnsexp(c(4, 4.1), rate = c(0.23, 0.24), lower.tail = TRUE)
 #'
 #' pnsexp(4, rate = c(0.23, 0.24))
 #' @export
 pnsexp <- function(q, rate, lower.tail = TRUE) {
-  if (any(rate <= 0) || any(q < 0))
+  if (any(rate <= 0) || any(q < 0)) {
     stop("Arguments are incompatible.")
+  }
 
   rate <- rep(rate, length.out = 2)
-  if (is.vector(q)){
-    q <- matrix(rep(q, each = 2), ncol = 2, byrow = TRUE)
+  if (is.vector(q) || ncol(q) == 1) {
+    q <- matrix(rep(as.numeric(q), each = 2), ncol = 2, byrow = TRUE)
   }
-  if (ncol(q)>2){
+  if (ncol(q) > 2) {
     stop(message = "Arguments are incompatible.")
   }
 
-  cdf <- 1 - exp(-q * rate)
 
-  if (!lower.tail)
+  cdf <- matrix(NA, nrow = nrow(q), ncol = 2)
+  for (i in 1:2) {
+    cdf[, i] <- 1 - exp(-q[, i] * rate[i])
+  }
+
+
+
+  if (!lower.tail) {
     cdf <- 1 - cdf
+  }
 
-  cdf <- matrix(cdf, ncol = 2, byrow = TRUE)
-
-  swap_rows <- cdf[, 1] > cdf[, 2]
-  cdf[swap_rows, c(1, 2)] <- cdf[swap_rows, c(2, 1)]
 
   return(cdf)
 }
@@ -112,22 +114,22 @@ qnsexp <- function(p, rate) {
     stop(message = "Warning: p should be in the interval [0,1].")
   }
 
-  if (any(rate <= 0)){
+  if (any(rate <= 0)) {
     stop(message = "Arguments are incompatible.")
   }
 
   rate <- rep(rate, length.out = 2)
-  if (is.vector(p)){
-    p <- matrix(rep(p, each = 2), ncol = 2, byrow = TRUE)
+  if (is.vector(p) || ncol(p) == 1) {
+    p <- matrix(rep(as.numeric(p), each = 2), ncol = 2, byrow = TRUE)
   }
-  if (ncol(p)>2){
+  if (ncol(p) > 2) {
     stop(message = "Arguments are incompatible.")
   }
-  quantiles <- stats::qexp(p, rate = rate)
-  quantiles <- matrix(quantiles, ncol = 2, byrow = TRUE)
+  quantiles <- matrix(NA, nrow = nrow(p), ncol = 2)
+  for (i in 1:2) {
+    quantiles[, i] <- stats::qexp(p[, i], rate = rate[i])
+  }
 
-  swap_rows <- quantiles[, 1] > quantiles[, 2]
-  quantiles[swap_rows, c(1, 2)] <- quantiles[swap_rows, c(2, 1)]
 
   return(quantiles)
 }
@@ -139,8 +141,9 @@ qnsexp <- function(p, rate) {
 #' @export
 #'
 rnsexp <- function(n, rate) {
-  if (any(rate <= 0))
+  if (any(rate <= 0)) {
     stop(message = "Arguments are incompatible.")
+  }
   rate <- rep(rate, length.out = 2)
 
   X <- qnsexp(runif(n), rate)

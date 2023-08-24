@@ -33,15 +33,15 @@
 #' @importFrom stats runif dunif punif qunif
 #' @examples
 #'
-#' dnsunif(x = 1, min = c(0,5), max = c(15,20))
-#' dnsunif(x = c(6,10), min = c(0,5), max = c(15,20))
+#' dnsunif(x = 1, min = c(0, 5), max = c(15, 20))
+#' dnsunif(x = c(6, 10), min = c(0, 5), max = c(15, 20))
 #'
-#' punif(q = 1, min = c(0,5), max = c(15,20))
-#' punif(q = c(6,10), min = c(0,5), max = c(15,20))
+#' punif(q = 1, min = c(0, 5), max = c(15, 20))
+#' punif(q = c(6, 10), min = c(0, 5), max = c(15, 20))
 #'
-#' qnsunif(p = c(0.25,0.5,0.75), min = c(0,5), max = c(15,20))
+#' qnsunif(p = c(0.25, 0.5, 0.75), min = c(0, 5), max = c(15, 20))
 #'
-#' rnsunif(n = 10, min = c(0,5), max = c(15,20))
+#' rnsunif(n = 10, min = c(0, 5), max = c(15, 20))
 #'
 #' @export
 dnsunif <- function(x, min, max) {
@@ -51,19 +51,20 @@ dnsunif <- function(x, min, max) {
   max <- rep(max, length.out = 2)
   min <- rep(min, length.out = 2)
 
-  if (is.vector(x)) {
-    x <- matrix(rep(x, length.out = 2), ncol = 2)
+  if (is.vector(x) || ncol(x) == 1) {
+    x <- matrix(rep(as.numeric(x), each = 2), ncol = 2, byrow = TRUE)
   }
 
-  x <- matrix(x, ncol = 2)
+  if (ncol(x) > 2) {
+    stop(message = "Arguments are incompatible.")
+  }
 
-  pdf <- matrix(data = NA, nrow = nrow(x), ncol = ncol(x))
-  for (i in 1:ncol(x)) {
+  pdf <- matrix(NA, nrow = nrow(x), ncol = 2)
+  for (i in 1:2) {
     pdf[, i] <- stats::dunif(x[, i], min = min[i], max = max[i])
   }
 
-  swap_rows <- pdf[, 1] > pdf[, 2]
-  pdf[swap_rows, c(1, 2)] <- pdf[swap_rows, c(2, 1)]
+
 
   return(pdf)
 }
@@ -77,23 +78,24 @@ pnsunif <- function(q, min, max, lower.tail = TRUE) {
   max <- rep(max, length.out = 2)
   min <- rep(min, length.out = 2)
 
-  if (is.vector(q)){
-    q <- matrix(rep(q, each = 2), ncol = 2, byrow = TRUE)
+  if (is.vector(q) || ncol(q) == 1) {
+    q <- matrix(rep(as.numeric(q), each = 2), ncol = 2, byrow = TRUE)
   }
-  if (ncol(q)>2){
+  if (ncol(q) > 2) {
     stop(message = "Arguments are incompatible.")
   }
 
-  cdf <- stats::punif(q, min = min, max = max)
+  cdf <- matrix(NA, nrow = nrow(q), ncol = 2)
+  for (i in 1:2) {
+    cdf[, i] <- stats::punif(q[, i], min = min[i], max = max[i])
+  }
+
+
 
   if (!lower.tail) {
     cdf <- 1 - cdf
   }
 
-  cdf <- matrix(cdf, ncol = 2, byrow = TRUE)
-
-  swap_rows <- cdf[, 1] > cdf[, 2]
-  cdf[swap_rows, c(1, 2)] <- cdf[swap_rows, c(2, 1)]
 
   return(cdf)
 }
@@ -110,18 +112,16 @@ qnsunif <- function(p, min, max) {
   max <- rep(max, length.out = 2)
   min <- rep(min, length.out = 2)
 
-  if (is.vector(p)){
-    p <- matrix(rep(p, each = 2), ncol = 2, byrow = TRUE)
+  if (is.vector(p) || ncol(p) == 1) {
+    p <- matrix(rep(as.numeric(p), each = 2), ncol = 2, byrow = TRUE)
   }
-  if (ncol(p)>2){
+  if (ncol(p) > 2) {
     stop(message = "Arguments are incompatible.")
   }
-  quantiles <- stats::qunif(p, min = min, max = max)
-  quantiles <- matrix(quantiles, ncol = 2, byrow = TRUE)
-
-  swap_rows <- quantiles[, 1] > quantiles[, 2]
-  quantiles[swap_rows, c(1, 2)] <- quantiles[swap_rows, c(2, 1)]
-
+  quantiles <- matrix(NA, nrow = nrow(p), ncol = 2)
+  for (i in 1:2) {
+    quantiles[, i] <- stats::qunif(p[, i], min = min[i], max = max[i])
+  }
   return(quantiles)
 }
 #' @name Neutrosophic Uniform

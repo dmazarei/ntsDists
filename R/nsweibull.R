@@ -35,68 +35,70 @@
 #' @importFrom stats runif dweibull pweibull qweibull
 #' @examples
 #' data(remission)
-#' dnsweibull(x = remission, shape = c(1.0519,1.0553), scale = c(9.3370,9.4544))
+#' dnsweibull(x = remission, shape = c(1.0519, 1.0553), scale = c(9.3370, 9.4544))
 #'
-#' pnsweibull(q = 20, shape = c(1.0519,1.0553), scale = c(9.3370,9.4544))
+#' pnsweibull(q = 20, shape = c(1.0519, 1.0553), scale = c(9.3370, 9.4544))
 #'
 #' # Calculate quantiles
-#' qnsweibull(p = c(0.25,0.5,0.75), shape = c(1.0519,1.0553), scale = c(9.3370,9.4544))
+#' qnsweibull(p = c(0.25, 0.5, 0.75), shape = c(1.0519, 1.0553), scale = c(9.3370, 9.4544))
 #'
 #' # Simulate 10 numbers
-#' rnsweibull(n = 10, shape = c(1.0519,1.0553), scale = c(9.3370,9.4544))
+#' rnsweibull(n = 10, shape = c(1.0519, 1.0553), scale = c(9.3370, 9.4544))
 #'
 #' @export
 dnsweibull <- function(x, shape, scale) {
-  if (any(scale <= 0) || any(shape <= 0) || any(x < 0))
+  if (any(scale <= 0) || any(shape <= 0) || any(x < 0)) {
     stop("Arguments are incompatible.")
+  }
 
   scale <- rep(scale, length.out = 2)
-  shape  <- rep(shape, length.out = 2)
+  shape <- rep(shape, length.out = 2)
 
-  if(is.vector(x)){
-    x <- matrix(rep(x, length.out = 2), ncol = 2)
+  if (is.vector(x) || ncol(x) == 1) {
+    x <- matrix(rep(as.numeric(x), each = 2), ncol = 2, byrow = TRUE)
   }
 
-  x <- matrix(x, ncol = 2)
-
-  pdf <- matrix(data = NA, nrow = nrow(x), ncol = ncol(x))
-  for (i in 1:ncol(x)) {
+  if (ncol(x) > 2) {
+    stop(message = "Arguments are incompatible.")
+  }
+  pdf <- matrix(NA, nrow = nrow(x), ncol = 2)
+  for (i in 1:2) {
     pdf[, i] <- stats::dweibull(x[, i], shape = shape[i], scale = scale[i])
   }
-
-  swap_rows <- pdf[, 1] > pdf[, 2]
-  pdf[swap_rows, c(1, 2)] <- pdf[swap_rows, c(2, 1)]
 
   return(pdf)
 }
 #' @name Neutrosophic Weibull
 #' @export
 pnsweibull <- function(q, shape, scale, lower.tail = TRUE) {
-  if (any(scale <= 0) || any(shape <= 0) || any(q < 0))
+  if (any(scale <= 0) || any(shape <= 0) || any(q < 0)) {
     stop("Arguments are incompatible.")
+  }
 
   scale <- rep(scale, length.out = 2)
-  shape  <- rep(shape, length.out = 2)
+  shape <- rep(shape, length.out = 2)
 
-  if (is.vector(q)){
-    q <- matrix(rep(q, each = 2), ncol = 2, byrow = TRUE)
+  if (is.vector(q) || ncol(q) == 1) {
+    q <- matrix(rep(as.numeric(q), each = 2), ncol = 2, byrow = TRUE)
   }
-  if (ncol(q)>2){
+  if (ncol(q) > 2) {
     stop(message = "Arguments are incompatible.")
   }
 
-  cdf <- stats::pweibull(q, shape = shape, scale = scale)
+  cdf <- matrix(NA, nrow = nrow(q), ncol = 2)
+  for (i in 1:2) {
+    cdf[, i] <- stats::pweibull(q[, i], shape = shape[i], scale = scale[i])
+  }
 
-  if (!lower.tail)
+
+
+  if (!lower.tail) {
     cdf <- 1 - cdf
+  }
 
-  cdf <- matrix(cdf, ncol = 2, byrow = TRUE)
-
-  swap_rows <- cdf[, 1] > cdf[, 2]
-  cdf[swap_rows, c(1, 2)] <- cdf[swap_rows, c(2, 1)]
 
   return(cdf)
-  }
+}
 #' @name Neutrosophic Weibull
 #' @export
 qnsweibull <- function(p, shape, scale) {
@@ -104,35 +106,35 @@ qnsweibull <- function(p, shape, scale) {
     stop(message = "Warning: p should be in the interval [0,1].")
   }
 
-  if (any(scale <= 0) || any(shape <= 0)){
+  if (any(scale <= 0) || any(shape <= 0)) {
     stop(message = "Arguments are incompatible.")
   }
 
   scale <- rep(scale, length.out = 2)
-  shape  <- rep(shape, length.out = 2)
+  shape <- rep(shape, length.out = 2)
 
-  if (is.vector(p)){
-    p <- matrix(rep(p, each = 2), ncol = 2, byrow = TRUE)
+  if (is.vector(p) || ncol(p) == 1) {
+    p <- matrix(rep(as.numeric(p), each = 2), ncol = 2, byrow = TRUE)
   }
-  if (ncol(p)>2){
+  if (ncol(p) > 2) {
     stop(message = "Arguments are incompatible.")
   }
-  quantiles <- stats::qweibull(p, shape = shape, scale = scale)
-  quantiles <- matrix(quantiles, ncol = 2, byrow = TRUE)
-
-  swap_rows <- quantiles[, 1] > quantiles[, 2]
-  quantiles[swap_rows, c(1, 2)] <- quantiles[swap_rows, c(2, 1)]
+  quantiles <- matrix(NA, nrow = nrow(p), ncol = 2)
+  for (i in 1:2) {
+    quantiles[, i] <- stats::qweibull(p[, i], shape = shape[i], scale = scale[i])
+  }
 
   return(quantiles)
 }
 #' @name Neutrosophic Weibull
 #' @export
 rnsweibull <- function(n, shape, scale) {
-  if (any(scale <= 0) || any(shape <= 0))
+  if (any(scale <= 0) || any(shape <= 0)) {
     stop(message = "Arguments are incompatible.")
+  }
 
   scale <- rep(scale, length.out = 2)
-  shape  <- rep(shape, length.out = 2)
+  shape <- rep(shape, length.out = 2)
 
   X <- qnsweibull(runif(n), scale, shape)
   condition <- X[, 1] > X[, 2]

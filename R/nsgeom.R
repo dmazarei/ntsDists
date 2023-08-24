@@ -33,7 +33,7 @@
 #' # One person participates each week with a ticket in a lottery game, where
 #' # the probability of winning the first prize is (10^(-8), 10^(-6)).
 #' # Probability of one persons wins at the fifth year?
-#' dnsgeom(x = 5, prob = c(1e-8,1e-6))
+#' dnsgeom(x = 5, prob = c(1e-8, 1e-6))
 #' @export
 dnsgeom <- function(x, prob) {
   if (any(prob <= 0) || any(prob > 1) || any(x < 0)) {
@@ -46,26 +46,28 @@ dnsgeom <- function(x, prob) {
 
   prob <- rep(prob, length.out = 2)
 
-  if (is.vector(x)) {
-    x <- matrix(rep(x, length.out = 2), ncol = 2)
+  if (is.vector(x) || ncol(x) == 1) {
+    x <- matrix(rep(as.numeric(x), each = 2), ncol = 2, byrow = TRUE)
   }
 
-  x <- matrix(x, ncol = 2)
+  if (ncol(x) > 2) {
+    stop(message = "Arguments are incompatible.")
+  }
 
-  pdf <- matrix(data = NA, nrow = nrow(x), ncol = ncol(x))
-  for (i in 1:ncol(x)) {
+
+  pdf <- matrix(NA, nrow = nrow(x), ncol = 2)
+  for (i in 1:2) {
     pdf[, i] <- stats::dgeom(x[, i], prob = prob[i])
   }
 
-  swap_rows <- pdf[, 1] > pdf[, 2]
-  pdf[swap_rows, c(1, 2)] <- pdf[swap_rows, c(2, 1)]
 
   return(pdf)
 }
 #' @name Neutrosophic Geometric
 #' @examples
 #' # Probability of one persons wins after 10 years?
-#' pnsgeom(q = 10, prob = c(1e-8,1e-6), lower.tail = FALSE)
+#' pnsgeom(q = 10, prob = c(1e-8, 1e-6))
+#' pnsgeom(q = 10, prob = c(1e-8, 1e-6), lower.tail = FALSE)
 #' @export
 pnsgeom <- function(q, prob, lower.tail = TRUE) {
   if (any(prob <= 0) || any(prob > 1) || any(q < 0)) {
@@ -77,30 +79,27 @@ pnsgeom <- function(q, prob, lower.tail = TRUE) {
 
   prob <- rep(prob, length.out = 2)
 
-  if (is.vector(q)){
-    q <- matrix(rep(q, each = 2), ncol = 2, byrow = TRUE)
+  if (is.vector(q) || ncol(q) == 1) {
+    q <- matrix(rep(as.numeric(q), each = 2), ncol = 2, byrow = TRUE)
   }
-  if (ncol(q)>2){
+  if (ncol(q) > 2) {
     stop(message = "Arguments are incompatible.")
   }
 
-  cdf <- stats::pgeom(q, prob = prob)
-
+  cdf <- matrix(NA, nrow = nrow(q), ncol = 2)
+  for (i in 1:2) {
+    cdf[, i] <- stats::pgeom(q[, i], prob = prob[i])
+  }
   if (!lower.tail) {
     cdf <- 1 - cdf
   }
-
-  cdf <- matrix(cdf, ncol = 2, byrow = TRUE)
-
-  swap_rows <- cdf[, 1] > cdf[, 2]
-  cdf[swap_rows, c(1, 2)] <- cdf[swap_rows, c(2, 1)]
 
   return(cdf)
 }
 #' @name Neutrosophic Geometric
 #' @examples
 #' # Calculate the quantiles
-#' qnsgeom(p = c(0.25,0.5,0.75), prob = c(1e-8,1e-6))
+#' qnsgeom(p = c(0.25, 0.5, 0.75), prob = c(1e-8, 1e-6))
 #' @export
 qnsgeom <- function(p, prob) {
   if (any(p < 0) || any(p > 1)) {
@@ -113,17 +112,16 @@ qnsgeom <- function(p, prob) {
 
   prob <- rep(prob, length.out = 2)
 
-  if (is.vector(p)){
-    p <- matrix(rep(p, each = 2), ncol = 2, byrow = TRUE)
+  if (is.vector(p) || ncol(p) == 1) {
+    p <- matrix(rep(as.numeric(p), each = 2), ncol = 2, byrow = TRUE)
   }
-  if (ncol(p)>2){
+  if (ncol(p) > 2) {
     stop(message = "Arguments are incompatible.")
   }
-  quantiles <- stats::qgeom(p, prob = prob)
-  quantiles <- matrix(quantiles, ncol = 2, byrow = TRUE)
-
-  swap_rows <- quantiles[, 1] > quantiles[, 2]
-  quantiles[swap_rows, c(1, 2)] <- quantiles[swap_rows, c(2, 1)]
+  quantiles <- matrix(NA, nrow = nrow(p), ncol = 2)
+  for (i in 1:2) {
+    quantiles[, i] <- stats::qgeom(p[, i], prob = prob[i])
+  }
 
   return(quantiles)
 }
@@ -131,7 +129,7 @@ qnsgeom <- function(p, prob) {
 #' @name Neutrosophic Geometric
 #' @examples
 #' # Simulate 10 numbers
-#' rnsgeom(n = 10, prob = c(1e-8,1e-6))
+#' rnsgeom(n = 10, prob = c(1e-8, 1e-6))
 #' @export
 rnsgeom <- function(n, prob) {
   if (any(prob <= 0) || any(prob > 1)) {

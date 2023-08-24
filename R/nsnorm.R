@@ -35,65 +35,75 @@
 #' @importFrom stats runif dnorm pnorm qnorm
 #' @examples
 #' data(balls)
-#' dnsnorm(x = balls, mean = c(4.141, 4.180), sd = c(0.513, 0.521))
+#' dnsnorm(x = balls, mean = c(72.14087, 72.94087), sd = c(37.44544, 37.29067))
 #'
-#' pnsnorm(q = 5,  mean = c(4.141, 4.180), sd = c(0.513, 0.521))
+#' pnsnorm(q = 5, mean = c(72.14087, 72.94087), sd = c(37.44544, 37.29067))
 #'
 #' # Calculate quantiles
-#' qnsnorm(p = c(0.25,0.5,0.75),  mean = c(9.1196,9.2453), sd = c(10.1397,10.4577))
+#' qnsnorm(p = c(0.25, 0.5, 0.75), mean = c(9.1196, 9.2453), sd = c(10.1397, 10.4577))
 #'
 #' # Simulate 10 values
-#' rnsnorm(n = 10,mean = c(4.141, 4.180), sd = c(0.513, 0.521))
+#' rnsnorm(n = 10, mean = c(4.141, 4.180), sd = c(0.513, 0.521))
 #'
 #' @export
 dnsnorm <- function(x, mean, sd) {
-  if (any(sd <= 0))
+  if (any(sd <= 0)) {
     stop("Arguments are incompatible.")
-
-  mean    <- rep(mean, length.out = 2)
-  sd <- rep(sd, length.out = 2)
-
-  if (is.vector(x) && length(x) == 1) {
-    x <- matrix(rep(x, each = 2), ncol = 2, byrow = TRUE)
   }
 
-  x <- matrix(x, ncol = 2)
+  mean <- rep(mean, length.out = 2)
+  sd <- rep(sd, length.out = 2)
 
-  pdf <- matrix(data = NA, nrow = nrow(x), ncol = ncol(x))
-  for (i in 1:ncol(x)) {
+  if (is.vector(x) || ncol(x) == 1) {
+    x <- matrix(rep(as.numeric(x), each = 2), ncol = 2, byrow = TRUE)
+  }
+
+  if (ncol(x) > 2) {
+    stop(message = "Arguments are incompatible.")
+  }
+
+
+  pdf <- matrix(NA, nrow = nrow(x), ncol = 2)
+  for (i in 1:2) {
     pdf[, i] <- stats::dnorm(x[, i], mean = mean[i], sd = sd[i])
   }
 
   swap_rows <- pdf[, 1] > pdf[, 2]
   pdf[swap_rows, c(1, 2)] <- pdf[swap_rows, c(2, 1)]
 
-  return(pdf)}
+  return(pdf)
+}
 
 #' @name Neutrosophic Normal
 #' @export
 
 pnsnorm <- function(q, mean, sd, lower.tail = TRUE) {
-  if (any(sd <= 0))
+  if (any(sd <= 0)) {
     stop("Arguments are incompatible.")
+  }
 
-  mean    <- rep(mean, length.out = 2)
+  mean <- rep(mean, length.out = 2)
   sd <- rep(sd, length.out = 2)
 
-  if (is.vector(q)){
-    q <- matrix(rep(q, each = 2), ncol = 2, byrow = TRUE)
+  if (is.vector(q) || ncol(q) == 1) {
+    q <- matrix(rep(as.numeric(q), each = 2), ncol = 2, byrow = TRUE)
   }
-  if (ncol(q)>2){
+  if (ncol(q) > 2) {
     stop(message = "Arguments are incompatible.")
   }
 
-  cdf <- stats::pnorm(q, mean = mean, sd = sd)
 
-  if (!lower.tail)
+
+  cdf <- matrix(NA, nrow = nrow(q), ncol = 2)
+  for (i in 1:2) {
+    cdf[, i] <- stats::pnorm(q[, i], mean = mean[i], sd = sd[i])
+  }
+
+
+  if (!lower.tail) {
     cdf <- 1 - cdf
+  }
 
-  cdf <- matrix(cdf, ncol = 2, byrow = TRUE)
-  swap_rows <- cdf[, 1] > cdf[, 2]
-  cdf[swap_rows, c(1, 2)] <- cdf[swap_rows, c(2, 1)]
 
   return(cdf)
 }
@@ -105,23 +115,24 @@ qnsnorm <- function(p, mean, sd) {
     stop(message = "Warning: p should be in the interval [0,1].")
   }
 
-  if (any(sd <= 0))
+  if (any(sd <= 0)) {
     stop(message = "Arguments are incompatible.")
+  }
 
-  mean    <- rep(mean, length.out = 2)
+  mean <- rep(mean, length.out = 2)
   sd <- rep(sd, length.out = 2)
 
-  if (is.vector(p)){
-    p <- matrix(rep(p, each = 2), ncol = 2, byrow = TRUE)
+  if (is.vector(p) || ncol(p) == 1) {
+    p <- matrix(rep(as.numeric(p), each = 2), ncol = 2, byrow = TRUE)
   }
-  if (ncol(p)>2){
+  if (ncol(p) > 2) {
     stop(message = "Arguments are incompatible.")
   }
-  quantiles <- stats::dnorm(p, mean = mean, sd = sd)
-  quantiles <- matrix(quantiles, ncol = 2, byrow = TRUE)
 
-  swap_rows <- quantiles[, 1] > quantiles[, 2]
-  quantiles[swap_rows, c(1, 2)] <- quantiles[swap_rows, c(2, 1)]
+  quantiles <- matrix(NA, nrow = nrow(p), ncol = 2)
+  for (i in 1:2) {
+    quantiles[, i] <- stats::qnorm(p[, i], mean = mean[i], sd = sd[i])
+  }
 
   return(quantiles)
 }
@@ -129,10 +140,11 @@ qnsnorm <- function(p, mean, sd) {
 #' @name Neutrosophic Normal
 #' @export
 rnsnorm <- function(n, mean, sd) {
-  if (any(sd <= 0))
+  if (any(sd <= 0)) {
     stop(message = "Arguments are incompatible.")
+  }
 
-  mean    <- rep(mean, length.out = 2)
+  mean <- rep(mean, length.out = 2)
   sd <- rep(sd, length.out = 2)
 
   X <- qnsnorm(runif(n), mean, sd)
