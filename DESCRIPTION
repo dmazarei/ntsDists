@@ -1,7 +1,7 @@
 Package: ntsDists
 Type: Package
 Title: Neutrosophic Distributions
-Version: 1.0.0
+Version: 1.0.0.9000
 Authors@R: c(
     person("Danial", "Mazarei", email = "danial.mazarei@gmail.com", role =  c("aut", "cre"), comment = c(ORCID = "0000-0002-3633-9298")),
     person("Foad", "Esmaeili", email = "foadesmaeili5@gmail.com", role = "aut", comment = c(ORCID = "0000-0002-9638-0807")),
@@ -17,4 +17,3 @@ LazyData: false
 RoxygenNote: 7.2.3
 Depends: 
     R (>= 3.5)
-
