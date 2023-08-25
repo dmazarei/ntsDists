@@ -1,12 +1,11 @@
 ntsDists <img src="man/figures/logo.png" align="right" />
 ======================
-<!---
 [![R-CMD-check](https://github.com/mnrzrad/ImpShrinkage/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/mnrzrad/ImpShrinkage/actions/workflows/R-CMD-check.yaml)
 [![CRAN_Status_Badge](https://www.r-pkg.org/badges/version/ntsDists)](https://cran.r-project.org/package=ntsDists)
 [![Downloads per month](https://cranlogs.r-pkg.org/badges/ntsDists)](https://cran.r-project.org/package=ntsDists)
 [![Total Downloads](https://cranlogs.r-pkg.org/badges/grand-total/ntsDists)](https://cran.r-project.org/package=ntsDists)
 [![Licence](https://img.shields.io/badge/licence-GPL--3-blue.svg)](https://www.gnu.org/licenses/gpl-3.0.en.html)
--->
+
 
 The R package *ntsDists* computes some measures of neutrosophic family of distributions in the area of statistical analysis. More details can be found Rao et al. (2023).
 
