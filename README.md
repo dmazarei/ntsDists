@@ -1,6 +1,6 @@
 ntsDists <img src="man/figures/logo.png" align="right" />
 ======================
-[![R-CMD-check](https://github.com/mnrzrad/ImpShrinkage/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/mnrzrad/ImpShrinkage/actions/workflows/R-CMD-check.yaml)
+[![R-CMD-check](https://github.com/dmazarei/ntsDists/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/dmazarei/ntsDists/actions/workflows/R-CMD-check.yaml)
 [![CRAN_Status_Badge](https://www.r-pkg.org/badges/version/ntsDists)](https://cran.r-project.org/package=ntsDists)
 [![Downloads per month](https://cranlogs.r-pkg.org/badges/ntsDists)](https://cran.r-project.org/package=ntsDists)
 [![Total Downloads](https://cranlogs.r-pkg.org/badges/grand-total/ntsDists)](https://cran.r-project.org/package=ntsDists)
