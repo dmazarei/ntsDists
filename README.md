@@ -11,7 +11,6 @@ The R package *ntsDists* computes some measures of neutrosophic family of distri
 
 This work is funded by national funds through the FCT - Fundação para a Ciência e a Tecnologia, I.P., under the scope of the projects UIDB/00297/2020 and UIDP/00297/2020 (Center for Mathematics and Applications)".
 
-<!---
 ## Installation
 You can install the **stable** version from
 [CRAN](https://cran.r-project.org/package=ntsDists).
@@ -19,7 +18,7 @@ You can install the **stable** version from
 ```s
 install.packages('ntsDists', dependencies = TRUE)
 ```
--->
+
 
 You can install the **development** version from
 [Github](https://github.com/dmazarei/ntsDists)
@@ -30,23 +29,17 @@ remotes::install_github("dmazarei/ntsDists")
 ```
 
 ## To cite package `ntsDists` in publications use:
-  Mazarei D, Norouzirad M, Rao, G. S. (2023). _ntsDists: Neutrosophic distributions_. R package version 1.0.0,
- 
-  <https://github.com/dmazarei/ntsDists>
-  <!---
+  Mazarei, D., Esmaeili, F., Norouzirad, M., Rao, G. S. (2023). _ntsDists: Neutrosophic distributions_. R package version 1.0.0,
   <https://cran.r-project.org/package=ntsDists>.
- -->
+
 A BibTeX entry for LaTeX users is
 
   @Manual{ImpShrinkage,
     title = {ntsDists: Neutrosophic distributions},
-    author = {Danial Mazarei and Mina Norouzirad and Gadde Srinivasa Rao},
+    author = {Danial Mazarei and Foad Esmaeil and Mina Norouzirad and Gadde Srinivasa Rao},
     year = {2023},
     note = {R package version 1.0.0},
-    <!---
     url = {https://cran.r-project.org/package=ntsDists}
-    -->
-    url = {https://github.com/dmazarei/ntsDists}
   }
 
 
