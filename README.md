@@ -36,7 +36,7 @@ A BibTeX entry for LaTeX users is
 
   @Manual{ImpShrinkage,
     title = {ntsDists: Neutrosophic distributions},
-    author = {Danial Mazarei and Foad Esmaeil and Mina Norouzirad and Gadde Srinivasa Rao},
+    author = {Danial Mazarei and Foad Esmaeili and Mina Norouzirad and Gadde Srinivasa Rao},
     year = {2023},
     note = {R package version 1.0.0},
     url = {https://cran.r-project.org/package=ntsDists}
