@@ -126,7 +126,7 @@ qnsgpd <- function(p, shape, scale) {
   }
   quantiles <- matrix(NA, nrow = nrow(p), ncol = 2)
   for (i in 1:2) {
-    quantiles[, i] <- scale[i] / shape[i] * ((1 - p[, i])^(-shape) - 1)
+    quantiles[, i] <- scale[i] / shape[i] * ((1 - p[, i])^(-shape[i]) - 1)
   }
 
   return(quantiles)
