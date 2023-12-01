@@ -1,7 +1,7 @@
 #' Neutrosophic Beta Distribution
 #'
 #' Density, distribution function, quantile function and random
-#' generation for the nuetrosophic Beta distribution with shape parameters
+#' generation for the neutrosophic Beta distribution with shape parameters
 #' \code{shape1} = \eqn{\alpha_N} and \code{shape2} = \eqn{\beta_N}.
 #'
 #' The neutrosophic beta distribution with parameters \eqn{\alpha_N} and

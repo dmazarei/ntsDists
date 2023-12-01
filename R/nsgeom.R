@@ -1,7 +1,7 @@
 #' Neutrosophic Geometric Distribution
 #'
 #' Density, distribution function, quantile function and random
-#' generation for the nuetrosophic Geometric distribution with
+#' generation for the neutrosophic Geometric distribution with
 #' parameter \code{prob} = \eqn{p_N}.
 #'
 #' The neutrosophic Geometric distribution with parameter \eqn{p_N}

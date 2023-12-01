@@ -1,7 +1,7 @@
 #' Neutrosophic Poisson Distribution
 #'
 #' Density, distribution function, quantile function and random
-#' generation for the nuetrosophic Poisson distribution with
+#' generation for the neutrosophic Poisson distribution with
 #' parameter \eqn{\lambda_N}.
 #'
 #' The neutrosophic Poisson distribution with parameter \eqn{\lambda_N}

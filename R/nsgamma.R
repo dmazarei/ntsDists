@@ -1,7 +1,7 @@
 #' Neutrosophic Gamma Distribution
 #'
 #' Density, distribution function, quantile function and random generation for
-#' the nuetrosophic gamma distribution with parameter \code{shape} = \eqn{\alpha_N}
+#' the neutrosophic gamma distribution with parameter \code{shape} = \eqn{\alpha_N}
 #' and \code{scale}=\eqn{\lambda_N}.
 #'
 #' The neutrosophic gamma distribution with parameters \eqn{\alpha_N} and

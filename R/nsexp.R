@@ -1,7 +1,7 @@
 #' Neutrosophic Exponential Distribution
 #'
 #' Density, distribution function, quantile function and random
-#' generation for the nuetrosophic exponential distribution with the
+#' generation for the neutrosophic exponential distribution with the
 #' parameter \code{rate} =  \eqn{\theta_N}.
 #'
 #' The neutrosophic exponential distribution with parameter \eqn{\theta_N}

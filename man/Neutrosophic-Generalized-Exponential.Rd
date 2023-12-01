@@ -41,7 +41,7 @@ rnsgexp(n, nu, delta)
 }
 \description{
 Density, distribution function, quantile function and random
-generation for the nuetrosophic generalized exponential
+generation for the neutrosophic generalized exponential
 distribution with shape parameter \eqn{\delta_N} and scale parameter
 \eqn{\nu_N} or equ.
 }

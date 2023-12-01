@@ -1,7 +1,7 @@
 #' Neutrosophic Rayleigh Distribution
 #'
 #' Density, distribution function, quantile function and random
-#' generation for the nuetrosophic Rayleigh distribution with
+#' generation for the neutrosophic Rayleigh distribution with
 #' parameter \eqn{\theta_N}.
 #'
 #' The neutrosophic Rayleigh distribution with parameter \eqn{\theta}

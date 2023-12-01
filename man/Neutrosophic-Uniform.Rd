@@ -40,7 +40,7 @@ rnsunif(n, min, max)
 }
 \description{
 Density, distribution function, quantile function and random
-generation for the nuetrosophic Uniform distribution of a continuous
+generation for the neutrosophic Uniform distribution of a continuous
 variable \eqn{X} with parameters \eqn{a_N} and  \eqn{b_N}.
 }
 \details{
