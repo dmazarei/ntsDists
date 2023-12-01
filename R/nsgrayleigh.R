@@ -1,18 +1,18 @@
-#' Neutrosophic Generalized Pareto Distribution
+#' Neutrosophic Generalized Rayleigh Distribution
 #'
-#' Density, distribution function, quantile function and random generation for
-#' the nuetrosophic generalized pareto distribution with parameters \code{shape} = \eqn{\alpha_N}
-#' and \code{scale}=\eqn{\beta_N}.
+#' Density, distribution function, quantile function and random
+#' generation for the neutrosophic generalized Rayleigh distribution with
+#' parameters \code{shape} = \eqn{\nu_N} and \code{scale} = \eqn{\sigma_N}.
 #'
-#' The neutrosophic generalized pareto distribution with parameters \eqn{\alpha_N} and
-#' \eqn{\beta_N} has density
-#' \deqn{f(x; \alpha_N, \beta_N)=\frac{1}{\beta_N}\left(1+\frac{\alpha_Nx}{\beta_N} \right)^{-\frac{1}{\alpha_N}-1},}
-#' for \eqn{x \ge 0}, \eqn{\alpha_N \in (\alpha_L, \alpha_U)}, the shape
+#' The neutrosophic generalized Rayleigh distribution with parameters \eqn{\nu_N} and
+#' \eqn{\sigma_N} has the density
+#' \deqn{f_N(x)=\frac{2\nu_N}{\sigma_N^2}x \exp\{-\left(\frac{x}{\sigma_N} \right)^2\}\left[1-\exp\{-\left(\frac{x}{\sigma_N} \right)^2\}\right]^{\nu_N-1}}
+#' for \eqn{x > 0}, \eqn{\nu_N \in (\nu_L, \nu_U)}, the shape
 #' parameter which must be a positive interval and
-#' \eqn{\beta_N \in (\beta_L, \beta_U)}, the scale parameter which
+#' \eqn{\sigma_n \in (\sigma_L, \sigma_U)}, the scale parameter which
 #' must be a positive interval.
 #'
-#' @name Neutrosophic Generalized Pareto
+#' @name Neutrosophic Generalized Rayleigh
 #' @param x a vector or matrix of observations for which the pdf needs to be computed.
 #' @param q a vector or matrix of quantiles for which the cdf needs to be computed.
 #' @param p a vector or matrix of probabilities for which the quantile needs to be computed.
@@ -23,28 +23,30 @@
 #' \eqn{P(X \leq x)}; otherwise, \eqn{P(X >x)}.
 #'
 #' @return
-#'  \code{pnsgpd} gives the distribution function,
-#'  \code{dnsgpd} gives the density,
-#'  \code{qnsgpd} gives the quantile function and
-#'  \code{rnsgpd} generates random variables from the neutrosophic generalized pareto distribution.
+#'  \code{dnsgrayleigh} gives the density,
+#'  \code{pnsgrayleigh} gives the distribution function,
+#'  \code{qnsgrayleigh} gives the quantile function and
+#'  \code{rnsgrayleigh} generates random variables from the Neutrosophic Generalized Rayleigh Distribution.
 #' @references
-#'    Eassa, N. I., Zaher, H. M., & El-Magd, N. A. A. (2023).
-#'    Neutrosophic Generalized Pareto Distribution, \emph{Mathematics and Statistics},
-#'    11(5), 827--833.
-#' @importFrom stats runif dgamma pgamma qgamma
+#' Norouzirad, M., Rao, G. S., & Mazarei, D. (2023).
+#' Neutrosophic Generalized Rayleigh Distribution with Application.
+#' \emph{Neutrosophic Sets and Systems}, 58(1), 250-262.
+#'
+#' @importFrom stats runif
 #' @examples
 #' data(remission)
-#' dnsgpd(x = remission, shape = c(1.1884, 1.1896), scale = c(7.6658, 7.7796))
+#' dnsgrayleigh(x = remission,shape = c(1.1884, 1.1896), scale = c(7.6658, 7.7796))
 #'
-#' pnsgpd(q = 20, shape = c(1.1884, 1.1896), scale = c(7.6658, 7.7796))
+#' pnsgrayleigh(q = 20, shape = c(1.1884, 1.1896), scale = c(7.6658, 7.7796))
 #'
 #' # Calculate quantiles
-#' qnsgpd(p = c(0.25, 0.5, 0.75), shape = c(1.1884, 1.1896), scale = c(7.6658, 7.7796))
+#' qnsgrayleigh(p = c(0.25, 0.5, 0.75), shape = c(1.1884, 1.1896), scale = c(7.6658, 7.7796))
 #'
-#' # Simulate 10 numbers
-#' rnsgpd(n = 10, shape = c(1.1884, 1.1896), scale = c(7.6658, 7.7796))
+#' # Simulate 10 values
+#' rnsgrayleigh(n = 10, shape = c(1.1884, 1.1896), scale = c(7.6658, 7.7796))
+#'
 #' @export
-dnsgpd <- function(x, shape, scale) {
+dnsgrayleigh <- function(x, shape, scale) {
   if (any(shape <= 0) || any(scale <= 0) || any(x < 0)) {
     stop(message = "Arguments are incompatible.")
   }
@@ -63,16 +65,16 @@ dnsgpd <- function(x, shape, scale) {
 
   pdf <- matrix(NA, nrow = nrow(x), ncol = 2)
   for (i in 1:2) {
-    pdf[, i] <- (1 / scale[i]) * (1 + (shape[i] * x[,i]) / scale[i])^(-1 / shape[i] - 1)
+    pdf[, i] <- (2 * shape[i]) / (scale[i]^2) * x[,i] * exp(-(x[,i] / scale[i])^2) * (1 - exp(-(x[,i] / scale[i])^2))^(shape[i] - 1)
   }
 
 
 
   return(pdf)
 }
-#' @name Neutrosophic Generalized Pareto
+#' @name Neutrosophic Generalized Rayleigh
 #' @export
-pnsgpd <- function(q, shape, scale, lower.tail = TRUE) {
+pnsgrayleigh <- function(q, shape, scale, lower.tail = TRUE) {
   if (any(shape <= 0) || any(scale <= 0) || any(q < 0)) {
     stop(message = "incompatible arguments.")
   }
@@ -91,7 +93,7 @@ pnsgpd <- function(q, shape, scale, lower.tail = TRUE) {
 
   cdf <- matrix(NA, nrow = nrow(q), ncol = 2)
   for (i in 1:2) {
-    cdf[, i] <- 1 - (1 + (shape[i] * q[,i]) / scale[i])^(-1 / shape[i])
+    cdf[, i] <- (1 - exp(-(q[,i] / scale[i])^2))^(shape[i])
   }
 
   if (!lower.tail) {
@@ -99,14 +101,11 @@ pnsgpd <- function(q, shape, scale, lower.tail = TRUE) {
   }
 
 
-
-
   return(cdf)
 }
-
-#' @name Neutrosophic Generalized Pareto
+#' @name Neutrosophic Generalized Rayleigh
 #' @export
-qnsgpd <- function(p, shape, scale) {
+qnsgrayleigh <- function(p, shape, scale) {
   if (any(p < 0) || any(p > 1)) {
     stop(message = "Warning: p should be in the interval [0,1].")
   }
@@ -126,15 +125,15 @@ qnsgpd <- function(p, shape, scale) {
   }
   quantiles <- matrix(NA, nrow = nrow(p), ncol = 2)
   for (i in 1:2) {
-    quantiles[, i] <- scale[i] / shape[i] * ((1 - p[, i])^(-shape[i]) - 1)
+    quantiles[, i] <- sqrt(-scale[i]^2 * log(1 - p[,i]^(1 / shape[i])))
   }
 
   return(quantiles)
 }
 
-#' @name Neutrosophic Generalized Pareto
+#' @name Neutrosophic Generalized Rayleigh
 #' @export
-rnsgpd <- function(n, shape, scale) {
+rnsgrayleigh <- function(n, shape, scale) {
   if (any(shape <= 0) || any(scale <= 0)) {
     stop(message = "Arguments are incompatible.")
   }

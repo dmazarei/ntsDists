@@ -26,7 +26,7 @@ rnsgpd(n, shape, scale)
 \item{q}{a vector or matrix of quantiles for which the cdf needs to be computed.}
 
 \item{lower.tail}{logical; if TRUE (default), probabilities are
-\eqn{P(X \ge x)}; otherwise, \eqn{P(X >x)}.}
+\eqn{P(X \leq x)}; otherwise, \eqn{P(X >x)}.}
 
 \item{p}{a vector or matrix of probabilities for which the quantile needs to be computed.}
 
@@ -40,7 +40,7 @@ rnsgpd(n, shape, scale)
 }
 \description{
 Density, distribution function, quantile function and random generation for
-the nuetrosophic generalized pareto distribution with parameter \code{shape} = \eqn{\alpha_N}
+the nuetrosophic generalized pareto distribution with parameters \code{shape} = \eqn{\alpha_N}
 and \code{scale}=\eqn{\beta_N}.
 }
 \details{
