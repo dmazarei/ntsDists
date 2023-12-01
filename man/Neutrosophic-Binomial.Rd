@@ -40,7 +40,7 @@ rnsbinom(n, size, prob)
 }
 \description{
 Density, distribution function, quantile function and random
-generation for the nuetrosophic binomial distribution with
+generation for the neutrosophic binomial distribution with
 parameters \code{size} = \eqn{n} and \code{prob} = \eqn{p_N}.
 }
 \details{

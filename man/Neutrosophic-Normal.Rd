@@ -40,7 +40,7 @@ rnsnorm(n, mean, sd)
 }
 \description{
 Density, distribution function, quantile function and random
-generation for the nuetrosophic generalized exponential
+generation for the neutrosophic generalized exponential
 distribution with parameters \code{mean} =  \eqn{\mu_N} and standard deviation
 \code{sd} = \eqn{\sigma_N}.
 }

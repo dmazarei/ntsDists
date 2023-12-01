@@ -40,7 +40,7 @@ rnsgamma(n, shape, scale)
 }
 \description{
 Density, distribution function, quantile function and random generation for
-the nuetrosophic gamma distribution with parameter \code{shape} = \eqn{\alpha_N}
+the neutrosophic gamma distribution with parameter \code{shape} = \eqn{\alpha_N}
 and \code{scale}=\eqn{\lambda_N}.
 }
 \details{

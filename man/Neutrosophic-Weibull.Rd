@@ -40,7 +40,7 @@ rnsweibull(n, shape, scale)
 }
 \description{
 Density, distribution function, quantile function and random
-generation for the nuetrosophic Weibull distribution with \code{scale}
+generation for the neutrosophic Weibull distribution with \code{scale}
 parameter \eqn{\alpha_N} and \code{shape} parameter \eqn{\beta_N}.
 }
 \details{

@@ -1,7 +1,7 @@
 #' Neutrosophic Negative Binomial Distribution
 #'
 #' Density, distribution function, quantile function and random
-#' generation for the nuetrosophic Negative Binomial distribution with
+#' generation for the neutrosophic Negative Binomial distribution with
 #' parameters \code{size} = \eqn{r_N} and \code{prob} = \eqn{p_N}.
 #'
 #' The neutrosophic negative binomial distribution with parameters \eqn{r_N} and \eqn{p_N}

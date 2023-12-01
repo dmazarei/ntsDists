@@ -38,7 +38,7 @@ rnsgeom(n, prob)
 }
 \description{
 Density, distribution function, quantile function and random
-generation for the nuetrosophic Geometric distribution with
+generation for the neutrosophic Geometric distribution with
 parameter \code{prob} = \eqn{p_N}.
 }
 \details{

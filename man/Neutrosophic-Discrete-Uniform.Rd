@@ -38,7 +38,7 @@ rnsdunif(n, k)
 }
 \description{
 Density, distribution function, quantile function and random
-generation for the nuetrosophic discrete uniform distribution with
+generation for the neutrosophic discrete uniform distribution with
 parameter \eqn{k_N}.
 }
 \details{

@@ -1,7 +1,7 @@
 #' Neutrosophic Generalized Pareto Distribution
 #'
 #' Density, distribution function, quantile function and random generation for
-#' the nuetrosophic generalized pareto distribution with parameters \code{shape} = \eqn{\alpha_N}
+#' the neutrosophic generalized pareto distribution with parameters \code{shape} = \eqn{\alpha_N}
 #' and \code{scale}=\eqn{\beta_N}.
 #'
 #' The neutrosophic generalized pareto distribution with parameters \eqn{\alpha_N} and

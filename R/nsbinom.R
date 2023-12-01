@@ -1,7 +1,7 @@
 #' Neutrosophic Binomial Distribution
 #'
 #' Density, distribution function, quantile function and random
-#' generation for the nuetrosophic binomial distribution with
+#' generation for the neutrosophic binomial distribution with
 #' parameters \code{size} = \eqn{n} and \code{prob} = \eqn{p_N}.
 #'
 #' The neutrosophic binomial distribution with parameters \eqn{n} and \eqn{p_N}

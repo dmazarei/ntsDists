@@ -38,7 +38,7 @@ rnsexp(n, rate)
 }
 \description{
 Density, distribution function, quantile function and random
-generation for the nuetrosophic exponential distribution with the
+generation for the neutrosophic exponential distribution with the
 parameter \code{rate} =  \eqn{\theta_N}.
 }
 \details{

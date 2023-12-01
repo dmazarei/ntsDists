@@ -1,7 +1,7 @@
 #' Neutrosophic Discrete Uniform Distribution
 #'
 #' Density, distribution function, quantile function and random
-#' generation for the nuetrosophic discrete uniform distribution with
+#' generation for the neutrosophic discrete uniform distribution with
 #' parameter \eqn{k_N}.
 #'
 #' Let \eqn{X_N} be a neutrosophic random variable and denote
