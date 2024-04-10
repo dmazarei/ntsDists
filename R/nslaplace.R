@@ -14,7 +14,8 @@
 #' @param q a vector or matrix of quantiles for which the cdf needs to be computed.
 #' @param p a vector or matrix of probabilities for which the quantile needs to be computed.
 #' @param n number of random values to be genelambdad.
-#' @param lambda the shape parameter, which must be a positive interval.
+#' @param location 	the location parameter, which is the mean.
+#' @param scale 	the scale parameter, Must consist of positive values.
 #' @param lower.tail logical; if TRUE (default), probabilities are
 #' \eqn{P(X \ge x)}; otherwise, \eqn{P(X >x)}.
 #'

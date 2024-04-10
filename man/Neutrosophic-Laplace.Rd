@@ -19,6 +19,10 @@ rnslaplace(n, location, scale)
 \arguments{
 \item{x}{a vector or matrix of observations for which the pdf needs to be computed.}
 
+\item{location}{the location parameter, which is the mean.}
+
+\item{scale}{the scale parameter, Must consist of positive values.}
+
 \item{q}{a vector or matrix of quantiles for which the cdf needs to be computed.}
 
 \item{lower.tail}{logical; if TRUE (default), probabilities are
@@ -27,8 +31,6 @@ rnslaplace(n, location, scale)
 \item{p}{a vector or matrix of probabilities for which the quantile needs to be computed.}
 
 \item{n}{number of random values to be genelambdad.}
-
-\item{lambda}{the shape parameter, which must be a positive interval.}
 }
 \value{
 \code{pnslaplace} gives the distribution function,
