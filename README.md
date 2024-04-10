@@ -1,8 +1,3 @@
----
-editor_options: 
-  markdown: 
-    wrap: 72
----
 
 # ntsDists <img src="man/figures/logo.png" align="right"/>
 
