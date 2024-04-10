@@ -39,7 +39,7 @@
 #' )
 #'
 #' dnslaplace(x = c(4, 4.1), location = c(0.23, 0.24), scale = c(1, 2))
-#' dnslaplace(4,  location = c(0.23, 0.24), scale = c(1, 2))
+#' dnslaplace(4, location = c(0.23, 0.24), scale = c(1, 2))
 #' @export
 dnslaplace <- function(x, location, scale) {
   if (any(scale <= 0) || any(x < 0)) {

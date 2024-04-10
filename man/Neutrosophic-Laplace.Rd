@@ -57,7 +57,7 @@ data <- matrix(c(4, 4, 3.5, 3.5, 3.9, 4.1, 4.2, 4.2, 4.3, 4.6, 4.7, 4.7),
 )
 
 dnslaplace(x = c(4, 4.1), location = c(0.23, 0.24), scale = c(1, 2))
-dnslaplace(4,  location = c(0.23, 0.24), scale = c(1, 2))
+dnslaplace(4, location = c(0.23, 0.24), scale = c(1, 2))
 
 # The cumulative distribution function for the nuetrosophic observation (4,4.1)
 pnslaplace(q = c(4, 4.1), location = c(0.23, 0.24), scale = c(1, 2))
