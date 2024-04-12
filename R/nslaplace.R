@@ -42,7 +42,7 @@
 #' dnslaplace(4, location = c(0.23, 0.24), scale = c(1, 2))
 #' @export
 dnslaplace <- function(x, location, scale) {
-  if (any(scale <= 0) || any(x < 0)) {
+  if (any(scale < 0) || any(x < 0)) {
     stop("Arguments are incompatible.")
   }
 
@@ -70,7 +70,7 @@ dnslaplace <- function(x, location, scale) {
 #' pnslaplace(q = c(4, 4.1), location = c(0.23, 0.24), scale = c(1, 2))
 #' @export
 pnslaplace <- function(q, location, scale, lower.tail = TRUE) {
-  if (any(scale <= 0) || any(q < 0)) {
+  if (any(scale < 0) || any(q < 0)) {
     stop("Arguments are incompatible.")
   }
 
@@ -108,7 +108,7 @@ qnslaplace <- function(p, location, scale) {
   if (any(p < 0) || any(p > 1)) {
     stop(message = "Warning: p should be in the interval [0,1].")
   }
-  if (any(scale <= 0)) {
+  if (any(scale < 0)) {
     stop(message = "Arguments are incompatible.")
   }
   location <- rep(location, length.out = 2)
@@ -133,7 +133,7 @@ qnslaplace <- function(p, location, scale) {
 #' @export
 #'
 rnslaplace <- function(n, location, scale) {
-  if (any(scale <= 0)) {
+  if (any(scale < 0)) {
     stop(message = "Arguments are incompatible.")
   }
   location <- rep(location, length.out = 2)
