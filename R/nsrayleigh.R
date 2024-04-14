@@ -4,7 +4,7 @@
 #' generation for the neutrosophic Rayleigh distribution with
 #' parameter \eqn{\theta_N}.
 #'
-#' The neutrosophic Rayleigh distribution with parameter \eqn{\theta}
+#' The neutrosophic Rayleigh distribution with parameter \eqn{\theta_N}
 #' has the density
 #' \deqn{f_N(x)=\frac{x}{\theta_N^2} \exp\{-\frac{1}{2}\left(\frac{x}{\theta_N}\right)^2\}}
 #' for  \eqn{\theta_N \in (\theta_L, \theta_U)}, which must be a positive
@@ -20,13 +20,13 @@
 #' \eqn{P(X \leq x)}; otherwise, \eqn{P(X >x)}.
 #'
 #' @return
-#'  \code{dnsrayleigh} gives the density function
+#'  \code{dnsRayleigh} gives the density function
 #'
-#'  \code{pnsrayleigh} gives the distribution function
+#'  \code{pnsRayleigh} gives the distribution function
 #'
-#'  \code{qnsrayleigh} gives the quantile function
+#'  \code{qnsRayleigh} gives the quantile function
 #'
-#'  \code{rnsrayleigh} generates random variables from the Neutrosophic Rayleigh Distribution.
+#'  \code{rnsRayleigh} generates random variables from the Neutrosophic Rayleigh Distribution.
 #'
 #' @references
 #' Khan, Z., Gulistan, M., Kausar, N. and Park, C. (2021).
@@ -36,18 +36,18 @@
 #' @importFrom stats runif
 #' @examples
 #' data(remission)
-#' dnsrayleigh(x = remission, theta = c(9.6432, 9.8702))
+#' dnsRayleigh(x = remission, theta = c(9.6432, 9.8702))
 #'
-#' pnsrayleigh(q = 20, theta = c(9.6432, 9.8702))
+#' pnsRayleigh(q = 20, theta = c(9.6432, 9.8702))
 #'
 #' # Calculate quantiles
-#' qnsrayleigh(p = c(0.25, 0.5, 0.75), theta = c(9.6432, 9.8702))
+#' qnsRayleigh(p = c(0.25, 0.5, 0.75), theta = c(9.6432, 9.8702))
 #'
 #' # Simulate 10 values
-#' rnsrayleigh(n = 10, theta = c(9.6432, 9.8702))
+#' rnsRayleigh(n = 10, theta = c(9.6432, 9.8702))
 #'
 #' @export
-dnsrayleigh <- function(x, theta) {
+dnsRayleigh <- function(x, theta) {
   if (any(theta <= 0)) {
     stop("Arguments are incompatible.")
   }
@@ -73,7 +73,7 @@ dnsrayleigh <- function(x, theta) {
 }
 #' @name Neutrosophic Rayleigh
 #' @export
-pnsrayleigh <- function(q, theta, lower.tail = TRUE) {
+pnsRayleigh <- function(q, theta, lower.tail = TRUE) {
   if (any(theta <= 0) || any(q < 0)) {
     stop("Arguments are incompatible.")
   }
@@ -104,7 +104,7 @@ pnsrayleigh <- function(q, theta, lower.tail = TRUE) {
 }
 #' @name Neutrosophic Rayleigh
 #' @export
-qnsrayleigh <- function(p, theta) {
+qnsRayleigh <- function(p, theta) {
   if (any(p < 0) || any(p > 1)) {
     stop(message = "Warning: p should be in the interval [0,1].")
   }
@@ -132,14 +132,14 @@ qnsrayleigh <- function(p, theta) {
 
 #' @name Neutrosophic Rayleigh
 #' @export
-rnsrayleigh <- function(n, theta) {
+rnsRayleigh <- function(n, theta) {
   if (any(theta <= 0)) {
     stop(message = "Arguments are incompatible.")
   }
 
   theta <- rep(theta, length.out = 2)
 
-  X <- qnsrayleigh(runif(n), theta)
+  X <- qnsRayleigh(runif(n), theta)
   condition <- X[, 1] > X[, 2]
   X[condition, 1:2] <- X[condition, 2:1]
 

@@ -2,19 +2,19 @@
 % Please edit documentation in R/nsRayleigh.R
 \name{Neutrosophic Rayleigh}
 \alias{Neutrosophic Rayleigh}
-\alias{dnsrayleigh}
-\alias{pnsrayleigh}
-\alias{qnsrayleigh}
-\alias{rnsrayleigh}
+\alias{dnsRayleigh}
+\alias{pnsRayleigh}
+\alias{qnsRayleigh}
+\alias{rnsRayleigh}
 \title{Neutrosophic Rayleigh Distribution}
 \usage{
-dnsrayleigh(x, theta)
+dnsRayleigh(x, theta)
 
-pnsrayleigh(q, theta, lower.tail = TRUE)
+pnsRayleigh(q, theta, lower.tail = TRUE)
 
-qnsrayleigh(p, theta)
+qnsRayleigh(p, theta)
 
-rnsrayleigh(n, theta)
+rnsRayleigh(n, theta)
 }
 \arguments{
 \item{x}{a vector or matrix of observations for which the pdf needs to be computed.}
@@ -31,13 +31,13 @@ rnsrayleigh(n, theta)
 \item{n}{number of random values to be generated.}
 }
 \value{
-\code{dnsrayleigh} gives the density function
+\code{dnsRayleigh} gives the density function
 
- \code{pnsrayleigh} gives the distribution function
+ \code{pnsRayleigh} gives the distribution function
 
- \code{qnsrayleigh} gives the quantile function
+ \code{qnsRayleigh} gives the quantile function
 
- \code{rnsrayleigh} generates random variables from the Neutrosophic Rayleigh Distribution.
+ \code{rnsRayleigh} generates random variables from the Neutrosophic Rayleigh Distribution.
 }
 \description{
 Density, distribution function, quantile function and random
@@ -45,23 +45,23 @@ generation for the neutrosophic Rayleigh distribution with
 parameter \eqn{\theta_N}.
 }
 \details{
-The neutrosophic Rayleigh distribution with parameter \eqn{\theta}
+The neutrosophic Rayleigh distribution with parameter \eqn{\theta_N}
 has the density
-\deqn{f_N(x)=\frac{x}{\theta_N^2} e^{-\frac{1}{2}\left(\frac{x}{\theta_N}\right)^2}}
+\deqn{f_N(x)=\frac{x}{\theta_N^2} \exp\{-\frac{1}{2}\left(\frac{x}{\theta_N}\right)^2\}}
 for  \eqn{\theta_N \in (\theta_L, \theta_U)}, which must be a positive
 interval and \eqn{x \ge 0}.
 }
 \examples{
 data(remission)
-dnsrayleigh(x = remission, theta = c(9.6432, 9.8702))
+dnsRayleigh(x = remission, theta = c(9.6432, 9.8702))
 
-pnsrayleigh(q = 20, theta = c(9.6432, 9.8702))
+pnsRayleigh(q = 20, theta = c(9.6432, 9.8702))
 
 # Calculate quantiles
-qnsrayleigh(p = c(0.25, 0.5, 0.75), theta = c(9.6432, 9.8702))
+qnsRayleigh(p = c(0.25, 0.5, 0.75), theta = c(9.6432, 9.8702))
 
 # Simulate 10 values
-rnsrayleigh(n = 10, theta = c(9.6432, 9.8702))
+rnsRayleigh(n = 10, theta = c(9.6432, 9.8702))
 
 }
 \references{

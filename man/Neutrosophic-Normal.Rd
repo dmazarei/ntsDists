@@ -53,7 +53,7 @@ The neutrosophic normal distribution with parameters mean
 \deqn{f_N(x) = \frac{1}{\sigma_N \sqrt{2 \pi}} \exp\{\left(\frac{\left(X-\mu_N\right)^2}{2 \sigma_N^2}\right)}\}
 for \eqn{\mu_N \in (\mu_L, \mu_U)}, the mean which must be an interval, and
 \eqn{\sigma_N \in (\sigma_L, \sigma_U)}, the standard deviation which must
-also be a positive interval, and \eqn{-\infty < x < \infty}.#'
+also be a positive interval, and \eqn{-\infty < x < \infty}.
 }
 \examples{
 data(balls)
