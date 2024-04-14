@@ -138,7 +138,7 @@ rnsGenRayleigh <- function(n, shape, scale) {
   shape <- rep(shape, length.out = 2)
   scale <- rep(scale, length.out = 2)
 
-  X <- qnsgpd(runif(n), shape, scale)
+  X <- qnsGenRayleigh(runif(n), shape, scale)
   condition <- X[, 1] > X[, 2]
   X[condition, 1:2] <- X[condition, 2:1]
 

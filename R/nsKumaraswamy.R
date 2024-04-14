@@ -135,7 +135,7 @@ rnsKumaraswamy <- function(n, shape1, shape2) {
   shape1 <- rep(shape1, length.out = 2)
   shape2 <- rep(shape2, length.out = 2)
 
-  X <- qnskumaraswamy(runif(n), shape1, shape2)
+  X <- qnsKumaraswamy(runif(n), shape1, shape2)
   condition <- X[, 1] > X[, 2]
   X[condition, 1:2] <- X[condition, 2:1]
 

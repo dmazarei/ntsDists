@@ -139,7 +139,7 @@ rnsNegBinom <- function(n, size, prob) {
   size <- rep(size, length.out = 2)
   prob <- rep(prob, length.out = 2)
 
-  X <- qnsbinom(runif(n), size, prob)
+  X <- qnsNegBinom(runif(n), size, prob)
   condition <- X[, 1] > X[, 2]
   X[condition, 1:2] <- X[condition, 2:1]
 
