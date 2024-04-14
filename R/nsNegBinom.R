@@ -21,19 +21,22 @@
 #' \eqn{P(X \ge x)}; otherwise, \eqn{P(X >x)}.
 #'
 #' @return
-#'  \code{pnsnbinom} gives the distribution function,
-#'  \code{dnsnbinom} gives the density,
-#'  \code{qnsnbinom} gives the quantile function and
-#'  \code{rnsnbinom} generates random variables from the Negative Binomial Distribution.
+#'  \code{dnsNegBinom} gives the probability mass function
+#'
+#'  \code{pnsNegBinom} gives the distribution function
+#'
+#'  \code{qnsNegBinom} gives the quantile function
+#'
+#'  \code{rnsNegBinom} generates random variables from the Negative Binomial Distribution.
 #' @references
 #'        Granados, C. (2022).
 #'        Some discrete neutrosophic distributions with neutrosophic parameters based on neutrosophic random variables.
 #'         \emph{Hacettepe Journal of Mathematics and Statistics}, 51(5), 1442-1457.
 #' @importFrom stats runif dnbinom pnbinom qnbinom
 #' @examples
-#' dnsnbinom(x = 1, size = 2, prob = c(0.5, 0.6))
+#' dnsNegBinom(x = 1, size = 2, prob = c(0.5, 0.6))
 #' @export
-dnsnbinom <- function(x, size, prob) {
+dnsNegBinom <- function(x, size, prob) {
   if (any(size < 1) || any(prob <= 0) || any(prob > 1) || any(x < 0)) {
     stop(message = "Arguments are incompatible.")
   }
@@ -53,21 +56,19 @@ dnsnbinom <- function(x, size, prob) {
     stop(message = "Arguments are incompatible.")
   }
 
-
   pdf <- matrix(NA, nrow = nrow(x), ncol = 2)
   for (i in 1:2) {
     pdf[, i] <- stats::dnbinom(x[, i], size = size[i], prob = prob[i])
   }
 
-
   return(pdf)
 }
 #' @name Neutrosophic Negative Binomial
 #' @examples
-#' pnsnbinom(q = 1, size = 2, prob = c(0.5, 0.6))
+#' pnsNegBinom(q = 1, size = 2, prob = c(0.5, 0.6))
 #' @export
 
-pnsnbinom <- function(q, size, prob, lower.tail = TRUE) {
+pnsNegBinom <- function(q, size, prob, lower.tail = TRUE) {
   if (any(size < 1) || any(prob <= 0) || any(prob > 1) || any(q < 0)) {
     stop(message = "Arguments are incompatible.")
   }
@@ -85,8 +86,6 @@ pnsnbinom <- function(q, size, prob, lower.tail = TRUE) {
     stop(message = "Arguments are incompatible.")
   }
 
-
-
   cdf <- matrix(NA, nrow = nrow(q), ncol = 2)
   for (i in 1:2) {
     cdf[, i] <- stats::pnbinom(q[, i], size = size[i], prob = prob[i])
@@ -96,14 +95,13 @@ pnsnbinom <- function(q, size, prob, lower.tail = TRUE) {
     cdf <- 1 - cdf
   }
 
-
   return(cdf)
 }
 #' @name Neutrosophic Negative Binomial
 #' @examples
-#' qnsnbinom(p = c(0.25, 0.5, 0.75), size = 2, prob = c(0.5, 0.6))
+#' qnsNegBinom(p = c(0.25, 0.5, 0.75), size = 2, prob = c(0.5, 0.6))
 #' @export
-qnsnbinom <- function(p, size, prob) {
+qnsNegBinom <- function(p, size, prob) {
   if (any(p < 0) || any(p > 1)) {
     stop(message = "Warning: p should be in the interval [0,1].")
   }
@@ -126,19 +124,17 @@ qnsnbinom <- function(p, size, prob) {
     quantiles[, i] <- stats::qnbinom(p[, i], size = size[i], prob = prob[i])
   }
 
-
   return(quantiles)
 }
 
 #' @name Neutrosophic Negative Binomial
 #' @examples
-#' rnsnbinom(n = 10, size = 2, prob = c(0.6, 0.6))
+#' rnsNegBinom(n = 10, size = 2, prob = c(0.6, 0.6))
 #' @export
-rnsnbinom <- function(n, size, prob) {
+rnsNegBinom <- function(n, size, prob) {
   if (any(size < 1) || any(prob <= 0) || any(prob > 1)) {
     stop(message = "Arguments are incompatible.")
   }
-
 
   size <- rep(size, length.out = 2)
   prob <- rep(prob, length.out = 2)

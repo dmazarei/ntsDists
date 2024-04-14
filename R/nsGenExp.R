@@ -3,7 +3,7 @@
 #' Density, distribution function, quantile function and random
 #' generation for the neutrosophic generalized exponential
 #' distribution with shape parameter \eqn{\delta_N} and scale parameter
-#' \eqn{\nu_N} or equ.
+#' \eqn{\nu_N}.
 #'
 #' The neutrosophic generalized exponential distribution with parameters
 #' \eqn{\delta} and \eqn{\nu} has density
@@ -23,25 +23,29 @@
 #' \eqn{P(X \ge x)}; otherwise, \eqn{P(X >x)}.
 #'
 #' @return
-#'  \code{pnsgexp} gives the distribution function,
-#'  \code{dnsgexp} gives the density,
-#'  \code{qnsgexp} gives the quantile function and
-#'  \code{rnsgexp} generates random variables
-#'  from the neutrosophic generalized exponential distribution.
+#'  \code{dnsGenExp} gives the density function
+#'
+#'  \code{pnsGenExp} gives the distribution function
+#'
+#'  \code{qnsGenExp} gives the quantile function
+#'
+#'  \code{rnsGenExp} generates random variables from the neutrosophic generalized
+#'  exponential distribution.
 #'
 #' @references
-#'    Rao, G. S., Norouzirad, M., and Mazarei . D. (2023). Neutrosophic
-#'    Generalized Exponential Distribution with Application.
-#'    \emph{Neutrosophic Sets and Systems}, 55, 471-485.
+#' Rao, G. S., Norouzirad, M., and Mazarei . D. (2023). Neutrosophic
+#' Generalized Exponential Distribution with Application.
+#' \emph{Neutrosophic Sets and Systems}, 55, 471-485.
 #'
 #' @importFrom stats runif
+#'
 #' @examples
 #'
 #' data(remission)
-#' dnsgexp(x = remission, nu = c(7.9506, 8.0568), delta = c(1.2390, 1.2397))
+#' dnsGenExp(x = remission, nu = c(7.9506, 8.0568), delta = c(1.2390, 1.2397))
 #'
 #' @export
-dnsgexp <- function(x, nu, delta) {
+dnsGenExp <- function(x, nu, delta) {
   if (any(nu <= 0) || any(delta <= 0) || any(x < 0)) {
     stop(message = "Arguments are incompatible.")
   }
@@ -64,16 +68,15 @@ dnsgexp <- function(x, nu, delta) {
     pdf[, i] <- (delta[i] / nu[i]) * (1 - exp(-x[, i] / nu[i]))^(delta[i] - 1) * exp(-x[, i] / nu[i])
   }
 
-
   return(pdf)
 }
 
 #' @name Neutrosophic Generalized Exponential
 #' @examples
-#' pnsgexp(q = 20, nu = c(7.9506, 8.0568), delta = c(1.2390, 1.2397))
+#' pnsGenExp(q = 20, nu = c(7.9506, 8.0568), delta = c(1.2390, 1.2397))
 #'
 #' @export
-pnsgexp <- function(q, nu, delta, lower.tail = TRUE) {
+pnsGenExp <- function(q, nu, delta, lower.tail = TRUE) {
   if (any(nu <= 0) || any(delta <= 0) || any(q < 0)) {
     stop(message = "incompatible arguments.")
   }
@@ -88,18 +91,14 @@ pnsgexp <- function(q, nu, delta, lower.tail = TRUE) {
     stop(message = "Arguments are incompatible.")
   }
 
-
-
   cdf <- matrix(NA, nrow = nrow(q), ncol = 2)
   for (i in 1:2) {
     cdf[, i] <- (1 - exp(-q[, i] / nu[i]))^delta[i]
   }
 
-
   if (!lower.tail) {
     cdf <- 1 - cdf
   }
-
 
   return(cdf)
 }
@@ -108,10 +107,10 @@ pnsgexp <- function(q, nu, delta, lower.tail = TRUE) {
 #' @examples
 #'
 #' # Calcluate quantiles
-#' qnsgexp(c(0.25, 0.5, 0.75), nu = c(7.9506, 8.0568), delta = c(1.2390, 1.2397))
+#' qnsGenExp(c(0.25, 0.5, 0.75), nu = c(7.9506, 8.0568), delta = c(1.2390, 1.2397))
 #'
 #' @export
-qnsgexp <- function(p, nu, delta) {
+qnsGenExp <- function(p, nu, delta) {
   if (any(p < 0) || any(p > 1)) {
     stop(message = "Warning: p should be in the interval [0,1].")
   }
@@ -140,10 +139,10 @@ qnsgexp <- function(p, nu, delta) {
 #' @name Neutrosophic Generalized Exponential
 #' @examples
 #' # Simulate 10 values
-#' rnsgexp(n = 10, nu = c(7.9506, 8.0568), delta = c(1.2390, 1.2397))
+#' rnsGenExp(n = 10, nu = c(7.9506, 8.0568), delta = c(1.2390, 1.2397))
 #'
 #' @export
-rnsgexp <- function(n, nu, delta) {
+rnsGenExp <- function(n, nu, delta) {
   if (any(nu <= 0) || any(delta <= 0)) {
     stop(message = "Arguments are incompatible.")
   }
@@ -151,10 +150,9 @@ rnsgexp <- function(n, nu, delta) {
   nu <- rep(nu, length.out = 2)
   delta <- rep(delta, length.out = 2)
 
-  X <- qnsgexp(runif(n), nu, delta)
+  X <- qnsGenExp(runif(n), nu, delta)
   condition <- X[, 1] > X[, 2]
   X[condition, 1:2] <- X[condition, 2:1]
-
 
   return(X)
 }

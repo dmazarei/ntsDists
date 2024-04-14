@@ -20,21 +20,25 @@
 #' \eqn{P(X \ge x)}; otherwise, \eqn{P(X >x)}.
 #'
 #' @return
-#'  \code{pnsdunif} gives the distribution function,
-#'  \code{dnsdunif} gives the density,
-#'  \code{qnsdunif} gives the quantile function and
-#'  \code{rnsdunif} generates random variables from the neutrosophic Discrete Uniform Distribution.
+#'  \code{dnsDiscUnif} gives the probability mass function,
+#'
+#'  \code{pnsDiscUnif} gives the distribution function
+#'
+#'  \code{qnsDiscUnif} gives the quantile function
+#'
+#'  \code{rnsDiscUnif} generates random variables from the neutrosophic Discrete Uniform Distribution.
+#'
 #' @references
-#'        Granados, C. (2022). Some discrete neutrosophic distributions with
-#'        neutrosophic parameters based on neutrosophic random variables.
-#'         \emph{Hacettepe Journal of Mathematics and Statistics}, 51(5),
-#'          1442-1457.
+#' Granados, C. (2022). Some discrete neutrosophic distributions with
+#' neutrosophic parameters based on neutrosophic random variables.
+#' \emph{Hacettepe Journal of Mathematics and Statistics}, 51(5),
+#' 1442-1457.
 #'
 #' @examples
-#' dnsdunif(x = 8, k = c(10, 11))
-#' dnsdunif(x = c(8, 9), k = c(10, 11))
+#' dnsDiscUnif(x = 8, k = c(10, 11))
+#' dnsDiscUnif(x = c(8, 9), k = c(10, 11))
 #' @export
-dnsdunif <- function(x, k) {
+dnsDiscUnif <- function(x, k) {
   if (any(k <= 0)) {
     stop("Arguments are incompatible.")
   }
@@ -58,15 +62,14 @@ dnsdunif <- function(x, k) {
     pdf[, i] <- ifelse(x[, i] >= 1 & x[, i] <= k[i] & round(x[, i]) == x[, i], 1 / k[i], 0)
   }
 
-
   return(pdf)
 }
 #' @name Neutrosophic Discrete Uniform
 #' @examples
 #'
-#' pnsdunif(q = 2, k = c(10, 11))
+#' pnsDiscUnif(q = 2, k = c(10, 11))
 #' @export
-pnsdunif <- function(q, k, lower.tail = TRUE) {
+pnsDiscUnif <- function(q, k, lower.tail = TRUE) {
   if (any(k <= 0)) {
     stop("Arguments are incompatible.")
   }
@@ -97,10 +100,10 @@ pnsdunif <- function(q, k, lower.tail = TRUE) {
 #' @name Neutrosophic Discrete Uniform
 #' @examples
 #'
-#' qnsdunif(p = 0.2, k = c(10, 11))
+#' qnsDiscUnif(p = 0.2, k = c(10, 11))
 #'
 #' @export
-qnsdunif <- function(p, k) {
+qnsDiscUnif <- function(p, k) {
   if (any(k <= 0)) {
     stop("Arguments are incompatible.")
   }
@@ -124,24 +127,23 @@ qnsdunif <- function(p, k) {
     quantiles[, i] <- ceiling(k[i] * p[, i])
   }
 
-
   return(quantiles)
 }
 #' @name Neutrosophic Discrete Uniform
 #' @examples
 #'
 #' # Simulate 10 numbers
-#' rnsdunif(n = 10, k = c(10, 11))
+#' rnsDiscUnif(n = 10, k = c(10, 11))
 #'
 #' @export
-rnsdunif <- function(n, k) {
+rnsDiscUnif <- function(n, k) {
   if (any(k < 0) || any(k == 0)) {
     stop("Arguments are incompatible.")
   }
 
   k <- rep(k, length.out = 2)
 
-  X <- qnsdunif(runif(n), k)
+  X <- qnsDiscUnif(runif(n), k)
 
   condition <- X[, 1] > X[, 2]
   X[condition, 1:2] <- X[condition, 2:1]

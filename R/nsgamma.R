@@ -24,28 +24,34 @@
 #' \eqn{P(X \ge x)}; otherwise, \eqn{P(X >x)}.
 #'
 #' @return
-#'  \code{pnsgamma} gives the distribution function,
-#'  \code{dnsgamma} gives the density,
-#'  \code{qnsgamma} gives the quantile function and
-#'  \code{rnsgamma} generates random variables from the neutrosophic gamma distribution.
+#'  \code{dnsGamma} gives the density function
+#'
+#'  \code{pnsGamma} gives the distribution function
+#'
+#'  \code{qnsGamma} gives the quantile function
+#'
+#'  \code{rnsGamma} generates random variables from the neutrosophic gamma distribution.
+#'
 #' @references
 #'    Khan, Z., Al-Bossly, A., Almazah, M. M. A., and Alduais, F. S. (2021).
 #'    On statistical development of neutrosophic gamma distribution with
 #'    applications to complex data analysis, \emph{Complexity}, 2021, Article ID 3701236.
+#'
 #' @importFrom stats runif dgamma pgamma qgamma
+#'
 #' @examples
 #' data(remission)
-#' dnsgamma(x = remission, shape = c(1.1884, 1.1896), scale = c(7.6658, 7.7796))
+#' dnsGamma(x = remission, shape = c(1.1884, 1.1896), scale = c(7.6658, 7.7796))
 #'
-#' pnsgamma(q = 20, shape = c(1.1884, 1.1896), scale = c(7.6658, 7.7796))
+#' pnsGamma(q = 20, shape = c(1.1884, 1.1896), scale = c(7.6658, 7.7796))
 #'
 #' # Calculate quantiles
-#' qnsgamma(p = c(0.25, 0.5, 0.75), shape = c(1.1884, 1.1896), scale = c(7.6658, 7.7796))
+#' qnsGamma(p = c(0.25, 0.5, 0.75), shape = c(1.1884, 1.1896), scale = c(7.6658, 7.7796))
 #'
 #' # Simulate 10 numbers
-#' rnsgamma(n = 10, shape = c(1.1884, 1.1896), scale = c(7.6658, 7.7796))
+#' rnsGamma(n = 10, shape = c(1.1884, 1.1896), scale = c(7.6658, 7.7796))
 #' @export
-dnsgamma <- function(x, shape, scale) {
+dnsGamma <- function(x, shape, scale) {
   if (any(shape <= 0) || any(scale <= 0) || any(x < 0)) {
     stop(message = "Arguments are incompatible.")
   }
@@ -61,19 +67,16 @@ dnsgamma <- function(x, shape, scale) {
     stop(message = "Arguments are incompatible.")
   }
 
-
   pdf <- matrix(NA, nrow = nrow(x), ncol = 2)
   for (i in 1:2) {
     pdf[, i] <- stats::dgamma(x[, i], shape = shape[i], scale = scale[i])
   }
 
-
-
   return(pdf)
 }
 #' @name Neutrosophic Gamma
 #' @export
-pnsgamma <- function(q, shape, scale, lower.tail = TRUE) {
+pnsGamma <- function(q, shape, scale, lower.tail = TRUE) {
   if (any(shape <= 0) || any(scale <= 0) || any(q < 0)) {
     stop(message = "incompatible arguments.")
   }
@@ -88,8 +91,6 @@ pnsgamma <- function(q, shape, scale, lower.tail = TRUE) {
     stop(message = "Arguments are incompatible.")
   }
 
-
-
   cdf <- matrix(NA, nrow = nrow(q), ncol = 2)
   for (i in 1:2) {
     cdf[, i] <- stats::pgamma(q[, i], shape = shape[i], scale = scale[i])
@@ -99,15 +100,12 @@ pnsgamma <- function(q, shape, scale, lower.tail = TRUE) {
     cdf <- 1 - cdf
   }
 
-
-
-
-  return(cdf)
+    return(cdf)
 }
 
 #' @name Neutrosophic Gamma
 #' @export
-qnsgamma <- function(p, shape, scale) {
+qnsGamma <- function(p, shape, scale) {
   if (any(p < 0) || any(p > 1)) {
     stop(message = "Warning: p should be in the interval [0,1].")
   }
@@ -135,7 +133,7 @@ qnsgamma <- function(p, shape, scale) {
 
 #' @name Neutrosophic Gamma
 #' @export
-rnsgamma <- function(n, shape, scale) {
+rnsGamma <- function(n, shape, scale) {
   if (any(shape <= 0) || any(scale <= 0)) {
     stop(message = "Arguments are incompatible.")
   }
@@ -143,7 +141,7 @@ rnsgamma <- function(n, shape, scale) {
   shape <- rep(shape, length.out = 2)
   scale <- rep(scale, length.out = 2)
 
-  X <- qnsgamma(runif(n), shape, scale)
+  X <- qnsGamma(runif(n), shape, scale)
   condition <- X[, 1] > X[, 2]
   X[condition, 1:2] <- X[condition, 2:1]
 

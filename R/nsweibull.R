@@ -23,30 +23,35 @@
 #' \eqn{P(X \ge x)}; otherwise, \eqn{P(X >x)}.
 #'
 #' @return
-#'  \code{pnsweibull} gives the distribution function,
-#'  \code{dnsweibull} gives the density,
-#'  \code{qnsweibull} gives the quantile function and
-#'  \code{rnsweibull} generates random variables from the neutrosophic Weibull dDistribution.
+#'  \code{dnsWeibull} gives the density function
+#'
+#'  \code{pnsWeibull} gives the distribution function
+#'
+#'  \code{qnsWeibull} gives the quantile function
+#'
+#'  \code{rnsWeibull} generates random variables from the neutrosophic Weibull dDistribution.
+#'
 #' @references
 #'    Alhasan, K. F. H. and Smarandache, F. (2019). Neutrosophic Weibull
 #'    distribution and Neutrosophic Family Weibull Distribution,
 #'    \emph{Neutrosophic Sets and Systems}, 28, 191-199.
 #'
 #' @importFrom stats runif dweibull pweibull qweibull
+#'
 #' @examples
 #' data(remission)
-#' dnsweibull(x = remission, shape = c(1.0519, 1.0553), scale = c(9.3370, 9.4544))
+#' dnsWeibull(x = remission, shape = c(1.0519, 1.0553), scale = c(9.3370, 9.4544))
 #'
-#' pnsweibull(q = 20, shape = c(1.0519, 1.0553), scale = c(9.3370, 9.4544))
+#' pnsWeibull(q = 20, shape = c(1.0519, 1.0553), scale = c(9.3370, 9.4544))
 #'
 #' # Calculate quantiles
-#' qnsweibull(p = c(0.25, 0.5, 0.75), shape = c(1.0519, 1.0553), scale = c(9.3370, 9.4544))
+#' qnsWeibull(p = c(0.25, 0.5, 0.75), shape = c(1.0519, 1.0553), scale = c(9.3370, 9.4544))
 #'
 #' # Simulate 10 numbers
-#' rnsweibull(n = 10, shape = c(1.0519, 1.0553), scale = c(9.3370, 9.4544))
+#' rnsWeibull(n = 10, shape = c(1.0519, 1.0553), scale = c(9.3370, 9.4544))
 #'
 #' @export
-dnsweibull <- function(x, shape, scale) {
+dnsWeibull <- function(x, shape, scale) {
   if (any(scale <= 0) || any(shape <= 0) || any(x < 0)) {
     stop("Arguments are incompatible.")
   }
@@ -70,7 +75,7 @@ dnsweibull <- function(x, shape, scale) {
 }
 #' @name Neutrosophic Weibull
 #' @export
-pnsweibull <- function(q, shape, scale, lower.tail = TRUE) {
+pnsWeibull <- function(q, shape, scale, lower.tail = TRUE) {
   if (any(scale <= 0) || any(shape <= 0) || any(q < 0)) {
     stop("Arguments are incompatible.")
   }
@@ -101,7 +106,7 @@ pnsweibull <- function(q, shape, scale, lower.tail = TRUE) {
 }
 #' @name Neutrosophic Weibull
 #' @export
-qnsweibull <- function(p, shape, scale) {
+qnsWeibull <- function(p, shape, scale) {
   if (any(p < 0) || any(p > 1)) {
     stop(message = "Warning: p should be in the interval [0,1].")
   }
@@ -128,7 +133,7 @@ qnsweibull <- function(p, shape, scale) {
 }
 #' @name Neutrosophic Weibull
 #' @export
-rnsweibull <- function(n, shape, scale) {
+rnsWeibull <- function(n, shape, scale) {
   if (any(scale <= 0) || any(shape <= 0)) {
     stop(message = "Arguments are incompatible.")
   }
@@ -136,7 +141,7 @@ rnsweibull <- function(n, shape, scale) {
   scale <- rep(scale, length.out = 2)
   shape <- rep(shape, length.out = 2)
 
-  X <- qnsweibull(runif(n), scale, shape)
+  X <- qnsWeibull(runif(n), scale, shape)
   condition <- X[, 1] > X[, 2]
   X[condition, 1:2] <- X[condition, 2:1]
 

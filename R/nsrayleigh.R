@@ -20,10 +20,14 @@
 #' \eqn{P(X \ge x)}; otherwise, \eqn{P(X >x)}.
 #'
 #' @return
-#'  \code{dnsrayleigh} gives the density,
-#'  \code{pnsrayleigh} gives the distribution function,
-#'  \code{qnsrayleigh} gives the quantile function and
+#'  \code{dnsrayleigh} gives the density function
+#'
+#'  \code{pnsrayleigh} gives the distribution function
+#'
+#'  \code{qnsrayleigh} gives the quantile function
+#'
 #'  \code{rnsrayleigh} generates random variables from the Neutrosophic Rayleigh Distribution.
+#'
 #' @references
 #' Khan, Z., Gulistan, M., Kausar, N. and Park, C. (2021).
 #' Neutrosophic Rayleigh Model With Some Basic Characteristics and

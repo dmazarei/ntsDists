@@ -23,10 +23,13 @@
 #' \eqn{P(X \leq x)}; otherwise, \eqn{P(X >x)}.
 #'
 #' @return
-#'  \code{dnsgrayleigh} gives the density,
-#'  \code{pnsgrayleigh} gives the distribution function,
-#'  \code{qnsgrayleigh} gives the quantile function and
-#'  \code{rnsgrayleigh} generates random variables from the Neutrosophic Generalized Rayleigh Distribution.
+#'  \code{dnsGenRayleigh} gives the density function
+#'
+#'  \code{pnsGenRayleigh} gives the distribution function
+#'
+#'  \code{qnsGenRayleigh} gives the quantile function
+#'
+#'  \code{rnsGenRayleigh} generates random variables from the Neutrosophic Generalized Rayleigh Distribution.
 #' @references
 #' Norouzirad, M., Rao, G. S., & Mazarei, D. (2023).
 #' Neutrosophic Generalized Rayleigh Distribution with Application.
@@ -35,18 +38,18 @@
 #' @importFrom stats runif
 #' @examples
 #' data(remission)
-#' dnsgrayleigh(x = remission,shape = c(1.1884, 1.1896), scale = c(7.6658, 7.7796))
+#' dnsGenRayleigh(x = remission,shape = c(1.1884, 1.1896), scale = c(7.6658, 7.7796))
 #'
-#' pnsgrayleigh(q = 20, shape = c(1.1884, 1.1896), scale = c(7.6658, 7.7796))
+#' pnsGenRayleigh(q = 20, shape = c(1.1884, 1.1896), scale = c(7.6658, 7.7796))
 #'
 #' # Calculate quantiles
-#' qnsgrayleigh(p = c(0.25, 0.5, 0.75), shape = c(1.1884, 1.1896), scale = c(7.6658, 7.7796))
+#' qnsGenRayleigh(p = c(0.25, 0.5, 0.75), shape = c(1.1884, 1.1896), scale = c(7.6658, 7.7796))
 #'
 #' # Simulate 10 values
-#' rnsgrayleigh(n = 10, shape = c(1.1884, 1.1896), scale = c(7.6658, 7.7796))
+#' rnsGenRayleigh(n = 10, shape = c(1.1884, 1.1896), scale = c(7.6658, 7.7796))
 #'
 #' @export
-dnsgrayleigh <- function(x, shape, scale) {
+dnsGenRayleigh <- function(x, shape, scale) {
   if (any(shape <= 0) || any(scale <= 0) || any(x < 0)) {
     stop(message = "Arguments are incompatible.")
   }
@@ -62,19 +65,16 @@ dnsgrayleigh <- function(x, shape, scale) {
     stop(message = "Arguments are incompatible.")
   }
 
-
   pdf <- matrix(NA, nrow = nrow(x), ncol = 2)
   for (i in 1:2) {
     pdf[, i] <- (2 * shape[i]) / (scale[i]^2) * x[,i] * exp(-(x[,i] / scale[i])^2) * (1 - exp(-(x[,i] / scale[i])^2))^(shape[i] - 1)
   }
 
-
-
   return(pdf)
 }
 #' @name Neutrosophic Generalized Rayleigh
 #' @export
-pnsgrayleigh <- function(q, shape, scale, lower.tail = TRUE) {
+pnsGenRayleigh <- function(q, shape, scale, lower.tail = TRUE) {
   if (any(shape <= 0) || any(scale <= 0) || any(q < 0)) {
     stop(message = "incompatible arguments.")
   }
@@ -89,8 +89,6 @@ pnsgrayleigh <- function(q, shape, scale, lower.tail = TRUE) {
     stop(message = "Arguments are incompatible.")
   }
 
-
-
   cdf <- matrix(NA, nrow = nrow(q), ncol = 2)
   for (i in 1:2) {
     cdf[, i] <- (1 - exp(-(q[,i] / scale[i])^2))^(shape[i])
@@ -100,12 +98,11 @@ pnsgrayleigh <- function(q, shape, scale, lower.tail = TRUE) {
     cdf <- 1 - cdf
   }
 
-
   return(cdf)
 }
 #' @name Neutrosophic Generalized Rayleigh
 #' @export
-qnsgrayleigh <- function(p, shape, scale) {
+qnsGenRayleigh <- function(p, shape, scale) {
   if (any(p < 0) || any(p > 1)) {
     stop(message = "Warning: p should be in the interval [0,1].")
   }
@@ -133,7 +130,7 @@ qnsgrayleigh <- function(p, shape, scale) {
 
 #' @name Neutrosophic Generalized Rayleigh
 #' @export
-rnsgrayleigh <- function(n, shape, scale) {
+rnsGenRayleigh <- function(n, shape, scale) {
   if (any(shape <= 0) || any(scale <= 0)) {
     stop(message = "Arguments are incompatible.")
   }

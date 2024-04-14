@@ -10,8 +10,7 @@
 #' \deqn{f_N(x) = \frac{1}{\sigma_N \sqrt{2 \pi}} \exp\{\left(\frac{\left(X-\mu_N\right)^2}{2 \sigma_N^2}\right)}\}
 #' for \eqn{\mu_N \in (\mu_L, \mu_U)}, the mean which must be an interval, and
 #' \eqn{\sigma_N \in (\sigma_L, \sigma_U)}, the standard deviation which must
-#' also be a positive interval, and \eqn{-\infty < x < \infty}.
-#'
+#' also be a positive interval, and \eqn{-\infty < x < \infty}.#'
 #'
 #' @name Neutrosophic Normal
 #' @param x a vector or matrix of observations for which the pdf needs to be computed.
@@ -24,29 +23,34 @@
 #' \eqn{P(X \ge x)}; otherwise, \eqn{P(X >x)}.
 #'
 #' @return
-#' \code{pnsnorm} gives the distribution function,
-#' \code{dnsnorm} gives the density,
-#' \code{qnsnorm} gives the quantile function and
-#' \code{rnsnorm} generates random variables from the neutrosophic normal distribution.
+#' \code{dnsNorm} gives the density function
+#'
+#' \code{pnsNorm} gives the distribution function
+#'
+#' \code{qnsNorm} gives the quantile function
+#'
+#' \code{rnsNorm} generates random variables from the neutrosophic normal distribution.
 #'
 #' @references
-#'    Patro, S. and Smarandache, F. (2016). The Neutrosophic Statistical Distribution, More Problems, More Solutions. Infinite Study.
+#'    Patro, S. and Smarandache, F. (2016). The Neutrosophic Statistical
+#'    Distribution, More Problems, More Solutions. Infinite Study.
 #'
 #' @importFrom stats runif dnorm pnorm qnorm
+#'
 #' @examples
 #' data(balls)
-#' dnsnorm(x = balls, mean = c(72.14087, 72.94087), sd = c(37.44544, 37.29067))
+#' dnsNorm(x = balls, mean = c(72.14087, 72.94087), sd = c(37.44544, 37.29067))
 #'
-#' pnsnorm(q = 5, mean = c(72.14087, 72.94087), sd = c(37.44544, 37.29067))
+#' pnsNorm(q = 5, mean = c(72.14087, 72.94087), sd = c(37.44544, 37.29067))
 #'
 #' # Calculate quantiles
-#' qnsnorm(p = c(0.25, 0.5, 0.75), mean = c(9.1196, 9.2453), sd = c(10.1397, 10.4577))
+#' qnsNorm(p = c(0.25, 0.5, 0.75), mean = c(9.1196, 9.2453), sd = c(10.1397, 10.4577))
 #'
 #' # Simulate 10 values
-#' rnsnorm(n = 10, mean = c(4.141, 4.180), sd = c(0.513, 0.521))
+#' rnsNorm(n = 10, mean = c(4.141, 4.180), sd = c(0.513, 0.521))
 #'
 #' @export
-dnsnorm <- function(x, mean, sd) {
+dnsNorm <- function(x, mean, sd) {
   if (any(sd <= 0)) {
     stop("Arguments are incompatible.")
   }
@@ -62,7 +66,6 @@ dnsnorm <- function(x, mean, sd) {
     stop(message = "Arguments are incompatible.")
   }
 
-
   pdf <- matrix(NA, nrow = nrow(x), ncol = 2)
   for (i in 1:2) {
     pdf[, i] <- stats::dnorm(x[, i], mean = mean[i], sd = sd[i])
@@ -77,7 +80,7 @@ dnsnorm <- function(x, mean, sd) {
 #' @name Neutrosophic Normal
 #' @export
 
-pnsnorm <- function(q, mean, sd, lower.tail = TRUE) {
+pnsNorm <- function(q, mean, sd, lower.tail = TRUE) {
   if (any(sd <= 0)) {
     stop("Arguments are incompatible.")
   }
@@ -92,25 +95,21 @@ pnsnorm <- function(q, mean, sd, lower.tail = TRUE) {
     stop(message = "Arguments are incompatible.")
   }
 
-
-
   cdf <- matrix(NA, nrow = nrow(q), ncol = 2)
   for (i in 1:2) {
     cdf[, i] <- stats::pnorm(q[, i], mean = mean[i], sd = sd[i])
   }
 
-
   if (!lower.tail) {
     cdf <- 1 - cdf
   }
-
 
   return(cdf)
 }
 
 #' @name Neutrosophic Normal
 #' @export
-qnsnorm <- function(p, mean, sd) {
+qnsNorm <- function(p, mean, sd) {
   if (any(p < 0) || any(p > 1)) {
     stop(message = "Warning: p should be in the interval [0,1].")
   }
@@ -139,7 +138,7 @@ qnsnorm <- function(p, mean, sd) {
 
 #' @name Neutrosophic Normal
 #' @export
-rnsnorm <- function(n, mean, sd) {
+rnsNorm <- function(n, mean, sd) {
   if (any(sd <= 0)) {
     stop(message = "Arguments are incompatible.")
   }
@@ -147,7 +146,7 @@ rnsnorm <- function(n, mean, sd) {
   mean <- rep(mean, length.out = 2)
   sd <- rep(sd, length.out = 2)
 
-  X <- qnsnorm(runif(n), mean, sd)
+  X <- qnsNorm(runif(n), mean, sd)
   condition <- X[, 1] > X[, 2]
   X[condition, 1:2] <- X[condition, 2:1]
 

@@ -23,10 +23,13 @@
 #' \eqn{P(X \leq x)}; otherwise, \eqn{P(X >x)}.
 #'
 #' @return
-#'  \code{pnsgpd} gives the distribution function,
-#'  \code{dnsgpd} gives the density,
-#'  \code{qnsgpd} gives the quantile function and
-#'  \code{rnsgpd} generates random variables from the neutrosophic generalized pareto distribution.
+#'  \code{dnsGenPareto} gives the density function
+#'
+#'  \code{pnsGenPareto} gives the distribution function
+#'
+#'  \code{qnsGenPareto} gives the quantile function
+#'
+#'  \code{rnsGenPareto} generates random variables from the neutrosophic generalized pareto distribution.
 #' @references
 #'    Eassa, N. I., Zaher, H. M., & El-Magd, N. A. A. (2023).
 #'    Neutrosophic Generalized Pareto Distribution, \emph{Mathematics and Statistics},
@@ -34,17 +37,17 @@
 #' @importFrom stats runif dgamma pgamma qgamma
 #' @examples
 #' data(remission)
-#' dnsgpd(x = remission, shape = c(1.1884, 1.1896), scale = c(7.6658, 7.7796))
+#' dnsGenPareto(x = remission, shape = c(1.1884, 1.1896), scale = c(7.6658, 7.7796))
 #'
-#' pnsgpd(q = 20, shape = c(1.1884, 1.1896), scale = c(7.6658, 7.7796))
+#' pnsGenPareto(q = 20, shape = c(1.1884, 1.1896), scale = c(7.6658, 7.7796))
 #'
 #' # Calculate quantiles
-#' qnsgpd(p = c(0.25, 0.5, 0.75), shape = c(1.1884, 1.1896), scale = c(7.6658, 7.7796))
+#' qnsGenPareto(p = c(0.25, 0.5, 0.75), shape = c(1.1884, 1.1896), scale = c(7.6658, 7.7796))
 #'
 #' # Simulate 10 numbers
-#' rnsgpd(n = 10, shape = c(1.1884, 1.1896), scale = c(7.6658, 7.7796))
+#' rnsGenPareto(n = 10, shape = c(1.1884, 1.1896), scale = c(7.6658, 7.7796))
 #' @export
-dnsgpd <- function(x, shape, scale) {
+dnsGenPareto <- function(x, shape, scale) {
   if (any(shape <= 0) || any(scale <= 0) || any(x < 0)) {
     stop(message = "Arguments are incompatible.")
   }
@@ -60,19 +63,16 @@ dnsgpd <- function(x, shape, scale) {
     stop(message = "Arguments are incompatible.")
   }
 
-
   pdf <- matrix(NA, nrow = nrow(x), ncol = 2)
   for (i in 1:2) {
     pdf[, i] <- (1 / scale[i]) * (1 + (shape[i] * x[,i]) / scale[i])^(-1 / shape[i] - 1)
   }
 
-
-
   return(pdf)
 }
 #' @name Neutrosophic Generalized Pareto
 #' @export
-pnsgpd <- function(q, shape, scale, lower.tail = TRUE) {
+pnsGenPareto <- function(q, shape, scale, lower.tail = TRUE) {
   if (any(shape <= 0) || any(scale <= 0) || any(q < 0)) {
     stop(message = "incompatible arguments.")
   }
@@ -98,15 +98,12 @@ pnsgpd <- function(q, shape, scale, lower.tail = TRUE) {
     cdf <- 1 - cdf
   }
 
-
-
-
   return(cdf)
 }
 
 #' @name Neutrosophic Generalized Pareto
 #' @export
-qnsgpd <- function(p, shape, scale) {
+qnsGenPareto <- function(p, shape, scale) {
   if (any(p < 0) || any(p > 1)) {
     stop(message = "Warning: p should be in the interval [0,1].")
   }
@@ -134,7 +131,7 @@ qnsgpd <- function(p, shape, scale) {
 
 #' @name Neutrosophic Generalized Pareto
 #' @export
-rnsgpd <- function(n, shape, scale) {
+rnsGenPareto <- function(n, shape, scale) {
   if (any(shape <= 0) || any(scale <= 0)) {
     stop(message = "Arguments are incompatible.")
   }
@@ -142,7 +139,7 @@ rnsgpd <- function(n, shape, scale) {
   shape <- rep(shape, length.out = 2)
   scale <- rep(scale, length.out = 2)
 
-  X <- qnsgpd(runif(n), shape, scale)
+  X <- qnsGenPareto(runif(n), shape, scale)
   condition <- X[, 1] > X[, 2]
   X[condition, 1:2] <- X[condition, 2:1]
 
