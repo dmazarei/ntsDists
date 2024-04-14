@@ -18,7 +18,7 @@
 #' @param size number of trials (zero or more), which must be a positive interval.
 #' @param prob probability of success on each trial, \eqn{0 < prob <= 1}.
 #' @param lower.tail logical; if TRUE (default), probabilities are
-#' \eqn{P(X \ge x)}; otherwise, \eqn{P(X >x)}.
+#' \eqn{P(X \leq x)}; otherwise, \eqn{P(X >x)}.
 #'
 #' @return
 #'  \code{dnsNegBinom} gives the probability mass function

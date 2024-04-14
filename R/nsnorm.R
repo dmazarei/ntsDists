@@ -20,7 +20,7 @@
 #' @param mean the mean, which must be an interval.
 #' @param sd the standard deviations that must be positive.
 #' @param lower.tail logical; if TRUE (default), probabilities are
-#' \eqn{P(X \ge x)}; otherwise, \eqn{P(X >x)}.
+#' \eqn{P(X \leq x)}; otherwise, \eqn{P(X >x)}.
 #'
 #' @return
 #' \code{dnsNorm} gives the density function

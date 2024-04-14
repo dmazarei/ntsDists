@@ -17,7 +17,7 @@
 #' @param n number of random values to be generated.
 #' @param lambda the mean, which must be a positive interval.
 #' @param lower.tail logical; if TRUE (default), probabilities are
-#' \eqn{P(X \ge x)}; otherwise, \eqn{P(X >x)}.
+#' \eqn{P(X \leq x)}; otherwise, \eqn{P(X >x)}.
 #'
 #' @return
 #'

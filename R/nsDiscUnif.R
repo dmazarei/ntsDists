@@ -17,7 +17,7 @@
 #' @param n number of random values to be generated.
 #' @param k parameter of the distribution that must be a positive finite interval.
 #' @param lower.tail logical; if TRUE (default), probabilities are
-#' \eqn{P(X \ge x)}; otherwise, \eqn{P(X >x)}.
+#' \eqn{P(X \leq x)}; otherwise, \eqn{P(X >x)}.
 #'
 #' @return
 #'  \code{dnsDiscUnif} gives the probability mass function,
