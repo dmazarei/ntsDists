@@ -6,10 +6,10 @@
 #'
 #' The neutrosophic gamma distribution with parameters \eqn{\alpha_N} and
 #' \eqn{\lambda_N} has density
-#' \deqn{f_n(x)=\frac{1}{\Gamma(\alpha_n) \lambda_n^{\alpha_n}} x^{\alpha_n-1} \exp\{-\left(x / \lambda_n\right)\}}
+#' \deqn{f_N(x)=\frac{1}{\Gamma(\alpha_N) \lambda_N^{\alpha_N}} x^{\alpha_N-1} \exp\{-\left(x / \lambda_N\right)\}}
 #' for \eqn{x \ge 0}, \eqn{\alpha_N \in (\alpha_L, \alpha_U)}, the shape
 #' parameter which must be a positive interval and
-#' \eqn{\lambda_n \in (\lambda_L, \lambda_U)}, the scale parameter which
+#' \eqn{\lambda_N \in (\lambda_L, \lambda_U)}, the scale parameter which
 #' must be a positive interval. Here, \eqn{\Gamma(\cdot)} is gamma
 #' function implemented by \code{\link{gamma}}.
 #'

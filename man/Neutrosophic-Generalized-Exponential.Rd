@@ -50,8 +50,8 @@ distribution with shape parameter \eqn{\delta_N} and scale parameter
 }
 \details{
 The neutrosophic generalized exponential distribution with parameters
-\eqn{\delta} and \eqn{\nu} has density
-\deqn{f_n(x)=\frac{\delta_N}{\nu_N}\left(1-\exp \left\{-\frac{x_N}{\nu_N}\right\}\right)^{\delta_N-1} e^{\left\{-\frac{x_N}{\nu_N}\right\}}}
+\eqn{\delta_N} and \eqn{\nu_N} has density
+\deqn{f_N(x)=\frac{\delta_N}{\nu_N}\left(1-\exp \left\{-\frac{x_N}{\nu_N}\right\}\right)^{\delta_N-1} \exp\left\{-\frac{x_N}{\nu_N}\right\}}
 for \eqn{\delta_N \in (\delta_L, \delta_U)}, the shape parameter
 which must be a positive interval, and \eqn{\nu_N \in (\nu_L, \nu_U)}, the
 scale parameter which must also be a positive interval, and \eqn{x \ge 0}.

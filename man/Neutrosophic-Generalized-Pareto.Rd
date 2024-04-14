@@ -49,7 +49,7 @@ and \code{scale}=\eqn{\beta_N}.
 \details{
 The neutrosophic generalized pareto distribution with parameters \eqn{\alpha_N} and
 \eqn{\beta_N} has density
-\deqn{f(x; \alpha_N, \beta_N)=\frac{1}{\beta_N}\left(1+\frac{\alpha_Nx}{\beta_N} \right)^{-\frac{1}{\alpha_N}-1},}
+\deqn{f_N(x)=\frac{1}{\beta_N}\left(1+\frac{\alpha_N x_N}{\beta_N} \right)^{-\frac{1}{\alpha_N}-1}}
 for \eqn{x \ge 0}, \eqn{\alpha_N \in (\alpha_L, \alpha_U)}, the shape
 parameter which must be a positive interval and
 \eqn{\beta_N \in (\beta_L, \beta_U)}, the scale parameter which
