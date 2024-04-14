@@ -36,8 +36,8 @@
 #' @importFrom stats runif
 #'
 #' @examples
-#' dnsKumaraswamy(x = c(4, 4.1), shape1 = c(0.23, 0.24), shape2 = c(1, 2))
-#' dnsKumaraswamy(4, shape1 = c(0.23, 0.24), shape2 = c(1, 2))
+#' dnsKumaraswamy(x = c(0.5, 0.1), shape1 = c(0.23, 0.24), shape2 = c(1, 2))
+#' dnsKumaraswamy(0.5, shape1 = c(0.23, 0.24), shape2 = c(1, 2))
 #'
 #' @export
 dnsKumaraswamy <- function(x, shape1, shape2) {
@@ -65,7 +65,7 @@ dnsKumaraswamy <- function(x, shape1, shape2) {
 #' @examples
 #'
 #' # The cumulative distribution function for the nuetrosophic observation (4,4.1)
-#' pnsKumaraswamy(q = c(4, 4.1), shape1 = c(0.23, 0.24), shape2 = c(1, 2))
+#' pnsKumaraswamy(q = c(.8, .1), shape1 = c(0.23, 0.24), shape2 = c(1, 2))
 #' @export
 pnsKumaraswamy <- function(q, shape1, shape2, lower.tail = TRUE) {
   if (any(shape1 <= 0) || any(shape2 <= 0) || any(q < 0) || any(q > 1)) {
