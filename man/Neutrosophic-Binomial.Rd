@@ -51,7 +51,7 @@ The neutrosophic binomial distribution with parameters \eqn{n} and \eqn{p_N}
 has the density
 \deqn{f_X(x)=\bigg(\begin{array}{c}n \\ x\end{array}\bigg) p_N^{x}\left(1-p_N\right)^{n-x}}
 for \eqn{n \in \{1, 2, \ldots\}} and \eqn{p_N \in (p_L, p_U)} which must be \eqn{0<p_N<1}
-and \eqn{x \in \{0, 1, 2, \ldots\}}.
+and \eqn{x \in \{0, 1, 2, \ldots, n\}}.
 }
 \examples{
 # Probability of X = 17 when X follows bin(n = 20, p = [0.9,0.8])
