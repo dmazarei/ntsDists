@@ -5,7 +5,7 @@
 #' parameter \eqn{k_N}.
 #'
 #' Let \eqn{X_N} be a neutrosophic random variable and denote
-#' \eqn{X_N \sim \mathcal{U}(1,2,\ldots,k_N)} as neutrosophic discrete
+#' \eqn{X_N \sim \mathcal{DU}(1,2,\ldots,k_N)} as neutrosophic discrete
 #' uniform distribution with parameter \eqn{k_N} has the density
 #' \deqn{f_N(x)=\frac{1}{k_N}}
 #' for \eqn{k_N \in (k_L, k_U)}.
