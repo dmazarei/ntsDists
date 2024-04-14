@@ -7,7 +7,7 @@ Authors@R: c(
     person("Mina", "Norouzirad", email = "mina.norouzirad@gmail.com", role = "aut", comment = c(ORCID = "0000-0003-0311-6888")),
     person("Amin", "Roshani", email = "roshani.amin@gmail.com", role =  "aut", comment = c(ORCID = "0000-0002-3329-5330")),
     person("Gadde Srinivasa", "Rao", email = "gaddesrao@gmail.com", role = "ctb", comment = c(ORCID = "0000-0002-3683-5486")),
-     person("Foad", "Esmaeili", email = "foadesmaeili5@gmail.com", role = "ctb", comment = c(ORCID = "0000-0002-9638-0807")),
+    person("Foad", "Esmaeili", email = "foadesmaeili5@gmail.com", role = "ctb", comment = c(ORCID = "0000-0002-9638-0807")),
     person("FCT, I.P.", role = "fnd", comment = c("under the scope of the projects UIDB/00297/2020 and UIDP/00297/2020 (NovaMath)")))
 Maintainer: Danial Mazarei <danial.mazarei@gmail.com>
 Description: Computes the pdf, cdf, quantile function and generating random numbers for neutrosophic distributions. This family have been developed by different authors in the recent years. See Patro and Smarandache (2016) <doi:10.5281/zenodo.571153> and Rao et al (2023) <doi:10.5281/zenodo.7832786>.
