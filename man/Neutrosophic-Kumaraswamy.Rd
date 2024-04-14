@@ -54,12 +54,12 @@ for \eqn{0 \le x \le 1}, \eqn{\alpha_N \in (\alpha_L, \alpha_U)} and
  \eqn{\beta_N \in (\beta_L, \beta_U)} are shape parameters.
 }
 \examples{
-dnsKumaraswamy(x = c(4, 4.1), shape1 = c(0.23, 0.24), shape2 = c(1, 2))
-dnsKumaraswamy(4, shape1 = c(0.23, 0.24), shape2 = c(1, 2))
+dnsKumaraswamy(x = c(0.5, 0.1), shape1 = c(0.23, 0.24), shape2 = c(1, 2))
+dnsKumaraswamy(0.5, shape1 = c(0.23, 0.24), shape2 = c(1, 2))
 
 
 # The cumulative distribution function for the nuetrosophic observation (4,4.1)
-pnsKumaraswamy(q = c(4, 4.1), shape1 = c(0.23, 0.24), shape2 = c(1, 2))
+pnsKumaraswamy(q = c(.8, .1), shape1 = c(0.23, 0.24), shape2 = c(1, 2))
 # The first percentile
 qnsKumaraswamy(p = 0.1, shape1 = 0.24, shape2 = 2)
 
