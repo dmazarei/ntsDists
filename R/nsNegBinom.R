@@ -16,7 +16,7 @@
 #' @param p a vector or matrix of probabilities for which the quantile needs to be computed.
 #' @param n number of random values to be generated.
 #' @param size number of trials (zero or more), which must be a positive interval.
-#' @param prob probability of success on each trial, \eqn{0 < prob <= 1}.
+#' @param prob probability of success on each trial, \eqn{0 < \code{prob} < 1}.
 #' @param lower.tail logical; if TRUE (default), probabilities are
 #' \eqn{P(X \leq x)}; otherwise, \eqn{P(X >x)}.
 #'

@@ -52,7 +52,7 @@ The neutrosophic generalized Rayleigh distribution with parameters \eqn{\nu_N} a
 \deqn{f_N(x)=\frac{2\nu_N}{\sigma_N^2}x \exp\{-\left(\frac{x}{\sigma_N} \right)^2\}\left[1-\exp\{-\left(\frac{x}{\sigma_N} \right)^2\}\right]^{\nu_N-1}}
 for \eqn{x > 0}, \eqn{\nu_N \in (\nu_L, \nu_U)}, the shape
 parameter which must be a positive interval and
-\eqn{\sigma_n \in (\sigma_L, \sigma_U)}, the scale parameter which
+\eqn{\sigma_N \in (\sigma_L, \sigma_U)}, the scale parameter which
 must be a positive interval.
 }
 \examples{

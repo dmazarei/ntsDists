@@ -49,7 +49,7 @@ shape parameters \eqn{\alpha_N} and \eqn{\beta_N}.
 \details{
 The neutrosophic Kumaraswamy distribution with parameters \eqn{\alpha_N} and \eqn{\beta_N}
 has density
-\deqn{f_N(x) = \alpha_N \beta_N x^{\alpha_N-1}(1-x^{\alpha_N})^{\beta_n - 1}}
+\deqn{f_N(x) = \alpha_N \beta_N x^{\alpha_N-1}(1-x^{\alpha_N})^{\beta_N - 1}}
 for \eqn{0 \le x \le 1}, \eqn{\alpha_N \in (\alpha_L, \alpha_U)} and
  \eqn{\beta_N \in (\beta_L, \beta_U)} are shape parameters.
 }

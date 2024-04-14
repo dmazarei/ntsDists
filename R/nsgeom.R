@@ -15,7 +15,7 @@
 #' @param q a vector or matrix of quantiles for which the cdf needs to be computed.
 #' @param p a vector or matrix of probabilities for which the quantile needs to be computed.
 #' @param n number of random values to be generated.
-#' @param prob probability of success on each trial, \eqn{0 < prob <= 1}.
+#' @param prob probability of success on each trial, \code{prob}\eqn{\in (0,1)}.
 #' @param lower.tail logical; if TRUE (default), probabilities are
 #' \eqn{P(X \leq x)}; otherwise, \eqn{P(X >x)}.
 #'

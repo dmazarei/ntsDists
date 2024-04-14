@@ -19,7 +19,7 @@ rnsGeom(n, prob)
 \arguments{
 \item{x}{a vector or matrix of observations for which the pdf needs to be computed.}
 
-\item{prob}{probability of success on each trial, \eqn{0 < prob <= 1}.}
+\item{prob}{probability of success on each trial, \code{prob}\eqn{\in (0,1)}.}
 
 \item{q}{a vector or matrix of quantiles for which the cdf needs to be computed.}
 

@@ -21,7 +21,7 @@ rnsNegBinom(n, size, prob)
 
 \item{size}{number of trials (zero or more), which must be a positive interval.}
 
-\item{prob}{probability of success on each trial, \eqn{0 < prob <= 1}.}
+\item{prob}{probability of success on each trial, \eqn{0 < \code{prob} < 1}.}
 
 \item{q}{a vector or matrix of quantiles for which the cdf needs to be computed.}
 

@@ -6,7 +6,7 @@
 #'
 #' The neutrosophic Rayleigh distribution with parameter \eqn{\theta}
 #' has the density
-#' \deqn{f_N(x)=\frac{x}{\theta_N^2} e^{-\frac{1}{2}\left(\frac{x}{\theta_N}\right)^2}}
+#' \deqn{f_N(x)=\frac{x}{\theta_N^2} \exp\{-\frac{1}{2}\left(\frac{x}{\theta_N}\right)^2\}}
 #' for  \eqn{\theta_N \in (\theta_L, \theta_U)}, which must be a positive
 #' interval and \eqn{x \ge 0}.
 #'
