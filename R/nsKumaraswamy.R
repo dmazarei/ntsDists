@@ -41,7 +41,7 @@
 #'
 #' @export
 dnsKumaraswamy <- function(x, shape1, shape2) {
-  if (any(shape1 <= 0) || any(shape2 <= 0) || any(x <= 0) || any(x => 1)) {
+  if (any(shape1 <= 0) || any(shape2 <= 0) || any(x <= 0) || any(x >= 1)) {
     stop("Arguments are incompatible.")
   }
 
@@ -68,7 +68,7 @@ dnsKumaraswamy <- function(x, shape1, shape2) {
 #' pnsKumaraswamy(q = c(.8, .1), shape1 = c(0.23, 0.24), shape2 = c(1, 2))
 #' @export
 pnsKumaraswamy <- function(q, shape1, shape2, lower.tail = TRUE) {
-  if (any(shape1 <= 0) || any(shape2 <= 0) || any(q <= 0) || any(q => 1)) {
+  if (any(shape1 <= 0) || any(shape2 <= 0) || any(q <= 0) || any(q >= 1)) {
     stop("Arguments are incompatible.")
   }
 
