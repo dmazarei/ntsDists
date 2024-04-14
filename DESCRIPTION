@@ -11,6 +11,7 @@ Authors@R: c(
     person("FCT, I.P.", role = "fnd", comment = c("under the scope of the projects UIDB/00297/2020 and UIDP/00297/2020 (NovaMath)")))
 Maintainer: Danial Mazarei <danial.mazarei@gmail.com>
 Description: Computes the pdf, cdf, quantile function and generating random numbers for neutrosophic distributions. This family have been developed by different authors in the recent years. See Patro and Smarandache (2016) <doi:10.5281/zenodo.571153> and Rao et al (2023) <doi:10.5281/zenodo.7832786>.
+BugReports: https://github.com/dmazarei/ntsDists/issues
 License: GPL (>= 2)
 URL: https://github.com/dmazarei/ntsDists
 Encoding: UTF-8
