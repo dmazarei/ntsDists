@@ -31,7 +31,7 @@
 #'
 #' @references
 #' Alhabib, R., Ranna, M. M., Farah, H., & Salama, A. A. (2018). Some neutrosophic
-#' probability distributionsو \emph{Neutrosophic Sets and Systems}, 22, 30-38.
+#' probability distributions, \emph{Neutrosophic Sets and Systems}, 22, 30-38.
 #'
 #' @importFrom stats runif dunif punif qunif
 #'
