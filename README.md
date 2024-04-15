@@ -1,7 +1,3 @@
-<<<<<<< HEAD
-=======
-
->>>>>>> ebf127a6bfa1d4e31f46aaaa03689904a7e6fe79
 # ntsDists <img src="man/figures/logo.png" align="right"/>
 
 [![R-CMD-check](https://github.com/dmazarei/ntsDists/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/dmazarei/ntsDists/actions/workflows/R-CMD-check.yaml)
