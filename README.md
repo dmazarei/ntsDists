@@ -36,7 +36,7 @@ remotes::install_github("dmazarei/ntsDists")
 
 ## To cite package `ntsDists` in publications use:
 
-Mazarei, D., Norouzirad, F., Roshani, A., M., Rao, Esmaeili, G. S. (2023). *ntsDists:
+Mazarei, D., Norouzirad, M., Roshani, A., Rao, G. S., Esmaeili, F. (2023). *ntsDists:
 Neutrosophic distributions*. R package version 2.1.0,
 <https://cran.r-project.org/package=ntsDists>.
 
