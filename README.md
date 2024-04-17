@@ -1,4 +1,4 @@
-# ntsDists <img src="man/figures/logo.png" align="right" width="25%"/>
+# ntsDists <img src="man/figures/logo.png" align="right" width="20%"/>
 
 [![R-CMD-check](https://github.com/dmazarei/ntsDists/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/dmazarei/ntsDists/actions/workflows/R-CMD-check.yaml)
 [![CRAN_Status_Badge](https://www.r-pkg.org/badges/version/ntsDists)](https://cran.r-project.org/package=ntsDists)
